@@ -18,6 +18,7 @@ public class MainActivity extends ActionBarActivity {
         //gestest en goedgekeurd by Dorothee
         // neenee ik was eerst voorsteker
         //BranchChecker
+        //AllbranChecker
 
     }
     @Override
