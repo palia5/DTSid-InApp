@@ -16,6 +16,7 @@ public class MainActivity extends ActionBarActivity {
         //Tom is testing
         //DRIES WAS HERE
         //gestest en goedgekeurd by Dorothee
+        // neenee ik was eerst voorsteker
 
     }
     @Override
