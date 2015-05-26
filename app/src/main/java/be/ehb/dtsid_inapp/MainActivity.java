@@ -15,6 +15,7 @@ public class MainActivity extends ActionBarActivity {
 
         //Tom is testing
         //DRIES WAS HERE
+        //en kristof ook
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
