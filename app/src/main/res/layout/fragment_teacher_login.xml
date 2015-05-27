@@ -4,14 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="be.ehb.dtsid_inapp.TeacherFragments.DepartmentLogin">
+    tools:context="be.ehb.dtsid_inapp.TeacherFragments.TeacherLogin">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="DIT IS DE FRAGMENT VAN DEPARTMENT LOGIN"
-        android:id="@+id/textView"
+        android:text="DIT IS DE FRAGMENT VAN TEACHER LOGIN"
+        android:id="@+id/textView2"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
@@ -19,9 +19,9 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Go to teacher login"
-        android:id="@+id/btn_department_login"
-        android:layout_below="@+id/textView"
+        android:text="Go to options menu"
+        android:id="@+id/btn_teacher_login"
+        android:layout_below="@+id/textView2"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:onClick="goToOtherFragment" />
