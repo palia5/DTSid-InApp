@@ -1,78 +1,82 @@
 package be.ehb.dtsid_inapp.Models;
 
-import android.content.Context;
-import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
-
 import java.util.List;
 
 public class DataDAO
 {
     //Variables
-    private MySQLiteHelper dbHelper;
-    private SQLiteDatabase db;
-    private EventList events;
-    private SchoolList schools;
-    private SubscriptionList subscriptions;
-    private TeacherList teachers;
+    private static DataDAO DAOInstance = new DataDAO();
+    private static EventList events;
+    private static SchoolList schools;
+    private static SubscriptionList subscriptions;
+    private static TeacherList teachers;
 
-    //Constructor
-    public DataDAO(Context context)
+    //Private methods
+    private DataDAO()
     {
-        this.dbHelper = new MySQLiteHelper(context);
-        this.db = dbHelper.getWritableDatabase();
-
         events = new EventList();
         schools = new SchoolList();
         subscriptions = new SubscriptionList();
         teachers = new TeacherList();
     }
-
-    //Methods
-    public void close()
+    private static EventList getEvents()
     {
-        //Send local database to online database!!!!!!!!!!!
-        dbHelper.close();
-        db.close();
-        Log.d("Close", "Database en helper closed");
+        return events;
+    }
+    private static SchoolList getSchools()
+    {
+        return schools;
+    }
+    private static SubscriptionList getSubscriptions()
+    {
+        return subscriptions;
+    }
+    private static TeacherList getTeachers()
+    {
+        return teachers;
     }
 
-    public void addSubscription()
+    //Methods
+    public static void addSubscription()
     {
 
     }
 
     //Getters and setters
-    public List<Event> getAllEvents()
+    public static DataDAO getDAOInstance()
+    {
+        return DAOInstance;
+    }
+    public static List<Event> getAllEvents()
     {
         return events.getEvents();
     }
-    public List<School> getAllSchools()
+    public static List<School> getAllSchools()
     {
         return schools.getSchools();
     }
-    public List<Subscription> getAllSubscriptions()
+    public static List<Subscription> getAllSubscriptions()
     {
         return subscriptions.getSubscriptions();
     }
-    public List<Teacher> getAllTeachers()
+    public static List<Teacher> getAllTeachers()
     {
         return teachers.getTeachers();
     }
-    public void setEvents(List<Event> events)
+    public static void setEvents(List<Event> events)
     {
-        this.events.setEvents(events);
+        getEvents().setEvents(events);
     }
-    public void setSchools(List<School> schools)
+    public static void setSchools(List<School> schools)
     {
-        this.schools.setSchools(schools);
+        getSchools().setSchools(schools);
     }
-    public void setSubscriptions(List<Subscription> subscriptions)
+    public static void setSubscriptions(List<Subscription> subscriptions)
     {
-        this.subscriptions.setSubscriptions(subscriptions);
+        getSubscriptions().setSubscriptions(subscriptions);
     }
-    public void setTeachers(List<Teacher> teachers)
+    public static void setTeachers(List<Teacher> teachers)
     {
-        this.teachers.setTeachers(teachers);
+        getTeachers().setTeachers(teachers);
     }
 }
