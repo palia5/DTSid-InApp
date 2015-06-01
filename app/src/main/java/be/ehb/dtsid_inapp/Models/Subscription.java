@@ -29,6 +29,8 @@ public class Subscription implements Serializable {
 
     public Subscription(List<Subscription> subscriptions)
     {
+
+
         super();
         this.subscriptions = subscriptions;
 
