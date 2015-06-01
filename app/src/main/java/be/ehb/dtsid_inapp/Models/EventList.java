@@ -8,9 +8,8 @@ public class EventList
     private List<Event> events;
 
     //Constructor
-    public EventList(List<Event> events)
+    public EventList()
     {
-        this.events = events;
     }
 
     //Getters and setters

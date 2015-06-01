@@ -8,9 +8,8 @@ public class SchoolList
     List<School> schools;
 
     //Constructor
-    public SchoolList(List<School> schools)
+    public SchoolList()
     {
-        this.schools = schools;
     }
 
     //Getters and setters

@@ -1,8 +1,6 @@
 package be.ehb.dtsid_inapp.Models;
 
-import java.io.Serializable;
-
-public class Teacher implements Serializable
+public class Teacher
 {
     //Variables
     private Long id;

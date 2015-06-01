@@ -1,17 +1,15 @@
 package be.ehb.dtsid_inapp.Models;
 
-import java.io.Serializable;
 import java.util.List;
 
-public class TeacherList implements Serializable
+public class TeacherList
 {
     //Variables
     private List<Teacher> teachers;
 
     //Constructors
-    public TeacherList(List<Teacher> teachers)
+    public TeacherList()
     {
-        this.teachers = teachers;
     }
 
     //Getters and setters
