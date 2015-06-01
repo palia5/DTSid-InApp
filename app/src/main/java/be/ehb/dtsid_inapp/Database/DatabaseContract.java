@@ -9,6 +9,9 @@ import android.database.sqlite.SQLiteOpenHelper;
  */
 public class DatabaseContract extends SQLiteOpenHelper{
 
+    //yeah, this is all wrong
+
+
     public static final String TABLE_TEACHERS ="teachers";
     public static final String COL_TEACHERS_ID ="_id";
     public static final String COL_TEACHERS_NAME = "name";
@@ -131,4 +134,5 @@ public class DatabaseContract extends SQLiteOpenHelper{
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
     }
+
 }
