@@ -85,10 +85,10 @@ public class MySQLiteHelper extends SQLiteOpenHelper
                 COL_SUBSCRIPTIONS_CITY + " TEXT, " +
                 COL_SUBSCRIPTIONS_INTERESTS + " TEXT, " +
                 COL_SUBSCRIPTIONS_TIMESTAMP + " LONG NOT NULL, " +
-                COL_SUBSCRIPTIONS_TEACHER + " TEXT NOT NULL, " +
-                COL_SUBSCRIPTIONS_EVENT + " TEXT NOT NULL, " +
+                COL_SUBSCRIPTIONS_TEACHER + " INTEGER NOT NULL, " + "FOREIGN KEY(teacher) REFERENCES teachers(_id), " +
+                COL_SUBSCRIPTIONS_EVENT + " INTEGER NOT NULL, " +"FOREIGN KEY(event) REFERENCES events(_id), " +
                 COL_SUBSCRIPTIONS_ISNEW + " TEXT NOT NULL, " +
-                COL_SUBSCRIPTIONS_SCHOOL + " TEXT NOT NULL" +
+                COL_SUBSCRIPTIONS_SCHOOL + " INTEGER NOT NULL, " +"FOREIGN KEY(school) REFERENCES schools(_id) " +
                 ")");
 
     }

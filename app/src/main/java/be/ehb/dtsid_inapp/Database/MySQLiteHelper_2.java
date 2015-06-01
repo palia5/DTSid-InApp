@@ -123,7 +123,7 @@ public class MySQLiteHelper_2 extends SQLiteOpenHelper {
                 "event INTEGER, "+
                 "FOREIGN KEY(event) REFERENCES events(_id), " +
                 "school INTEGER "+
-                "FOREIGN KEY(school) REFERENCES schools(_id), " +
+                "FOREIGN KEY(school) REFERENCES schools(_id) " +
                 ") ");
 
     }
