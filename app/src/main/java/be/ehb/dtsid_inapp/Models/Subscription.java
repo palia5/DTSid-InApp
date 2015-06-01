@@ -4,6 +4,8 @@ import android.support.annotation.NonNull;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
@@ -16,21 +18,196 @@ public class Subscription implements Serializable {
     /**
      *
      */
-    private static final long serialVersionUID = -3498952619618662678L;
-    private List<Subscription> subscriptions;
+    private static final long serialVersionUID = 9104710043135978616L;
 
-    public List<Subscription> getSubscriptions() {
-        return subscriptions;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public void setSubscriptions(List<Subscription> subscriptions) {
-        this.subscriptions = subscriptions;
-    }
+    private Long id;
+    private String firstName;
+    private String lastName;
+    private String email;
+    private String street;
+    private String streetNumber;
+    private String zip;
+    private String city;
+    private HashMap<String,String> interests;
+    private Date timestamp;
+    private Teacher teacher;
+    private Event event;
+    private boolean isNew;
+    private School school;
 
-    public Subscription(List<Subscription> subscriptions)
-    {
+
+
+
+    public Subscription(Long id, String firstName, String lastName,
+                        String email, String street, String streetNumber, String zip,
+                        String city, HashMap<String, String> interests, Date timestamp,
+                        Teacher teacher, Event event, boolean isNew,School school) {
         super();
-        this.subscriptions = subscriptions;
-
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.street = street;
+        this.streetNumber = streetNumber;
+        this.zip = zip;
+        this.city = city;
+        this.interests = interests;
+        this.timestamp = timestamp;
+        this.teacher = teacher;
+        this.event = event;
+        this.isNew = isNew;
+        this.school = school;
     }
+
+
+
+    public Subscription(String firstName, String lastName, String email,
+                        String street, String streetNumber, String zip, String city,
+                        HashMap<String, String> interests, Date timestamp, Teacher teacher,
+                        Event event, boolean isNew,School school) {
+        super();
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.street = street;
+        this.streetNumber = streetNumber;
+        this.zip = zip;
+        this.city = city;
+        this.interests = interests;
+        this.timestamp = timestamp;
+        this.teacher = teacher;
+        this.event = event;
+        this.isNew = isNew;
+        this.school = school;
+    }
+
+
+
+    public School getSchool() {
+        return school;
+    }
+
+
+
+    public void setSchool(School school) {
+        this.school = school;
+    }
+
+
+
+    public Subscription() {
+        super();
+    }
+
+
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getStreet() {
+        return street;
+    }
+
+    public void setStreet(String street) {
+        this.street = street;
+    }
+
+    public String getStreetNumber() {
+        return streetNumber;
+    }
+
+    public void setStreetNumber(String streetNumber) {
+        this.streetNumber = streetNumber;
+    }
+
+    public String getZip() {
+        return zip;
+    }
+
+    public void setZip(String zip) {
+        this.zip = zip;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public HashMap<String, String> getInterests() {
+        return interests;
+    }
+
+    public void setInterests(HashMap<String, String> interests) {
+        this.interests = interests;
+    }
+
+    public Date getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(Date timestamp) {
+        this.timestamp = timestamp;
+    }
+
+    public Teacher getTeacher() {
+        return teacher;
+    }
+
+    public void setTeacher(Teacher teacher) {
+        this.teacher = teacher;
+    }
+
+    public Event getEvent() {
+        return event;
+    }
+
+    public void setEvent(Event event) {
+        this.event = event;
+    }
+
+
+    public boolean isNew() {
+        return isNew;
+    }
+
+
+
+    public void setNew(boolean isNew) {
+        this.isNew = isNew;
+    }
+
+
+
+    public Long getId() {
+        return id;
+    }
+
 }

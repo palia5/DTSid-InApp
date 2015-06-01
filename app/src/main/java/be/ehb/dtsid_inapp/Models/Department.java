@@ -31,15 +31,15 @@ public class Department implements Serializable {
         this.url = url;
     }
 
+    public Department(){
+    }
+
     public String getCode() {
         return code;
     }
 
     public void setCode(String code) {
         this.code = code;
-    }
-
-    public Department(){
     }
 
     public Long getId() {

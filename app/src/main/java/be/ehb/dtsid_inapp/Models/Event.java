@@ -18,14 +18,15 @@ public class Event implements Serializable {
     public void setId(Long id) {
         this.id = id;
     }
+    private String name;
+    private int acadyear;
+
     public Event(Long id, String name, int acadyear) {
         super();
         this.id = id;
         this.name = name;
         this.acadyear = acadyear;
     }
-    private String name;
-    private int acadyear;
 
     public Event() {
         super();
@@ -40,9 +41,11 @@ public class Event implements Serializable {
     public String getName() {
         return name;
     }
+
     public void setName(String name) {
         this.name = name;
     }
+
     public int getAcadyear() {
         return acadyear;
     }
