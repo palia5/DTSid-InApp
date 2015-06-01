@@ -27,7 +27,7 @@ public class TeacherActivity extends AppCompatActivity
                 .beginTransaction()
                 .replace(R.id.teacherContainer, new DepartmentLogin())
                 .commit();
-        String url = BASEURL + ALL_TEACHERS + yearCalc();
+        String url = BASEURL + ALL_EVENTS + yearCalc();
         GetJSONTask jsonTask = new GetJSONTask();
         jsonTask.execute(url);
     }

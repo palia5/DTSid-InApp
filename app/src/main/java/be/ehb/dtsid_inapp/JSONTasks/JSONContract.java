@@ -44,6 +44,7 @@ public class JSONContract {
     public static final String ALL_SUBSCRIPTIONS = "/rest/subscriptions";
     public static final String ALL_IMAGES = "/rest/images";
 
+    public static final String JSON_NAME_EVENTS = "events";
     public static final String JSON_NAME_TEACHERS = "teachers";
     public static final String JSON_STRING_NAME = "name";
     public static final String JSON_INT_ACADYEAR = "acadyear";
