@@ -15,7 +15,7 @@ public class StudentRegistration extends Fragment
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
-        View v = inflater.inflate(R.layout.fragment_student_registration, null);
+        View v = inflater.inflate(R.layout.fragment_student_registration1_2, null);
 
         return v;
     }
