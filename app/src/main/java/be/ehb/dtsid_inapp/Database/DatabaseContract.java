@@ -106,7 +106,7 @@ public class DatabaseContract extends SQLiteOpenHelper{
                 "zip TEXT, "+
                 "city TEXT, "+
                 "interests HASHMAP NOT NULL, "+
-                "timestamp DATE NOT NULL, "+
+                "timestamp STRING NOT NULL, "+
                 "isnew BOOLEAN NOT NULL, "+
                 "teacher INTEGER, "+
                 "FOREIGN KEY(teacher) REFERENCES teachers(_id), " +
