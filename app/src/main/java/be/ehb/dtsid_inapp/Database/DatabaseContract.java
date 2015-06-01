@@ -41,6 +41,9 @@ public class DatabaseContract extends SQLiteOpenHelper{
     public static final String COL_SUBSCRIPTIONS_ZIP = "zip";
     public static final String COL_SUBSCRIPTIONS_CITY = "city";
     public static final String COL_SUBSCRIPTIONS_INTERESTS = "interests";
+    public static final String COL_SUBSCRIPTIONS_DIGX = "digx";
+    public static final String COL_SUBSCRIPTIONS_WERKSTUDENT = "werkstudent";
+    public static final String COL_SUBSCRIPTIONS_MULTEC = "multec";
     public static final String COL_SUBSCRIPTIONS_TIMESTAMP = "timestamp";
     public static final String COL_SUBSCRIPTIONS_ISNEW = "isnew";
     public static final String COL_SUBSCRIPTIONS_TEACHER = "teacher";
@@ -56,6 +59,9 @@ public class DatabaseContract extends SQLiteOpenHelper{
             COL_SUBSCRIPTIONS_ZIP,
             COL_SUBSCRIPTIONS_CITY,
             COL_SUBSCRIPTIONS_INTERESTS,
+            COL_SUBSCRIPTIONS_DIGX,
+            COL_SUBSCRIPTIONS_WERKSTUDENT,
+            COL_SUBSCRIPTIONS_MULTEC,
             COL_SUBSCRIPTIONS_TIMESTAMP,
             COL_SUBSCRIPTIONS_ISNEW,
             COL_SUBSCRIPTIONS_TEACHER,
@@ -105,8 +111,11 @@ public class DatabaseContract extends SQLiteOpenHelper{
                 "streetnmbr TEXT, "+
                 "zip TEXT, "+
                 "city TEXT, "+
-                "interests HASHMAP NOT NULL, "+
-                "timestamp STRING NOT NULL, "+
+                //"interests HASHMAP NOT NULL, "+
+                "digx BOOLEAN NOT NULL, "+
+                "werkstudent BOOLEAN NOT NULL, "+
+                "multec BOOLEAN NOT NULL, "+
+                "timestamp LONG NOT NULL, "+
                 "isnew BOOLEAN NOT NULL, "+
                 "teacher INTEGER, "+
                 "FOREIGN KEY(teacher) REFERENCES teachers(_id), " +
