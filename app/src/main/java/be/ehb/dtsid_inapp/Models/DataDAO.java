@@ -5,7 +5,7 @@ import java.util.List;
 public class DataDAO
 {
     //Variables
-    private static DataDAO DAOInstance = new DataDAO();
+    private static DataDAO DAOInstance;
     private static EventList events;
     private static SchoolList schools;
     private static SubscriptionList subscriptions;
@@ -14,6 +14,7 @@ public class DataDAO
     //Private methods
     private DataDAO()
     {
+        DAOInstance = this;
         events = new EventList();
         schools = new SchoolList();
         subscriptions = new SubscriptionList();
@@ -45,37 +46,40 @@ public class DataDAO
     //Getters and setters
     public static DataDAO getDAOInstance()
     {
+        if(DAOInstance == null)
+            new DataDAO();
+
         return DAOInstance;
     }
-    public static List<Event> getAllEvents()
+    public List<Event> getAllEvents()
     {
         return events.getEvents();
     }
-    public static List<School> getAllSchools()
+    public List<School> getAllSchools()
     {
         return schools.getSchools();
     }
-    public static List<Subscription> getAllSubscriptions()
+    public List<Subscription> getAllSubscriptions()
     {
         return subscriptions.getSubscriptions();
     }
-    public static List<Teacher> getAllTeachers()
+    public List<Teacher> getAllTeachers()
     {
         return teachers.getTeachers();
     }
-    public static void setEvents(List<Event> events)
+    public void setEvents(List<Event> events)
     {
         getEvents().setEvents(events);
     }
-    public static void setSchools(List<School> schools)
+    public void setSchools(List<School> schools)
     {
         getSchools().setSchools(schools);
     }
-    public static void setSubscriptions(List<Subscription> subscriptions)
+    public void setSubscriptions(List<Subscription> subscriptions)
     {
         getSubscriptions().setSubscriptions(subscriptions);
     }
-    public static void setTeachers(List<Teacher> teachers)
+    public void setTeachers(List<Teacher> teachers)
     {
         getTeachers().setTeachers(teachers);
     }

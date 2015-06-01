@@ -53,8 +53,6 @@ public class GetJSONTask extends AsyncTask<String, Integer, Void>
                     Teacher temp = new Teacher(o.getString(JSON_STRING_NAME), o.getInt(JSON_INT_ACADYEAR));
                     //teacherList.add(temp);
                 }
-
-                DataDAO.getDAOInstance().setTeachers(teacherList);
             }
             else if (params[0].contains(ALL_EVENTS))
             {
@@ -83,10 +81,12 @@ public class GetJSONTask extends AsyncTask<String, Integer, Void>
                     JSONObject o = schoolsArray.getJSONObject(i);
                     School temp = new School(o.getString(JSON_STRING_NAME),
                             o.getString(JSON_STRING_GEMEENTE), o.getInt(JSON_STRING_POSTCODE));
-                    //schoolList.add(temp);
+                    schoolList.add(temp);
                     Log.d("TEST", temp.getName() + temp.getZip() + temp.getCity());
                 }
                 //DAO.addSchoolList(schoolList);
+                DataDAO.getDAOInstance().setSchools(schoolList);
+                Log.d("DATADAO", DataDAO.getDAOInstance().getAllSchools().toString());
             }
         } catch (MalformedURLException e) {
             e.printStackTrace();

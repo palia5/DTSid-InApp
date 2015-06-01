@@ -25,9 +25,6 @@ public class TeacherActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_teacher);
 
-        //Start DAOInstance
-        DataDAO dataDAOInstance = DataDAO.getDAOInstance();
-
         //Start first fragment
         getFragmentManager()
                 .beginTransaction()
@@ -48,7 +45,7 @@ public class TeacherActivity extends AppCompatActivity
                     .beginTransaction()
                     .replace(R.id.teacherContainer, new TeacherLogin())
                     .commit();
-            Log.d("JSON INPUT VIA DAO", DataDAO.getDAOInstance().getAllTeachers().toString());
+            //Log.d("JSON INPUT VIA DAO", DataDAO.getDAOInstance().getAllTeachers().toString());
         }
 
         else if(goToButton.getId() == R.id.btn_teacher_login)

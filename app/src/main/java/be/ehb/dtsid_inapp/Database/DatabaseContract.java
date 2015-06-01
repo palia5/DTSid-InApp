@@ -7,9 +7,6 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import be.ehb.dtsid_inapp.Models.Subscription;
 
-/**
- * Created by Kristof on 1/06/2015.
- */
 public class DatabaseContract {
 
     private MySQLiteHelper_2 dbHelper;
