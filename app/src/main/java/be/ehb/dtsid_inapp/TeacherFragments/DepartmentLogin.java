@@ -15,7 +15,7 @@ public class DepartmentLogin extends Fragment
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
-        View v = inflater.inflate(R.layout.fragment_department_login, null);
+        View v = inflater.inflate(R.layout.fragment_department_login_launchscreen, null);
 
         return v;
     }

@@ -1,39 +1,35 @@
 package be.ehb.dtsid_inapp.Models;
 
-import java.io.Serializable;
-
-/**
- * Created by doortje on 1/06/15.
- */
-public class School implements Serializable {
-
-    /**
-     *
-     */
-    private static final long serialVersionUID = 6113317881903371549L;
-
+public class School
+{
+    //Variables
     private Long id;
     private String name;
-    private String gemeente;
-    private int postcode;
+    private String city;
+    private int zip;
 
-
-    public School() {
-        super();
-    }
-    public School(Long id, String name, String gemeente, int postcode) {
+    //Constructors
+    public School(Long id, String name, String city, int zip)
+    {
         super();
         this.id = id;
         this.name = name;
-        this.gemeente = gemeente;
-        this.postcode = postcode;
+        this.city = city;
+        this.zip = zip;
     }
-    public School(String name, String gemeente, int postcode) {
+    public School(String name, String city, int zip)
+    {
         super();
         this.name = name;
-        this.gemeente = gemeente;
-        this.postcode = postcode;
+        this.city = city;
+        this.zip = zip;
     }
+    public School()
+    {
+        super();
+    }
+
+    //Getters and setters
     public Long getId() {
         return id;
     }
@@ -46,16 +42,20 @@ public class School implements Serializable {
     public void setName(String name) {
         this.name = name;
     }
-    public String getGemeente() {
-        return gemeente;
+    public String getCity()
+    {
+        return city;
     }
-    public void setGemeente(String gemeente) {
-        this.gemeente = gemeente;
+    public void setCity(String city)
+    {
+        this.city = city;
     }
-    public int getPostcode() {
-        return postcode;
+    public int getZip()
+    {
+        return zip;
     }
-    public void setPostcode(int postcode) {
-        this.postcode = postcode;
+    public void setZip(int zip)
+    {
+        this.zip = zip;
     }
 }

@@ -1,7 +1,24 @@
 package be.ehb.dtsid_inapp.Models;
 
-/**
- * Created by doortje on 1/06/15.
- */
-public class SchoolList {
+import java.util.List;
+
+public class SchoolList
+{
+    //Variables
+    List<School> schools;
+
+    //Constructor
+    public SchoolList()
+    {
+    }
+
+    //Getters and setters
+    public List<School> getSchools()
+    {
+        return schools;
+    }
+    public void setSchools(List<School> schools)
+    {
+        this.schools = schools;
+    }
 }
