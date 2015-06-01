@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
+import be.ehb.dtsid_inapp.JSONTasks.JSONContract;
 import be.ehb.dtsid_inapp.R;
 import be.ehb.dtsid_inapp.TeacherFragments.DepartmentLogin;
 import be.ehb.dtsid_inapp.TeacherFragments.Options;
