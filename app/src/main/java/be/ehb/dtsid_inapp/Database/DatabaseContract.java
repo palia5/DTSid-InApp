@@ -78,10 +78,42 @@ public class DatabaseContract extends SQLiteOpenHelper{
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(" CREATE TABLE teachers (" + "" +
-                " _id INTEGER PRIMARY KEY AUTOINCREMENT, "+
+                " _id LONG PRIMARY KEY AUTOINCREMENT, "+
                 "name TEXT NOT NULL, "+
-                "acadyear TEXT NOT NULL "+
+                "acadyear INTEGER NOT NULL "+
+                ") ");
 
+        db.execSQL(" CREATE TABLE events (" + "" +
+                " _id LONG PRIMARY KEY AUTOINCREMENT, "+
+                "name TEXT NOT NULL, "+
+                "acadyear INTEGER NOT NULL "+
+                ") ");
+
+        db.execSQL(" CREATE TABLE schools (" + "" +
+                " _id LONG PRIMARY KEY AUTOINCREMENT, "+
+                "name TEXT NOT NULL, "+
+                "city TEXT NOT NULL, "+
+                "zip TEXT NOT NULL, "+
+                ") ");
+
+        db.execSQL(" CREATE TABLE subscriptions (" + "" +
+                " _id LONG PRIMARY KEY AUTOINCREMENT, "+
+                "firstname TEXT NOT NULL, "+
+                "lastname TEXT NOT NULL, "+
+                "email TEXT NOT NULL, "+
+                "street TEXT, "+
+                "streetnmbr TEXT, "+
+                "zip TEXT, "+
+                "city TEXT, "+
+                "interests HASHMAP NOT NULL, "+
+                "timestamp DATE NOT NULL, "+
+                "isnew BOOLEAN NOT NULL, "+
+                "teacher INTEGER, "+
+                "FOREIGN KEY(teacher) REFERENCES teachers(_id), " +
+                "event INTEGER, "+
+                "FOREIGN KEY(event) REFERENCES events(_id), " +
+                "school INTEGER "+
+                "FOREIGN KEY(school) REFERENCES schools(_id), " +
                 ") ");
 
     }
