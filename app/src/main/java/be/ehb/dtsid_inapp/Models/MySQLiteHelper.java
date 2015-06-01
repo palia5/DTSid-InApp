@@ -52,41 +52,45 @@ public class MySQLiteHelper extends SQLiteOpenHelper
     public void onCreate(SQLiteDatabase db)
     {
         db.execSQL(
+                "CREATE TABLE " + TABLE_TEACHERS + " (" +
+                        COL_TEACHERS_ID + " LONG PRIMARY KEY AUTOINCREMENT, " +
+                        COL_TEACHERS_NAME + " TEXT NOT NULL, " +
+                        COL_TEACHERS_ACADYEAR + " TEXT NOT NULL" +
+                        ")");
+
+        db.execSQL(
                 "CREATE TABLE " + TABLE_EVENTS + " (" +
-                COL_EVENTS_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                COL_EVENTS_ID + " LONG PRIMARY KEY AUTOINCREMENT, " +
                 COL_EVENTS_NAME + " TEXT NOT NULL, " +
                 COL_EVENTS_ACADYEAR + " TEXT NOT NULL" +
                 ")");
+
         db.execSQL(
                 "CREATE TABLE " + TABLE_SCHOOLS + " (" +
-                COL_SCHOOLS_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                COL_SCHOOLS_ID + " LONG PRIMARY KEY AUTOINCREMENT, " +
                 COL_SCHOOLS_NAME + " TEXT NOT NULL, " +
                 COL_SCHOOLS_ZIP + " TEXT NOT NULL, " +
                 COL_SCHOOLS_CITY + " TEXT NOT NULL" +
                 ")");
+
         db.execSQL(
                 "CREATE TABLE " + TABLE_SUBSCRIPTIONS + " (" +
-                COL_SUBSCRIPTIONS_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                COL_SUBSCRIPTIONS_ID + " LONG PRIMARY KEY AUTOINCREMENT, " +
                 COL_SUBSCRIPTIONS_FIRSTNAME + " TEXT NOT NULL, " +
                 COL_SUBSCRIPTIONS_LASTNAME + " TEXT NOT NULL, " +
                 COL_SUBSCRIPTIONS_EMAIL + " TEXT NOT NULL, " +
-                COL_SUBSCRIPTIONS_STREET + " TEXT NOT NULL, " +
-                COL_SUBSCRIPTIONS_STREETNUMBER + " TEXT NOT NULL, " +
-                COL_SUBSCRIPTIONS_ZIP + " TEXT NOT NULL, " +
-                COL_SUBSCRIPTIONS_CITY + " TEXT NOT NULL, " +
-                COL_SUBSCRIPTIONS_INTERESTS + " TEXT NOT NULL, " +
-                COL_SUBSCRIPTIONS_TIMESTAMP + " TEXT NOT NULL, " +
+                COL_SUBSCRIPTIONS_STREET + " TEXT, " +
+                COL_SUBSCRIPTIONS_STREETNUMBER + " TEXT, " +
+                COL_SUBSCRIPTIONS_ZIP + " TEXT, " +
+                COL_SUBSCRIPTIONS_CITY + " TEXT, " +
+                COL_SUBSCRIPTIONS_INTERESTS + " TEXT, " +
+                COL_SUBSCRIPTIONS_TIMESTAMP + " LONG NOT NULL, " +
                 COL_SUBSCRIPTIONS_TEACHER + " TEXT NOT NULL, " +
                 COL_SUBSCRIPTIONS_EVENT + " TEXT NOT NULL, " +
                 COL_SUBSCRIPTIONS_ISNEW + " TEXT NOT NULL, " +
                 COL_SUBSCRIPTIONS_SCHOOL + " TEXT NOT NULL" +
                 ")");
-        db.execSQL(
-                "CREATE TABLE " + TABLE_TEACHERS + " (" +
-                COL_TEACHERS_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                COL_TEACHERS_NAME + " TEXT NOT NULL, " +
-                COL_TEACHERS_ACADYEAR + " TEXT NOT NULL" +
-                ")");
+
     }
 
     @Override
