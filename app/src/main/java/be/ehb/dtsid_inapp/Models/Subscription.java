@@ -33,6 +33,9 @@ public class Subscription implements Serializable {
     private String zip;
     private String city;
     private HashMap<String,String> interests;
+    private Boolean digx;
+    private Boolean multec;
+    private Boolean werkstudent;
     private Date timestamp;
     private Teacher teacher;
     private Event event;
@@ -204,10 +207,31 @@ public class Subscription implements Serializable {
         this.isNew = isNew;
     }
 
-
-
     public Long getId() {
         return id;
     }
 
+    public Boolean getDigx() {
+        return digx;
+    }
+
+    public void setDigx(Boolean digx) {
+        this.digx = digx;
+    }
+
+    public Boolean getMultec() {
+        return multec;
+    }
+
+    public void setMultec(Boolean multec) {
+        this.multec = multec;
+    }
+
+    public Boolean getWerkstudent() {
+        return werkstudent;
+    }
+
+    public void setWerkstudent(Boolean werkstudent) {
+        this.werkstudent = werkstudent;
+    }
 }
