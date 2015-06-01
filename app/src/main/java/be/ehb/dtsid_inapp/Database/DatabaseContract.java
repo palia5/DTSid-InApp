@@ -43,7 +43,7 @@ public class DatabaseContract {
         values.put(MySQLiteHelper_2.COL_SUBSCRIPTIONS_SCHOOL, newSub.getSchool().getId());
 
         db.insert(MySQLiteHelper_2.TABEL_SUBSCRIPTIONS, null, values);
-
-
     }
+
+
 }
