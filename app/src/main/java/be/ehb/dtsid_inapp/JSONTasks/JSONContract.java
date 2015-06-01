@@ -46,8 +46,13 @@ public class JSONContract {
 
     public static final String JSON_NAME_EVENTS = "events";
     public static final String JSON_NAME_TEACHERS = "teachers";
+    public static final String JSON_NAME_SCHOOLS = "schools";
+
+
     public static final String JSON_STRING_NAME = "name";
     public static final String JSON_INT_ACADYEAR = "acadyear";
+    public static final String JSON_STRING_GEMEENTE = "gemeente";
+    public static final String JSON_STRING_POSTCODE = "postcode";
 
 
     //POST request

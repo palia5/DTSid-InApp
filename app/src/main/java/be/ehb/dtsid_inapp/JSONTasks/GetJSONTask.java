@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import be.ehb.dtsid_inapp.Models.Event;
+import be.ehb.dtsid_inapp.Models.School;
 import be.ehb.dtsid_inapp.Models.Teacher;
 
 import static be.ehb.dtsid_inapp.JSONTasks.JSONContract.*;
@@ -52,7 +53,8 @@ public class GetJSONTask extends AsyncTask<String, Integer, Void> {
                 //DAO.addTeacherList(teacherList);
 
 
-            } else if (params[0].contains(ALL_EVENTS)) {
+            }
+            else if (params[0].contains(ALL_EVENTS)) {
                 JSONObject rawEvents = new JSONObject(jsonString);
                 JSONArray eventsArray = rawEvents.getJSONArray(JSON_NAME_EVENTS);
                 ArrayList<Event> eventList = new ArrayList<>();
@@ -62,10 +64,23 @@ public class GetJSONTask extends AsyncTask<String, Integer, Void> {
                     Event temp = new Event(o.getString(JSON_STRING_NAME),
                             o.getInt(JSON_INT_ACADYEAR));
                     //eventList.add(temp);
-                    Log.d("TEST", temp.getName() + temp.getAcadyear());
                 }
 
                 //DAO.addEventList(eventList);
+            }
+            else if (params[0].contains(ALL_SCHOOLS)){
+                JSONObject rawSchools = new JSONObject(jsonString);
+                JSONArray schoolsArray = rawSchools.getJSONArray(JSON_NAME_SCHOOLS);
+                ArrayList<School> schoolList = new ArrayList<>();
+
+                for (int i = 0; i < schoolsArray.length(); i++){
+                    JSONObject o = schoolsArray.getJSONObject(i);
+                    School temp = new School(o.getString(JSON_STRING_NAME),
+                            o.getString(JSON_STRING_GEMEENTE), o.getInt(JSON_STRING_POSTCODE));
+                    //schoolList.add(temp);
+                    Log.d("TEST", temp.getName() + temp.getPostcode() + temp.getGemeente());
+                }
+                //DAO.addSchoolList(schoolList);
             }
         } catch (MalformedURLException e) {
             e.printStackTrace();
