@@ -23,13 +23,15 @@ import be.ehb.dtsid_inapp.Models.Teacher;
 
 import static be.ehb.dtsid_inapp.JSONTasks.JSONContract.*;
 
-/**
- * Created by tomna_000 on 01/06/2015.
- */
-public class GetJSONTask extends AsyncTask<String, Integer, Void> {
+import be.ehb.dtsid_inapp.Models.DataDAO;
+
+public class GetJSONTask extends AsyncTask<String, Integer, Void>
+{
     @Override
-    protected Void doInBackground(String... params) {
-        try {
+    protected Void doInBackground(String... params)
+    {
+        try
+        {
             URL url = new URL(params[0]);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("GET");
@@ -39,27 +41,29 @@ public class GetJSONTask extends AsyncTask<String, Integer, Void> {
                     new InputStreamReader(connection.getInputStream()));
             String jsonString = reader.readLine();
 
-            if (params[0].contains(ALL_TEACHERS)) {
+            if (params[0].contains(ALL_TEACHERS))
+            {
                 JSONObject rawTeachers = new JSONObject(jsonString);
                 JSONArray teachersArray = rawTeachers.getJSONArray(JSON_NAME_TEACHERS);
                 ArrayList<Teacher> teacherList = new ArrayList<>();
 
-                for (int i = 0; i < teachersArray.length(); i++) {
+                for (int i = 0; i < teachersArray.length(); i++)
+                {
                     JSONObject o = teachersArray.getJSONObject(i);
                     Teacher temp = new Teacher(o.getString(JSON_STRING_NAME), o.getInt(JSON_INT_ACADYEAR));
                     //teacherList.add(temp);
                 }
 
-                //DAO.addTeacherList(teacherList);
-
-
+                DataDAO.getDAOInstance().setTeachers(teacherList);
             }
-            else if (params[0].contains(ALL_EVENTS)) {
+            else if (params[0].contains(ALL_EVENTS))
+            {
                 JSONObject rawEvents = new JSONObject(jsonString);
                 JSONArray eventsArray = rawEvents.getJSONArray(JSON_NAME_EVENTS);
                 ArrayList<Event> eventList = new ArrayList<>();
 
-                for (int i = 0; i < eventsArray.length(); i++){
+                for (int i = 0; i < eventsArray.length(); i++)
+                {
                     JSONObject o = eventsArray.getJSONObject(i);
                     Event temp = new Event(o.getString(JSON_STRING_NAME),
                             o.getInt(JSON_INT_ACADYEAR));
@@ -68,17 +72,19 @@ public class GetJSONTask extends AsyncTask<String, Integer, Void> {
 
                 //DAO.addEventList(eventList);
             }
-            else if (params[0].contains(ALL_SCHOOLS)){
+            else if (params[0].contains(ALL_SCHOOLS))
+            {
                 JSONObject rawSchools = new JSONObject(jsonString);
                 JSONArray schoolsArray = rawSchools.getJSONArray(JSON_NAME_SCHOOLS);
                 ArrayList<School> schoolList = new ArrayList<>();
 
-                for (int i = 0; i < schoolsArray.length(); i++){
+                for (int i = 0; i < schoolsArray.length(); i++)
+                {
                     JSONObject o = schoolsArray.getJSONObject(i);
                     School temp = new School(o.getString(JSON_STRING_NAME),
                             o.getString(JSON_STRING_GEMEENTE), o.getInt(JSON_STRING_POSTCODE));
                     //schoolList.add(temp);
-                    Log.d("TEST", temp.getName() + temp.getPostcode() + temp.getGemeente());
+                    Log.d("TEST", temp.getName() + temp.getZip() + temp.getCity());
                 }
                 //DAO.addSchoolList(schoolList);
             }

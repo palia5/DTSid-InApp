@@ -4,10 +4,8 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-/**
- * Created by Kristof on 1/06/2015.
- */
-public class DatabaseContract extends SQLiteOpenHelper{
+public class DatabaseContract extends SQLiteOpenHelper
+{
 
     //yeah, this is all wrong
 
