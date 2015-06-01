@@ -2,38 +2,36 @@ package be.ehb.dtsid_inapp.Models;
 
 import java.io.Serializable;
 
-/**
- * Created by doortje on 1/06/15.
- */
-public class School implements Serializable {
-
-    /**
-     *
-     */
-    private static final long serialVersionUID = 6113317881903371549L;
-
+public class School implements Serializable
+{
+    //Variables
     private Long id;
     private String name;
     private String gemeente;
     private int postcode;
 
-
-    public School() {
-        super();
-    }
-    public School(Long id, String name, String gemeente, int postcode) {
+    //Constructors
+    public School(Long id, String name, String gemeente, int postcode)
+    {
         super();
         this.id = id;
         this.name = name;
         this.gemeente = gemeente;
         this.postcode = postcode;
     }
-    public School(String name, String gemeente, int postcode) {
+    public School(String name, String gemeente, int postcode)
+    {
         super();
         this.name = name;
         this.gemeente = gemeente;
         this.postcode = postcode;
     }
+    public School()
+    {
+        super();
+    }
+
+    //Getters and setters
     public Long getId() {
         return id;
     }
