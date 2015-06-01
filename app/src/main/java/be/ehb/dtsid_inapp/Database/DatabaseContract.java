@@ -14,16 +14,22 @@ public class DatabaseContract extends SQLiteOpenHelper{
     public static final String COL_TEACHERS_NAME = "name";
     public static final String COL_TEACHERS_ACADYEAR = "acadyear";
 
+    public static final String[] ALL_TEACHERS_COLS = {COL_TEACHERS_ID, COL_TEACHERS_NAME, COL_TEACHERS_ACADYEAR};
+
     public static final String TABLE_EVENTS = "events";
     public static final String COL_EVENTS_ID = "_id";
     public static final String COL_EVENTS_NAME = "name";
     public static final String COL_EVENTS_ACADYEAR = "acadyear";
+
+    public static final String[] ALL_EVENTS_COLS = {COL_EVENTS_ID, COL_EVENTS_NAME, COL_EVENTS_ACADYEAR};
 
     public static final String TABLE_SCHOOLS = "schools";
     public static final String COL_SCHOOLS_ID = "_id";
     public static final String COL_SCHOOLS_NAME = "name";
     public static final String COL_SCHOOLS_CITY = "city";
     public static final String COL_SCHOOLS_ZIP = "zip";
+
+    public static final String[] ALL_SCHOOLS_COLS = {COL_SCHOOLS_ID, COL_SCHOOLS_NAME, COL_SCHOOLS_CITY, COL_SCHOOLS_ZIP};
 
     public static final String TABEL_SUBSCRIPTIONS = "subscriptions";
     public static final String COL_SUBSCRIPTIONS_ID = "_id";
@@ -41,10 +47,28 @@ public class DatabaseContract extends SQLiteOpenHelper{
     public static final String COL_SUBSCRIPTIONS_EVENT = "event";
     public static final String COL_SUBSCRIPTIONS_SCHOOL = "school";
 
+    public static final String[] ALL_SUBSCRIPTIONS_COLS = {COL_SUBSCRIPTIONS_ID,
+            COL_SUBSCRIPTIONS_FIRSTNAME,
+            COL_SUBSCRIPTIONS_LASTNAME,
+            COL_SUBSCRIPTIONS_EMAIL,
+            COL_SUBSCRIPTIONS_STREET,
+            COL_SUBSCRIPTIONS_STREETNMBR,
+            COL_SUBSCRIPTIONS_ZIP,
+            COL_SUBSCRIPTIONS_CITY,
+            COL_SUBSCRIPTIONS_INTERESTS,
+            COL_SUBSCRIPTIONS_TIMESTAMP,
+            COL_SUBSCRIPTIONS_ISNEW,
+            COL_SUBSCRIPTIONS_TEACHER,
+            COL_SUBSCRIPTIONS_EVENT,
+            COL_SUBSCRIPTIONS_SCHOOL
+    };
+
     public static final String TABLE_IMAGES = "events";
     public static final String COL_IMAGES_ID = "_id";
     public static final String COL_IMAGES_PRIORITY = "priority";
     public static final String COL_IMAGES_IMAGE = "image";
+
+    public static final String[] ALL_IMAGES_COLS = {COL_IMAGES_ID, COL_IMAGES_PRIORITY, COL_IMAGES_IMAGE};
 
 
     public DatabaseContract(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
@@ -53,6 +77,12 @@ public class DatabaseContract extends SQLiteOpenHelper{
 
     @Override
     public void onCreate(SQLiteDatabase db) {
+        db.execSQL(" CREATE TABLE teachers (" + "" +
+                " _id INTEGER PRIMARY KEY AUTOINCREMENT, "+
+                "name TEXT NOT NULL, "+
+                "acadyear TEXT NOT NULL "+
+
+                ") ");
 
     }
 
