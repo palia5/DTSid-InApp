@@ -183,10 +183,6 @@ public class Subscription
         this.isNew = isNew;
     }
 
-    public Long getId() {
-        return id;
-    }
-
     public Boolean getDigx() {
         return digx;
     }
