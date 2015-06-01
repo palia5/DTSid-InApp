@@ -16,12 +16,14 @@
         android:layout_width="0dp"
         android:layout_weight="1"
         android:layout_height="match_parent"
-        class="be.ehb.dtsid_inapp.StudentFragments.StudentRegistration"/>
+        class="be.ehb.dtsid_inapp.StudentFragments.StudentRegistration"
+        android:id="@+id/fragm_left_inscription" />
 
     <fragment
         android:layout_width="0dp"
         android:layout_weight="1"
         android:layout_height="match_parent"
-        class="be.ehb.dtsid_inapp.StudentFragments.PhotoGallery"/>
+        class="be.ehb.dtsid_inapp.StudentFragments.PhotoGallery"
+        android:id="@+id/fragm_right_images" />
 
 </LinearLayout>

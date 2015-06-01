@@ -7,4 +7,25 @@
 <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_student">StudentActivity</string>
+    <string name="txt_label_department_launchscreen">Departement:</string>
+    <string name="txt_label_code_launchscreen">Code:</string>
+    <string name="txt_label_docent_loginscreen">Docent:</string>
+    <string name="txt_label_event_loginscreen">Evenement:</string>
+    <string name="txt_label_code_launchscreen_landscape">Code:</string>
+    <string name="txt_label_departement_dashboard">Departement</string>
+    <string name="txt_gekozen_departement_dashboard" />
+    <string name="txt_label_medewerker_dashboard">Medewerker</string>
+    <string name="txt_gekozenmedewerker_dashboard" />
+    <string name="txt_label_evenement_dashboard">Evenement</string>
+    <string name="txt_gekozenevenement_dashboard" />
+    <string name="txt_label_studenten_teller_dashboard">Studenten vandaag</string>
+    <string name="txt_label_studentteller_dashboard">Studenten vandaag</string>
+    <string name="txt_aantalstudenten_dashboard" />
+    <string name="txt_btn_student_registreren">Student registreren</string>
+    <string name="txt_btn_lijst">Lijst</string>
+    <string name="txt_btn_regios">Regio\'s</string>
+    <string name="txt_btn_opties">Opties</string>
+    <string name="txt_label_laatste_synchronisatie">Laatst gesynchroniseerd op</string>
+    <string name="txt_tv_datum_laatste_synchronisatie" />
+    <string name="txt_btn_sync">Sync</string>
 </resources>
