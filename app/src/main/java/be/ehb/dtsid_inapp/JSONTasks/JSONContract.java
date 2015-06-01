@@ -11,7 +11,7 @@ import java.util.Calendar;
  */
 public class JSONContract {
 
-    public static final String BASEURL = "vdabsidin2.appspot.com";
+    public static final String BASEURL = "http://vdabsidin2.appspot.com";
 
     //YEAR calculator
     public static String yearCalc(){
@@ -43,7 +43,10 @@ public class JSONContract {
     public static final String ALL_SCHOOLS = "/rest/schools";
     public static final String ALL_SUBSCRIPTIONS = "/rest/subscriptions";
     public static final String ALL_IMAGES = "/rest/images";
-    public static final String YEAR_1415 = "/1415";
+
+    public static final String JSON_NAME_TEACHERS = "teachers";
+    public static final String JSON_STRING_NAME = "name";
+    public static final String JSON_INT_ACADYEAR = "acadyear";
 
 
     //POST request

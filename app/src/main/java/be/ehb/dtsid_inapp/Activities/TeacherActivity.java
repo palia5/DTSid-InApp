@@ -5,7 +5,9 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import static be.ehb.dtsid_inapp.JSONTasks.JSONContract.*;
 
+import be.ehb.dtsid_inapp.JSONTasks.GetJSONTask;
 import be.ehb.dtsid_inapp.JSONTasks.JSONContract;
 import be.ehb.dtsid_inapp.R;
 import be.ehb.dtsid_inapp.TeacherFragments.DepartmentLogin;
@@ -25,6 +27,9 @@ public class TeacherActivity extends AppCompatActivity
                 .beginTransaction()
                 .replace(R.id.teacherContainer, new DepartmentLogin())
                 .commit();
+        String url = BASEURL + ALL_TEACHERS + yearCalc();
+        GetJSONTask jsonTask = new GetJSONTask();
+        jsonTask.execute(url);
     }
 
     public void goToOtherFragment(View v)
