@@ -15,15 +15,12 @@ import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.List;
 
 import be.ehb.dtsid_inapp.Models.Event;
 import be.ehb.dtsid_inapp.Models.School;
 import be.ehb.dtsid_inapp.Models.Teacher;
 
 import static be.ehb.dtsid_inapp.JSONTasks.JSONContract.*;
-
-import be.ehb.dtsid_inapp.Models.DataDAO;
 
 public class GetJSONTask extends AsyncTask<String, Integer, Void>
 {
@@ -53,8 +50,6 @@ public class GetJSONTask extends AsyncTask<String, Integer, Void>
                     Teacher temp = new Teacher(o.getString(JSON_STRING_NAME), o.getInt(JSON_INT_ACADYEAR));
                     //teacherList.add(temp);
                 }
-
-                DataDAO.getDAOInstance().setTeachers(teacherList);
             }
             else if (params[0].contains(ALL_EVENTS))
             {
@@ -83,18 +78,18 @@ public class GetJSONTask extends AsyncTask<String, Integer, Void>
                     JSONObject o = schoolsArray.getJSONObject(i);
                     School temp = new School(o.getString(JSON_STRING_NAME),
                             o.getString(JSON_STRING_GEMEENTE), o.getInt(JSON_STRING_POSTCODE));
-                    //schoolList.add(temp);
+                    schoolList.add(temp);
                     Log.d("TEST", temp.getName() + temp.getZip() + temp.getCity());
                 }
                 //DAO.addSchoolList(schoolList);
             }
-        } catch (MalformedURLException e) {
+        }
+        catch (MalformedURLException | ProtocolException | JSONException e)
+        {
             e.printStackTrace();
-        } catch (ProtocolException e) {
-            e.printStackTrace();
-        } catch (JSONException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
+        }
+        catch (IOException e)
+        {
             e.printStackTrace();
         }
 

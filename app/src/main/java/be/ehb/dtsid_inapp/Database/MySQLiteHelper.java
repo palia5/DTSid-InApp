@@ -122,11 +122,11 @@ public class MySQLiteHelper extends SQLiteOpenHelper
                         COL_SUBSCRIPTIONS_STREETNUMBER + " TEXT, " +
                         COL_SUBSCRIPTIONS_ZIP + " TEXT, " +
                         COL_SUBSCRIPTIONS_CITY + " TEXT, " +
-                        COL_SUBSCRIPTIONS_DIGX + " TEXT NOT NULL, " +
-                        COL_SUBSCRIPTIONS_MULTEC + " TEXT NOT NULL, " +
-                        COL_SUBSCRIPTIONS_WERKSTUDENT + " TEXT NOT NULL, " +
-                        COL_SUBSCRIPTIONS_TIMESTAMP + " DATETIME NOT NULL, " +
-                        COL_SUBSCRIPTIONS_ISNEW + " TEXT NOT NULL, " +
+                        COL_SUBSCRIPTIONS_DIGX + " BOOLEAN, " +
+                        COL_SUBSCRIPTIONS_MULTEC + " BOOLEAN, " +
+                        COL_SUBSCRIPTIONS_WERKSTUDENT + " BOOLEAN, " +
+                        COL_SUBSCRIPTIONS_TIMESTAMP + " LONG NOT NULL, " +
+                        COL_SUBSCRIPTIONS_ISNEW + " BOOLEAN, " +
                         COL_SUBSCRIPTIONS_TEACHER + " LONG NOT NULL, " + "FOREIGN KEY(teacher) REFERENCES teachers(_id), " +
                         COL_SUBSCRIPTIONS_EVENT + " LONG NOT NULL, " +"FOREIGN KEY(event) REFERENCES events(_id), " +
                         COL_SUBSCRIPTIONS_SCHOOL + " LONG NOT NULL, " +"FOREIGN KEY(school) REFERENCES schools(_id) " +

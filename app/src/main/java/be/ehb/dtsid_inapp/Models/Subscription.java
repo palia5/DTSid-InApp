@@ -14,21 +14,20 @@ public class Subscription
     private String streetNumber;
     private String zip;
     private String city;
-    private HashMap<String,String> interests;
     private Boolean digx;
     private Boolean multec;
     private Boolean werkstudent;
     private Date timestamp;
     private Teacher teacher;
     private Event event;
-    private boolean isNew;
+    private Boolean isNew;
     private School school;
 
     //Constructors
     public Subscription(Long id, String firstName, String lastName,
                         String email, String street, String streetNumber, String zip,
-                        String city, HashMap<String, String> interests, Date timestamp,
-                        Teacher teacher, Event event, boolean isNew,School school) {
+                        String city, Boolean digx, Boolean multec, Boolean werkstudent, Date timestamp,
+                        Teacher teacher, Event event, Boolean isNew,School school) {
         super();
         this.id = id;
         this.firstName = firstName;
@@ -38,7 +37,9 @@ public class Subscription
         this.streetNumber = streetNumber;
         this.zip = zip;
         this.city = city;
-        this.interests = interests;
+        this.digx = digx;
+        this.multec = multec;
+        this.werkstudent = werkstudent;
         this.timestamp = timestamp;
         this.teacher = teacher;
         this.event = event;
@@ -47,8 +48,8 @@ public class Subscription
     }
     public Subscription(String firstName, String lastName, String email,
                         String street, String streetNumber, String zip, String city,
-                        HashMap<String, String> interests, Date timestamp, Teacher teacher,
-                        Event event, boolean isNew,School school) {
+                        Boolean digx, Boolean multec, Boolean werkstudent, Date timestamp, Teacher teacher,
+                        Event event, Boolean isNew,School school) {
         super();
         this.firstName = firstName;
         this.lastName = lastName;
@@ -57,7 +58,9 @@ public class Subscription
         this.streetNumber = streetNumber;
         this.zip = zip;
         this.city = city;
-        this.interests = interests;
+        this.digx = digx;
+        this.multec = multec;
+        this.werkstudent = werkstudent;
         this.timestamp = timestamp;
         this.teacher = teacher;
         this.event = event;
@@ -142,13 +145,28 @@ public class Subscription
     {
         this.city = city;
     }
-    public HashMap<String, String> getInterests()
-    {
-        return interests;
+    public Boolean getDigx() {
+        return digx;
     }
-    public void setInterests(HashMap<String, String> interests)
+    public void setDigx(Boolean digx)
     {
-        this.interests = interests;
+        this.digx = digx;
+    }
+    public Boolean getMultec()
+    {
+        return multec;
+    }
+    public void setMultec(Boolean multec)
+    {
+        this.multec = multec;
+    }
+    public Boolean getWerkstudent()
+    {
+        return werkstudent;
+    }
+    public void setWerkstudent(Boolean werkstudent)
+    {
+        this.werkstudent = werkstudent;
     }
     public Date getTimestamp()
     {
@@ -174,7 +192,7 @@ public class Subscription
     {
         this.event = event;
     }
-    public boolean isNew()
+    public boolean getNew()
     {
         return isNew;
     }
@@ -183,27 +201,4 @@ public class Subscription
         this.isNew = isNew;
     }
 
-    public Boolean getDigx() {
-        return digx;
-    }
-
-    public void setDigx(Boolean digx) {
-        this.digx = digx;
-    }
-
-    public Boolean getMultec() {
-        return multec;
-    }
-
-    public void setMultec(Boolean multec) {
-        this.multec = multec;
-    }
-
-    public Boolean getWerkstudent() {
-        return werkstudent;
-    }
-
-    public void setWerkstudent(Boolean werkstudent) {
-        this.werkstudent = werkstudent;
-    }
 }
