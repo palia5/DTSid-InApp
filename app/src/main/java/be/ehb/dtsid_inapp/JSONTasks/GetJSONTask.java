@@ -1,6 +1,5 @@
 package be.ehb.dtsid_inapp.JSONTasks;
 
-import android.app.Activity;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
@@ -19,9 +18,6 @@ import java.net.URL;
 import java.nio.charset.Charset;
 import java.sql.Date;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-
 import be.ehb.dtsid_inapp.Database.DatabaseContract;
 import be.ehb.dtsid_inapp.Models.Event;
 import be.ehb.dtsid_inapp.Models.Image;
@@ -31,7 +27,6 @@ import be.ehb.dtsid_inapp.Models.Teacher;
 
 import static be.ehb.dtsid_inapp.JSONTasks.JSONContract.*;
 
-import be.ehb.dtsid_inapp.Models.DataDAO;
 
 public class GetJSONTask extends AsyncTask<String, Integer, Void>
 {
@@ -63,7 +58,8 @@ public class GetJSONTask extends AsyncTask<String, Integer, Void>
                 for (int i = 0; i < teachersArray.length(); i++)
                 {
                     JSONObject o = teachersArray.getJSONObject(i);
-                    Teacher temp = new Teacher(o.getLong(JSON_LONG_ID), o.getString(JSON_STRING_NAME), o.getInt(JSON_INT_ACADYEAR));
+                    Teacher temp = new Teacher(o.getLong(JSON_LONG_ID),
+                            o.getString(JSON_STRING_NAME), o.getInt(JSON_INT_ACADYEAR));
                     //teacherList.add(temp);
                 }
             }
@@ -107,27 +103,23 @@ public class GetJSONTask extends AsyncTask<String, Integer, Void>
 
                 for (int i = 0; i< subsArray.length(); i++){
                     JSONObject o = subsArray.getJSONObject(i);
-                    HashMap<String, String> tempInterests = new HashMap<>();
                     JSONObject oInterests = o.getJSONObject(JSON_NAME_INTERESTS);
                     JSONObject oTeacher = o.getJSONObject(JSON_NAME_TEACHER);
                     JSONObject oSchool = o.getJSONObject(JSON_NAME_SCHOOL);
                     JSONObject oEvent = o.getJSONObject(JSON_NAME_EVENT);
-                    tempInterests.put(JSON_STRING_DIGX, oInterests.getString(JSON_STRING_DIGX));
-                    tempInterests.put(JSON_STRING_WERKSTUDENT, oInterests.getString(JSON_STRING_WERKSTUDENT));
-                    tempInterests.put(JSON_STRING_MULTEC, oInterests.getString(JSON_STRING_MULTEC));
 
                     Subscription temp = new Subscription(o.getString(JSON_STRING_FIRSTNAME),
-                            o.getString(JSON_STRING_LASTNAME), o.get(JSON_STRING_EMAIL),
-                            o.get(JSON_STRING_STREET), o.getString(JSON_STRING_STREETNUMBER),
-                            o.get(JSON_STRING_ZIP), o.get(JSON_STRING_CITY),
-                            Boolean.getBoolean(oInterests.getString(JSON_STRING_DIGX)),
-                            Boolean.getBoolean(oInterests.getString(JSON_STRING_MULTEC)),
-                            Boolean.getBoolean(oInterests.getString(JSON_STRING_WERKSTUDENT)),
+                            o.getString(JSON_STRING_LASTNAME), o.getString(JSON_STRING_EMAIL),
+                            o.getString(JSON_STRING_STREET), o.getString(JSON_STRING_STREETNUMBER),
+                            o.getString(JSON_STRING_ZIP), o.getString(JSON_STRING_CITY),
+                            Boolean.parseBoolean(oInterests.getString(JSON_STRING_DIGX)),
+                            Boolean.parseBoolean(oInterests.getString(JSON_STRING_MULTEC)),
+                            Boolean.parseBoolean(oInterests.getString(JSON_STRING_WERKSTUDENT)),
                             Date.valueOf(String.valueOf(o.getLong(JSON_LONG_TIMESTAMP))),
                             dbc.getTeacherByID(oTeacher.getLong(JSON_LONG_ID)),
                             dbc.getEventByID(oEvent.getLong(JSON_LONG_ID)),
                             o.getBoolean(JSON_BOOL_NEW),
-                            dbc.getSchoolById(oSchool.getLong(JSON_LONG_ID)));
+                            dbc.getSchoolByID(oSchool.getLong(JSON_LONG_ID)));
                     subsList.add(temp);
                 }
                 //DataDAO.getDAOInstance().setSubscriptions(subsList);
