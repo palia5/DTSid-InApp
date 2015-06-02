@@ -15,15 +15,12 @@ import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.List;
 
 import be.ehb.dtsid_inapp.Models.Event;
 import be.ehb.dtsid_inapp.Models.School;
 import be.ehb.dtsid_inapp.Models.Teacher;
 
 import static be.ehb.dtsid_inapp.JSONTasks.JSONContract.*;
-
-import be.ehb.dtsid_inapp.Models.DataDAO;
 
 public class GetJSONTask extends AsyncTask<String, Integer, Void>
 {
@@ -85,16 +82,14 @@ public class GetJSONTask extends AsyncTask<String, Integer, Void>
                     Log.d("TEST", temp.getName() + temp.getZip() + temp.getCity());
                 }
                 //DAO.addSchoolList(schoolList);
-                DataDAO.getDAOInstance().setSchools(schoolList);
-                Log.d("DATADAO", DataDAO.getDAOInstance().getAllSchools().toString());
             }
-        } catch (MalformedURLException e) {
+        }
+        catch (MalformedURLException | ProtocolException | JSONException e)
+        {
             e.printStackTrace();
-        } catch (ProtocolException e) {
-            e.printStackTrace();
-        } catch (JSONException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
+        }
+        catch (IOException e)
+        {
             e.printStackTrace();
         }
 
