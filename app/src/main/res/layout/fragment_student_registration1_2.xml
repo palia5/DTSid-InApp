@@ -5,10 +5,4 @@
     android:layout_height="match_parent"
     tools:context="be.ehb.dtsid_inapp.StudentFragments.StudentRegistration">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="REGISTRATIE"
-        android:id="@+id/textView4"/>
-
 </RelativeLayout>
