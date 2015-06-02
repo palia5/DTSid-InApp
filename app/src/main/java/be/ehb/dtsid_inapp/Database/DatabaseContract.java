@@ -23,10 +23,8 @@ import be.ehb.dtsid_inapp.Models.Teacher;
 
 public class DatabaseContract {
 
-    private MySQLiteHelper dbHelper;
-    public class DatabaseContract
-    {
     //Variables
+    private MySQLiteHelper dbHelper;
     private SQLiteDatabase db;
 
     //Constructor
