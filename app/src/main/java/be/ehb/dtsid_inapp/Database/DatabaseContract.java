@@ -3,9 +3,7 @@ package be.ehb.dtsid_inapp.Database;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
 
-import be.ehb.dtsid_inapp.Models.MySQLiteHelper;
 import be.ehb.dtsid_inapp.Models.Subscription;
 
 /**

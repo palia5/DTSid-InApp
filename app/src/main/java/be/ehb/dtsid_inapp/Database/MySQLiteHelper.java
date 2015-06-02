@@ -1,4 +1,4 @@
-package be.ehb.dtsid_inapp.Models;
+package be.ehb.dtsid_inapp.Database;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
