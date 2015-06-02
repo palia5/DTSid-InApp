@@ -8,6 +8,10 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
 import java.sql.Blob;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 import be.ehb.dtsid_inapp.Models.Event;
 import be.ehb.dtsid_inapp.Models.School;
@@ -67,6 +71,7 @@ public class DatabaseContract {
                 null);
 
         tempTeacher = cursorToTeacher(c);
+        c.close();
         return tempTeacher;
     }
 
@@ -85,6 +90,7 @@ public class DatabaseContract {
                 null);
 
         tempEvent = cursorToEvent(c);
+        c.close();
         return tempEvent;
     }
 
@@ -104,6 +110,7 @@ public class DatabaseContract {
                 );
 
         tempSchool = cursorToSchool(c);
+        c.close();
         return tempSchool;
     }
 
@@ -146,6 +153,43 @@ public class DatabaseContract {
         byte[] data = c.getBlob(c.getColumnIndex(MySQLiteHelper.COL_IMAGES_IMAGE));
 
         Bitmap temp = BitmapFactory.decodeByteArray(data,0, data.length);
+
+        return temp;
+    }
+
+    private Subscription cursorToSubscription(Cursor c) throws ParseException {
+        Subscription temp = new Subscription();
+
+        temp.setId(c.getLong(c.getColumnIndex(MySQLiteHelper.COL_SUBSCRIPTIONS_ID)));
+        temp.setFirstName(c.getString(c.getColumnIndex(MySQLiteHelper.COL_SUBSCRIPTIONS_FIRSTNAME)));
+        temp.setLastName(c.getString(c.getColumnIndex(MySQLiteHelper.COL_SUBSCRIPTIONS_LASTNAME)));
+        temp.setEmail(c.getString(c.getColumnIndex(MySQLiteHelper.COL_SUBSCRIPTIONS_EMAIL)));
+        temp.setStreet(c.getString(c.getColumnIndex(MySQLiteHelper.COL_SUBSCRIPTIONS_STREET)));
+        temp.setStreetNumber(c.getString(c.getColumnIndex(MySQLiteHelper.COL_SUBSCRIPTIONS_STREETNUMBER)));
+        temp.setZip(c.getString(c.getColumnIndex(MySQLiteHelper.COL_SUBSCRIPTIONS_ZIP)));
+        temp.setCity(c.getString(c.getColumnIndex(MySQLiteHelper.COL_SUBSCRIPTIONS_CITY)));
+        temp.setDigx(Boolean.parseBoolean(c.getString(c.getColumnIndex(MySQLiteHelper.COL_SUBSCRIPTIONS_DIGX))));
+        temp.setMultec(Boolean.parseBoolean(c.getString(c.getColumnIndex(MySQLiteHelper.COL_SUBSCRIPTIONS_MULTEC))));
+        temp.setWerkstudent(Boolean.parseBoolean(c.getString(c.getColumnIndex(MySQLiteHelper.COL_SUBSCRIPTIONS_WERKSTUDENT))));
+
+        String dateString = c.getString(c.getColumnIndex(MySQLiteHelper.COL_SUBSCRIPTIONS_STREET));
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/YYYY", Locale.getDefault());
+        Date dt = sdf.parse(dateString);
+        temp.setTimestamp(dt);
+
+        Long teachID = c.getLong(c.getColumnIndex(MySQLiteHelper.COL_SUBSCRIPTIONS_TEACHER));
+        Teacher tempTeacher = getTeacherByID(teachID);
+        temp.setTeacher(tempTeacher);
+
+        Long eventID = c.getLong(c.getColumnIndex(MySQLiteHelper.COL_SUBSCRIPTIONS_EVENT));
+        Event tempEvent = getEventByID(eventID);
+        temp.setEvent(tempEvent);
+
+        Long schoolID = c.getLong(c.getColumnIndex(MySQLiteHelper.COL_SUBSCRIPTIONS_SCHOOL));
+        School tempSchool = getSchoolByID(schoolID);
+        temp.setSchool(tempSchool);
+
+        temp.setNew(Boolean.parseBoolean(c.getString(c.getColumnIndex(MySQLiteHelper.COL_SUBSCRIPTIONS_ISNEW))));
 
         return temp;
     }
