@@ -74,6 +74,14 @@ public class MySQLiteHelper extends SQLiteOpenHelper
             COL_SUBSCRIPTIONS_SCHOOL
     };
 
+    public static final String TABLE_IMAGES = "images";
+    public static final String COL_IMAGES_ID = "_id";
+    public static final String COL_IMAGES_PRIORITY = "priority";
+    public static final String COL_IMAGES_IMAGE = "image";
+
+    public static final String[] ALL_IMAGES_COLS = {COL_IMAGES_ID,
+            COL_IMAGES_PRIORITY,
+            COL_IMAGES_IMAGE};
 
 
     public MySQLiteHelper(Context context)
@@ -116,16 +124,23 @@ public class MySQLiteHelper extends SQLiteOpenHelper
                         COL_SUBSCRIPTIONS_STREETNUMBER + " TEXT, " +
                         COL_SUBSCRIPTIONS_ZIP + " TEXT, " +
                         COL_SUBSCRIPTIONS_CITY + " TEXT, " +
+                        COL_SUBSCRIPTIONS_INTERESTS + " TEXT, " +
                         COL_SUBSCRIPTIONS_DIGX + " TEXT NOT NULL, " +
                         COL_SUBSCRIPTIONS_MULTEC + " TEXT NOT NULL, " +
                         COL_SUBSCRIPTIONS_WERKSTUDENT + " TEXT NOT NULL, " +
-                        COL_SUBSCRIPTIONS_INTERESTS + " TEXT, " +
                         COL_SUBSCRIPTIONS_TIMESTAMP + " LONG NOT NULL, " +
+                        COL_SUBSCRIPTIONS_ISNEW + " TEXT NOT NULL, " +
                         COL_SUBSCRIPTIONS_TEACHER + " INTEGER NOT NULL, " + "FOREIGN KEY(teacher) REFERENCES teachers(_id), " +
                         COL_SUBSCRIPTIONS_EVENT + " INTEGER NOT NULL, " +"FOREIGN KEY(event) REFERENCES events(_id), " +
-                        COL_SUBSCRIPTIONS_ISNEW + " TEXT NOT NULL, " +
                         COL_SUBSCRIPTIONS_SCHOOL + " INTEGER NOT NULL, " +"FOREIGN KEY(school) REFERENCES schools(_id) " +
                         ")");
+
+        db.execSQL(
+                "CREATE TABLE " + TABLE_IMAGES + " (" +
+                COL_IMAGES_ID + " LONG PRIMARY KEY AUTOINCREMENT, " +
+                COL_IMAGES_PRIORITY + " INTEGER NOT NULL, " +
+                COL_EVENTS_ACADYEAR + " TEXT NOT NULL" +
+                ")");
 
     }
 
