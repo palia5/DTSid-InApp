@@ -1,28 +1,24 @@
 package be.ehb.dtsid_inapp.Models;
 
-import java.io.Serializable;
 import java.util.List;
 
-/**
- * Created by doortje on 1/06/15.
- */
-public class TeacherList implements Serializable {
-
-    /**
-     *
-     */
-    private static final long serialVersionUID = 5517300947491552916L;
+public class TeacherList
+{
+    //Variables
     private List<Teacher> teachers;
 
-    public TeacherList() {
-        super();
+    //Constructors
+    public TeacherList()
+    {
     }
 
-    public List<Teacher> getTeachers() {
+    //Getters and setters
+    public List<Teacher> getTeachers()
+    {
         return teachers;
     }
-
-    public void setTeachers(List<Teacher> teachers) {
+    public void setTeachers(List<Teacher> teachers)
+    {
         this.teachers = teachers;
     }
 }

@@ -1,29 +1,11 @@
 package be.ehb.dtsid_inapp.Models;
 
-import android.support.annotation.NonNull;
-
-import java.io.Serializable;
-import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.ListIterator;
 
-/**
- * Created by doortje on 1/06/15.
- */
-public class Subscription implements Serializable {
-
-    /**
-     *
-     */
-    private static final long serialVersionUID = 9104710043135978616L;
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
+public class Subscription
+{
+    //Variables
     private Long id;
     private String firstName;
     private String lastName;
@@ -39,9 +21,7 @@ public class Subscription implements Serializable {
     private boolean isNew;
     private School school;
 
-
-
-
+    //Constructors
     public Subscription(Long id, String firstName, String lastName,
                         String email, String street, String streetNumber, String zip,
                         String city, HashMap<String, String> interests, Date timestamp,
@@ -62,9 +42,6 @@ public class Subscription implements Serializable {
         this.isNew = isNew;
         this.school = school;
     }
-
-
-
     public Subscription(String firstName, String lastName, String email,
                         String street, String streetNumber, String zip, String city,
                         HashMap<String, String> interests, Date timestamp, Teacher teacher,
@@ -84,130 +61,122 @@ public class Subscription implements Serializable {
         this.isNew = isNew;
         this.school = school;
     }
-
-
-
-    public School getSchool() {
-        return school;
-    }
-
-
-
-    public void setSchool(School school) {
-        this.school = school;
-    }
-
-
-
-    public Subscription() {
+    public Subscription()
+    {
         super();
     }
 
-
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getStreet() {
-        return street;
-    }
-
-    public void setStreet(String street) {
-        this.street = street;
-    }
-
-    public String getStreetNumber() {
-        return streetNumber;
-    }
-
-    public void setStreetNumber(String streetNumber) {
-        this.streetNumber = streetNumber;
-    }
-
-    public String getZip() {
-        return zip;
-    }
-
-    public void setZip(String zip) {
-        this.zip = zip;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    public HashMap<String, String> getInterests() {
-        return interests;
-    }
-
-    public void setInterests(HashMap<String, String> interests) {
-        this.interests = interests;
-    }
-
-    public Date getTimestamp() {
-        return timestamp;
-    }
-
-    public void setTimestamp(Date timestamp) {
-        this.timestamp = timestamp;
-    }
-
-    public Teacher getTeacher() {
-        return teacher;
-    }
-
-    public void setTeacher(Teacher teacher) {
-        this.teacher = teacher;
-    }
-
-    public Event getEvent() {
-        return event;
-    }
-
-    public void setEvent(Event event) {
-        this.event = event;
-    }
-
-
-    public boolean isNew() {
-        return isNew;
-    }
-
-
-
-    public void setNew(boolean isNew) {
-        this.isNew = isNew;
-    }
-
-
-
-    public Long getId() {
+    //Getters and setters
+    public Long getId()
+    {
         return id;
     }
-
+    public void setId(Long id)
+    {
+        this.id = id;
+    }
+    public School getSchool()
+    {
+        return school;
+    }
+    public void setSchool(School school)
+    {
+        this.school = school;
+    }
+    public String getFirstName()
+    {
+        return firstName;
+    }
+    public void setFirstName(String firstName)
+    {
+        this.firstName = firstName;
+    }
+    public String getLastName()
+    {
+        return lastName;
+    }
+    public void setLastName(String lastName)
+    {
+        this.lastName = lastName;
+    }
+    public String getEmail()
+    {
+        return email;
+    }
+    public void setEmail(String email)
+    {
+        this.email = email;
+    }
+    public String getStreet()
+    {
+        return street;
+    }
+    public void setStreet(String street)
+    {
+        this.street = street;
+    }
+    public String getStreetNumber()
+    {
+        return streetNumber;
+    }
+    public void setStreetNumber(String streetNumber)
+    {
+        this.streetNumber = streetNumber;
+    }
+    public String getZip()
+    {
+        return zip;
+    }
+    public void setZip(String zip)
+    {
+        this.zip = zip;
+    }
+    public String getCity()
+    {
+        return city;
+    }
+    public void setCity(String city)
+    {
+        this.city = city;
+    }
+    public HashMap<String, String> getInterests()
+    {
+        return interests;
+    }
+    public void setInterests(HashMap<String, String> interests)
+    {
+        this.interests = interests;
+    }
+    public Date getTimestamp()
+    {
+        return timestamp;
+    }
+    public void setTimestamp(Date timestamp)
+    {
+        this.timestamp = timestamp;
+    }
+    public Teacher getTeacher()
+    {
+        return teacher;
+    }
+    public void setTeacher(Teacher teacher)
+    {
+        this.teacher = teacher;
+    }
+    public Event getEvent()
+    {
+        return event;
+    }
+    public void setEvent(Event event)
+    {
+        this.event = event;
+    }
+    public boolean isNew()
+    {
+        return isNew;
+    }
+    public void setNew(boolean isNew)
+    {
+        this.isNew = isNew;
+    }
 }
