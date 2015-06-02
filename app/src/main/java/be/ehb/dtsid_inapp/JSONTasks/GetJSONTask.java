@@ -1,5 +1,7 @@
 package be.ehb.dtsid_inapp.JSONTasks;
 
+import android.app.Activity;
+import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -14,12 +16,15 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
+import java.nio.charset.Charset;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import be.ehb.dtsid_inapp.Database.DatabaseContract;
 import be.ehb.dtsid_inapp.Models.Event;
+import be.ehb.dtsid_inapp.Models.Image;
 import be.ehb.dtsid_inapp.Models.School;
 import be.ehb.dtsid_inapp.Models.Subscription;
 import be.ehb.dtsid_inapp.Models.Teacher;
@@ -30,6 +35,11 @@ import be.ehb.dtsid_inapp.Models.DataDAO;
 
 public class GetJSONTask extends AsyncTask<String, Integer, Void>
 {
+    private DatabaseContract dbc;
+    public GetJSONTask(Context c){
+        dbc = new DatabaseContract(c);
+    }
+
     @Override
     protected Void doInBackground(String... params)
     {
@@ -68,10 +78,10 @@ public class GetJSONTask extends AsyncTask<String, Integer, Void>
                     JSONObject o = eventsArray.getJSONObject(i);
                     Event temp = new Event(o.getLong(JSON_LONG_ID), o.getString(JSON_STRING_NAME),
                             o.getInt(JSON_INT_ACADYEAR));
-                    //eventList.add(temp);
+                    eventList.add(temp);
                 }
 
-                //DAO.addEventList(eventList);
+                dbc.setAllEvents(eventList);
             }
             else if (params[0].contains(ALL_SCHOOLS))
             {
@@ -88,8 +98,7 @@ public class GetJSONTask extends AsyncTask<String, Integer, Void>
                     Log.d("TEST", temp.getName() + temp.getZip() + temp.getCity());
                 }
                 //DAO.addSchoolList(schoolList);
-                DataDAO.getDAOInstance().setSchools(schoolList);
-                Log.d("DATADAO", DataDAO.getDAOInstance().getAllSchools().toString());
+                dbc.setAllSchools(schoolList);
             }
             else if (params[0].contains(ALL_SUBSCRIPTIONS)){
                 JSONObject rawSubs = new JSONObject(jsonString);
@@ -110,19 +119,32 @@ public class GetJSONTask extends AsyncTask<String, Integer, Void>
                     Subscription temp = new Subscription(o.getString(JSON_STRING_FIRSTNAME),
                             o.getString(JSON_STRING_LASTNAME), o.get(JSON_STRING_EMAIL),
                             o.get(JSON_STRING_STREET), o.getString(JSON_STRING_STREETNUMBER),
-                            o.get(JSON_STRING_ZIP), o.get(JSON_STRING_CITY), tempInterests,
+                            o.get(JSON_STRING_ZIP), o.get(JSON_STRING_CITY),
+                            Boolean.getBoolean(oInterests.getString(JSON_STRING_DIGX)),
+                            Boolean.getBoolean(oInterests.getString(JSON_STRING_MULTEC)),
+                            Boolean.getBoolean(oInterests.getString(JSON_STRING_WERKSTUDENT)),
                             Date.valueOf(String.valueOf(o.getLong(JSON_LONG_TIMESTAMP))),
-                            DataDAO.getDAOInstance().getTeacherByID(oTeacher.getLong(JSON_LONG_ID)),
-                            DataDAO.getDAOInstance().getEventByID(oEvent.getLong(JSON_LONG_ID)),
+                            dbc.getTeacherByID(oTeacher.getLong(JSON_LONG_ID)),
+                            dbc.getEventByID(oEvent.getLong(JSON_LONG_ID)),
                             o.getBoolean(JSON_BOOL_NEW),
-                            DataDAO.getDAOInstance().getSchoolById(oSchool.getLong(JSON_LONG_ID)));
+                            dbc.getSchoolById(oSchool.getLong(JSON_LONG_ID)));
                     subsList.add(temp);
-                    //Log.d("JSON TEST", o.getString(JSON_STRING_FIRSTNAME) + oTeacher.getLong(JSON_LONG_ID));
                 }
-                DataDAO.getDAOInstance().setSubscriptions(subsList);
+                //DataDAO.getDAOInstance().setSubscriptions(subsList);
             }
             else if (params[0].contains(ALL_IMAGES)){
+                JSONObject rawImages = new JSONObject(jsonString);
+                JSONArray imagesArray = rawImages.getJSONArray(JSON_NAME_IMAGES);
+                ArrayList<Image> imageList = new ArrayList<>();
 
+                for (int i = 0; i < imagesArray.length(); i++){
+                    JSONObject o = imagesArray.getJSONObject(i);
+                    byte[] tempByteArray = o.getString(JSON_NAME_IMAGE).getBytes(Charset.forName("UTF-8"));
+                    Image temp = new Image(o.getLong(JSON_LONG_ID), o.getInt(JSON_INT_PRIORITY),
+                            tempByteArray);
+                    imageList.add(temp);
+                }
+                //DataDAO.getDAOInstance().setImages(imageList);
             }
         } catch (MalformedURLException e) {
             e.printStackTrace();

@@ -48,10 +48,13 @@ public class JSONContract
     public static final String JSON_NAME_TEACHERS = "teachers";
     public static final String JSON_NAME_SCHOOLS = "schools";
     public static final String JSON_NAME_SUBSCRIPTIONS = "subscriptions";
+    public static final String JSON_NAME_IMAGES = "images";
+
     public static final String JSON_NAME_INTERESTS = "interests";
     public static final String JSON_NAME_TEACHER = "teacher";
     public static final String JSON_NAME_EVENT = "event";
     public static final String JSON_NAME_SCHOOL = "school";
+    public static final String JSON_NAME_IMAGE = "image";
 
 
     public static final String JSON_STRING_NAME = "name";
@@ -71,6 +74,7 @@ public class JSONContract
     public static final String JSON_LONG_TIMESTAMP = "timestamp";
     public static final String JSON_LONG_ID = "id";
     public static final String JSON_BOOL_NEW = "new";
+    public static final String JSON_INT_PRIORITY = "priority";
 
     //POST request
     public static final String POST_SUBSCRIPTION = "/rest/subscription";
