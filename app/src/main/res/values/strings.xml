@@ -29,4 +29,12 @@
     <string name="txt_tv_datum_laatste_synchronisatie" />
     <string name="txt_btn_sync">Sync</string>
     <string name="txt_btn_bevestigen_launchscreen">Bevestigen</string>
+    <string name="txt_label_email_subscription1">E-mailadres</string>
+    <string name="txt_label_naam_subscription1">Naam</string>
+    <string name="txt_label_voornaam_subscription1">Voornaam</string>
+    <string name="txt_label_straat_subscription1">Straat</string>
+    <string name="txt_nr_subscription1">Nr</string>
+    <string name="txt_label_postcode_subscription1">Postcode</string>
+    <string name="txt_label_gemeente_subscription1">Gemeente</string>
+    <string name="txt_label_huisnummer_subscription1">Huisnummer</string>
 </resources>

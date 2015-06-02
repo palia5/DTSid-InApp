@@ -5,11 +5,12 @@
 
     <ImageView
         android:layout_width="350dp"
-        android:layout_height="75dp"
+        android:layout_height="65dp"
         android:id="@+id/iv_logo_ehb_2"
         android:src="@drawable/logo_ehb"
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="5dp" />
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="15dp" />
 </RelativeLayout>
