@@ -13,11 +13,11 @@ import be.ehb.dtsid_inapp.Models.Subscription;
  */
 public class DatabaseContract {
 
-    private MySQLiteHelper_2 dbHelper;
+    private MySQLiteHelper dbHelper;
     private SQLiteDatabase db;
 
     public DatabaseContract(Context context) {
-        this.dbHelper = new MySQLiteHelper_2(context);
+        this.dbHelper = new MySQLiteHelper(context);
         db = dbHelper.getWritableDatabase();
     }
 
