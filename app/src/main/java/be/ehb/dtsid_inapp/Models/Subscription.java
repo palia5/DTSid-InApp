@@ -192,7 +192,7 @@ public class Subscription
     {
         this.event = event;
     }
-    public boolean isNew()
+    public boolean getNew()
     {
         return isNew;
     }
