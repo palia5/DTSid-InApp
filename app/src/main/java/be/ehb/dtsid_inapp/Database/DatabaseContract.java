@@ -24,7 +24,6 @@ import be.ehb.dtsid_inapp.Models.Teacher;
 public class DatabaseContract {
 
     //Variables
-    private MySQLiteHelper dbHelper;
     private SQLiteDatabase db;
 
     //Constructor
@@ -39,6 +38,7 @@ public class DatabaseContract {
     {
         DatabaseManager.getInstance().closeDatabase();
     }
+
     public void createSubscription(Subscription newSub)
     {
         ContentValues values = new ContentValues();
