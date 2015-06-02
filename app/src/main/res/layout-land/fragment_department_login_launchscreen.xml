@@ -4,35 +4,36 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="be.ehb.dtsid_inapp.TeacherFragments.TeacherLogin">
+    tools:context="be.ehb.dtsid_inapp.TeacherFragments.DepartmentLogin"
+    android:id="@+id/launchcontainer">
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Login"
-        android:id="@+id/btn_teacher_login"
+        android:text="@string/txt_btn_bevestigen_launchscreen"
+        android:id="@+id/btn_department_login"
         android:onClick="goToOtherFragment"
-        android:textSize="32sp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="146dp" />
+        android:layout_marginBottom="150dp"
+        android:textSize="32sp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/txt_label_docent_loginscreen"
-        android:id="@+id/tv_label_docent_loginscreen"
-        android:layout_marginLeft="250dp"
+        android:text="@string/txt_label_department_launchscreen"
+        android:id="@+id/tv_label_department_launchscreen"
         android:layout_marginTop="200dp"
-        android:textSize="32sp" />
+        android:textSize="32sp"
+        android:layout_marginLeft="250dp" />
 
     <Spinner
         android:layout_width="500dp"
         android:layout_height="wrap_content"
-        android:id="@+id/sp_docent_list"
+        android:id="@+id/sp_department_list"
         android:spinnerMode="dropdown"
-        android:layout_alignBottom="@+id/tv_label_docent_loginscreen"
+        android:layout_alignTop="@+id/tv_label_department_launchscreen"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_marginRight="250dp" />
@@ -41,20 +42,22 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/txt_label_event_loginscreen"
-        android:id="@+id/tv_label_evenement_loginscreen"
+        android:text="@string/txt_label_code_launchscreen_landscape"
+        android:id="@+id/tv_label_code_launchscreen_landscape"
         android:layout_centerVertical="true"
-        android:layout_alignLeft="@+id/tv_label_docent_loginscreen"
-        android:layout_alignStart="@+id/tv_label_docent_loginscreen"
+        android:layout_alignLeft="@+id/tv_label_department_launchscreen"
+        android:layout_alignStart="@+id/tv_label_department_launchscreen"
         android:textSize="32sp" />
 
-    <Spinner
+    <EditText
         android:layout_width="500dp"
         android:layout_height="wrap_content"
-        android:id="@+id/sp_evenement_list"
-        android:spinnerMode="dropdown"
-        android:layout_alignTop="@+id/tv_label_evenement_loginscreen"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginRight="250dp" />
+        android:inputType="number"
+        android:ems="10"
+        android:id="@+id/et_code_launchscreen"
+        android:layout_centerVertical="true"
+        android:layout_alignRight="@+id/sp_department_list"
+        android:layout_alignEnd="@+id/sp_department_list"
+        android:textSize="32sp" />
+
 </RelativeLayout>
