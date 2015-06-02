@@ -18,9 +18,7 @@ import be.ehb.dtsid_inapp.Models.School;
 import be.ehb.dtsid_inapp.Models.Subscription;
 import be.ehb.dtsid_inapp.Models.Teacher;
 
-/**
- * Created by Kristof on 1/06/2015.
- */
+
 public class DatabaseContract {
 
     private MySQLiteHelper dbHelper;
