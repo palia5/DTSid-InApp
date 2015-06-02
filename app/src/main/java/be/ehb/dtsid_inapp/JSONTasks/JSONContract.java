@@ -1,5 +1,7 @@
 package be.ehb.dtsid_inapp.JSONTasks;
 
+import android.widget.ImageView;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
@@ -41,14 +43,34 @@ public class JSONContract
     public static final String ALL_SUBSCRIPTIONS = "/rest/subscriptions";
     public static final String ALL_IMAGES = "/rest/images";
 
+
     public static final String JSON_NAME_EVENTS = "events";
     public static final String JSON_NAME_TEACHERS = "teachers";
     public static final String JSON_NAME_SCHOOLS = "schools";
+    public static final String JSON_NAME_SUBSCRIPTIONS = "subscriptions";
+    public static final String JSON_NAME_INTERESTS = "interests";
+    public static final String JSON_NAME_TEACHER = "teacher";
+    public static final String JSON_NAME_EVENT = "event";
+    public static final String JSON_NAME_SCHOOL = "school";
+
 
     public static final String JSON_STRING_NAME = "name";
     public static final String JSON_INT_ACADYEAR = "acadyear";
     public static final String JSON_STRING_GEMEENTE = "gemeente";
     public static final String JSON_STRING_POSTCODE = "postcode";
+    public static final String JSON_STRING_FIRSTNAME = "firstName";
+    public static final String JSON_STRING_LASTNAME = "lastName";
+    public static final String JSON_STRING_EMAIL = "email";
+    public static final String JSON_STRING_STREET = "street";
+    public static final String JSON_STRING_STREETNUMBER = "streetNumber";
+    public static final String JSON_STRING_ZIP = "zip";
+    public static final String JSON_STRING_CITY = "city";
+    public static final String JSON_STRING_DIGX = "digx";
+    public static final String JSON_STRING_MULTEC = "multec";
+    public static final String JSON_STRING_WERKSTUDENT = "werkstudent";
+    public static final String JSON_LONG_TIMESTAMP = "timestamp";
+    public static final String JSON_LONG_ID = "id";
+    public static final String JSON_BOOL_NEW = "new";
 
     //POST request
     public static final String POST_SUBSCRIPTION = "/rest/subscription";

@@ -30,7 +30,7 @@ public class TeacherActivity extends AppCompatActivity
                 .beginTransaction()
                 .replace(R.id.teacherContainer, new DepartmentLogin())
                 .commit();
-        String url = BASEURL + ALL_SCHOOLS;
+        String url = BASEURL + ALL_SUBSCRIPTIONS;
         GetJSONTask jsonTask = new GetJSONTask();
         jsonTask.execute(url);
     }

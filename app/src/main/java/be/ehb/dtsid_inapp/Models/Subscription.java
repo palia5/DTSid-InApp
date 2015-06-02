@@ -14,7 +14,7 @@ public class Subscription
     private String streetNumber;
     private String zip;
     private String city;
-    private HashMap<String,String> interests;
+    private HashMap<String, String> interests;
     private Boolean digx;
     private Boolean multec;
     private Boolean werkstudent;
