@@ -6,12 +6,12 @@
     tools:context="be.ehb.dtsid_inapp.StudentFragments.StudentRegistration">
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/imageView"
+        android:layout_width="350dp"
+        android:layout_height="75dp"
+        android:id="@+id/iv_logo_ehb"
+        android:src="@drawable/logo_ehb"
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="20dp"
-        android:layout_marginRight="20dp" />
+        android:layout_marginTop="5dp" />
 </RelativeLayout>

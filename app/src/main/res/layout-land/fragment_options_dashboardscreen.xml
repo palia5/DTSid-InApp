@@ -1,0 +1,166 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    tools:context="be.ehb.dtsid_inapp.TeacherFragments.Options">
+
+    <TextView
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="@string/txt_label_departement_dashboard"
+        android:id="@+id/tv_label_departement_dashboard"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="25dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="50dp" />
+
+    <TextView
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:id="@+id/tv_gekozen_departement_dashboard"
+        android:text="@string/txt_gekozen_departement_dashboard"
+        android:layout_below="@+id/tv_label_departement_dashboard"
+        android:layout_alignLeft="@+id/tv_label_departement_dashboard"
+        android:layout_alignStart="@+id/tv_label_departement_dashboard" />
+
+    <TextView
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="@string/txt_label_medewerker_dashboard"
+        android:id="@+id/tv_label_medewerker_dashboard"
+        android:layout_alignParentTop="true"
+        android:layout_alignLeft="@+id/tv_gekozen_departement_dashboard"
+        android:layout_alignStart="@+id/tv_gekozen_departement_dashboard"
+        android:layout_marginTop="100dp" />
+
+    <TextView
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="@string/txt_gekozenmedewerker_dashboard"
+        android:id="@+id/tv_gekozen_medewerker_dashboard"
+        android:layout_below="@+id/tv_label_medewerker_dashboard"
+        android:layout_alignLeft="@+id/tv_label_medewerker_dashboard"
+        android:layout_alignStart="@+id/tv_label_medewerker_dashboard" />
+
+    <TextView
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="@string/txt_label_evenement_dashboard"
+        android:id="@+id/tv_label_evenement_dashboard"
+        android:layout_alignParentTop="true"
+        android:layout_alignLeft="@+id/tv_gekozen_medewerker_dashboard"
+        android:layout_alignStart="@+id/tv_gekozen_medewerker_dashboard"
+        android:layout_marginTop="150dp" />
+
+    <TextView
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="@string/txt_gekozenevenement_dashboard"
+        android:id="@+id/tv_gekozen_evenement_dashboard"
+        android:layout_below="@+id/tv_label_evenement_dashboard"
+        android:layout_alignLeft="@+id/tv_label_evenement_dashboard"
+        android:layout_alignStart="@+id/tv_label_evenement_dashboard" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="@string/txt_label_studentteller_dashboard"
+        android:id="@+id/tv_studentteller_dashboard"
+        android:layout_below="@+id/tv_gekozen_evenement_dashboard"
+        android:layout_alignLeft="@+id/tv_gekozen_evenement_dashboard"
+        android:layout_alignStart="@+id/tv_gekozen_evenement_dashboard"
+        android:layout_marginTop="45dp" />
+
+    <TextView
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/txt_aantalstudenten_dashboard"
+        android:id="@+id/tv_aantalstudenten"
+        android:layout_below="@+id/tv_studentteller_dashboard"
+        android:layout_alignLeft="@+id/tv_studentteller_dashboard"
+        android:layout_alignStart="@+id/tv_studentteller_dashboard" />
+
+    <Button
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:text="@string/txt_btn_student_registreren"
+        android:id="@+id/btn_student_registreren"
+        android:layout_marginLeft="225dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="false"
+        android:layout_marginTop="50dp" />
+
+    <Button
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:text="@string/txt_btn_lijst"
+        android:id="@+id/btn_lijst"
+        android:layout_alignTop="@+id/btn_student_registreren"
+        android:layout_alignLeft="@+id/tv_datum_laatste_synchronisatie"
+        android:layout_alignStart="@+id/tv_datum_laatste_synchronisatie"
+        android:layout_marginLeft="50dp"
+        android:layout_marginStart="50dp" />
+
+    <Button
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:text="@string/txt_btn_regios"
+        android:id="@+id/btn_regios"
+        android:layout_alignTop="@+id/tv_label_evenement_dashboard"
+        android:layout_alignLeft="@+id/btn_student_registreren"
+        android:layout_alignStart="@+id/btn_student_registreren" />
+
+    <Button
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:text="@string/txt_btn_opties"
+        android:id="@+id/btn_opties"
+        android:layout_alignBottom="@+id/btn_regios"
+        android:layout_alignRight="@+id/btn_lijst"
+        android:layout_alignEnd="@+id/btn_lijst" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="@string/txt_label_laatste_synchronisatie"
+        android:id="@+id/tv_laatste_synchronisatie"
+        android:textSize="12dp"
+        android:layout_alignBottom="@+id/tv_aantalstudenten"
+        android:layout_alignLeft="@+id/btn_regios"
+        android:layout_alignStart="@+id/btn_regios" />
+
+    <TextView
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="@string/txt_tv_datum_laatste_synchronisatie"
+        android:id="@+id/tv_datum_laatste_synchronisatie"
+        android:textSize="12dp"
+        android:layout_alignTop="@+id/tv_laatste_synchronisatie"
+        android:layout_toRightOf="@+id/btn_regios" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/txt_btn_sync"
+        android:id="@+id/btn_sync_dashboard"
+        android:layout_alignBottom="@+id/tv_datum_laatste_synchronisatie"
+        android:layout_alignRight="@+id/btn_opties"
+        android:layout_alignEnd="@+id/btn_opties"
+        android:layout_alignTop="@+id/tv_aantalstudenten"
+        android:textSize="10dp" />
+
+</RelativeLayout>

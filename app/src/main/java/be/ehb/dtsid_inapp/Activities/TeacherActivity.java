@@ -46,7 +46,7 @@ public class TeacherActivity extends AppCompatActivity
                     .commit();
         }
 
-        else if(goToButton.getId() == R.id.btn_goto_studentactivity)
+        else if(goToButton.getId() == R.id.btn_student_registreren)
         {
             Intent studentIntent = new Intent(getApplicationContext(), StudentActivity.class);
             startActivity(studentIntent);

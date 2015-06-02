@@ -28,4 +28,5 @@
     <string name="txt_label_laatste_synchronisatie">Laatst gesynchroniseerd op</string>
     <string name="txt_tv_datum_laatste_synchronisatie" />
     <string name="txt_btn_sync">Sync</string>
+    <string name="txt_btn_bevestigen_launchscreen">Bevestigen</string>
 </resources>

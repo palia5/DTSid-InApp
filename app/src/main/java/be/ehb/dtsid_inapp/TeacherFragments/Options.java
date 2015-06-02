@@ -15,7 +15,7 @@ public class Options extends Fragment
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
-        View v = inflater.inflate(R.layout.fragment_options, null);
+        View v = inflater.inflate(R.layout.fragment_options_dashboardscreen, null);
 
         return v;
     }
