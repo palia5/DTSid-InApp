@@ -1,8 +1,5 @@
 package be.ehb.dtsid_inapp.Models;
 
-/**
- * Created by tomna_000 on 02/06/2015.
- */
 public class Image {
 
     private Long id;

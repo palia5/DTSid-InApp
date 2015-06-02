@@ -15,6 +15,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
+import java.net.UnknownHostException;
 import java.nio.charset.Charset;
 import java.sql.Date;
 import java.util.ArrayList;
@@ -60,8 +61,10 @@ public class GetJSONTask extends AsyncTask<String, Integer, Void>
                     JSONObject o = teachersArray.getJSONObject(i);
                     Teacher temp = new Teacher(o.getLong(JSON_LONG_ID),
                             o.getString(JSON_STRING_NAME), o.getInt(JSON_INT_ACADYEAR));
-                    //teacherList.add(temp);
+                    teacherList.add(temp);
                 }
+
+                dbc.setAllTeachers(teacherList);
             }
             else if (params[0].contains(ALL_EVENTS))
             {
@@ -91,11 +94,10 @@ public class GetJSONTask extends AsyncTask<String, Integer, Void>
                     School temp = new School(o.getLong(JSON_LONG_ID), o.getString(JSON_STRING_NAME),
                             o.getString(JSON_STRING_GEMEENTE), o.getInt(JSON_STRING_POSTCODE));
                     schoolList.add(temp);
-                    Log.d("TEST", temp.getName() + temp.getZip() + temp.getCity());
                 }
-                //DAO.addSchoolList(schoolList);
+
                 dbc.setAllSchools(schoolList);
-            }
+            }/*
             else if (params[0].contains(ALL_SUBSCRIPTIONS)){
                 JSONObject rawSubs = new JSONObject(jsonString);
                 JSONArray subsArray = rawSubs.getJSONArray(JSON_NAME_SUBSCRIPTIONS);
@@ -122,8 +124,9 @@ public class GetJSONTask extends AsyncTask<String, Integer, Void>
                             dbc.getSchoolByID(oSchool.getLong(JSON_LONG_ID)));
                     subsList.add(temp);
                 }
-                //DataDAO.getDAOInstance().setSubscriptions(subsList);
-            }
+
+                dbc.setAllSubscriptions(subsList);
+            }*/
             else if (params[0].contains(ALL_IMAGES)){
                 JSONObject rawImages = new JSONObject(jsonString);
                 JSONArray imagesArray = rawImages.getJSONArray(JSON_NAME_IMAGES);
@@ -136,15 +139,20 @@ public class GetJSONTask extends AsyncTask<String, Integer, Void>
                             tempByteArray);
                     imageList.add(temp);
                 }
-                //DataDAO.getDAOInstance().setImages(imageList);
+
+                //dbc.setAllImages(imageList);
             }
-        } catch (MalformedURLException e) {
+        }
+        catch (MalformedURLException | ProtocolException | JSONException e)
+        {
             e.printStackTrace();
-        } catch (ProtocolException e) {
-            e.printStackTrace();
-        } catch (JSONException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
+        }
+        catch (UnknownHostException e)
+        {
+            Log.d("NO INTERNET", "THERE IS NO INTERNET");
+        }
+        catch (IOException e)
+        {
             e.printStackTrace();
         }
 
