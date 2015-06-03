@@ -9,6 +9,7 @@ import android.widget.Button;
 import be.ehb.dtsid_inapp.Database.DatabaseContract;
 import be.ehb.dtsid_inapp.JSONTasks.GetJSONTask;
 import be.ehb.dtsid_inapp.R;
+import be.ehb.dtsid_inapp.StudentFragments.StudentRegistration;
 import be.ehb.dtsid_inapp.TeacherFragments.DepartmentLogin;
 import be.ehb.dtsid_inapp.TeacherFragments.Options;
 import be.ehb.dtsid_inapp.TeacherFragments.TeacherLogin;
@@ -100,6 +101,9 @@ public class TeacherActivity extends AppCompatActivity
                     .beginTransaction()
                     .replace(R.id.teacherContainer, new Options())
                     .commit();
+        }
+        else if(goToButton.getId() == R.id.btn_student_registreren){
+            getFragmentManager().beginTransaction().replace(R.id.teacherContainer, new StudentRegistration()).commit();
         }
 
        /* else if(goToButton.getId() == R.id.btn_goto_studentactivity)
