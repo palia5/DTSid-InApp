@@ -65,29 +65,32 @@ public class TeacherActivity extends AppCompatActivity
         }
 
         for(int i = 0 ; i < dbc.getAllSchools().size() ; i++)
-            Log.d("SCHOOL",dbc.getAllSchools().get(i).getName());
+            Log.d("SCHOOLS",dbc.getAllSchools().get(i).getName());
 
         for(int i = 0 ; i < dbc.getAllEvents().size() ; i++)
-            Log.d("EVENT",dbc.getAllEvents().get(i).getName());
+            Log.d("EVENTS",dbc.getAllEvents().get(i).getName());
 
         for(int i = 0 ; i < dbc.getAllTeachers().size() ; i++)
-            Log.d("TEACHER",dbc.getAllTeachers().get(i).getName());
+            Log.d("TEACHERS",dbc.getAllTeachers().get(i).getName());
 
         for(int i = 0 ; i < dbc.getAllSubscriptions().size() ; i++)
-            Log.d("SUBSCRIPTION",dbc.getAllSubscriptions().get(i).getFirstName() + " " + dbc.getAllSubscriptions().get(i).getLastName());
+            Log.d("SUBSCRIPTIONS",dbc.getAllSubscriptions().get(i).getFirstName() + " " + dbc.getAllSubscriptions().get(i).getLastName());
 
         //Start first fragment
         getFragmentManager()
                 .beginTransaction()
                 .replace(R.id.teacherContainer, new DepartmentLogin())
                 .commit();
+
+        //Close database
+        dbc.close();
     }
 
     public void goToOtherFragment(View v)
     {
         Button goToButton = (Button) v;
 
-        if(goToButton.getId() == R.id.btn_department_login)
+        if(goToButton.getId() == R.id.btn_bevestigen_launchscreen)
         {
             getFragmentManager()
                     .beginTransaction()
@@ -95,7 +98,7 @@ public class TeacherActivity extends AppCompatActivity
                     .commit();
         }
 
-        else if(goToButton.getId() == R.id.btn_teacher_login)
+        else if(goToButton.getId() == R.id.btn_login_loginscreen)
         {
             getFragmentManager()
                     .beginTransaction()

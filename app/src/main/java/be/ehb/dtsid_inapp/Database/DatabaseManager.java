@@ -5,6 +5,8 @@ import android.database.sqlite.SQLiteDatabase;
 
 public class DatabaseManager
 {
+    private int mOpenCounter;
+
     private static DatabaseManager instance;
     private static MySQLiteHelper dbHelper;
     private SQLiteDatabase db;
@@ -15,6 +17,8 @@ public class DatabaseManager
         {
             instance = new DatabaseManager();
             dbHelper = new MySQLiteHelper(context);
+
+            instance.mOpenCounter = 0;
         }
     }
 
@@ -28,14 +32,21 @@ public class DatabaseManager
 
     public synchronized SQLiteDatabase openDatabase()
     {
-        db = dbHelper.getWritableDatabase();
-
+        mOpenCounter++;
+        if(mOpenCounter == 1)
+        {
+            db = dbHelper.getWritableDatabase();
+        }
         return db;
     }
 
     public synchronized void closeDatabase()
     {
-        dbHelper.close();
-        db.close();
+        mOpenCounter--;
+        if(mOpenCounter == 0)
+        {
+            dbHelper.close();
+            db.close();
+        }
     }
 }
