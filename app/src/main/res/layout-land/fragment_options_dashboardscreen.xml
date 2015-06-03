@@ -104,7 +104,7 @@
         android:layout_marginTop="175dp"
         android:layout_marginRight="550dp"
         android:textSize="24sp"
-        android:onClick="goToOtherFragment" />
+        android:onClick="goToNextFragment" />
 
     <Button
         android:layout_width="200dp"

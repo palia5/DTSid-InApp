@@ -41,6 +41,8 @@ public class Options extends Fragment
         aantalStudentenTV = (TextView) v.findViewById(R.id.tv_aantalstudenten);
         laatsteSyncTV = (TextView) v.findViewById(R.id.tv_datum_laatste_synchronisatie);
 
+
+
         return v;
     }
 }
