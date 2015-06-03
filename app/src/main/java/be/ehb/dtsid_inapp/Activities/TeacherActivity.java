@@ -1,5 +1,6 @@
 package be.ehb.dtsid_inapp.Activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -105,14 +106,11 @@ public class TeacherActivity extends AppCompatActivity
                     .replace(R.id.teacherContainer, new Options())
                     .commit();
         }
-        else if(goToButton.getId() == R.id.btn_student_registreren){
-            getFragmentManager().beginTransaction().replace(R.id.teacherContainer, new StudentRegistration()).commit();
-        }
 
-       /* else if(goToButton.getId() == R.id.btn_goto_studentactivity)
+        else if(goToButton.getId() == R.id.btn_student_registreren)
         {
             Intent studentIntent = new Intent(getApplicationContext(), StudentActivity.class);
             startActivity(studentIntent);
-        }*/
+        }
     }
 }
