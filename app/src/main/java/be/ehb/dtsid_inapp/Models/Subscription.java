@@ -1,7 +1,6 @@
 package be.ehb.dtsid_inapp.Models;
 
 import java.util.Date;
-import java.util.HashMap;
 
 public class Subscription
 {

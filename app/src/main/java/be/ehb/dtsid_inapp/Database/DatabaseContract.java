@@ -7,7 +7,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
-import java.sql.Blob;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -20,9 +19,8 @@ import be.ehb.dtsid_inapp.Models.School;
 import be.ehb.dtsid_inapp.Models.Subscription;
 import be.ehb.dtsid_inapp.Models.Teacher;
 
-
-public class DatabaseContract {
-
+public class DatabaseContract
+{
     //Variables
     private SQLiteDatabase db;
 
@@ -76,10 +74,11 @@ public class DatabaseContract {
                 null,
                 null);
 
+        c.moveToFirst();
+
         tempTeacher = cursorToTeacher(c);
 
         c.close();
-        
         return tempTeacher;
     }
     public List<Teacher> getAllTeachers()
@@ -121,7 +120,10 @@ public class DatabaseContract {
                 null,
                 null);
 
+        c.moveToFirst();
+
         tempEvent = cursorToEvent(c);
+
         c.close();
         return tempEvent;
     }
@@ -164,8 +166,11 @@ public class DatabaseContract {
                 null,
                 null
                 );
+        c.moveToFirst();
 
         tempSchool = cursorToSchool(c);
+
+        c.close();
         return tempSchool;
     }
     public List<School> getAllSchools()
@@ -193,6 +198,70 @@ public class DatabaseContract {
         c.close();
         return schools;
     }
+    public Subscription getSubscriptionByID(int id)
+    {
+        Subscription tempSubscription;
+
+        Cursor c = db.query(false,
+                MySQLiteHelper.TABLE_SUBSCRIPTIONS,
+                MySQLiteHelper.ALL_COLUMNS_SUBSCRIPTION,
+                MySQLiteHelper.COL_SUBSCRIPTIONS_ID + " = " + id,
+                null,
+                null,
+                null,
+                null,
+                null
+        );
+
+        c.moveToFirst();
+
+        try
+        {
+            tempSubscription = cursorToSubscription(c);
+
+            c.close();
+            return tempSubscription;
+        }
+        catch (ParseException e)
+        {
+            e.printStackTrace();
+
+            c.close();
+            return null;
+        }
+    }
+    public List<Subscription> getAllSubscriptions()
+    {
+        List<Subscription> subscriptions = new ArrayList<>();
+
+        Cursor c = db.query(false,
+                MySQLiteHelper.TABLE_SUBSCRIPTIONS,
+                MySQLiteHelper.ALL_COLUMNS_SUBSCRIPTION,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null);
+
+        c.moveToFirst();
+
+        while(!c.isAfterLast())
+        {
+            try
+            {
+                subscriptions.add(cursorToSubscription(c));
+            }
+            catch (ParseException e)
+            {
+                e.printStackTrace();
+            }
+            c.moveToNext();
+        }
+
+        c.close();
+        return subscriptions;
+    }
 
     //Setters
     public void setAllEvents(List<Event> events)
@@ -201,6 +270,7 @@ public class DatabaseContract {
 
         for(int i = 0 ; i < events.size() ; i++)
         {
+            values.put(MySQLiteHelper.COL_EVENTS_ID, events.get(i).getId());
             values.put(MySQLiteHelper.COL_EVENTS_NAME, events.get(i).getName());
             values.put(MySQLiteHelper.COL_EVENTS_ACADYEAR, events.get(i).getAcadyear());
 
@@ -213,6 +283,7 @@ public class DatabaseContract {
 
         for(int i = 0 ; i < schools.size() ; i++)
         {
+            values.put(MySQLiteHelper.COL_SCHOOLS_ID, schools.get(i).getId());
             values.put(MySQLiteHelper.COL_SCHOOLS_NAME, schools.get(i).getName());
             values.put(MySQLiteHelper.COL_SCHOOLS_ZIP, schools.get(i).getZip());
             values.put(MySQLiteHelper.COL_SCHOOLS_CITY, schools.get(i).getCity());
@@ -236,7 +307,7 @@ public class DatabaseContract {
             values.put(MySQLiteHelper.COL_SUBSCRIPTIONS_DIGX, subscriptions.get(i).getDigx());
             values.put(MySQLiteHelper.COL_SUBSCRIPTIONS_MULTEC, subscriptions.get(i).getMultec());
             values.put(MySQLiteHelper.COL_SUBSCRIPTIONS_WERKSTUDENT, subscriptions.get(i).getWerkstudent());
-            values.put(MySQLiteHelper.COL_SUBSCRIPTIONS_TIMESTAMP, subscriptions.get(i).getTimestamp().toString());
+            values.put(MySQLiteHelper.COL_SUBSCRIPTIONS_TIMESTAMP, subscriptions.get(i).getTimestamp().getTime());
             values.put(MySQLiteHelper.COL_SUBSCRIPTIONS_TEACHER, subscriptions.get(i).getTeacher().getId());
             values.put(MySQLiteHelper.COL_SUBSCRIPTIONS_EVENT, subscriptions.get(i).getEvent().getId());
             values.put(MySQLiteHelper.COL_SUBSCRIPTIONS_ISNEW, subscriptions.get(i).getNew());
@@ -251,6 +322,7 @@ public class DatabaseContract {
 
         for(int i = 0 ; i < teachers.size() ; i++)
         {
+            values.put(MySQLiteHelper.COL_TEACHERS_ID, teachers.get(i).getId());
             values.put(MySQLiteHelper.COL_TEACHERS_NAME, teachers.get(i).getName());
             values.put(MySQLiteHelper.COL_TEACHERS_ACADYEAR, teachers.get(i).getAcadyear());
 
@@ -269,7 +341,6 @@ public class DatabaseContract {
 
         return temp;
     }
-
     private Event cursorToEvent(Cursor c)
     {
         Event temp = new Event();
@@ -280,7 +351,6 @@ public class DatabaseContract {
 
         return temp;
     }
-
     private School cursorToSchool(Cursor c)
     {
         School temp = new School();
@@ -292,7 +362,6 @@ public class DatabaseContract {
 
         return temp;
     }
-
     private Bitmap cursorToImage(Cursor c)
     {
         byte[] data = c.getBlob(c.getColumnIndex(MySQLiteHelper.COL_IMAGES_IMAGE));
@@ -301,8 +370,8 @@ public class DatabaseContract {
 
         return temp;
     }
-
-    private Subscription cursorToSubscription(Cursor c) throws ParseException {
+    private Subscription cursorToSubscription(Cursor c) throws ParseException
+    {
         Subscription temp = new Subscription();
 
         temp.setId(c.getLong(c.getColumnIndex(MySQLiteHelper.COL_SUBSCRIPTIONS_ID)));
@@ -317,10 +386,10 @@ public class DatabaseContract {
         temp.setMultec(Boolean.parseBoolean(c.getString(c.getColumnIndex(MySQLiteHelper.COL_SUBSCRIPTIONS_MULTEC))));
         temp.setWerkstudent(Boolean.parseBoolean(c.getString(c.getColumnIndex(MySQLiteHelper.COL_SUBSCRIPTIONS_WERKSTUDENT))));
 
-        String dateString = c.getString(c.getColumnIndex(MySQLiteHelper.COL_SUBSCRIPTIONS_STREET));
+        /*String dateString = c.getString(c.getColumnIndex(MySQLiteHelper.COL_SUBSCRIPTIONS_TIMESTAMP));
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/YYYY", Locale.getDefault());
-        Date dt = sdf.parse(dateString);
-        temp.setTimestamp(dt);
+        Date dt = sdf.parse(dateString);*/
+        temp.setTimestamp(new Date(c.getLong(c.getColumnIndex(MySQLiteHelper.COL_SUBSCRIPTIONS_TIMESTAMP))));
 
         Long teachID = c.getLong(c.getColumnIndex(MySQLiteHelper.COL_SUBSCRIPTIONS_TEACHER));
         Teacher tempTeacher = getTeacherByID(teachID);
@@ -338,5 +407,4 @@ public class DatabaseContract {
 
         return temp;
     }
-
 }
