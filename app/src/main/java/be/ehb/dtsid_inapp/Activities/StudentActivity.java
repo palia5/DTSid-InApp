@@ -32,11 +32,5 @@ public class StudentActivity extends AppCompatActivity {
                     .replace(R.id.teacherContainer, new Options())
                     .commit();
         } */
-        /*else if (goToButton.getId() == R.id.btn_student_registreren) {
-            getFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.teacherContainer, new StudentRegistration())
-                    .commit();
-        }*/
     }
 }
