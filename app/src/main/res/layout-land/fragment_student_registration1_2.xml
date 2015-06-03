@@ -1,20 +1,29 @@
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="be.ehb.dtsid_inapp.StudentFragments.StudentRegistration">
+    tools:context="be.ehb.dtsid_inapp.StudentFragments.StudentRegistration"
+    android:orientation="horizontal"
+    android:layout_centerVertical="true"
+    android:layout_centerHorizontal="true">
+
+<LinearLayout
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_weight="1">
 
     <ImageView
-        android:layout_width="500dp"
-        android:layout_height="150dp"
+        android:layout_width="250dp"
+        android:layout_height="100dp"
         android:id="@+id/imageView"
         android:src="@drawable/logo_ehb"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="45dp"
-        android:layout_marginLeft="30dp" />
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="40dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -25,12 +34,12 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:textSize="32sp"
-        android:layout_marginTop="250dp"
+        android:textSize="16sp"
+        android:layout_marginTop="15dp"
         android:layout_marginLeft="50dp" />
 
     <EditText
-        android:layout_width="500dp"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:inputType="textEmailAddress"
         android:ems="10"
@@ -38,7 +47,8 @@
         android:layout_below="@+id/tv_label_email_subscription1"
         android:layout_alignLeft="@+id/tv_label_email_subscription1"
         android:layout_alignStart="@+id/tv_label_email_subscription1"
-        android:layout_marginTop="10dp" />
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="50dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -46,21 +56,23 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/txt_label_naam_subscription1"
         android:id="@+id/tv_label_naam_subscription1"
-        android:textSize="32sp"
+        android:textSize="16sp"
         android:layout_below="@+id/et_email_subscription1"
         android:layout_alignLeft="@+id/et_email_subscription1"
         android:layout_alignStart="@+id/et_email_subscription1"
-        android:layout_marginTop="25dp" />
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="50dp" />
 
     <EditText
-        android:layout_width="500dp"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:inputType="textEmailAddress"
         android:ems="10"
         android:id="@+id/et_naam_subscription1"
         android:layout_below="@+id/tv_label_naam_subscription1"
         android:layout_alignLeft="@+id/et_email_subscription1"
-        android:layout_marginTop="10dp" />
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="50dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -68,36 +80,43 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/txt_label_voornaam_subscription1"
         android:id="@+id/tv_label_voornaam_subscription1"
-        android:textSize="32sp"
+        android:textSize="16sp"
         android:layout_below="@+id/et_naam_subscription1"
         android:layout_alignLeft="@+id/et_naam_subscription1"
         android:layout_alignStart="@+id/et_naam_subscription1"
-        android:layout_marginTop="25dp" />
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="50dp" />
 
     <EditText
-        android:layout_width="500dp"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:inputType="textEmailAddress"
         android:ems="10"
         android:id="@+id/et_voornaam_subscription1"
         android:layout_below="@+id/tv_label_voornaam_subscription1"
         android:layout_alignLeft="@+id/et_naam_subscription1"
-        android:layout_marginTop="10dp" />
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="50dp" />
+</LinearLayout>
 
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_weight="1">
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/txt_label_straat_subscription1"
         android:id="@+id/tv_label_straat_subscription1"
-        android:textSize="32sp"
-        android:layout_alignParentRight="true"
+        android:textSize="16sp"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="125dp"
-        android:layout_marginRight="465dp" />
+        android:layout_marginTop="50dp"
+        android:layout_marginLeft="50dp" />
 
     <EditText
-        android:layout_width="500dp"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:inputType="textEmailAddress"
         android:ems="10"
@@ -105,8 +124,8 @@
         android:layout_below="@+id/tv_label_straat_subscription1"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="50dp" />
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="50dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -114,13 +133,15 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/txt_label_huisnummer_subscription1"
         android:id="@+id/tv_label_huisnummer_subscription1"
-        android:textSize="32sp"
+        android:textSize="16sp"
         android:layout_above="@+id/et_email_subscription1"
         android:layout_alignLeft="@+id/et_huisnummer_subscription1"
-        android:layout_alignStart="@+id/et_huisnummer_subscription1" />
+        android:layout_alignStart="@+id/et_huisnummer_subscription1"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="50dp" />
 
     <EditText
-        android:layout_width="200dp"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:inputType="textEmailAddress"
         android:ems="10"
@@ -128,8 +149,8 @@
         android:layout_alignParentEnd="true"
         android:layout_below="@+id/tv_label_huisnummer_subscription1"
         android:layout_alignRight="@+id/et_straat_subscription1"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="350dp" />
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="50dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -137,20 +158,23 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/txt_label_postcode_subscription1"
         android:id="@+id/tv_label_postcode_subscription1"
-        android:textSize="32sp"
+        android:textSize="16sp"
         android:layout_alignTop="@+id/tv_label_huisnummer_subscription1"
         android:layout_alignLeft="@+id/et_postcode_subscription1"
-        android:layout_alignStart="@+id/et_postcode_subscription1" />
+        android:layout_alignStart="@+id/et_postcode_subscription1"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="50dp" />
 
     <EditText
-        android:layout_width="200dp"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:inputType="textEmailAddress"
         android:ems="10"
         android:id="@+id/et_postcode_subscription1"
         android:layout_below="@+id/tv_label_postcode_subscription1"
         android:layout_alignRight="@+id/et_straat_subscription1"
-        android:layout_marginTop="10dp" />
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="50dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -158,18 +182,48 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/txt_label_gemeente_subscription1"
         android:id="@+id/tv_label_gemeente_subscription1"
-        android:textSize="32sp"
+        android:textSize="16sp"
         android:layout_alignBottom="@+id/tv_label_naam_subscription1"
         android:layout_alignLeft="@+id/et_huisnummer_subscription1"
-        android:layout_alignStart="@+id/et_huisnummer_subscription1" />
+        android:layout_alignStart="@+id/et_huisnummer_subscription1"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="50dp" />
 
     <Spinner
-        android:layout_width="500dp"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:id="@+id/sp_gemeente_subscription1"
         android:layout_below="@+id/tv_label_gemeente_subscription1"
         android:layout_alignLeft="@+id/tv_label_gemeente_subscription1"
         android:layout_alignStart="@+id/tv_label_gemeente_subscription1"
-        android:spinnerMode="dropdown" />
+        android:spinnerMode="dropdown"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="50dp"/>
 
-</RelativeLayout>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+        <Button
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="50dp"
+            android:id="@+id/btn_annuleren_subscription1" />
+
+        <Button
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="50dp"
+            android:id="@+id/btn_bevestigen_subscription1" />
+        </LinearLayout>
+
+    </LinearLayout>
+</LinearLayout>
+
+
