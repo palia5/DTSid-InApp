@@ -37,4 +37,5 @@
     <string name="txt_label_postcode_subscription1">Postcode</string>
     <string name="txt_label_gemeente_subscription1">Gemeente</string>
     <string name="txt_label_huisnummer_subscription1">Huisnummer</string>
+    <string name="txt_btn_login_loginscreen">Login</string>
 </resources>
