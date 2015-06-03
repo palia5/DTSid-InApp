@@ -42,6 +42,10 @@ public class TeacherActivity extends AppCompatActivity
             String urlSchools = BASEURL + ALL_SCHOOLS;
             GetJSONTask jsonTask3 = new GetJSONTask(getApplicationContext());
             jsonTask3.execute(urlSchools);
+
+            String urlSubscriptions = BASEURL + ALL_SUBSCRIPTIONS;
+            GetJSONTask jsonTask4 = new GetJSONTask(getApplicationContext());
+            jsonTask4.execute(urlSubscriptions);
         }
     }
 
@@ -54,20 +58,23 @@ public class TeacherActivity extends AppCompatActivity
         //Sleep (tga te snel)
         synchronized (Thread.currentThread()) {
             try {
-                Thread.currentThread().wait(3000);
+                Thread.currentThread().wait(2000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
 
         for(int i = 0 ; i < dbc.getAllSchools().size() ; i++)
-            Log.d("SCHOOLS",dbc.getAllSchools().get(i).getName());
+            Log.d("SCHOOL",dbc.getAllSchools().get(i).getName());
 
         for(int i = 0 ; i < dbc.getAllEvents().size() ; i++)
-            Log.d("EVENTS",dbc.getAllEvents().get(i).getName());
+            Log.d("EVENT",dbc.getAllEvents().get(i).getName());
 
         for(int i = 0 ; i < dbc.getAllTeachers().size() ; i++)
-            Log.d("TEACHERS",dbc.getAllTeachers().get(i).getName());
+            Log.d("TEACHER",dbc.getAllTeachers().get(i).getName());
+
+        for(int i = 0 ; i < dbc.getAllSubscriptions().size() ; i++)
+            Log.d("SUBSCRIPTION",dbc.getAllSubscriptions().get(i).getFirstName() + " " + dbc.getAllSubscriptions().get(i).getLastName());
 
         //Start first fragment
         getFragmentManager()

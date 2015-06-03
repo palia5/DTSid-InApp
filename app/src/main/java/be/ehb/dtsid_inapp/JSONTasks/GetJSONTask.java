@@ -97,7 +97,7 @@ public class GetJSONTask extends AsyncTask<String, Integer, Void>
                 }
 
                 dbc.setAllSchools(schoolList);
-            }/*
+            }
             else if (params[0].contains(ALL_SUBSCRIPTIONS)){
                 JSONObject rawSubs = new JSONObject(jsonString);
                 JSONArray subsArray = rawSubs.getJSONArray(JSON_NAME_SUBSCRIPTIONS);
@@ -117,7 +117,7 @@ public class GetJSONTask extends AsyncTask<String, Integer, Void>
                             Boolean.parseBoolean(oInterests.getString(JSON_STRING_DIGX)),
                             Boolean.parseBoolean(oInterests.getString(JSON_STRING_MULTEC)),
                             Boolean.parseBoolean(oInterests.getString(JSON_STRING_WERKSTUDENT)),
-                            Date.valueOf(String.valueOf(o.getLong(JSON_LONG_TIMESTAMP))),
+                            new Date(o.getLong(JSON_LONG_TIMESTAMP)),
                             dbc.getTeacherByID(oTeacher.getLong(JSON_LONG_ID)),
                             dbc.getEventByID(oEvent.getLong(JSON_LONG_ID)),
                             o.getBoolean(JSON_BOOL_NEW),
@@ -126,7 +126,7 @@ public class GetJSONTask extends AsyncTask<String, Integer, Void>
                 }
 
                 dbc.setAllSubscriptions(subsList);
-            }*/
+            }
             else if (params[0].contains(ALL_IMAGES)){
                 JSONObject rawImages = new JSONObject(jsonString);
                 JSONArray imagesArray = rawImages.getJSONArray(JSON_NAME_IMAGES);

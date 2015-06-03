@@ -22,6 +22,7 @@ public class Subscription
     private Event event;
     private Boolean isNew;
     private School school;
+    private HashMap<String, String> interests;
 
     //Constructors
     public Subscription(Long id, String firstName, String lastName,
@@ -45,6 +46,11 @@ public class Subscription
         this.event = event;
         this.isNew = isNew;
         this.school = school;
+
+        this.interests = new HashMap<>();
+        interests.put("digx", Boolean.toString(digx));
+        interests.put("werkstudent", Boolean.toString(werkstudent));
+        interests.put("multec", Boolean.toString(multec));
     }
     public Subscription(String firstName, String lastName, String email,
                         String street, String streetNumber, String zip, String city,
@@ -66,6 +72,11 @@ public class Subscription
         this.event = event;
         this.isNew = isNew;
         this.school = school;
+
+        this.interests = new HashMap<>();
+        interests.put("digx", Boolean.toString(digx));
+        interests.put("werkstudent", Boolean.toString(werkstudent));
+        interests.put("multec", Boolean.toString(multec));
     }
     public Subscription()
     {
@@ -200,5 +211,8 @@ public class Subscription
     {
         this.isNew = isNew;
     }
-
+    public HashMap<String, String> getInterests()
+    {
+        return interests;
+    }
 }

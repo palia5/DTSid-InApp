@@ -7,17 +7,12 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 
 import be.ehb.dtsid_inapp.R;
 
-/**
- * Created by doortje on 1/06/15.
- */
-public class SubscriptionAdapter extends BaseAdapter {
-
+public class SubscriptionAdapter extends BaseAdapter
+{
     private ArrayList<Subscription> subscriptionArrayList;
     private LayoutInflater inflater;
 
@@ -28,28 +23,33 @@ public class SubscriptionAdapter extends BaseAdapter {
         TextView schoolTV;
     }
 
-    public SubscriptionAdapter(Activity activity, ArrayList<Subscription> subscriptionArrayList) {
+    public SubscriptionAdapter(Activity activity, ArrayList<Subscription> subscriptionArrayList)
+    {
         this.subscriptionArrayList = subscriptionArrayList;
         inflater = activity.getLayoutInflater();
     }
 
     @Override
-    public int getCount() {
+    public int getCount()
+    {
         return subscriptionArrayList.size();
     }
 
     @Override
-    public Object getItem(int position) {
+    public Object getItem(int position)
+    {
         return subscriptionArrayList.get(position);
     }
 
     @Override
-    public long getItemId(int position) {
+    public long getItemId(int position)
+    {
         return subscriptionArrayList.get(position).getId();
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(int position, View convertView, ViewGroup parent)
+    {
         ViewHolder holder = new ViewHolder();
 
         if (convertView == null)
@@ -69,7 +69,7 @@ public class SubscriptionAdapter extends BaseAdapter {
         Subscription subscriptionByRow = subscriptionArrayList.get(position);
 
         holder.naamVoornaamTV.setText(subscriptionByRow.getLastName().toString() + subscriptionByRow.getFirstName().toString());
-        /*holder.interestTV.setText(subscriptionByRow.getInterests().toString());*/
+        //holder.interestTV.setText(subscriptionByRow.getInterests().toString());
         holder.schoolTV.setText(subscriptionByRow.getSchool().toString());
 
         return convertView;
