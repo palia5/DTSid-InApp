@@ -69,7 +69,7 @@ public class SubscriptionAdapter extends BaseAdapter {
         Subscription subscriptionByRow = subscriptionArrayList.get(position);
 
         holder.naamVoornaamTV.setText(subscriptionByRow.getLastName().toString() + subscriptionByRow.getFirstName().toString());
-        holder.interestTV.setText(subscriptionByRow.getInterests().toString());
+        /*holder.interestTV.setText(subscriptionByRow.getInterests().toString());*/
         holder.schoolTV.setText(subscriptionByRow.getSchool().toString());
 
         return convertView;
