@@ -7,6 +7,11 @@ import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
+import java.sql.Blob;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,8 +20,9 @@ import be.ehb.dtsid_inapp.Models.School;
 import be.ehb.dtsid_inapp.Models.Subscription;
 import be.ehb.dtsid_inapp.Models.Teacher;
 
-public class DatabaseContract
-{
+
+public class DatabaseContract {
+
     //Variables
     private SQLiteDatabase db;
 
@@ -32,6 +38,7 @@ public class DatabaseContract
     {
         DatabaseManager.getInstance().closeDatabase();
     }
+
     public void createSubscription(Subscription newSub)
     {
         ContentValues values = new ContentValues();
@@ -72,6 +79,7 @@ public class DatabaseContract
         tempTeacher = cursorToTeacher(c);
 
         c.close();
+        
         return tempTeacher;
     }
     public List<Teacher> getAllTeachers()
@@ -114,7 +122,6 @@ public class DatabaseContract
                 null);
 
         tempEvent = cursorToEvent(c);
-
         c.close();
         return tempEvent;
     }
@@ -159,8 +166,6 @@ public class DatabaseContract
                 );
 
         tempSchool = cursorToSchool(c);
-
-        c.close();
         return tempSchool;
     }
     public List<School> getAllSchools()
@@ -264,6 +269,7 @@ public class DatabaseContract
 
         return temp;
     }
+
     private Event cursorToEvent(Cursor c)
     {
         Event temp = new Event();
@@ -274,6 +280,7 @@ public class DatabaseContract
 
         return temp;
     }
+
     private School cursorToSchool(Cursor c)
     {
         School temp = new School();
@@ -285,10 +292,51 @@ public class DatabaseContract
 
         return temp;
     }
+
     private Bitmap cursorToImage(Cursor c)
     {
         byte[] data = c.getBlob(c.getColumnIndex(MySQLiteHelper.COL_IMAGES_IMAGE));
 
-        return BitmapFactory.decodeByteArray(data,0, data.length);
+        Bitmap temp = BitmapFactory.decodeByteArray(data,0, data.length);
+
+        return temp;
     }
+
+    private Subscription cursorToSubscription(Cursor c) throws ParseException {
+        Subscription temp = new Subscription();
+
+        temp.setId(c.getLong(c.getColumnIndex(MySQLiteHelper.COL_SUBSCRIPTIONS_ID)));
+        temp.setFirstName(c.getString(c.getColumnIndex(MySQLiteHelper.COL_SUBSCRIPTIONS_FIRSTNAME)));
+        temp.setLastName(c.getString(c.getColumnIndex(MySQLiteHelper.COL_SUBSCRIPTIONS_LASTNAME)));
+        temp.setEmail(c.getString(c.getColumnIndex(MySQLiteHelper.COL_SUBSCRIPTIONS_EMAIL)));
+        temp.setStreet(c.getString(c.getColumnIndex(MySQLiteHelper.COL_SUBSCRIPTIONS_STREET)));
+        temp.setStreetNumber(c.getString(c.getColumnIndex(MySQLiteHelper.COL_SUBSCRIPTIONS_STREETNUMBER)));
+        temp.setZip(c.getString(c.getColumnIndex(MySQLiteHelper.COL_SUBSCRIPTIONS_ZIP)));
+        temp.setCity(c.getString(c.getColumnIndex(MySQLiteHelper.COL_SUBSCRIPTIONS_CITY)));
+        temp.setDigx(Boolean.parseBoolean(c.getString(c.getColumnIndex(MySQLiteHelper.COL_SUBSCRIPTIONS_DIGX))));
+        temp.setMultec(Boolean.parseBoolean(c.getString(c.getColumnIndex(MySQLiteHelper.COL_SUBSCRIPTIONS_MULTEC))));
+        temp.setWerkstudent(Boolean.parseBoolean(c.getString(c.getColumnIndex(MySQLiteHelper.COL_SUBSCRIPTIONS_WERKSTUDENT))));
+
+        String dateString = c.getString(c.getColumnIndex(MySQLiteHelper.COL_SUBSCRIPTIONS_STREET));
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/YYYY", Locale.getDefault());
+        Date dt = sdf.parse(dateString);
+        temp.setTimestamp(dt);
+
+        Long teachID = c.getLong(c.getColumnIndex(MySQLiteHelper.COL_SUBSCRIPTIONS_TEACHER));
+        Teacher tempTeacher = getTeacherByID(teachID);
+        temp.setTeacher(tempTeacher);
+
+        Long eventID = c.getLong(c.getColumnIndex(MySQLiteHelper.COL_SUBSCRIPTIONS_EVENT));
+        Event tempEvent = getEventByID(eventID);
+        temp.setEvent(tempEvent);
+
+        Long schoolID = c.getLong(c.getColumnIndex(MySQLiteHelper.COL_SUBSCRIPTIONS_SCHOOL));
+        School tempSchool = getSchoolByID(schoolID);
+        temp.setSchool(tempSchool);
+
+        temp.setNew(Boolean.parseBoolean(c.getString(c.getColumnIndex(MySQLiteHelper.COL_SUBSCRIPTIONS_ISNEW))));
+
+        return temp;
+    }
+
 }
