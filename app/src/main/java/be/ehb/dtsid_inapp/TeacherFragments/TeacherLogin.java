@@ -47,9 +47,15 @@ public class TeacherLogin extends Fragment
             public View getView(int position, View convertView, ViewGroup parent)
             {
                 View view = super.getView(position, convertView, parent);
+
                 TextView text = (TextView) view.findViewById(R.id.TV_name_teacherSpinnerItem);
                 text.setText(dbc.getAllTeachers().get(position).getName());
                 text.setTextColor(Color.BLACK);
+
+                TextView text2 = (TextView) view.findViewById(R.id.TV_acadyear_teacherSpinnerItem);
+                text2.setText(dbc.getAllTeachers().get(position).getAcadyear());
+                text.setTextColor(Color.BLACK);
+
                 return view;
             }
         };
