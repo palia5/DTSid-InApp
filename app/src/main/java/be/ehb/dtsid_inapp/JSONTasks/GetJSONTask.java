@@ -1,5 +1,6 @@
 package be.ehb.dtsid_inapp.JSONTasks;
 
+import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -14,16 +15,27 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
+import java.net.UnknownHostException;
+import java.nio.charset.Charset;
+import java.sql.Date;
 import java.util.ArrayList;
-
+import be.ehb.dtsid_inapp.Database.DatabaseContract;
 import be.ehb.dtsid_inapp.Models.Event;
+import be.ehb.dtsid_inapp.Models.Image;
 import be.ehb.dtsid_inapp.Models.School;
+import be.ehb.dtsid_inapp.Models.Subscription;
 import be.ehb.dtsid_inapp.Models.Teacher;
 
 import static be.ehb.dtsid_inapp.JSONTasks.JSONContract.*;
 
+
 public class GetJSONTask extends AsyncTask<String, Integer, Void>
 {
+    private DatabaseContract dbc;
+    public GetJSONTask(Context c){
+        dbc = new DatabaseContract(c);
+    }
+
     @Override
     protected Void doInBackground(String... params)
     {
@@ -47,9 +59,12 @@ public class GetJSONTask extends AsyncTask<String, Integer, Void>
                 for (int i = 0; i < teachersArray.length(); i++)
                 {
                     JSONObject o = teachersArray.getJSONObject(i);
-                    Teacher temp = new Teacher(o.getString(JSON_STRING_NAME), o.getInt(JSON_INT_ACADYEAR));
-                    //teacherList.add(temp);
+                    Teacher temp = new Teacher(o.getLong(JSON_LONG_ID),
+                            o.getString(JSON_STRING_NAME), o.getInt(JSON_INT_ACADYEAR));
+                    teacherList.add(temp);
                 }
+
+                dbc.setAllTeachers(teacherList);
             }
             else if (params[0].contains(ALL_EVENTS))
             {
@@ -60,12 +75,12 @@ public class GetJSONTask extends AsyncTask<String, Integer, Void>
                 for (int i = 0; i < eventsArray.length(); i++)
                 {
                     JSONObject o = eventsArray.getJSONObject(i);
-                    Event temp = new Event(o.getString(JSON_STRING_NAME),
+                    Event temp = new Event(o.getLong(JSON_LONG_ID), o.getString(JSON_STRING_NAME),
                             o.getInt(JSON_INT_ACADYEAR));
-                    //eventList.add(temp);
+                    eventList.add(temp);
                 }
 
-                //DAO.addEventList(eventList);
+                dbc.setAllEvents(eventList);
             }
             else if (params[0].contains(ALL_SCHOOLS))
             {
@@ -76,17 +91,65 @@ public class GetJSONTask extends AsyncTask<String, Integer, Void>
                 for (int i = 0; i < schoolsArray.length(); i++)
                 {
                     JSONObject o = schoolsArray.getJSONObject(i);
-                    School temp = new School(o.getString(JSON_STRING_NAME),
+                    School temp = new School(o.getLong(JSON_LONG_ID), o.getString(JSON_STRING_NAME),
                             o.getString(JSON_STRING_GEMEENTE), o.getInt(JSON_STRING_POSTCODE));
                     schoolList.add(temp);
-                    Log.d("TEST", temp.getName() + temp.getZip() + temp.getCity());
                 }
-                //DAO.addSchoolList(schoolList);
+
+                dbc.setAllSchools(schoolList);
+            }/*
+            else if (params[0].contains(ALL_SUBSCRIPTIONS)){
+                JSONObject rawSubs = new JSONObject(jsonString);
+                JSONArray subsArray = rawSubs.getJSONArray(JSON_NAME_SUBSCRIPTIONS);
+                ArrayList<Subscription> subsList = new ArrayList<>();
+
+                for (int i = 0; i< subsArray.length(); i++){
+                    JSONObject o = subsArray.getJSONObject(i);
+                    JSONObject oInterests = o.getJSONObject(JSON_NAME_INTERESTS);
+                    JSONObject oTeacher = o.getJSONObject(JSON_NAME_TEACHER);
+                    JSONObject oSchool = o.getJSONObject(JSON_NAME_SCHOOL);
+                    JSONObject oEvent = o.getJSONObject(JSON_NAME_EVENT);
+
+                    Subscription temp = new Subscription(o.getString(JSON_STRING_FIRSTNAME),
+                            o.getString(JSON_STRING_LASTNAME), o.getString(JSON_STRING_EMAIL),
+                            o.getString(JSON_STRING_STREET), o.getString(JSON_STRING_STREETNUMBER),
+                            o.getString(JSON_STRING_ZIP), o.getString(JSON_STRING_CITY),
+                            Boolean.parseBoolean(oInterests.getString(JSON_STRING_DIGX)),
+                            Boolean.parseBoolean(oInterests.getString(JSON_STRING_MULTEC)),
+                            Boolean.parseBoolean(oInterests.getString(JSON_STRING_WERKSTUDENT)),
+                            Date.valueOf(String.valueOf(o.getLong(JSON_LONG_TIMESTAMP))),
+                            dbc.getTeacherByID(oTeacher.getLong(JSON_LONG_ID)),
+                            dbc.getEventByID(oEvent.getLong(JSON_LONG_ID)),
+                            o.getBoolean(JSON_BOOL_NEW),
+                            dbc.getSchoolByID(oSchool.getLong(JSON_LONG_ID)));
+                    subsList.add(temp);
+                }
+
+                dbc.setAllSubscriptions(subsList);
+            }*/
+            else if (params[0].contains(ALL_IMAGES)){
+                JSONObject rawImages = new JSONObject(jsonString);
+                JSONArray imagesArray = rawImages.getJSONArray(JSON_NAME_IMAGES);
+                ArrayList<Image> imageList = new ArrayList<>();
+
+                for (int i = 0; i < imagesArray.length(); i++){
+                    JSONObject o = imagesArray.getJSONObject(i);
+                    byte[] tempByteArray = o.getString(JSON_NAME_IMAGE).getBytes(Charset.forName("UTF-8"));
+                    Image temp = new Image(o.getLong(JSON_LONG_ID), o.getInt(JSON_INT_PRIORITY),
+                            tempByteArray);
+                    imageList.add(temp);
+                }
+
+                //dbc.setAllImages(imageList);
             }
         }
         catch (MalformedURLException | ProtocolException | JSONException e)
         {
             e.printStackTrace();
+        }
+        catch (UnknownHostException e)
+        {
+            Log.d("NO INTERNET", "THERE IS NO INTERNET");
         }
         catch (IOException e)
         {

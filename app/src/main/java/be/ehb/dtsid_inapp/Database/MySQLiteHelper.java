@@ -81,7 +81,6 @@ public class MySQLiteHelper extends SQLiteOpenHelper
             COL_IMAGES_PRIORITY,
             COL_IMAGES_IMAGE};
 
-
     public MySQLiteHelper(Context context)
     {
         super(context, "DATABASE.db", null, 1);
@@ -92,29 +91,30 @@ public class MySQLiteHelper extends SQLiteOpenHelper
     {
         db.execSQL(
                 "CREATE TABLE " + TABLE_TEACHERS + " (" +
-                        COL_TEACHERS_ID + " LONG PRIMARY KEY AUTOINCREMENT, " +
+                        COL_TEACHERS_ID + " LONG PRIMARY KEY, " +
                         COL_TEACHERS_NAME + " TEXT NOT NULL, " +
                         COL_TEACHERS_ACADYEAR + " TEXT NOT NULL" +
                         ")");
 
         db.execSQL(
                 "CREATE TABLE " + TABLE_EVENTS + " (" +
-                        COL_EVENTS_ID + " LONG PRIMARY KEY AUTOINCREMENT, " +
+                        COL_EVENTS_ID + " LONG PRIMARY KEY, " +
                         COL_EVENTS_NAME + " TEXT NOT NULL, " +
                         COL_EVENTS_ACADYEAR + " TEXT NOT NULL" +
                         ")");
 
         db.execSQL(
                 "CREATE TABLE " + TABLE_SCHOOLS + " (" +
-                        COL_SCHOOLS_ID + " LONG PRIMARY KEY AUTOINCREMENT, " +
+                        COL_SCHOOLS_ID + " LONG PRIMARY KEY, " +
                         COL_SCHOOLS_NAME + " TEXT NOT NULL, " +
                         COL_SCHOOLS_ZIP + " TEXT NOT NULL, " +
                         COL_SCHOOLS_CITY + " TEXT NOT NULL" +
                         ")");
 
+/*
         db.execSQL(
                 "CREATE TABLE " + TABLE_SUBSCRIPTIONS + " (" +
-                        COL_SUBSCRIPTIONS_ID + " LONG PRIMARY KEY AUTOINCREMENT, " +
+                        COL_SUBSCRIPTIONS_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                         COL_SUBSCRIPTIONS_FIRSTNAME + " TEXT NOT NULL, " +
                         COL_SUBSCRIPTIONS_LASTNAME + " TEXT NOT NULL, " +
                         COL_SUBSCRIPTIONS_EMAIL + " TEXT NOT NULL, " +
@@ -127,18 +127,17 @@ public class MySQLiteHelper extends SQLiteOpenHelper
                         COL_SUBSCRIPTIONS_WERKSTUDENT + " BOOLEAN, " +
                         COL_SUBSCRIPTIONS_TIMESTAMP + " LONG NOT NULL, " +
                         COL_SUBSCRIPTIONS_ISNEW + " BOOLEAN, " +
-                        COL_SUBSCRIPTIONS_TEACHER + " LONG NOT NULL, " + "FOREIGN KEY(teacher) REFERENCES teachers(_id), " +
-                        COL_SUBSCRIPTIONS_EVENT + " LONG NOT NULL, " +"FOREIGN KEY(event) REFERENCES events(_id), " +
-                        COL_SUBSCRIPTIONS_SCHOOL + " LONG NOT NULL, " +"FOREIGN KEY(school) REFERENCES schools(_id) " +
-                        ")");
+                        COL_SUBSCRIPTIONS_TEACHER + " LONG NOT NULL, " + "FOREIGN KEY (" + COL_SUBSCRIPTIONS_TEACHER + ") REFERENCES " + TABLE_TEACHERS + "(_id), " +
+                        COL_SUBSCRIPTIONS_EVENT + " LONG NOT NULL, " + "FOREIGN KEY (" + COL_SUBSCRIPTIONS_EVENT + ") REFERENCES " + TABLE_EVENTS + "(_id), " +
+                        COL_SUBSCRIPTIONS_SCHOOL + " LONG NOT NULL, " + "FOREIGN KEY (" + COL_SUBSCRIPTIONS_SCHOOL + ") REFERENCES " + TABLE_SCHOOLS + "(_id) " +
+                        ")");*/
 
         db.execSQL(
                 "CREATE TABLE " + TABLE_IMAGES + " (" +
-                COL_IMAGES_ID + " LONG PRIMARY KEY AUTOINCREMENT, " +
-                COL_IMAGES_PRIORITY + " INTEGER NOT NULL, " +
-                COL_EVENTS_ACADYEAR + " TEXT NOT NULL" +
-                ")");
-
+                        COL_IMAGES_ID + " LONG PRIMARY KEY, " +
+                        COL_IMAGES_PRIORITY + " INTEGER NOT NULL, " +
+                        COL_EVENTS_ACADYEAR + " TEXT NOT NULL" +
+                        ")");
     }
 
     @Override
