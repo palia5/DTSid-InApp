@@ -20,6 +20,7 @@ import java.util.List;
 import be.ehb.dtsid_inapp.Database.DatabaseContract;
 import be.ehb.dtsid_inapp.Models.Event;
 import be.ehb.dtsid_inapp.Models.Teacher;
+import be.ehb.dtsid_inapp.Models.TeacherAdapter;
 import be.ehb.dtsid_inapp.R;
 
 public class TeacherLogin extends Fragment
@@ -28,8 +29,8 @@ public class TeacherLogin extends Fragment
     private Button loginBTN;
 
     private DatabaseContract dbc;
-    ArrayAdapter<Teacher> teacherAdapter;
-    ArrayAdapter<Event> eventAdapter;
+    TeacherAdapter teacherAdapter;
+    ArrayAdapter<String> eventAdapter;
 
     @Nullable
     @Override
@@ -41,40 +42,26 @@ public class TeacherLogin extends Fragment
 
         //Teacher spinner
         teacherSP = (Spinner) v.findViewById(R.id.sp_docent_loginscreen);
-        teacherAdapter = new ArrayAdapter<Teacher>(getActivity().getApplicationContext(), R.layout.teachers_list_item, dbc.getAllTeachers())
-        {
-            @Override
-            public View getView(int position, View convertView, ViewGroup parent)
-            {
-                View view = super.getView(position, convertView, parent);
-
-                TextView text = (TextView) view.findViewById(R.id.TV_name_teacherSpinnerItem);
-                text.setText(dbc.getAllTeachers().get(position).getName());
-                text.setTextColor(Color.BLACK);
-
-                TextView text2 = (TextView) view.findViewById(R.id.TV_acadyear_teacherSpinnerItem);
-                text2.setText(dbc.getAllTeachers().get(position).getAcadyear());
-                text.setTextColor(Color.BLACK);
-
-                return view;
-            }
-        };
+        teacherAdapter = new TeacherAdapter(getActivity(), dbc.getAllTeachers());
         teacherSP.setAdapter(teacherAdapter);
 
         //Event spinner
+        List<String> events = new ArrayList<>();
+        for(int i = 0 ; i < dbc.getAllEvents().size() ; i++)
+            events.add(dbc.getAllEvents().get(i).getName() + " (" + dbc.getAllEvents().get(i).getAcadyear() + ")");
+
         eventSP = (Spinner) v.findViewById(R.id.sp_event_loginscreen);
-        eventAdapter = new ArrayAdapter<Event>(getActivity().getApplicationContext(), R.layout.event_list_item, dbc.getAllEvents())
+        eventAdapter = new ArrayAdapter<String>(getActivity().getApplicationContext(), R.layout.event_list_item, events)
         {
             @Override
-        public View getView(int position, View convertView, ViewGroup parent)
-        {
-            View view = super.getView(position, convertView, parent);
-            TextView text = (TextView) view.findViewById(R.id.TV_name_eventSpinnerItem);
-            text.setText(dbc.getAllEvents().get(position).getName());
-            text.setTextColor(Color.BLACK);
-            return view;
-        }
-    };
+            public View getView(int position, View convertView, ViewGroup parent) {
+                View view = super.getView(position, convertView, parent);
+                TextView text = (TextView) view.findViewById(R.id.TV_name_eventSpinnerItem);
+                text.setText(getItem(position));
+                text.setTextColor(Color.BLACK);
+                return view;
+            }
+        };
         eventSP.setAdapter(eventAdapter);
 
         //Log in button
