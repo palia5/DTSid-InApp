@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import be.ehb.dtsid_inapp.Models.Event;
+import be.ehb.dtsid_inapp.Models.Image;
 import be.ehb.dtsid_inapp.Models.School;
 import be.ehb.dtsid_inapp.Models.Subscription;
 import be.ehb.dtsid_inapp.Models.Teacher;
@@ -327,6 +328,19 @@ public class DatabaseContract
             values.put(MySQLiteHelper.COL_TEACHERS_ACADYEAR, teachers.get(i).getAcadyear());
 
             db.insert(MySQLiteHelper.TABLE_TEACHERS, null, values);
+        }
+    }
+    public void setAllImages(List<Image> images)
+    {
+        ContentValues values = new ContentValues();
+
+        for(int i = 0 ; i < images.size() ; i++)
+        {
+            values.put(MySQLiteHelper.COL_IMAGES_ID, images.get(i).getId());
+            values.put(MySQLiteHelper.COL_IMAGES_PRIORITY, images.get(i).getId());
+            values.put(MySQLiteHelper.COL_IMAGES_IMAGE, images.get(i).getId());
+
+            db.insert(MySQLiteHelper.TABLE_IMAGES, null, values);
         }
     }
 

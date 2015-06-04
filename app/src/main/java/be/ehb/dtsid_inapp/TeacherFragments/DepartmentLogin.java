@@ -28,11 +28,11 @@ public class DepartmentLogin extends Fragment
         departmentSP = (Spinner) v.findViewById(R.id.sp_department_list);
         codeET = (EditText) v.findViewById(R.id.et_code_launchscreen);
         loginBTN = (Button) v.findViewById(R.id.btn_department_login);
-
+/*
         //testing JSONPost
         PostJSONTask pjt = new PostJSONTask(getActivity().getApplicationContext());
         pjt.execute();
-
+*/
         return v;
     }
 }
