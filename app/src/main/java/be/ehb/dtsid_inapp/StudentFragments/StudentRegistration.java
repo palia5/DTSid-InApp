@@ -1,11 +1,9 @@
 package be.ehb.dtsid_inapp.StudentFragments;
 
-import android.app.Activity;
 import android.app.Fragment;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -13,8 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.FrameLayout;
-import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -34,7 +30,7 @@ public class StudentRegistration extends Fragment
     Spinner gemeenteSP;
     StudentActivity activity;
     Button bevestigenBTN;
-    Button anullerenBTN;
+    Button annulerenBTN;
 
     @Nullable
     @Override
@@ -43,16 +39,6 @@ public class StudentRegistration extends Fragment
         View v = inflater.inflate(R.layout.fragment_student_registration1_2, null);
         activity = (StudentActivity) this.getActivity();
 
-        v.setOnTouchListener(new View.OnTouchListener()
-        {
-            @Override
-            public boolean onTouch(View v, MotionEvent event)
-            {
-                activity.leftTouched();
-                return true;
-            }
-        });
-
         emailET = (EditText) v.findViewById(R.id.et_email_subscription1);
         naamET = (EditText) v.findViewById(R.id.et_naam_subscription1);
         voorNaamET = (EditText) v.findViewById(R.id.et_voornaam_subscription1);
@@ -60,6 +46,29 @@ public class StudentRegistration extends Fragment
         huisNummerET = (EditText) v.findViewById(R.id.et_huisnummer_subscription1);
         postcodeET = (EditText) v.findViewById(R.id.et_postcode_subscription1);
         gemeenteSP = (Spinner) v.findViewById(R.id.sp_gemeente_subscription1);
+        bevestigenBTN = (Button) v.findViewById(R.id.btn_bevestigen_subscription1);
+        annulerenBTN = (Button) v.findViewById(R.id.btn_annuleren_subscription1);
+
+        emailET.setEnabled(false);
+        naamET.setEnabled(false);
+        voorNaamET.setEnabled(false);
+        straatET.setEnabled(false);
+        huisNummerET.setEnabled(false);
+        postcodeET.setEnabled(false);
+        gemeenteSP.setEnabled(false);
+        bevestigenBTN.setEnabled(false);
+        annulerenBTN.setEnabled(false);
+
+        v.setOnTouchListener(new View.OnTouchListener()
+        {
+            @Override
+            public boolean onTouch(View v, MotionEvent event)
+            {
+                activity.leftTouched();
+                enableEditTeksts();
+                return true;
+            }
+        });
 
         emailET.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -85,5 +94,34 @@ public class StudentRegistration extends Fragment
     private boolean validEmail(String email) {
         Pattern pattern = Patterns.EMAIL_ADDRESS;
         return pattern.matcher(email).matches();
+    }
+
+    private void disableEditTeksts() {
+        //if (emailET.isEnabled()){
+        emailET.setEnabled(false);
+        naamET.setEnabled(false);
+        voorNaamET.setEnabled(false);
+        straatET.setEnabled(false);
+        huisNummerET.setEnabled(false);
+        postcodeET.setEnabled(false);
+        gemeenteSP.setEnabled(false);
+        bevestigenBTN.setEnabled(false);
+        annulerenBTN.setEnabled(false);
+        //}
+    }
+
+    private void enableEditTeksts()
+    {
+        //if (!emailET.isEnabled()) {
+        emailET.setEnabled(true);
+        naamET.setEnabled(true);
+        voorNaamET.setEnabled(true);
+        straatET.setEnabled(true);
+        huisNummerET.setEnabled(true);
+        postcodeET.setEnabled(true);
+        gemeenteSP.setEnabled(true);
+        bevestigenBTN.setEnabled(true);
+        annulerenBTN.setEnabled(true);
+        //}
     }
 }
