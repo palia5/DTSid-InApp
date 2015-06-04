@@ -89,7 +89,7 @@ public class StudentRegistration extends Fragment
         return pattern.matcher(email).matches();
     }
 
-    private void disableEditTeksts() {
+    public void disableEditTeksts() {
         emailET.setEnabled(false);
         naamET.setEnabled(false);
         voorNaamET.setEnabled(false);
@@ -101,7 +101,7 @@ public class StudentRegistration extends Fragment
         annulerenBTN.setEnabled(false);
     }
 
-    private void enableEditTeksts()
+    public void enableEditTeksts()
     {
         emailET.setEnabled(true);
         naamET.setEnabled(true);
@@ -114,26 +114,5 @@ public class StudentRegistration extends Fragment
         annulerenBTN.setEnabled(true);
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-    }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        disableEditTeksts();
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-       disableEditTeksts();
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        disableEditTeksts();
-    }
 }
