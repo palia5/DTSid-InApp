@@ -2,6 +2,7 @@ package be.ehb.dtsid_inapp.StudentFragments;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -10,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
@@ -31,6 +33,8 @@ public class StudentRegistration extends Fragment
     EditText postcodeET;
     Spinner gemeenteSP;
     StudentActivity activity;
+    Button bevestigenBTN;
+    Button anullerenBTN;
 
     @Nullable
     @Override
@@ -60,14 +64,17 @@ public class StudentRegistration extends Fragment
         emailET.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                String email = emailET.getText().toString();
-                if(validEmail(email))
-                {
-                    //check if the email is in the database already
+                if (!hasFocus) {
+                    String email = emailET.getText().toString();
+                    if (validEmail(email)) {
+                        //check if the email is in the database already
+                    } else {
+                        emailET.setBackgroundColor(Color.RED);
+                        Toast.makeText(getActivity(), "email is not valid", Toast.LENGTH_LONG).show();
+                    }
                 }
-                else {
-                    emailET.setBackgroundColor(990000);
-                    Toast.makeText(getActivity(),"email is not valid",Toast.LENGTH_LONG).show();
+                else if (hasFocus){
+                    emailET.setBackgroundColor(Color.rgb(207,203,203));
                 }
             }
         });
