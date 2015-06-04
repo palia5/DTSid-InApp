@@ -1,11 +1,20 @@
 package be.ehb.dtsid_inapp.Models;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 public class School
 {
     //Variables
+    @Expose
     private Long id;
+    @Expose
     private String name;
+    @Expose
+    @SerializedName("gemeente")
     private String city;
+    @Expose
+    @SerializedName("postcode")
     private int zip;
 
     //Constructors

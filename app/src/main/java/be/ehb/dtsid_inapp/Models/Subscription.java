@@ -1,27 +1,48 @@
 package be.ehb.dtsid_inapp.Models;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 import java.util.Date;
 import java.util.HashMap;
 
 public class Subscription
 {
     //Variables
+    @Expose
     private Long id;
+    @Expose
     private String firstName;
+    @Expose
     private String lastName;
+    @Expose
     private String email;
+    @Expose
     private String street;
+    @Expose
     private String streetNumber;
+    @Expose
     private String zip;
+    @Expose
     private String city;
+    @Expose(serialize = false, deserialize = false)
     private Boolean digx;
+    @Expose(serialize = false, deserialize = false)
     private Boolean multec;
+    @Expose(serialize = false, deserialize = false)
     private Boolean werkstudent;
+    @Expose
     private Date timestamp;
+    @Expose
     private Teacher teacher;
+    @Expose
     private Event event;
+    @Expose
+    @SerializedName("new")
     private Boolean isNew;
+    @Expose
     private School school;
+    @Expose
     private HashMap<String, String> interests;
 
     //Constructors
