@@ -31,8 +31,11 @@ public class Subscription
     private Boolean multec;
     @Expose(serialize = false, deserialize = false)
     private Boolean werkstudent;
-    @Expose
+    @Expose(serialize = false, deserialize = false)
     private Date timestamp;
+    @Expose
+    @SerializedName("timestamp")
+    private long timestampLong;
     @Expose
     private Teacher teacher;
     @Expose
@@ -72,6 +75,7 @@ public class Subscription
         interests.put("digx", Boolean.toString(digx));
         interests.put("werkstudent", Boolean.toString(werkstudent));
         interests.put("multec", Boolean.toString(multec));
+        this.timestampLong = timestamp.getTime();
     }
     public Subscription(String firstName, String lastName, String email,
                         String street, String streetNumber, String zip, String city,
@@ -98,6 +102,7 @@ public class Subscription
         interests.put("digx", Boolean.toString(digx));
         interests.put("werkstudent", Boolean.toString(werkstudent));
         interests.put("multec", Boolean.toString(multec));
+        this.timestampLong = timestamp.getTime();
     }
     public Subscription()
     {
@@ -235,5 +240,9 @@ public class Subscription
     public HashMap<String, String> getInterests()
     {
         return interests;
+    }
+    public long getTimestampLong()
+    {
+        return timestampLong;
     }
 }
