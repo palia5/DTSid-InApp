@@ -1,10 +1,15 @@
 package be.ehb.dtsid_inapp.Models;
 
+import com.google.gson.annotations.Expose;
+
 public class Teacher
 {
     //Variables
+    @Expose
     private Long id;
+    @Expose
     private String name;
+    @Expose
     private int acadyear;
 
     //Constructors
