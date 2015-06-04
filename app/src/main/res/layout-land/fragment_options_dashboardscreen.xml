@@ -4,19 +4,22 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     tools:context="be.ehb.dtsid_inapp.TeacherFragments.Options">
-
+<LinearLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
     <TextView
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="@string/txt_label_departement_dashboard"
         android:id="@+id/tv_label_departement_dashboard"
-        android:textSize="32sp"
+        android:textSize="16sp"
         android:layout_alignParentTop="false"
         android:layout_alignParentLeft="false"
         android:layout_alignParentStart="false"
-        android:layout_marginTop="75dp"
-        android:layout_marginLeft="50dp" />
+        android:layout_marginTop="25dp"
+        android:layout_marginLeft="25dp" />
 
     <TextView
         android:layout_width="300dp"
@@ -24,9 +27,8 @@
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:id="@+id/tv_gekozen_departement_dashboard"
         android:text="@string/txt_gekozen_departement_dashboard"
-        android:layout_marginTop="125dp"
-        android:textSize="32sp"
-        android:layout_marginLeft="50dp" />
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="25dp" />
 
     <TextView
         android:layout_width="200dp"
@@ -34,11 +36,11 @@
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="@string/txt_label_medewerker_dashboard"
         android:id="@+id/tv_label_medewerker_dashboard"
-        android:textSize="32sp"
+        android:textSize="16sp"
         android:layout_alignParentLeft="false"
         android:layout_alignParentStart="false"
-        android:layout_marginTop="175dp"
-        android:layout_marginLeft="50dp" />
+        android:layout_marginTop="25dp"
+        android:layout_marginLeft="25dp" />
 
     <TextView
         android:layout_width="300dp"
@@ -46,9 +48,8 @@
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="@string/txt_gekozenmedewerker_dashboard"
         android:id="@+id/tv_gekozen_medewerker_dashboard"
-        android:layout_marginTop="225dp"
-        android:layout_marginLeft="50dp"
-        android:textSize="32sp" />
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="25dp" />
 
     <TextView
         android:layout_width="200dp"
@@ -57,9 +58,9 @@
         android:text="@string/txt_label_evenement_dashboard"
         android:id="@+id/tv_label_evenement_dashboard"
         android:layout_alignParentTop="false"
-        android:layout_marginTop="275dp"
-        android:textSize="32sp"
-        android:layout_marginLeft="50dp" />
+        android:layout_marginTop="25dp"
+        android:textSize="16sp"
+        android:layout_marginLeft="25dp" />
 
     <TextView
         android:layout_width="300dp"
@@ -69,9 +70,8 @@
         android:id="@+id/tv_gekozen_evenement_dashboard"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="false"
-        android:layout_marginTop="325dp"
-        android:layout_marginLeft="50dp"
-        android:textSize="32dp" />
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="25dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -79,9 +79,9 @@
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="@string/txt_label_studentteller_dashboard"
         android:id="@+id/tv_studentteller_dashboard"
-        android:textSize="32sp"
-        android:layout_marginTop="400dp"
-        android:layout_marginLeft="50dp" />
+        android:textSize="16sp"
+        android:layout_marginTop="75dp"
+        android:layout_marginLeft="25dp" />
 
     <TextView
         android:layout_width="100dp"
@@ -92,62 +92,88 @@
         android:layout_below="@+id/btn_regios"
         android:layout_alignLeft="@+id/tv_studentteller_dashboard"
         android:layout_alignStart="@+id/tv_studentteller_dashboard"
-        android:layout_marginTop="50dp" />
+        android:layout_marginTop="10dp"
+        android:textSize="16sp"
+        android:layout_marginLeft="25dp" />
+</LinearLayout>
+<LinearLayout
+    android:layout_width="500dp"
+    android:layout_height="300dp"
+    android:layout_centerVertical="true"
+    android:orientation="vertical"
+    android:layout_alignParentRight="true"
+    android:layout_alignParentEnd="true"
+    android:layout_marginRight="150dp"
+    android:id="@+id/linearLayout">
 
+    <LinearLayout
+        android:layout_width="500dp"
+        android:layout_height="150dp"
+        android:orientation="horizontal"
+        android:gravity="center">
     <Button
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:text="@string/txt_btn_student_registreren"
         android:id="@+id/btn_student_registreren"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="false"
-        android:layout_marginTop="175dp"
-        android:layout_marginRight="550dp"
-        android:textSize="24sp"
-        android:onClick="goToNextFragment" />
+        android:textSize="16sp"
+        android:onClick="goToOtherFragment"
+        android:layout_marginTop="25dp"
+        android:layout_weight="1" />
 
     <Button
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:text="@string/txt_btn_lijst"
         android:id="@+id/btn_lijst"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="false"
-        android:layout_marginTop="175dp"
-        android:layout_marginRight="200dp"
-        android:textSize="32sp" />
+        android:textSize="16sp"
+        android:layout_marginTop="25dp"
+        android:layout_weight="1" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="500dp"
+        android:layout_height="150dp"
+        android:orientation="horizontal"
+        android:gravity="center">
 
     <Button
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:text="@string/txt_btn_regios"
         android:id="@+id/btn_regios"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="false"
-        android:layout_marginRight="550dp"
-        android:textSize="32sp"
-        android:layout_marginTop="375dp" />
+        android:textSize="16sp"
+        android:layout_weight="1" />
 
     <Button
-        android:layout_width="150dp"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:text="@string/txt_btn_opties"
         android:id="@+id/btn_opties"
-        android:textSize="32sp"
-        android:layout_alignTop="@+id/btn_regios"
-        android:layout_alignLeft="@+id/btn_lijst"
-        android:layout_alignStart="@+id/btn_lijst" />
+        android:textSize="16sp"
+        android:layout_weight="1" />
+    </LinearLayout>
+
+</LinearLayout>
+
+<LinearLayout
+    android:layout_width="500dp"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:weightSum="1"
+    android:layout_alignParentBottom="true"
+    android:layout_alignLeft="@+id/linearLayout"
+    android:layout_alignStart="@+id/linearLayout">
 
     <TextView
-        android:layout_width="300dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="@string/txt_label_laatste_synchronisatie"
         android:id="@+id/tv_laatste_synchronisatie"
-        android:textSize="24sp"
-        android:layout_alignBottom="@+id/tv_aantalstudenten"
-        android:layout_toLeftOf="@+id/tv_datum_laatste_synchronisatie" />
+        android:textSize="12sp"
+        android:layout_toLeftOf="@+id/tv_datum_laatste_synchronisatie"
+        android:layout_weight="1" />
 
     <TextView
         android:layout_width="200dp"
@@ -155,23 +181,21 @@
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="@string/txt_tv_datum_laatste_synchronisatie"
         android:id="@+id/tv_datum_laatste_synchronisatie"
-        android:textSize="24dp"
+        android:textSize="12sp"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="false"
-        android:layout_marginRight="280dp"
-        android:layout_alignBottom="@+id/tv_laatste_synchronisatie" />
+        android:layout_alignBottom="@+id/tv_laatste_synchronisatie"
+        android:layout_weight="1" />
 
     <Button
         style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="75dp"
+        android:layout_height="50dp"
         android:text="@string/txt_btn_sync"
         android:id="@+id/btn_sync_dashboard"
-        android:textSize="18sp"
-        android:layout_alignParentBottom="false"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginRight="175dp"
-        android:layout_alignBottom="@+id/tv_laatste_synchronisatie" />
+        android:textSize="12sp"
+        android:layout_alignBottom="@+id/tv_datum_laatste_synchronisatie"
+        android:layout_weight="1" />
+</LinearLayout>
 
 </RelativeLayout>

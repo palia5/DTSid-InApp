@@ -156,6 +156,7 @@ public class GetJSONTask extends AsyncTask<String, Integer, Void>
             e.printStackTrace();
         }
 
+        dbc.close();
         return null;
     }
 }

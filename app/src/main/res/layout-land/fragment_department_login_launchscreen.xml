@@ -53,7 +53,8 @@
             android:id="@+id/btn_bevestigen_launchscreen"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginBottom="25dp" />
+            android:layout_marginBottom="25dp"
+            android:onClick="goToOtherFragment" />
 
         <EditText
             android:layout_width="wrap_content"
