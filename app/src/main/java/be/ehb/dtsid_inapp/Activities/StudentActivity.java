@@ -19,31 +19,12 @@ public class StudentActivity extends AppCompatActivity
 {
     private Boolean isInMainScreen = true;
 
-    EditText emailET;
-    EditText naamET;
-    EditText voorNaamET;
-    EditText straatET;
-    EditText huisNummerET;
-    EditText postcodeET;
-    Spinner gemeenteSP;
-    Button bevestigenBTN;
-    Button annulerenBTN;
-
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student);
 
-        emailET = (EditText) findViewById(R.id.et_email_subscription1);
-        naamET = (EditText) findViewById(R.id.et_naam_subscription1);
-        voorNaamET = (EditText) findViewById(R.id.et_voornaam_subscription1);
-        straatET = (EditText) findViewById(R.id.et_straat_subscription1);
-        huisNummerET = (EditText) findViewById(R.id.et_huisnummer_subscription1);
-        postcodeET = (EditText) findViewById(R.id.et_postcode_subscription1);
-        gemeenteSP = (Spinner) findViewById(R.id.sp_gemeente_subscription1);
-        bevestigenBTN = (Button) findViewById(R.id.btn_bevestigen_subscription1);
-        annulerenBTN = (Button) findViewById(R.id.btn_annuleren_subscription1);
 
         FragmentManager fm = getFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
@@ -94,34 +75,8 @@ public class StudentActivity extends AppCompatActivity
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 weigthRightFragment);
         flImages.setLayoutParams(lpImages);
+
+
     }
 
-    private void disableEditTeksts() {
-        //if (emailET.isEnabled()){
-            emailET.setEnabled(false);
-            naamET.setEnabled(false);
-            voorNaamET.setEnabled(false);
-            straatET.setEnabled(false);
-            huisNummerET.setEnabled(false);
-            postcodeET.setEnabled(false);
-            gemeenteSP.setEnabled(false);
-            bevestigenBTN.setEnabled(false);
-            annulerenBTN.setEnabled(false);
-        //}
-    }
-
-    private void enableEditTeksts()
-    {
-        //if (!emailET.isEnabled()) {
-            emailET.setEnabled(true);
-            naamET.setEnabled(true);
-            voorNaamET.setEnabled(true);
-            straatET.setEnabled(true);
-            huisNummerET.setEnabled(true);
-            postcodeET.setEnabled(true);
-            gemeenteSP.setEnabled(true);
-            bevestigenBTN.setEnabled(true);
-            annulerenBTN.setEnabled(true);
-        //}
-    }
 }

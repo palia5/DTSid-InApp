@@ -28,9 +28,10 @@ public class StudentRegistration extends Fragment
     EditText huisNummerET;
     EditText postcodeET;
     Spinner gemeenteSP;
-    StudentActivity activity;
     Button bevestigenBTN;
     Button annulerenBTN;
+
+    StudentActivity activity;
 
     @Nullable
     @Override
@@ -49,15 +50,7 @@ public class StudentRegistration extends Fragment
         bevestigenBTN = (Button) v.findViewById(R.id.btn_bevestigen_subscription1);
         annulerenBTN = (Button) v.findViewById(R.id.btn_annuleren_subscription1);
 
-        emailET.setEnabled(false);
-        naamET.setEnabled(false);
-        voorNaamET.setEnabled(false);
-        straatET.setEnabled(false);
-        huisNummerET.setEnabled(false);
-        postcodeET.setEnabled(false);
-        gemeenteSP.setEnabled(false);
-        bevestigenBTN.setEnabled(false);
-        annulerenBTN.setEnabled(false);
+        disableEditTeksts();
 
         v.setOnTouchListener(new View.OnTouchListener()
         {
@@ -97,7 +90,6 @@ public class StudentRegistration extends Fragment
     }
 
     private void disableEditTeksts() {
-        //if (emailET.isEnabled()){
         emailET.setEnabled(false);
         naamET.setEnabled(false);
         voorNaamET.setEnabled(false);
@@ -107,12 +99,10 @@ public class StudentRegistration extends Fragment
         gemeenteSP.setEnabled(false);
         bevestigenBTN.setEnabled(false);
         annulerenBTN.setEnabled(false);
-        //}
     }
 
     private void enableEditTeksts()
     {
-        //if (!emailET.isEnabled()) {
         emailET.setEnabled(true);
         naamET.setEnabled(true);
         voorNaamET.setEnabled(true);
@@ -122,6 +112,28 @@ public class StudentRegistration extends Fragment
         gemeenteSP.setEnabled(true);
         bevestigenBTN.setEnabled(true);
         annulerenBTN.setEnabled(true);
-        //}
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        disableEditTeksts();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+       disableEditTeksts();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        disableEditTeksts();
     }
 }
