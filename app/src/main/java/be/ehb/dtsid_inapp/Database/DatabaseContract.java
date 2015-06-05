@@ -59,6 +59,7 @@ public class DatabaseContract
         values.put(MySQLiteHelper.COL_SUBSCRIPTIONS_EVENT, newSub.getEvent().getId());
         values.put(MySQLiteHelper.COL_SUBSCRIPTIONS_SCHOOL, newSub.getSchool().getId());
 
+        Log.d("DBC Create", Boolean.toString(newSub.getNew()));
         db.insert(MySQLiteHelper.TABLE_SUBSCRIPTIONS, null, values);
     }
 
@@ -461,14 +462,19 @@ public class DatabaseContract
         temp.setStreetNumber(c.getString(c.getColumnIndex(MySQLiteHelper.COL_SUBSCRIPTIONS_STREETNUMBER)));
         temp.setZip(c.getString(c.getColumnIndex(MySQLiteHelper.COL_SUBSCRIPTIONS_ZIP)));
         temp.setCity(c.getString(c.getColumnIndex(MySQLiteHelper.COL_SUBSCRIPTIONS_CITY)));
-        temp.setDigx(Boolean.parseBoolean(c.getString(c.getColumnIndex(MySQLiteHelper.COL_SUBSCRIPTIONS_DIGX))));
-        temp.setMultec(Boolean.parseBoolean(c.getString(c.getColumnIndex(MySQLiteHelper.COL_SUBSCRIPTIONS_MULTEC))));
-        temp.setWerkstudent(Boolean.parseBoolean(c.getString(c.getColumnIndex(MySQLiteHelper.COL_SUBSCRIPTIONS_WERKSTUDENT))));
+
+        //Boolean is opgeslaan als 1 of 0
+        Log.d("TEST", c.getString(c.getColumnIndex(MySQLiteHelper.COL_SUBSCRIPTIONS_FIRSTNAME)));
+        Log.d("TEST", c.getString(c.getColumnIndex(MySQLiteHelper.COL_SUBSCRIPTIONS_ISNEW)));
+        temp.setDigx(((c.getInt(c.getColumnIndex(MySQLiteHelper.COL_SUBSCRIPTIONS_DIGX))) == 1) ? true : false);
+        temp.setMultec(((c.getInt(c.getColumnIndex(MySQLiteHelper.COL_SUBSCRIPTIONS_MULTEC))) == 1) ? true : false);
+        temp.setWerkstudent(((c.getInt(c.getColumnIndex(MySQLiteHelper.COL_SUBSCRIPTIONS_WERKSTUDENT))) == 1) ? true : false);
 
         /*String dateString = c.getString(c.getColumnIndex(MySQLiteHelper.COL_SUBSCRIPTIONS_TIMESTAMP));
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/YYYY", Locale.getDefault());
         Date dt = sdf.parse(dateString);*/
         temp.setTimestamp(new Date(c.getLong(c.getColumnIndex(MySQLiteHelper.COL_SUBSCRIPTIONS_TIMESTAMP))));
+        //Log.d("TEST", c.getLong(c.getColumnIndex(MySQLiteHelper.COL_SUBSCRIPTIONS_TIMESTAMP)) + "");
 
         Long teachID = c.getLong(c.getColumnIndex(MySQLiteHelper.COL_SUBSCRIPTIONS_TEACHER));
         Teacher tempTeacher = getTeacherByID(teachID);
@@ -482,8 +488,11 @@ public class DatabaseContract
         School tempSchool = getSchoolByID(schoolID);
         temp.setSchool(tempSchool);
 
-        temp.setNew(Boolean.parseBoolean(c.getString(c.getColumnIndex(MySQLiteHelper.COL_SUBSCRIPTIONS_ISNEW))));
+        temp.setNew(((c.getInt(c.getColumnIndex(MySQLiteHelper.COL_SUBSCRIPTIONS_ISNEW))) == 1 )?true:false);
+        //Log.d("DBC", temp.getFirstName() + Boolean.toString(temp.getNew()));
 
+        temp.setInterests();
+        temp.setTimestampLong();
         return temp;
     }
 }
