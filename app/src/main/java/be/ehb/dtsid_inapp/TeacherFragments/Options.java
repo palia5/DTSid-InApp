@@ -9,10 +9,16 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import be.ehb.dtsid_inapp.Activities.TeacherActivity;
+import be.ehb.dtsid_inapp.Database.DatabaseContract;
+import be.ehb.dtsid_inapp.Models.Subscription;
 import be.ehb.dtsid_inapp.R;
 
 public class Options extends Fragment
 {
+    TeacherActivity activity;
+    private DatabaseContract dbc;
+
     Button studentRegistrerenBTN;
     Button lijstBTN;
     Button regioBTN;
@@ -30,6 +36,12 @@ public class Options extends Fragment
     {
         View v = inflater.inflate(R.layout.fragment_options_dashboardscreen, null);
 
+        activity = (TeacherActivity) this.getActivity();
+        //Contract opvrage
+        dbc = new DatabaseContract(activity.getApplicationContext());
+
+        activity = (TeacherActivity) this.getActivity();
+
         studentRegistrerenBTN = (Button) v.findViewById(R.id.btn_student_registreren);
         lijstBTN = (Button) v.findViewById(R.id.btn_lijst);
         regioBTN = (Button) v.findViewById(R.id.btn_regios);
@@ -41,7 +53,16 @@ public class Options extends Fragment
         aantalStudentenTV = (TextView) v.findViewById(R.id.tv_aantalstudenten);
         laatsteSyncTV = (TextView) v.findViewById(R.id.tv_datum_laatste_synchronisatie);
 
+        medewerkerTV.setText(activity.getTeacher().getName());
+        evenementTV.setText(activity.getEvent().getName());
 
+        int newSubs = 0;
+        for(Subscription sub : dbc.getAllSubscriptions())
+            if(sub.getNew())
+                newSubs++;
+        aantalStudentenTV.setText("" + newSubs);
+
+        dbc.close();
 
         return v;
     }

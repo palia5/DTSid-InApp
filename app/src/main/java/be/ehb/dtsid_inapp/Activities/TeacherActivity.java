@@ -9,6 +9,9 @@ import android.widget.Button;
 
 import be.ehb.dtsid_inapp.Database.DatabaseContract;
 import be.ehb.dtsid_inapp.JSONTasks.GetJSONTask;
+import be.ehb.dtsid_inapp.Models.Department;
+import be.ehb.dtsid_inapp.Models.Event;
+import be.ehb.dtsid_inapp.Models.Teacher;
 import be.ehb.dtsid_inapp.R;
 import be.ehb.dtsid_inapp.StudentFragments.StudentRegistration;
 import be.ehb.dtsid_inapp.TeacherFragments.DepartmentLogin;
@@ -20,11 +23,19 @@ import static be.ehb.dtsid_inapp.JSONTasks.JSONContract.*;
 public class TeacherActivity extends AppCompatActivity
 {
     private DatabaseContract dbc;
+    private Department department;
+    private Teacher teacher;
+    private Event event;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_teacher);
+
+        department = new Department();
+        teacher = new Teacher();
+        event = new Event();
 
         //Contract opvrage
         dbc = new DatabaseContract(getApplicationContext());
@@ -109,18 +120,36 @@ public class TeacherActivity extends AppCompatActivity
                     .commit();
         }
 
-        else if(goToButton.getId() == R.id.btn_login_loginscreen)
-        {
-            getFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.teacherContainer, new Options())
-                    .commit();
-        }
-
         else if(goToButton.getId() == R.id.btn_student_registreren)
         {
             Intent studentIntent = new Intent(getApplicationContext(), StudentActivity.class);
+            studentIntent.putExtra("Teacher_id", teacher.getId());
+            studentIntent.putExtra("Event_id", event.getId());
             startActivity(studentIntent);
         }
+    }
+
+    public Department getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(Department department) {
+        this.department = department;
+    }
+
+    public Teacher getTeacher() {
+        return teacher;
+    }
+
+    public void setTeacher(Teacher teacher) {
+        this.teacher = teacher;
+    }
+
+    public Event getEvent() {
+        return event;
+    }
+
+    public void setEvent(Event event) {
+        this.event = event;
     }
 }

@@ -36,7 +36,7 @@ public class PostJSONTask extends AsyncTask<Void, Integer, HashMap<String, Boole
 
     @Override
     protected HashMap<String, Boolean> doInBackground(Void... params) {
-        HashMap resultMap = new HashMap<String, Boolean>();
+        HashMap resultMap = new HashMap<>();
         //subscriptionArrayList = dbc.getAllSubscriptions;
         try {
 
@@ -61,15 +61,10 @@ public class PostJSONTask extends AsyncTask<Void, Integer, HashMap<String, Boole
             postConnection.setFixedLengthStreamingMode(jsonString.getBytes().length);
             postConnection.connect();
 
-
-
-
             OutputStream os = postConnection.getOutputStream();
 
             os.write(jsonString.getBytes());
             os.flush();
-
-
 
             Log.d("JSON GSON", "{\"subscription\":" + jsonString + "}");
         } catch (MalformedURLException e) {
@@ -77,10 +72,6 @@ public class PostJSONTask extends AsyncTask<Void, Integer, HashMap<String, Boole
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
-
-
         return resultMap;
     }
 }

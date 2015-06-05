@@ -8,6 +8,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Log;
 
+import java.sql.Blob;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -446,8 +447,7 @@ public class DatabaseContract
     {
         byte[] data = c.getBlob(c.getColumnIndex(MySQLiteHelper.COL_IMAGES_IMAGE));
 
-        Bitmap temp = BitmapFactory.decodeByteArray(data, 0, data.length);
-        return temp;
+        return BitmapFactory.decodeByteArray(data, 0, data.length);
     }
     private Subscription cursorToSubscription(Cursor c) throws ParseException
     {
