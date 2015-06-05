@@ -138,6 +138,7 @@ public class GetJSONTask extends AsyncTask<String, Integer, Void>
                     Image temp = new Image(o.getLong(JSON_LONG_ID), o.getInt(JSON_INT_PRIORITY),
                             tempByteArray);
                     imageList.add(temp);
+                    Log.d("IMAGE TEST", o.getString(JSON_NAME_IMAGE));
                 }
 
                 dbc.setAllImages(imageList);

@@ -2,6 +2,7 @@ package be.ehb.dtsid_inapp.Database;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 public class DatabaseManager
 {
@@ -19,6 +20,8 @@ public class DatabaseManager
             dbHelper = new MySQLiteHelper(context);
 
             instance.mOpenCounter = 0;
+
+            Log.d("DatabaseInstance","Database Initialized");
         }
     }
 
@@ -36,6 +39,8 @@ public class DatabaseManager
         if(mOpenCounter == 1)
         {
             db = dbHelper.getWritableDatabase();
+
+            Log.d("DatabaseInstance","Database Opened");
         }
         return db;
     }
@@ -47,6 +52,8 @@ public class DatabaseManager
         {
             dbHelper.close();
             db.close();
+
+            Log.d("DatabaseInstance", "Database Closed");
         }
     }
 }

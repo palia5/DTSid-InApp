@@ -17,6 +17,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import be.ehb.dtsid_inapp.Activities.TeacherActivity;
 import be.ehb.dtsid_inapp.Database.DatabaseContract;
 import be.ehb.dtsid_inapp.Models.Event;
 import be.ehb.dtsid_inapp.Models.Teacher;
@@ -25,6 +26,8 @@ import be.ehb.dtsid_inapp.R;
 
 public class TeacherLogin extends Fragment
 {
+    TeacherActivity activity;
+
     private Spinner teacherSP, eventSP;
     private Button loginBTN;
 
@@ -38,20 +41,21 @@ public class TeacherLogin extends Fragment
     {
         View v = inflater.inflate(R.layout.fragment_teacher_login, null);
 
-        dbc = new DatabaseContract(getActivity().getApplicationContext());
+        activity = (TeacherActivity) this.getActivity();
+        dbc = new DatabaseContract(activity.getApplicationContext());
 
         //Teacher spinner
         teacherSP = (Spinner) v.findViewById(R.id.sp_docent_loginscreen);
-        teacherAdapter = new TeacherAdapter(getActivity(), dbc.getAllTeachers());
+        teacherAdapter = new TeacherAdapter(activity, dbc.getAllTeachers());
         teacherSP.setAdapter(teacherAdapter);
 
         //Event spinner
-        List<String> events = new ArrayList<>();
+        final List<String> events = new ArrayList<>();
         for(int i = 0 ; i < dbc.getAllEvents().size() ; i++)
             events.add(dbc.getAllEvents().get(i).getName() + " (" + dbc.getAllEvents().get(i).getAcadyear() + ")");
 
         eventSP = (Spinner) v.findViewById(R.id.sp_event_loginscreen);
-        eventAdapter = new ArrayAdapter<String>(getActivity().getApplicationContext(), R.layout.event_list_item, events)
+        eventAdapter = new ArrayAdapter<String>(activity.getApplicationContext(), R.layout.event_list_item, events)
         {
             @Override
             public View getView(int position, View convertView, ViewGroup parent) {
@@ -65,9 +69,23 @@ public class TeacherLogin extends Fragment
         eventSP.setAdapter(eventAdapter);
 
         //Log in button
-        loginBTN = (Button) v.findViewById(R.id.btn_teacher_login);
+        loginBTN = (Button) v.findViewById(R.id.btn_login_loginscreen);
+        loginBTN.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                activity.setTeacher(dbc.getAllTeachers().get(teacherSP.getSelectedItemPosition()));
+                activity.setEvent(dbc.getAllEvents().get(eventSP.getSelectedItemPosition()));
 
-        dbc.close();
+                dbc.close();
+
+                activity.getFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.teacherContainer, new Options())
+                        .commit();
+            }
+        });
 
         return v;
     }

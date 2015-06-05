@@ -214,7 +214,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="50dp"
-            android:id="@+id/btn_annuleren_subscription1" />
+            android:id="@+id/btn_annuleren_subscription1"
+            android:text="Annuleren" />
 
         <Button
             android:layout_weight="1"
@@ -222,7 +223,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginRight="50dp"
-            android:id="@+id/btn_bevestigen_subscription1" />
+            android:id="@+id/btn_bevestigen_subscription1"
+            android:text="Bevestigen" />
         </LinearLayout>
 
     </LinearLayout>
