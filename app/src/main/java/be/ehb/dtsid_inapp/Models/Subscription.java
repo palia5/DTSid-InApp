@@ -1,27 +1,51 @@
 package be.ehb.dtsid_inapp.Models;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 import java.util.Date;
 import java.util.HashMap;
 
 public class Subscription
 {
     //Variables
+    @Expose
     private Long id;
+    @Expose
     private String firstName;
+    @Expose
     private String lastName;
+    @Expose
     private String email;
+    @Expose
     private String street;
+    @Expose
     private String streetNumber;
+    @Expose
     private String zip;
+    @Expose
     private String city;
+    @Expose(serialize = false, deserialize = false)
     private Boolean digx;
+    @Expose(serialize = false, deserialize = false)
     private Boolean multec;
+    @Expose(serialize = false, deserialize = false)
     private Boolean werkstudent;
+    @Expose(serialize = false, deserialize = false)
     private Date timestamp;
+    @Expose
+    @SerializedName("timestamp")
+    private long timestampLong;
+    @Expose
     private Teacher teacher;
+    @Expose
     private Event event;
+    @Expose
+    @SerializedName("new")
     private Boolean isNew;
+    @Expose
     private School school;
+    @Expose
     private HashMap<String, String> interests;
 
     //Constructors
@@ -51,6 +75,7 @@ public class Subscription
         interests.put("digx", Boolean.toString(digx));
         interests.put("werkstudent", Boolean.toString(werkstudent));
         interests.put("multec", Boolean.toString(multec));
+        this.timestampLong = timestamp.getTime();
     }
     public Subscription(String firstName, String lastName, String email,
                         String street, String streetNumber, String zip, String city,
@@ -77,6 +102,7 @@ public class Subscription
         interests.put("digx", Boolean.toString(digx));
         interests.put("werkstudent", Boolean.toString(werkstudent));
         interests.put("multec", Boolean.toString(multec));
+        this.timestampLong = timestamp.getTime();
     }
     public Subscription()
     {
@@ -214,5 +240,9 @@ public class Subscription
     public HashMap<String, String> getInterests()
     {
         return interests;
+    }
+    public long getTimestampLong()
+    {
+        return timestampLong;
     }
 }

@@ -140,7 +140,7 @@ public class GetJSONTask extends AsyncTask<String, Integer, Void>
                     imageList.add(temp);
                 }
 
-                //dbc.setAllImages(imageList);
+                dbc.setAllImages(imageList);
             }
         }
         catch (MalformedURLException | ProtocolException | JSONException e)
