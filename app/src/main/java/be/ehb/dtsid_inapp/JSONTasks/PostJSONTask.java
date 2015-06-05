@@ -64,9 +64,7 @@ public class PostJSONTask extends AsyncTask<Void, Integer, HashMap<String, Boole
                 postConnection.setRequestMethod("POST");
                 postConnection.setRequestProperty("Content-Type", "application/json");
                 postConnection.setRequestProperty("Accept", "application/json");
-                postConnection.setChunkedStreamingMode(1);
-                postConnection.connect();
-                OutputStream os = postConnection.getOutputStream();
+
 
                 Subscription tempSub = subscriptionList.get(i);
 
@@ -76,6 +74,7 @@ public class PostJSONTask extends AsyncTask<Void, Integer, HashMap<String, Boole
                 //HIER KOMT HIJ AL FALSE TERUG, DUS IETS MIS MET DB!!!!!!!!!!
                 if (tempSub.getNew())
                 {
+                    Log.d("TEST", "new sub");
                     tempSub.setId(null);
                     tempSub.setNew(false);
 
@@ -86,12 +85,15 @@ public class PostJSONTask extends AsyncTask<Void, Integer, HashMap<String, Boole
                     gb.excludeFieldsWithoutExposeAnnotation();
                     Gson gson = gb.create();
                     String jsonString = gson.toJson(tempSub);
-                    Log.d("Post Task", jsonString);
+                    Log.d("Post Task", POST_SUBSCRIPTION_START + jsonString + POST_SUBSCRIPTION_END);
+                    postConnection.setFixedLengthStreamingMode(jsonString.getBytes().length);
+                    postConnection.connect();
+                    OutputStream os = postConnection.getOutputStream();
 
                     os.write(jsonString.getBytes());
                     checkList.add(tempSub);
                     os.flush();
-                    //os.close();
+                    os.close();
                 }
             }
 
@@ -108,6 +110,8 @@ public class PostJSONTask extends AsyncTask<Void, Integer, HashMap<String, Boole
             JSONObject rawSubs = new JSONObject(jsonGetString);
             JSONArray subsArray = rawSubs.getJSONArray(JSON_NAME_SUBSCRIPTIONS);
             ArrayList<Subscription> subsList = new ArrayList<>();
+
+            Log.d("TEST", subsArray.length()+"items in subsarray");
 
             for (int i = 0; i< subsArray.length(); i++)
             {
