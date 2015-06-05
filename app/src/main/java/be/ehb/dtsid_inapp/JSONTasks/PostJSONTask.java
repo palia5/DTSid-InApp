@@ -40,50 +40,67 @@ public class PostJSONTask extends AsyncTask<Void, Integer, HashMap<String, Boole
 
     @Override
     protected HashMap<String, Boolean> doInBackground(Void... params) {
-        HashMap resultMap = new HashMap<String, Boolean>();
+
+
+        //TEST le Post avec le TEST Subscription
+       /* Subscription testSub = new Subscription(null, "Karel", "Verzeypen", "karel1997@ggmail.com",
+                "Doedoensstraat", "22", "2800", "Mechelen", false, true, false,
+                Calendar.getInstance().getTime(), dbc.getTeacherByID(4683438497988608l),
+                dbc.getEventByID(4814888656437248l), true, dbc.getSchoolByID(6312278001451008l));
+
+
+        dbc.createSubscription(testSub);*/
+        //Log.d("POST Task", Boolean.toString(testSub.getNew()));
+
+        //HashMap resultMap = new HashMap<String, Boolean>();
         subscriptionList = dbc.getAllSubscriptions();
         ArrayList<Subscription> checkList = new ArrayList<>();
         try {
 
-            //TEST le Post avec le TEST Subscription
-            Subscription testSub = new Subscription(null, "Maarten", "Van Uytsel", "maarten1997@ggmail.com",
-                    "Doedoensstraat", "22", "2800", "Mechelen", false, true, false,
-                    Calendar.getInstance().getTime(), dbc.getTeacherByID(4683438497988608l),
-                    dbc.getEventByID(4814888656437248l), true, dbc.getSchoolByID(6312278001451008l));
-
-            dbc.createSubscription(testSub);
 
 
-            URL postUrl = new URL(BASEURL + POST_SUBSCRIPTION);
-            HttpURLConnection postConnection = (HttpURLConnection) postUrl.openConnection();
-            postConnection.setDoOutput(true);
-            postConnection.setDoInput(true);
-            postConnection.setRequestMethod("POST");
-            postConnection.setRequestProperty("Content-Type", "application/json");
-            postConnection.setRequestProperty("Accept", "application/json");
-            //postConnection.setFixedLengthStreamingMode(jsonString.getBytes().length);
-            postConnection.connect();
-            OutputStream os = postConnection.getOutputStream();
 
             for (int i = 0; i < subscriptionList.size(); i++) {
 
+                //Log.d("POST Task", Integer.toString(subscriptionList.size()));
+                URL postUrl = new URL(BASEURL + POST_SUBSCRIPTION);
+                HttpURLConnection postConnection = (HttpURLConnection) postUrl.openConnection();
+                postConnection.setDoOutput(true);
+                postConnection.setDoInput(true);
+                postConnection.setRequestMethod("POST");
+                postConnection.setRequestProperty("Content-Type", "application/json");
+                postConnection.setRequestProperty("Accept", "application/json");
+                postConnection.setChunkedStreamingMode(1);
+                postConnection.connect();
+                OutputStream os = postConnection.getOutputStream();
+
+
                 Subscription tempSub = subscriptionList.get(i);
 
+                //Log.d("POST Task", tempSub.getLastName()
+                 //+ Boolean.toString(tempSub.getNew()));
+
+                //HIER KOMT HIJ AL FALSE TERUG, DUS IETS MIS MET DB!!!!!!!!!!
                 if (tempSub.getNew()) {
-                    Log.d("POST Task", tempSub.getFirstName());
+                    tempSub.setId(null);
                     tempSub.setNew(false);
+
+                    Log.d("POST Task", tempSub.getTimestamp().toString() + " "
+                    + tempSub.getTimestampLong());
+
                     GsonBuilder gb = new GsonBuilder();
                     gb.excludeFieldsWithoutExposeAnnotation();
                     Gson gson = gb.create();
-                    String jsonString = POST_SUBSCRIPTION_START + gson.toJson(tempSub)
-                            + POST_SUBSCRIPTION_END;
+                    String jsonString = gson.toJson(tempSub);
+                    Log.d("Post Task", jsonString);
 
                     os.write(jsonString.getBytes());
                     checkList.add(tempSub);
+                    os.flush();
+                    //os.close();
                 }
             }
-            os.flush();
-            os.close();
+
 
 // GETTING IT ALL FROM THE REST AGAIN!!!
 
@@ -146,7 +163,7 @@ public class PostJSONTask extends AsyncTask<Void, Integer, HashMap<String, Boole
             e.printStackTrace();
         }
 
-
-        return resultMap;
+        dbc.close();
+        return null;
     }
 }

@@ -241,8 +241,17 @@ public class Subscription
     {
         return interests;
     }
+    public void setInterests (){
+        this.interests = new HashMap<String, String>();
+        interests.put("digx", Boolean.toString(digx));
+        interests.put("werkstudent", Boolean.toString(werkstudent));
+        interests.put("multec", Boolean.toString(multec));
+    }
     public long getTimestampLong()
     {
         return timestampLong;
+    }
+    public void setTimestampLong() {
+        this.timestampLong = this.timestamp.getTime();
     }
 }

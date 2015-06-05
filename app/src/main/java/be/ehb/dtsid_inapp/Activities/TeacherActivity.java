@@ -7,8 +7,11 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import java.util.Calendar;
+
 import be.ehb.dtsid_inapp.Database.DatabaseContract;
 import be.ehb.dtsid_inapp.JSONTasks.GetJSONTask;
+import be.ehb.dtsid_inapp.Models.Subscription;
 import be.ehb.dtsid_inapp.R;
 import be.ehb.dtsid_inapp.StudentFragments.StudentRegistration;
 import be.ehb.dtsid_inapp.TeacherFragments.DepartmentLogin;
@@ -72,7 +75,17 @@ public class TeacherActivity extends AppCompatActivity
                 e.printStackTrace();
             }
         }
+//*
+        //TEST le Post avec le TEST Subscription
+        Subscription testSub = new Subscription(null, "Karel", "Verzeypen", "karel1997@ggmail.com",
+                "Doedoensstraat", "22", "2800", "Mechelen", false, true, false,
+                Calendar.getInstance().getTime(), dbc.getTeacherByID(4683438497988608l),
+                dbc.getEventByID(4814888656437248l), true, dbc.getSchoolByID(6312278001451008l));
 
+
+        dbc.createSubscription(testSub);
+
+//*/
         for(int i = 0 ; i < dbc.getAllSchools().size() ; i++)
             Log.d("SCHOOLS",dbc.getAllSchools().get(i).getName());
 
