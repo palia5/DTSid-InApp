@@ -78,4 +78,6 @@ public class JSONContract
 
     //POST request
     public static final String POST_SUBSCRIPTION = "/rest/subscription";
+    public static final String POST_SUBSCRIPTION_START = "{\"subscription\":";
+    public static final String POST_SUBSCRIPTION_END = "}";
 }

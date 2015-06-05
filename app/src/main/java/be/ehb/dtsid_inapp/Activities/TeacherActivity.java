@@ -75,7 +75,11 @@ public class TeacherActivity extends AppCompatActivity
             Log.d("TEACHERS",dbc.getAllTeachers().get(i).getName());
 
         for(int i = 0 ; i < dbc.getAllSubscriptions().size() ; i++)
-            Log.d("SUBSCRIPTIONS",dbc.getAllSubscriptions().get(i).getFirstName() + " " + dbc.getAllSubscriptions().get(i).getLastName());
+            Log.d("SUBSCRIPTIONS", dbc.getAllSubscriptions().get(i).getFirstName() + " " + dbc.getAllSubscriptions().get(i).getLastName() + " " + Boolean.toString(dbc.getAllSubscriptions().get(i).getNew()));
+
+
+        //Close database
+        dbc.close();
 
         //Start first fragment
         getFragmentManager()
@@ -83,8 +87,6 @@ public class TeacherActivity extends AppCompatActivity
                 .replace(R.id.teacherContainer, new DepartmentLogin())
                 .commit();
 
-        //Close database
-        dbc.close();
     }
 
     public void goToOtherFragment(View v)
