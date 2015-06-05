@@ -18,7 +18,9 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.regex.Pattern;
 
 import be.ehb.dtsid_inapp.Activities.StudentActivity;
@@ -54,7 +56,7 @@ public class StudentRegistration extends Fragment
             public boolean onTouch(View v, MotionEvent event)
             {
                 activity.leftTouched();
-                enableEditTeksts();
+                setEnabled(true);
                 return true;
             }
         });
@@ -69,6 +71,8 @@ public class StudentRegistration extends Fragment
         acceptBTN = (Button) v.findViewById(R.id.btn_bevestigen_subscription1);
         cancelBTN = (Button) v.findViewById(R.id.btn_annuleren_subscription1);
 
+        setEnabled(false);
+
         emailET.setOnFocusChangeListener(new View.OnFocusChangeListener()
         {
             @Override
@@ -79,7 +83,21 @@ public class StudentRegistration extends Fragment
                     String email = emailET.getText().toString();
                     if (validEmail(email))
                     {
-                        //check if the email is in the database already
+                        DatabaseContract dbc = new DatabaseContract(activity.getApplicationContext());
+                        List<Subscription> subs = new ArrayList<>();
+
+                        for(int i = 0 ; i < subs.size() ; i++)
+                            if(email == subs.get(i).getEmail())
+                            {
+                                emailET.setText(subs.get(i).getEmail());
+                                naamET.setText(subs.get(i).getLastName());
+                                voorNaamET.setText(subs.get(i).getFirstName());
+                                straatET.setText(subs.get(i).getStreet());
+                                huisNummerET.setText(subs.get(i).getStreetNumber());
+                                postcodeET.setText(subs.get(i).getZip());
+                            }
+
+                        dbc.close();
                     }
                     else
                     {
@@ -156,29 +174,16 @@ public class StudentRegistration extends Fragment
         postcodeET.setText("");
     }
 
-    public void disableEditTeksts()
+    public void setEnabled(Boolean enabled)
     {
-        emailET.setEnabled(false);
-        naamET.setEnabled(false);
-        voorNaamET.setEnabled(false);
-        straatET.setEnabled(false);
-        huisNummerET.setEnabled(false);
-        postcodeET.setEnabled(false);
-        gemeenteSP.setEnabled(false);
-        acceptBTN.setEnabled(false);
-        cancelBTN.setEnabled(false);
-    }
-
-    public void enableEditTeksts()
-    {
-        emailET.setEnabled(true);
-        naamET.setEnabled(true);
-        voorNaamET.setEnabled(true);
-        straatET.setEnabled(true);
-        huisNummerET.setEnabled(true);
-        postcodeET.setEnabled(true);
-        gemeenteSP.setEnabled(true);
-        acceptBTN.setEnabled(true);
-        cancelBTN.setEnabled(true);
+        emailET.setEnabled(enabled);
+        naamET.setEnabled(enabled);
+        voorNaamET.setEnabled(enabled);
+        straatET.setEnabled(enabled);
+        huisNummerET.setEnabled(enabled);
+        postcodeET.setEnabled(enabled);
+        gemeenteSP.setEnabled(enabled);
+        acceptBTN.setEnabled(enabled);
+        cancelBTN.setEnabled(enabled);
     }
 }

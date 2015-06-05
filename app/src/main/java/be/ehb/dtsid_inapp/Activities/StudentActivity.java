@@ -54,7 +54,7 @@ public class StudentActivity extends AppCompatActivity
         else
         {
             changeWeightOfFragments(50, 50);
-            registrationFragment.disableEditTeksts();
+            registrationFragment.setEnabled(false);
             isInMainScreen = true;
         }
     }
