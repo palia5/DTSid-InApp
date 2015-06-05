@@ -47,7 +47,13 @@ public class TeacherActivity extends AppCompatActivity
             String urlSubscriptions = BASEURL + ALL_SUBSCRIPTIONS;
             GetJSONTask jsonTask4 = new GetJSONTask(getApplicationContext());
             jsonTask4.execute(urlSubscriptions);
+
+            String urlImages = BASEURL + ALL_IMAGES;
+            GetJSONTask jsonTask5 = new GetJSONTask(getApplicationContext());
+            jsonTask5.execute(urlImages);
         }
+
+        dbc.close();
     }
 
     @Override
@@ -55,11 +61,13 @@ public class TeacherActivity extends AppCompatActivity
     {
         super.onStart();
 
+        dbc = new DatabaseContract(getApplicationContext());
+
         //Efkes logge
         //Sleep (tga te snel)
         synchronized (Thread.currentThread()) {
             try {
-                Thread.currentThread().wait(2000);
+                Thread.currentThread().wait(3000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -77,6 +85,7 @@ public class TeacherActivity extends AppCompatActivity
         for(int i = 0 ; i < dbc.getAllSubscriptions().size() ; i++)
             Log.d("SUBSCRIPTIONS", dbc.getAllSubscriptions().get(i).getFirstName() + " " + dbc.getAllSubscriptions().get(i).getLastName() + " " + Boolean.toString(dbc.getAllSubscriptions().get(i).getNew()));
 
+        Log.d("IMAGES SIZE", "" + dbc.getAllImages().size());
 
         //Close database
         dbc.close();
@@ -86,7 +95,6 @@ public class TeacherActivity extends AppCompatActivity
                 .beginTransaction()
                 .replace(R.id.teacherContainer, new DepartmentLogin())
                 .commit();
-
     }
 
     public void goToOtherFragment(View v)

@@ -5,10 +5,10 @@
     android:layout_height="match_parent"
     tools:context="be.ehb.dtsid_inapp.StudentFragments.PhotoGallery">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="FOTOOOOOOS"
-        android:id="@+id/textView5" />
-
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/iv_test_photo"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>
