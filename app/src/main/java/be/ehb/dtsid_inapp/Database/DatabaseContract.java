@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.util.Log;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -264,6 +265,61 @@ public class DatabaseContract
         return subscriptions;
     }
 
+    public List<Image> getAllImages()
+    {
+        List<Image> images = new ArrayList<>();
+
+        Cursor c = db.query(false,
+                MySQLiteHelper.TABLE_IMAGES,
+                MySQLiteHelper.ALL_COLUMNS_IMAGES,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null);
+
+        c.moveToFirst();
+
+        while(!c.isAfterLast())
+        {
+            images.add(cursorToImage(c));
+
+            c.moveToNext();
+        }
+
+        c.close();
+        return images;
+    }
+
+    public List<Bitmap> getAllBitmaps()
+    {
+        List<Bitmap> bitmaps = new ArrayList<>();
+
+        Cursor c = db.query(false,
+                MySQLiteHelper.TABLE_IMAGES,
+                MySQLiteHelper.ALL_COLUMNS_IMAGES,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null);
+
+        c.moveToFirst();
+
+        while(!c.isAfterLast())
+        {
+            bitmaps.add(cursorToBitmap(c));
+
+            c.moveToNext();
+        }
+
+        c.close();
+        return bitmaps;
+
+    }
+
     //Setters
     public void setAllEvents(List<Event> events)
     {
@@ -337,8 +393,8 @@ public class DatabaseContract
         for(int i = 0 ; i < images.size() ; i++)
         {
             values.put(MySQLiteHelper.COL_IMAGES_ID, images.get(i).getId());
-            values.put(MySQLiteHelper.COL_IMAGES_PRIORITY, images.get(i).getId());
-            values.put(MySQLiteHelper.COL_IMAGES_IMAGE, images.get(i).getId());
+            values.put(MySQLiteHelper.COL_IMAGES_PRIORITY, images.get(i).getPriority());
+            values.put(MySQLiteHelper.COL_IMAGES_IMAGE, images.get(i).getImage());
 
             db.insert(MySQLiteHelper.TABLE_IMAGES, null, values);
         }
@@ -376,12 +432,21 @@ public class DatabaseContract
 
         return temp;
     }
-    private Bitmap cursorToImage(Cursor c)
+    private Image cursorToImage(Cursor c)
+    {
+        Image temp = new Image();
+
+        temp.setId(c.getLong(c.getColumnIndex(MySQLiteHelper.COL_IMAGES_ID)));
+        temp.setPriority(c.getInt(c.getColumnIndex(MySQLiteHelper.COL_IMAGES_PRIORITY)));
+        temp.setImage(c.getBlob(c.getColumnIndex(MySQLiteHelper.COL_IMAGES_IMAGE)));
+
+        return temp;
+    }
+    private Bitmap cursorToBitmap(Cursor c)
     {
         byte[] data = c.getBlob(c.getColumnIndex(MySQLiteHelper.COL_IMAGES_IMAGE));
 
-        Bitmap temp = BitmapFactory.decodeByteArray(data,0, data.length);
-
+        Bitmap temp = BitmapFactory.decodeByteArray(data, 0, data.length);
         return temp;
     }
     private Subscription cursorToSubscription(Cursor c) throws ParseException

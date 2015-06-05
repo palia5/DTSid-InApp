@@ -69,15 +69,14 @@ public class MySQLiteHelper extends SQLiteOpenHelper
             COL_SUBSCRIPTIONS_TEACHER,
             COL_SUBSCRIPTIONS_EVENT,
             COL_SUBSCRIPTIONS_ISNEW,
-            COL_SUBSCRIPTIONS_SCHOOL
-    };
+            COL_SUBSCRIPTIONS_SCHOOL};
 
     public static final String TABLE_IMAGES = "images";
     public static final String COL_IMAGES_ID = "_id";
     public static final String COL_IMAGES_PRIORITY = "priority";
     public static final String COL_IMAGES_IMAGE = "image";
 
-    public static final String[] ALL_IMAGES_COLS = {COL_IMAGES_ID,
+    public static final String[] ALL_COLUMNS_IMAGES = {COL_IMAGES_ID,
             COL_IMAGES_PRIORITY,
             COL_IMAGES_IMAGE};
 
@@ -138,7 +137,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper
                 "CREATE TABLE " + TABLE_IMAGES + " (" +
                         COL_IMAGES_ID + " LONG PRIMARY KEY, " +
                         COL_IMAGES_PRIORITY + " INTEGER NOT NULL, " +
-                        COL_EVENTS_ACADYEAR + " TEXT NOT NULL" +
+                        COL_IMAGES_IMAGE + " BLOB NOT NULL" +
                         ")");
     }
 
