@@ -94,11 +94,9 @@ public class StudentRegistration extends Fragment
             }
         });
 
-        acceptBTN.setOnClickListener(new View.OnClickListener()
-        {
+        acceptBTN.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
                 //if(!validEmail(emailET.getText().toString()))
                 DatabaseContract dbc = new DatabaseContract(activity.getApplicationContext());
 
@@ -118,12 +116,22 @@ public class StudentRegistration extends Fragment
                         activity.getEvent(),
                         true,
                         dbc.getAllSchools().get(1)
-                        );
+                );
 
                 dbc.createSubscription(newSub);
 
                 dbc.close();
 
+                clearAllFields();
+                activity.onBackPressed();
+            }
+        });
+
+        cancelBTN.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
                 clearAllFields();
                 activity.onBackPressed();
             }

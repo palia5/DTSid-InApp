@@ -7,14 +7,14 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
-import java.util.Calendar;
 
 import be.ehb.dtsid_inapp.Database.DatabaseContract;
 import be.ehb.dtsid_inapp.JSONTasks.GetJSONTask;
+import be.ehb.dtsid_inapp.Models.Department;
+import be.ehb.dtsid_inapp.Models.Event;
+import be.ehb.dtsid_inapp.Models.Teacher;
 import be.ehb.dtsid_inapp.R;
-import be.ehb.dtsid_inapp.StudentFragments.StudentRegistration;
 import be.ehb.dtsid_inapp.TeacherFragments.DepartmentLogin;
-import be.ehb.dtsid_inapp.TeacherFragments.Options;
 import be.ehb.dtsid_inapp.TeacherFragments.TeacherLogin;
 
 import static be.ehb.dtsid_inapp.JSONTasks.JSONContract.*;
