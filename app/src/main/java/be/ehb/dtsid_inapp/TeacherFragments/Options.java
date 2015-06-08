@@ -77,6 +77,7 @@ public class Options extends Fragment implements View.OnClickListener
         return v;
     }
 
+
     private void nagivateAfterClick(View v) {
         switch (v.getId()) {
             case R.id.btn_student_registreren:
