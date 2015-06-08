@@ -32,6 +32,8 @@ import be.ehb.dtsid_inapp.R;
 public class StudentRegistration extends Fragment
 {
     StudentActivity activity;
+    List<Subscription> subs;
+    DatabaseContract dbc;
 
     EditText emailET;
     EditText naamET;
@@ -55,6 +57,9 @@ public class StudentRegistration extends Fragment
             @Override
             public boolean onTouch(View v, MotionEvent event)
             {
+                dbc = new DatabaseContract(activity.getApplicationContext());
+                subs = new ArrayList<>();
+                subs = dbc.getAllSubscriptions();
                 activity.leftTouched();
                 setEnabled(true);
                 return true;
@@ -83,9 +88,6 @@ public class StudentRegistration extends Fragment
                     String email = emailET.getText().toString();
                     if (validEmail(email))
                     {
-                        DatabaseContract dbc = new DatabaseContract(activity.getApplicationContext());
-                        List<Subscription> subs = new ArrayList<>();
-
                         for(int i = 0 ; i < subs.size() ; i++)
                             if(email == subs.get(i).getEmail())
                             {
@@ -112,9 +114,11 @@ public class StudentRegistration extends Fragment
             }
         });
 
-        acceptBTN.setOnClickListener(new View.OnClickListener() {
+        acceptBTN.setOnClickListener(new View.OnClickListener()
+        {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v)
+            {
                 //if(!validEmail(emailET.getText().toString()))
                 DatabaseContract dbc = new DatabaseContract(activity.getApplicationContext());
 
