@@ -29,10 +29,10 @@ public class PhotoGallery extends Fragment
 
         DatabaseContract dbc = new DatabaseContract(activity.getApplicationContext());
 
-        Log.d("IMAGE PHOTO", "" + dbc.getAllBitmaps().get(1));
+//        Log.d("IMAGE PHOTO", "" + dbc.getAllBitmaps().get(1));
 
-        Log.d("IMAGES SIZE", "" + dbc.getAllImages().size());
-        Log.d("BITMAPS SIZE", "" + dbc.getAllBitmaps().size());
+//        Log.d("IMAGES SIZE", "" + dbc.getAllImages().size());
+//        Log.d("BITMAPS SIZE", "" + dbc.getAllBitmaps().size());
 
         //testPhoto.setImageBitmap(dbc.getAllBitmaps().get(1));
 

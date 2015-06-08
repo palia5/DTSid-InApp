@@ -53,7 +53,14 @@ public class DatabaseContract
         values.put(MySQLiteHelper.COL_SUBSCRIPTIONS_DIGX, newSub.getDigx());
         values.put(MySQLiteHelper.COL_SUBSCRIPTIONS_WERKSTUDENT, newSub.getWerkstudent());
         values.put(MySQLiteHelper.COL_SUBSCRIPTIONS_MULTEC, newSub.getMultec());
-        values.put(MySQLiteHelper.COL_SUBSCRIPTIONS_TIMESTAMP, newSub.getTimestamp().toString());
+        values.put(MySQLiteHelper.COL_SUBSCRIPTIONS_TIMESTAMP, Long.toString(newSub.getTimestamp().getTime()));
+
+        /*Log.d("DBC Create", newSub.getFirstName() + newSub.getTimestampLong());
+        Log.d("DBC Create", newSub.getFirstName() + newSub.getTimestamp());
+        Log.d("DBC Create", newSub.getFirstName() + newSub.getTimestamp().toString());
+
+*/
+
         values.put(MySQLiteHelper.COL_SUBSCRIPTIONS_ISNEW, newSub.getNew());
         values.put(MySQLiteHelper.COL_SUBSCRIPTIONS_TEACHER, newSub.getTeacher().getId());
         values.put(MySQLiteHelper.COL_SUBSCRIPTIONS_EVENT, newSub.getEvent().getId());

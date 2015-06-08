@@ -11,7 +11,8 @@
     android:weightSum="100"
     tools:context="be.ehb.dtsid_inapp.Activities.StudentActivity"
     android:id="@+id/studentContainer"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:background="@drawable/ehbackground">
 
     <FrameLayout
         android:layout_width="0px"
