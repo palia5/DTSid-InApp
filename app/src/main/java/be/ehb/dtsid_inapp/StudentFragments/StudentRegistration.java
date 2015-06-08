@@ -1,11 +1,11 @@
 package be.ehb.dtsid_inapp.StudentFragments;
 
-import android.app.Activity;
 import android.app.Fragment;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.util.Log;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -13,8 +13,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.FrameLayout;
-import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -25,7 +23,6 @@ import java.util.regex.Pattern;
 
 import be.ehb.dtsid_inapp.Activities.StudentActivity;
 import be.ehb.dtsid_inapp.Database.DatabaseContract;
-import be.ehb.dtsid_inapp.Models.School;
 import be.ehb.dtsid_inapp.Models.Subscription;
 import be.ehb.dtsid_inapp.R;
 
@@ -52,6 +49,19 @@ public class StudentRegistration extends Fragment
         View v = inflater.inflate(R.layout.fragment_student_registration1_2, null);
         activity = (StudentActivity) this.getActivity();
 
+        emailET = (EditText) v.findViewById(R.id.et_email_subscription1);
+        naamET = (EditText) v.findViewById(R.id.et_naam_subscription1);
+        voorNaamET = (EditText) v.findViewById(R.id.et_voornaam_subscription1);
+        straatET = (EditText) v.findViewById(R.id.et_straat_subscription1);
+        huisNummerET = (EditText) v.findViewById(R.id.et_huisnummer_subscription1);
+        postcodeET = (EditText) v.findViewById(R.id.et_postcode_subscription1);
+        gemeenteSP = (Spinner) v.findViewById(R.id.sp_gemeente_subscription1);
+        acceptBTN = (Button) v.findViewById(R.id.btn_bevestigen_subscription1);
+        cancelBTN = (Button) v.findViewById(R.id.btn_annuleren_subscription1);
+
+        setEnabled(false);
+        clearAllFields();
+
         v.setOnTouchListener(new View.OnTouchListener()
         {
             @Override
@@ -66,50 +76,48 @@ public class StudentRegistration extends Fragment
             }
         });
 
-        emailET = (EditText) v.findViewById(R.id.et_email_subscription1);
-        naamET = (EditText) v.findViewById(R.id.et_naam_subscription1);
-        voorNaamET = (EditText) v.findViewById(R.id.et_voornaam_subscription1);
-        straatET = (EditText) v.findViewById(R.id.et_straat_subscription1);
-        huisNummerET = (EditText) v.findViewById(R.id.et_huisnummer_subscription1);
-        postcodeET = (EditText) v.findViewById(R.id.et_postcode_subscription1);
-        gemeenteSP = (Spinner) v.findViewById(R.id.sp_gemeente_subscription1);
-        acceptBTN = (Button) v.findViewById(R.id.btn_bevestigen_subscription1);
-        cancelBTN = (Button) v.findViewById(R.id.btn_annuleren_subscription1);
+        emailET.addTextChangedListener(new TextWatcher()
+        {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after)
+            {
 
-        setEnabled(false);
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count)
+            {
+                if(!validEmail(s.toString()))
+                    emailET.setBackgroundColor(Color.RED);
+                else
+                    emailET.setBackgroundColor(Color.TRANSPARENT);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s)
+            {
+            }
+        });
 
         emailET.setOnFocusChangeListener(new View.OnFocusChangeListener()
         {
             @Override
             public void onFocusChange(View v, boolean hasFocus)
             {
-                if (!hasFocus)
+                if(!hasFocus)
                 {
-                    String email = emailET.getText().toString();
-                    if (validEmail(email))
-                    {
-                        for(int i = 0 ; i < subs.size() ; i++)
-                            if(email == subs.get(i).getEmail())
+                    if (!validEmail(emailET.getText().toString()))
+                        Toast.makeText(getActivity(), "E-mail is not valid!", Toast.LENGTH_LONG).show();
+                    else
+                        for (int i = 0; i < subs.size(); i++)
+                            if (emailET.getText().toString().equals(subs.get(i).getEmail()))
                             {
-                                emailET.setText(subs.get(i).getEmail());
                                 naamET.setText(subs.get(i).getLastName());
                                 voorNaamET.setText(subs.get(i).getFirstName());
                                 straatET.setText(subs.get(i).getStreet());
                                 huisNummerET.setText(subs.get(i).getStreetNumber());
                                 postcodeET.setText(subs.get(i).getZip());
                             }
-
-                        dbc.close();
-                    }
-                    else
-                    {
-                        emailET.setBackgroundColor(Color.RED);
-                        Toast.makeText(getActivity(), "email is not valid", Toast.LENGTH_LONG).show();
-                    }
-                }
-                else if (hasFocus)
-                {
-                    emailET.setBackgroundColor(Color.rgb(207,203,203));
                 }
             }
         });
@@ -119,33 +127,33 @@ public class StudentRegistration extends Fragment
             @Override
             public void onClick(View v)
             {
-                //if(!validEmail(emailET.getText().toString()))
-                DatabaseContract dbc = new DatabaseContract(activity.getApplicationContext());
+                if(allFieldsOK())
+                {
+                    Subscription newSub = new Subscription(
+                            voorNaamET.getText().toString(),
+                            naamET.getText().toString(),
+                            emailET.getText().toString(),
+                            straatET.getText().toString(),
+                            huisNummerET.getText().toString(),
+                            postcodeET.getText().toString(),
+                            "Iemand heeft ne spinner gezet bij Gemeente :p",
+                            false,
+                            false,
+                            false,
+                            new Date(),
+                            activity.getTeacher(),
+                            activity.getEvent(),
+                            true,
+                            dbc.getAllSchools().get(1)
+                    );
 
-                Subscription newSub = new Subscription(
-                        voorNaamET.getText().toString(),
-                        naamET.getText().toString(),
-                        emailET.getText().toString(),
-                        straatET.getText().toString(),
-                        huisNummerET.getText().toString(),
-                        postcodeET.getText().toString(),
-                        "Iemand heeft ne spinner gezet bij Gemeente :p",
-                        false,
-                        false,
-                        false,
-                        new Date(),
-                        activity.getTeacher(),
-                        activity.getEvent(),
-                        true,
-                        dbc.getAllSchools().get(1)
-                );
+                    dbc.createSubscription(newSub);
 
-                dbc.createSubscription(newSub);
+                    dbc.close();
 
-                dbc.close();
-
-                clearAllFields();
-                activity.onBackPressed();
+                    clearAllFields();
+                    activity.onBackPressed();
+                }
             }
         });
 
@@ -176,6 +184,7 @@ public class StudentRegistration extends Fragment
         straatET.setText("");
         huisNummerET.setText("");
         postcodeET.setText("");
+        emailET.setBackgroundColor(Color.TRANSPARENT);
     }
 
     public void setEnabled(Boolean enabled)
@@ -189,5 +198,24 @@ public class StudentRegistration extends Fragment
         gemeenteSP.setEnabled(enabled);
         acceptBTN.setEnabled(enabled);
         cancelBTN.setEnabled(enabled);
+    }
+
+    private Boolean allFieldsOK()
+    {
+        String whatsWrong = "/";
+        if(!validEmail(emailET.getText().toString()))
+            whatsWrong += " e-mail not valid /";
+        if(naamET.getText().toString().equals(""))
+            whatsWrong += " name not entered /";
+        if(voorNaamET.getText().toString().equals(""))
+            whatsWrong += " first name not entered /";
+
+        if(!whatsWrong.equals(""))
+        {
+            Toast.makeText(getActivity(), whatsWrong, Toast.LENGTH_LONG).show();
+            return false;
+        }
+
+        return true;
     }
 }
