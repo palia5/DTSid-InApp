@@ -58,6 +58,8 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@drawable/button_empty"
+            android:textColor="#ffffffff"
             android:text="@string/txt_btn_login_loginscreen"
             android:id="@+id/btn_login_loginscreen"
             android:layout_alignParentBottom="true"
