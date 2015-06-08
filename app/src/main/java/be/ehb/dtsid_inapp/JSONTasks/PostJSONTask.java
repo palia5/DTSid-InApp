@@ -1,5 +1,6 @@
 package be.ehb.dtsid_inapp.JSONTasks;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
@@ -24,31 +25,37 @@ import java.util.List;
 
 import be.ehb.dtsid_inapp.Database.DatabaseContract;
 import be.ehb.dtsid_inapp.Models.Subscription;
-import static be.ehb.dtsid_inapp.JSONTasks.JSONContract.*;
+import be.ehb.dtsid_inapp.TeacherFragments.Options;
 
+import static be.ehb.dtsid_inapp.JSONTasks.JSONContract.*;
 
 public class PostJSONTask extends AsyncTask<Void, Integer, HashMap<String, Boolean>>
 {
     private DatabaseContract dbc;
     private List<Subscription> subscriptionList;
+    private Options fragment;
+    private ProgressDialog loadingDatabaseDialog;
 
-    public PostJSONTask(Context c)
+    public PostJSONTask(Options c)
     {
-        dbc = new DatabaseContract(c);
+        fragment = c;
+        dbc = new DatabaseContract(fragment.getActivity().getApplicationContext());
+        loadingDatabaseDialog = new ProgressDialog(fragment.getActivity());
+        loadingDatabaseDialog.setTitle("Syncing database");
+        loadingDatabaseDialog.setMessage("Syncing.. pls halp..");
+    }
+
+    @Override
+    protected void onPreExecute()
+    {
+        super.onPreExecute();
+
+        loadingDatabaseDialog.show();
     }
 
     @Override
     protected HashMap<String, Boolean> doInBackground(Void... params)
     {
-        //TEST le Post avec le TEST Subscription
-       /* Subscription testSub = new Subscription(null, "Karel", "Verzeypen", "karel1997@ggmail.com",
-                "Doedoensstraat", "22", "2800", "Mechelen", false, true, false,
-                Calendar.getInstance().getTime(), dbc.getTeacherByID(4683438497988608l),
-                dbc.getEventByID(4814888656437248l), true, dbc.getSchoolByID(6312278001451008l));
-
-        dbc.createSubscription(testSub);*/
-        //Log.d("POST Task", Boolean.toString(testSub.getNew()));
-
         //HashMap resultMap = new HashMap<String, Boolean>();
         subscriptionList = dbc.getAllSubscriptions();
         ArrayList<Subscription> checkList = new ArrayList<>();
@@ -159,7 +166,17 @@ public class PostJSONTask extends AsyncTask<Void, Integer, HashMap<String, Boole
             e.printStackTrace();
         }
 
-        dbc.close();
         return null;
+    }
+
+    @Override
+    protected void onPostExecute(HashMap<String, Boolean> stringBooleanHashMap)
+    {
+        super.onPostExecute(stringBooleanHashMap);
+
+        dbc.close();
+        loadingDatabaseDialog.dismiss();
+
+        fragment.allIsSynced();
     }
 }

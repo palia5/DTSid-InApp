@@ -9,10 +9,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import be.ehb.dtsid_inapp.Activities.StudentActivity;
 import be.ehb.dtsid_inapp.Activities.TeacherActivity;
 import be.ehb.dtsid_inapp.Database.DatabaseContract;
+import be.ehb.dtsid_inapp.JSONTasks.PostJSONTask;
 import be.ehb.dtsid_inapp.Models.Subscription;
 import be.ehb.dtsid_inapp.R;
 
@@ -67,6 +69,16 @@ public class Options extends Fragment
             }
         });
 
+        syncBTN.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                PostJSONTask jsonTask = new PostJSONTask(Options.this);
+                jsonTask.execute();
+            }
+        });
+
         medewerkerTV.setText(activity.getTeacher().getName());
         evenementTV.setText(activity.getEvent().getName());
 
@@ -79,5 +91,10 @@ public class Options extends Fragment
         dbc.close();
 
         return v;
+    }
+
+    public void allIsSynced()
+    {
+        Toast.makeText(getActivity(), "Synced it!", Toast.LENGTH_LONG).show();
     }
 }

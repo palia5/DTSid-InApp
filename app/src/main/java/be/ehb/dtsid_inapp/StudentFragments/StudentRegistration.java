@@ -210,7 +210,7 @@ public class StudentRegistration extends Fragment
         if(voorNaamET.getText().toString().equals(""))
             whatsWrong += " first name not entered /";
 
-        if(!whatsWrong.equals(""))
+        if(!whatsWrong.equals("/"))
         {
             Toast.makeText(getActivity(), whatsWrong, Toast.LENGTH_LONG).show();
             return false;
