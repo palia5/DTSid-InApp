@@ -1,5 +1,7 @@
 package be.ehb.dtsid_inapp.JSONTasks;
 
+import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
@@ -25,15 +27,31 @@ import be.ehb.dtsid_inapp.Models.Image;
 import be.ehb.dtsid_inapp.Models.School;
 import be.ehb.dtsid_inapp.Models.Subscription;
 import be.ehb.dtsid_inapp.Models.Teacher;
+import be.ehb.dtsid_inapp.TeacherFragments.DepartmentLogin;
 
 import static be.ehb.dtsid_inapp.JSONTasks.JSONContract.*;
-
 
 public class GetJSONTask extends AsyncTask<String, Integer, Void>
 {
     private DatabaseContract dbc;
-    public GetJSONTask(Context c){
-        dbc = new DatabaseContract(c);
+    private ProgressDialog loadingDatabaseDialog;
+    private DepartmentLogin fragment;
+
+    public GetJSONTask(DepartmentLogin c)
+    {
+        fragment = c;
+        dbc = new DatabaseContract(fragment.getActivity().getApplicationContext());
+        loadingDatabaseDialog = new ProgressDialog(fragment.getActivity());
+        loadingDatabaseDialog.setTitle("Downloading database");
+        loadingDatabaseDialog.setMessage("Loading.. pls stahp..");
+    }
+
+    @Override
+    protected void onPreExecute()
+    {
+        super.onPreExecute();
+
+        loadingDatabaseDialog.show();
     }
 
     @Override
@@ -157,7 +175,16 @@ public class GetJSONTask extends AsyncTask<String, Integer, Void>
             e.printStackTrace();
         }
 
-        dbc.close();
         return null;
+    }
+
+    @Override
+    protected void onPostExecute(Void aVoid)
+    {
+        super.onPostExecute(aVoid);
+        dbc.close();
+        loadingDatabaseDialog.dismiss();
+
+        fragment.everythingIsLoaded();
     }
 }
