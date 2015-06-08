@@ -1,10 +1,7 @@
 package be.ehb.dtsid_inapp.Activities;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
-import android.widget.Button;
 
 import be.ehb.dtsid_inapp.Database.DatabaseContract;
 import be.ehb.dtsid_inapp.JSONTasks.GetJSONTask;
@@ -13,7 +10,6 @@ import be.ehb.dtsid_inapp.Models.Event;
 import be.ehb.dtsid_inapp.Models.Teacher;
 import be.ehb.dtsid_inapp.R;
 import be.ehb.dtsid_inapp.TeacherFragments.DepartmentLogin;
-import be.ehb.dtsid_inapp.TeacherFragments.TeacherLogin;
 
 import static be.ehb.dtsid_inapp.JSONTasks.JSONContract.*;
 
@@ -73,27 +69,6 @@ public class TeacherActivity extends AppCompatActivity
                 .beginTransaction()
                 .replace(R.id.teacherContainer, new DepartmentLogin())
                 .commit();
-    }
-
-    public void goToOtherFragment(View v)
-    {
-        Button goToButton = (Button) v;
-
-        if(goToButton.getId() == R.id.btn_bevestigen_launchscreen)
-        {
-            getFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.teacherContainer, new TeacherLogin())
-                    .commit();
-        }
-
-        else if(goToButton.getId() == R.id.btn_student_registreren)
-        {
-            Intent studentIntent = new Intent(getApplicationContext(), StudentActivity.class);
-            studentIntent.putExtra("Teacher_id", teacher.getId());
-            studentIntent.putExtra("Event_id", event.getId());
-            startActivity(studentIntent);
-        }
     }
 
     public Department getDepartment() {

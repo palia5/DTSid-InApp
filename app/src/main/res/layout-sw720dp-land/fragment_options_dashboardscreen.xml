@@ -119,7 +119,6 @@
                 android:text="@string/txt_btn_student_registreren"
                 android:id="@+id/btn_student_registreren"
                 android:textSize="16sp"
-                android:onClick="goToOtherFragment"
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="44dp" />
 

@@ -1,6 +1,7 @@
 package be.ehb.dtsid_inapp.TeacherFragments;
 
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -9,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import be.ehb.dtsid_inapp.Activities.StudentActivity;
 import be.ehb.dtsid_inapp.Activities.TeacherActivity;
 import be.ehb.dtsid_inapp.Database.DatabaseContract;
 import be.ehb.dtsid_inapp.Models.Subscription;
@@ -52,6 +54,18 @@ public class Options extends Fragment
         evenementTV = (TextView) v.findViewById(R.id.tv_gekozen_evenement_dashboard);
         aantalStudentenTV = (TextView) v.findViewById(R.id.tv_aantalstudenten);
         laatsteSyncTV = (TextView) v.findViewById(R.id.tv_datum_laatste_synchronisatie);
+
+        studentRegistrerenBTN.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                Intent studentIntent = new Intent(activity.getApplicationContext(), StudentActivity.class);
+                studentIntent.putExtra("Teacher_id", activity.getTeacher().getId());
+                studentIntent.putExtra("Event_id", activity.getEvent().getId());
+                startActivity(studentIntent);
+            }
+        });
 
         medewerkerTV.setText(activity.getTeacher().getName());
         evenementTV.setText(activity.getEvent().getName());
