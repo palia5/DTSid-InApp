@@ -84,7 +84,7 @@ public class StudentRegistration extends Fragment
                     if (validEmail(email))
                     {
                         DatabaseContract dbc = new DatabaseContract(activity.getApplicationContext());
-                        List<Subscription> subs = new ArrayList<>();
+                        List<Subscription> subs = dbc.getAllSubscriptions();
 
                         for(int i = 0 ; i < subs.size() ; i++)
                             if(email == subs.get(i).getEmail())
