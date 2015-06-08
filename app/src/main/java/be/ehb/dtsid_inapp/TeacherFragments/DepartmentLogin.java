@@ -32,7 +32,7 @@ public class DepartmentLogin extends Fragment
         //testing JSONPost
         PostJSONTask pjt = new PostJSONTask(getActivity().getApplicationContext());
         pjt.execute();
-*/
+//*/
         return v;
     }
 }
