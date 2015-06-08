@@ -8,6 +8,8 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,22 +21,23 @@ import be.ehb.dtsid_inapp.JSONTasks.PostJSONTask;
 import be.ehb.dtsid_inapp.Models.Subscription;
 import be.ehb.dtsid_inapp.R;
 
-public class Options extends Fragment
+public class Options extends Fragment implements View.OnClickListener
 {
     TeacherActivity activity;
     private DatabaseContract dbc;
     private ProgressDialog loadingDatabaseDialog;
 
-    Button studentRegistrerenBTN;
-    Button lijstBTN;
-    Button regioBTN;
-    Button optiesBTN;
-    Button syncBTN;
-    TextView departementTV;
-    TextView medewerkerTV;
-    TextView evenementTV;
-    TextView aantalStudentenTV;
-    TextView laatsteSyncTV;
+    private Button studentRegistrerenBTN;
+    private Button lijstBTN;
+    private Button regioBTN;
+    private Button optiesBTN;
+    private Button syncBTN;
+    private TextView departementTV;
+    private TextView medewerkerTV;
+    private TextView evenementTV;
+    private TextView aantalStudentenTV;
+    private TextView laatsteSyncTV;
+    private Animation buttonAnim;
 
     @Nullable
     @Override
@@ -43,11 +46,8 @@ public class Options extends Fragment
         View v = inflater.inflate(R.layout.fragment_options_dashboardscreen, null);
 
         activity = (TeacherActivity) this.getActivity();
-
         //Contract opvrage
         dbc = new DatabaseContract(activity.getApplicationContext());
-
-        activity = (TeacherActivity) this.getActivity();
 
         loadingDatabaseDialog = new ProgressDialog(activity);
         loadingDatabaseDialog.setTitle("Syncing database");
@@ -63,30 +63,12 @@ public class Options extends Fragment
         evenementTV = (TextView) v.findViewById(R.id.tv_gekozen_evenement_dashboard);
         aantalStudentenTV = (TextView) v.findViewById(R.id.tv_aantalstudenten);
         laatsteSyncTV = (TextView) v.findViewById(R.id.tv_datum_laatste_synchronisatie);
+        buttonAnim = AnimationUtils.loadAnimation(getActivity().getApplicationContext(),
+                R.anim.button_animation_large);
 
-        studentRegistrerenBTN.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                Intent studentIntent = new Intent(activity.getApplicationContext(), StudentActivity.class);
-                studentIntent.putExtra("Teacher_id", activity.getTeacher().getId());
-                studentIntent.putExtra("Event_id", activity.getEvent().getId());
-                startActivity(studentIntent);
-            }
-        });
 
-        syncBTN.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                loadingDatabaseDialog.show();
-
-                PostJSONTask jsonTask = new PostJSONTask(Options.this);
-                jsonTask.execute();
-            }
-        });
+        studentRegistrerenBTN.setOnClickListener(this);
+        syncBTN.setOnClickListener(this);
 
         medewerkerTV.setText(activity.getTeacher().getName());
         evenementTV.setText(activity.getEvent().getName());
@@ -106,5 +88,50 @@ public class Options extends Fragment
     {
         loadingDatabaseDialog.dismiss();
         Toast.makeText(getActivity(), "Synced it!", Toast.LENGTH_LONG).show();
+    }
+
+    private void nagivateAfterClick(View v)
+    {
+        switch (v.getId())
+        {
+            case R.id.btn_student_registreren:
+                Intent studentIntent = new Intent(activity.getApplicationContext(), StudentActivity.class);
+                studentIntent.putExtra("Teacher_id", activity.getTeacher().getId());
+                studentIntent.putExtra("Event_id", activity.getEvent().getId());
+                startActivity(studentIntent);
+                break;
+            case R.id.btn_sync_dashboard:
+                loadingDatabaseDialog.show();
+                PostJSONTask jsonTask = new PostJSONTask(Options.this);
+                jsonTask.execute();
+                break;
+        }
+    }
+
+    @Override
+    public void onClick(View v)
+        {
+        final View vf = v;
+        vf.startAnimation(buttonAnim);
+        buttonAnim.setAnimationListener(new Animation.AnimationListener()
+        {
+            @Override
+            public void onAnimationStart(Animation animation)
+            {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation)
+            {
+                nagivateAfterClick(vf);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation)
+            {
+
+            }
+        });
     }
 }

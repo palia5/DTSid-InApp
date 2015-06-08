@@ -43,14 +43,12 @@ public class PostJSONTask extends AsyncTask<Void, Integer, HashMap<String, Boole
     @Override
     protected HashMap<String, Boolean> doInBackground(Void... params)
     {
-        //HashMap resultMap = new HashMap<String, Boolean>();
         subscriptionList = dbc.getAllSubscriptions();
         ArrayList<Subscription> checkList = new ArrayList<>();
         try
         {
             for (int i = 0; i < subscriptionList.size(); i++)
             {
-                //Log.d("POST Task", Integer.toString(subscriptionList.size()));
                 URL postUrl = new URL(BASEURL + POST_SUBSCRIPTION);
                 HttpURLConnection postConnection = (HttpURLConnection) postUrl.openConnection();
                 postConnection.setDoOutput(true);
@@ -59,13 +57,8 @@ public class PostJSONTask extends AsyncTask<Void, Integer, HashMap<String, Boole
                 postConnection.setRequestProperty("Content-Type", "application/json");
                 postConnection.setRequestProperty("Accept", "application/json");
 
-
                 Subscription tempSub = subscriptionList.get(i);
 
-                //Log.d("POST Task", tempSub.getLastName()
-                 //+ Boolean.toString(tempSub.getNew()));
-
-                //HIER KOMT HIJ AL FALSE TERUG, DUS IETS MIS MET DB!!!!!!!!!!
                 if (tempSub.getNew())
                 {
                     tempSub.setId(null);
@@ -86,8 +79,6 @@ public class PostJSONTask extends AsyncTask<Void, Integer, HashMap<String, Boole
                     os.close();
                 }
             }
-
-            // GETTING IT ALL FROM THE REST AGAIN!!!
 
             URL url = new URL(BASEURL + ALL_SUBSCRIPTIONS);
             HttpURLConnection getConnection = (HttpURLConnection) url.openConnection();
@@ -125,7 +116,7 @@ public class PostJSONTask extends AsyncTask<Void, Integer, HashMap<String, Boole
                 for (int j = 0; j < checkList.size(); j++)
                 {
                     if (temp.getTimestamp().equals(checkList.get(j).getTimestamp()) &&
-                        temp.getEmail().equals(checkList.get(j).getEmail()))
+                            temp.getEmail().equals(checkList.get(j).getEmail()))
                     {
                         checkList.remove(j);
                     }

@@ -164,7 +164,7 @@ public class DatabaseContract
                 null,
                 null,
                 null
-                );
+        );
         c.moveToFirst();
 
         tempSchool = cursorToSchool(c);
