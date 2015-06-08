@@ -4,6 +4,7 @@ import android.app.Fragment;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,11 +24,14 @@ import static be.ehb.dtsid_inapp.JSONTasks.JSONContract.ALL_SCHOOLS;
 import static be.ehb.dtsid_inapp.JSONTasks.JSONContract.ALL_SUBSCRIPTIONS;
 import static be.ehb.dtsid_inapp.JSONTasks.JSONContract.ALL_TEACHERS;
 import static be.ehb.dtsid_inapp.JSONTasks.JSONContract.BASEURL;
+import static be.ehb.dtsid_inapp.JSONTasks.JSONContract.JSON_INT_ACADYEAR;
+import static be.ehb.dtsid_inapp.JSONTasks.JSONContract.yearCalc;
 
 public class DepartmentLogin extends Fragment
 {
     TeacherActivity activity;
     private DatabaseContract dbc;
+    private ProgressDialog loadingDatabaseDialog;
 
     private Spinner departmentSP;
     private EditText codeET;
@@ -43,6 +47,9 @@ public class DepartmentLogin extends Fragment
         activity = (TeacherActivity) this.getActivity();
 
         dbc = new DatabaseContract(activity.getApplicationContext());
+        loadingDatabaseDialog = new ProgressDialog(activity);
+        loadingDatabaseDialog.setTitle("Downloading database");
+        loadingDatabaseDialog.setMessage("Loading.. pls stahp..");
 
         departmentSP = (Spinner) v.findViewById(R.id.sp_department_list);
         codeET = (EditText) v.findViewById(R.id.et_code_launchscreen);
@@ -53,28 +60,32 @@ public class DepartmentLogin extends Fragment
             @Override
             public void onClick(View v)
             {
+                loadingDatabaseDialog.show();
+
                 //Start JSONS
                 if(dbc.getAllTeachers().isEmpty())
                 {
                     String urlTeachers = BASEURL + ALL_TEACHERS;
                     GetJSONTask jsonTask1 = new GetJSONTask(DepartmentLogin.this);
                     jsonTask1.execute(urlTeachers);
-
+                }
+                if(dbc.getAllEvents().isEmpty())
+                {
                     String urlEvents = BASEURL + ALL_EVENTS;
                     GetJSONTask jsonTask2 = new GetJSONTask(DepartmentLogin.this);
                     jsonTask2.execute(urlEvents);
-
+                }
+                if(dbc.getAllSchools().isEmpty())
+                {
                     String urlSchools = BASEURL + ALL_SCHOOLS;
                     GetJSONTask jsonTask3 = new GetJSONTask(DepartmentLogin.this);
                     jsonTask3.execute(urlSchools);
-
-                    String urlSubscriptions = BASEURL + ALL_SUBSCRIPTIONS;
-                    GetJSONTask jsonTask4 = new GetJSONTask(DepartmentLogin.this);
-                    jsonTask4.execute(urlSubscriptions);
-
+                }
+                if(dbc.getAllImages().isEmpty())
+                {
                     String urlImages = BASEURL + ALL_IMAGES;
-                    GetJSONTask jsonTask5 = new GetJSONTask(DepartmentLogin.this);
-                    jsonTask5.execute(urlImages);
+                    GetJSONTask jsonTask4 = new GetJSONTask(DepartmentLogin.this);
+                    jsonTask4.execute(urlImages);
                 }
 
                 goToNext = true;
@@ -87,19 +98,23 @@ public class DepartmentLogin extends Fragment
 
     public void everythingIsLoaded()
     {
-        if(     !dbc.getAllTeachers().isEmpty() &&
-                !dbc.getAllEvents().isEmpty() &&
-                !dbc.getAllSchools().isEmpty() &&
-                !dbc.getAllSubscriptions().isEmpty() &&
-                !dbc.getAllImages().isEmpty() &&
-                goToNext)
+        if(!dbc.getAllSubscriptions().isEmpty() && !dbc.getAllImages().isEmpty() && goToNext)
         {
             dbc.close();
+
+            loadingDatabaseDialog.dismiss();
 
             activity.getFragmentManager()
                     .beginTransaction()
                     .replace(R.id.teacherContainer, new TeacherLogin())
                     .commit();
+        }
+
+        else if(!dbc.getAllTeachers().isEmpty() && !dbc.getAllEvents().isEmpty() && !dbc.getAllSchools().isEmpty())
+        {
+            String urlSubscriptions = BASEURL + ALL_SUBSCRIPTIONS;
+            GetJSONTask jsonTask5 = new GetJSONTask(DepartmentLogin.this);
+            jsonTask5.execute(urlSubscriptions);
         }
     }
 }

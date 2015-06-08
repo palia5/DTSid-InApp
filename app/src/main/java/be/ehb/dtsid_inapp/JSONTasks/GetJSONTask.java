@@ -1,8 +1,5 @@
 package be.ehb.dtsid_inapp.JSONTasks;
 
-import android.app.Activity;
-import android.app.ProgressDialog;
-import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -34,24 +31,12 @@ import static be.ehb.dtsid_inapp.JSONTasks.JSONContract.*;
 public class GetJSONTask extends AsyncTask<String, Integer, Void>
 {
     private DatabaseContract dbc;
-    private ProgressDialog loadingDatabaseDialog;
     private DepartmentLogin fragment;
 
     public GetJSONTask(DepartmentLogin c)
     {
         fragment = c;
         dbc = new DatabaseContract(fragment.getActivity().getApplicationContext());
-        loadingDatabaseDialog = new ProgressDialog(fragment.getActivity());
-        loadingDatabaseDialog.setTitle("Downloading database");
-        loadingDatabaseDialog.setMessage("Loading.. pls stahp..");
-    }
-
-    @Override
-    protected void onPreExecute()
-    {
-        super.onPreExecute();
-
-        loadingDatabaseDialog.show();
     }
 
     @Override
@@ -156,7 +141,6 @@ public class GetJSONTask extends AsyncTask<String, Integer, Void>
                     Image temp = new Image(o.getLong(JSON_LONG_ID), o.getInt(JSON_INT_PRIORITY),
                             tempByteArray);
                     imageList.add(temp);
-                    Log.d("IMAGE TEST", o.getString(JSON_NAME_IMAGE));
                 }
 
                 dbc.setAllImages(imageList);
@@ -183,7 +167,6 @@ public class GetJSONTask extends AsyncTask<String, Integer, Void>
     {
         super.onPostExecute(aVoid);
         dbc.close();
-        loadingDatabaseDialog.dismiss();
 
         fragment.everythingIsLoaded();
     }

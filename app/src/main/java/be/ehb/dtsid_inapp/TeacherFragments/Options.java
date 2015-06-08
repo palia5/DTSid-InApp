@@ -1,6 +1,7 @@
 package be.ehb.dtsid_inapp.TeacherFragments;
 
 import android.app.Fragment;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -22,6 +23,7 @@ public class Options extends Fragment
 {
     TeacherActivity activity;
     private DatabaseContract dbc;
+    private ProgressDialog loadingDatabaseDialog;
 
     Button studentRegistrerenBTN;
     Button lijstBTN;
@@ -41,10 +43,15 @@ public class Options extends Fragment
         View v = inflater.inflate(R.layout.fragment_options_dashboardscreen, null);
 
         activity = (TeacherActivity) this.getActivity();
+
         //Contract opvrage
         dbc = new DatabaseContract(activity.getApplicationContext());
 
         activity = (TeacherActivity) this.getActivity();
+
+        loadingDatabaseDialog = new ProgressDialog(activity);
+        loadingDatabaseDialog.setTitle("Syncing database");
+        loadingDatabaseDialog.setMessage("Syncing.. pls halp..");
 
         studentRegistrerenBTN = (Button) v.findViewById(R.id.btn_student_registreren);
         lijstBTN = (Button) v.findViewById(R.id.btn_lijst);
@@ -74,6 +81,8 @@ public class Options extends Fragment
             @Override
             public void onClick(View v)
             {
+                loadingDatabaseDialog.show();
+
                 PostJSONTask jsonTask = new PostJSONTask(Options.this);
                 jsonTask.execute();
             }
@@ -95,6 +104,7 @@ public class Options extends Fragment
 
     public void allIsSynced()
     {
+        loadingDatabaseDialog.dismiss();
         Toast.makeText(getActivity(), "Synced it!", Toast.LENGTH_LONG).show();
     }
 }

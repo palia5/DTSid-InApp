@@ -1,6 +1,5 @@
 package be.ehb.dtsid_inapp.JSONTasks;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
@@ -34,23 +33,11 @@ public class PostJSONTask extends AsyncTask<Void, Integer, HashMap<String, Boole
     private DatabaseContract dbc;
     private List<Subscription> subscriptionList;
     private Options fragment;
-    private ProgressDialog loadingDatabaseDialog;
 
     public PostJSONTask(Options c)
     {
         fragment = c;
         dbc = new DatabaseContract(fragment.getActivity().getApplicationContext());
-        loadingDatabaseDialog = new ProgressDialog(fragment.getActivity());
-        loadingDatabaseDialog.setTitle("Syncing database");
-        loadingDatabaseDialog.setMessage("Syncing.. pls halp..");
-    }
-
-    @Override
-    protected void onPreExecute()
-    {
-        super.onPreExecute();
-
-        loadingDatabaseDialog.show();
     }
 
     @Override
@@ -81,18 +68,14 @@ public class PostJSONTask extends AsyncTask<Void, Integer, HashMap<String, Boole
                 //HIER KOMT HIJ AL FALSE TERUG, DUS IETS MIS MET DB!!!!!!!!!!
                 if (tempSub.getNew())
                 {
-                    Log.d("TEST", "new sub");
                     tempSub.setId(null);
                     tempSub.setNew(false);
-
-                    Log.d("POST Task", tempSub.getTimestamp().toString() + " "
-                    + tempSub.getTimestampLong());
 
                     GsonBuilder gb = new GsonBuilder();
                     gb.excludeFieldsWithoutExposeAnnotation();
                     Gson gson = gb.create();
                     String jsonString = gson.toJson(tempSub);
-                    Log.d("Post Task", POST_SUBSCRIPTION_START + jsonString + POST_SUBSCRIPTION_END);
+
                     postConnection.setFixedLengthStreamingMode(jsonString.getBytes().length);
                     postConnection.connect();
                     OutputStream os = postConnection.getOutputStream();
@@ -117,8 +100,6 @@ public class PostJSONTask extends AsyncTask<Void, Integer, HashMap<String, Boole
             JSONObject rawSubs = new JSONObject(jsonGetString);
             JSONArray subsArray = rawSubs.getJSONArray(JSON_NAME_SUBSCRIPTIONS);
             ArrayList<Subscription> subsList = new ArrayList<>();
-
-            Log.d("TEST", subsArray.length()+"items in subsarray");
 
             for (int i = 0; i< subsArray.length(); i++)
             {
@@ -175,7 +156,6 @@ public class PostJSONTask extends AsyncTask<Void, Integer, HashMap<String, Boole
         super.onPostExecute(stringBooleanHashMap);
 
         dbc.close();
-        loadingDatabaseDialog.dismiss();
 
         fragment.allIsSynced();
     }
