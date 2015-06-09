@@ -38,7 +38,7 @@
     <string name="txt_label_gemeente_subscription1">Gemeente</string>
     <string name="txt_label_huisnummer_subscription1">Huisnummer</string>
     <string name="txt_btn_login_loginscreen">Login</string>
-    <string name="txt_label_autosync_preferences">Autosync</string>
-    <string name="txt_label_syncdate_preferences">Sync om</string>
-    <string name="txt_label_synconclose_preferences">Sync bij afsluiten</string>
+    <string name="txt_pref_autosync">Auto-Sync</string>
+    <string name="txt_pref_syncdate">Sync om</string>
+    <string name="txt_pref_syncclose">Sync bij afsluiten</string>
 </resources>
