@@ -98,7 +98,7 @@
 </LinearLayout>
 <LinearLayout
     android:layout_width="500dp"
-    android:layout_height="300dp"
+    android:layout_height="600dp"
     android:layout_centerVertical="true"
     android:orientation="vertical"
     android:layout_alignParentRight="true"
@@ -108,50 +108,59 @@
 
     <LinearLayout
         android:layout_width="500dp"
-        android:layout_height="150dp"
+        android:layout_height="300dp"
         android:orientation="horizontal"
         android:gravity="center">
     <Button
-        android:layout_width="200dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@drawable/button_empty_large"
+        android:textColor="#ffffffff"
         android:text="@string/txt_btn_student_registreren"
         android:id="@+id/btn_student_registreren"
         android:textSize="16sp"
-        android:onClick="goToOtherFragment"
-        android:layout_marginTop="25dp"
-        android:layout_weight="1" />
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="44dp" />
 
     <Button
-        android:layout_width="200dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@drawable/button_empty_large"
+        android:textColor="#ffffffff"
         android:text="@string/txt_btn_lijst"
         android:id="@+id/btn_lijst"
         android:textSize="16sp"
-        android:layout_marginTop="25dp"
-        android:layout_weight="1" />
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="44dp" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="500dp"
-        android:layout_height="150dp"
+        android:layout_height="300dp"
         android:orientation="horizontal"
         android:gravity="center">
 
     <Button
-        android:layout_width="200dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/txt_btn_regios"
+        android:background="@drawable/button_empty_large"
+        android:textColor="#ffffffff"
         android:id="@+id/btn_regios"
         android:textSize="16sp"
-        android:layout_weight="1" />
+        android:layout_marginBottom="10dp"
+        android:layout_marginRight="44dp" />
 
     <Button
-        android:layout_width="200dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/txt_btn_opties"
+        android:background="@drawable/button_empty_large"
+        android:textColor="#ffffffff"
         android:id="@+id/btn_opties"
         android:textSize="16sp"
-        android:layout_weight="1" />
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="44dp" />
     </LinearLayout>
 
 </LinearLayout>
@@ -189,13 +198,14 @@
 
     <Button
         style="?android:attr/buttonStyleSmall"
-        android:layout_width="75dp"
-        android:layout_height="50dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:text="@string/txt_btn_sync"
+        android:background="@drawable/button_empty_small"
+        android:textColor="#ffffffff"
         android:id="@+id/btn_sync_dashboard"
         android:textSize="12sp"
-        android:layout_alignBottom="@+id/tv_datum_laatste_synchronisatie"
-        android:layout_weight="1" />
+        android:layout_alignBottom="@+id/tv_datum_laatste_synchronisatie" />
 </LinearLayout>
 
 </RelativeLayout>
