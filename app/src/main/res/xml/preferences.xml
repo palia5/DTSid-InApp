@@ -6,8 +6,8 @@
         android:title="@string/txt_pref_autosync"/>
 
     <PreferenceCategory>
-        <CheckBoxPreference
-            android:key="pref_cb_syncdate"
+        <SwitchPreference
+            android:key="pref_sw_syncdate"
             android:title="@string/txt_pref_syncdate"/>
 
         <be.ehb.dtsid_inapp.TeacherFragments.TimePreference
@@ -15,8 +15,8 @@
     </PreferenceCategory>
 
     <PreferenceCategory>
-        <CheckBoxPreference
-            android:key="pref_cb_syncclose"
+        <SwitchPreference
+            android:key="pref_sw_syncclose"
             android:title="@string/txt_pref_syncclose"/>
     </PreferenceCategory>
 
