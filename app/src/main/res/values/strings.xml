@@ -21,7 +21,7 @@
     <string name="txt_label_studenten_teller_dashboard">Studenten vandaag</string>
     <string name="txt_label_studentteller_dashboard">Studenten vandaag</string>
     <string name="txt_aantalstudenten_dashboard" />
-    <string name="txt_btn_student_registreren">Student\nregistreren</string>
+    <string name="txt_btn_student_registreren">Student registreren</string>
     <string name="txt_btn_lijst">Lijst</string>
     <string name="txt_btn_regios">Regio\'s</string>
     <string name="txt_btn_opties">Opties</string>
@@ -38,7 +38,4 @@
     <string name="txt_label_gemeente_subscription1">Gemeente</string>
     <string name="txt_label_huisnummer_subscription1">Huisnummer</string>
     <string name="txt_btn_login_loginscreen">Login</string>
-    <string name="txt_label_autosync_preferences">Autosync</string>
-    <string name="txt_label_syncdate_preferences">Sync om</string>
-    <string name="txt_label_synconclose_preferences">Sync bij afsluiten</string>
 </resources>

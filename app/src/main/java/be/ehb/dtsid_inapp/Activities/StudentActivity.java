@@ -1,31 +1,43 @@
 package be.ehb.dtsid_inapp.Activities;
 
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
+
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
+
+import java.util.List;
+
 import be.ehb.dtsid_inapp.Database.DatabaseContract;
 import be.ehb.dtsid_inapp.Models.Event;
+import be.ehb.dtsid_inapp.Models.Image;
 import be.ehb.dtsid_inapp.Models.Teacher;
+import be.ehb.dtsid_inapp.Models.ZoomOutPageTransformer;
 import be.ehb.dtsid_inapp.R;
 import be.ehb.dtsid_inapp.StudentFragments.PhotoGallery;
 import be.ehb.dtsid_inapp.StudentFragments.StudentRegistration;
 
-public class StudentActivity extends AppCompatActivity
-{
+public class StudentActivity extends AppCompatActivity {
     private DatabaseContract dbc;
     private Boolean isInMainScreen = true;
     private Teacher teacher;
     private Event event;
     StudentRegistration registrationFragment;
+    PhotoGallery photoFragment;
+    private ViewPager mPager;
+    private PagerAdapter mPagerAdapter;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student);
 
@@ -36,43 +48,43 @@ public class StudentActivity extends AppCompatActivity
 
         dbc.close();
 
-        FragmentManager fm = getFragmentManager();
+        FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
 
         registrationFragment = new StudentRegistration();
+        Log.d("TEST_IMAGE", "voor aanmaken fragment");
+        photoFragment = new PhotoGallery();
+        Log.d("TEST_IMAGE", "na aanmaken fragment");
 
         ft.add(R.id.fragm_left_registration, registrationFragment);
-        ft.add(R.id.fragm_right_images, new PhotoGallery());
+        ft.add(R.id.fragm_right_images, photoFragment);
+        Log.d("TEST_IMAGE", "fragment geadd");
         ft.commit();
+        Log.d("TEST_IMAGE", "beide fragments gecommit");
     }
 
     @Override
-    public void onBackPressed()
-    {
-        if(isInMainScreen)
+    public void onBackPressed() {
+        if (isInMainScreen)
             super.onBackPressed();
-        else
-        {
+        else {
             changeWeightOfFragments(50, 50);
             registrationFragment.setEnabled(false);
             isInMainScreen = true;
         }
     }
 
-    public void leftTouched()
-    {
+    public void leftTouched() {
         isInMainScreen = false;
         changeWeightOfFragments(100, 0);
     }
 
-    public void rightTouched()
-    {
+    public void rightTouched() {
         isInMainScreen = false;
         changeWeightOfFragments(0, 100);
     }
 
-    private void changeWeightOfFragments(float weightLeftFragment, float weigthRightFragment)
-    {
+    private void changeWeightOfFragments(float weightLeftFragment, float weigthRightFragment) {
         //Set registration weight
         FrameLayout flRegistration = (FrameLayout) findViewById(R.id.fragm_left_registration);
         LinearLayout.LayoutParams lpRegistration = new LinearLayout.LayoutParams(

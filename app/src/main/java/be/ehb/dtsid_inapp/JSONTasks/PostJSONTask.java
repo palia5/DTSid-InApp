@@ -24,31 +24,39 @@ import java.util.List;
 
 import be.ehb.dtsid_inapp.Database.DatabaseContract;
 import be.ehb.dtsid_inapp.Models.Subscription;
-import be.ehb.dtsid_inapp.TeacherFragments.Options;
-
 import static be.ehb.dtsid_inapp.JSONTasks.JSONContract.*;
+
 
 public class PostJSONTask extends AsyncTask<Void, Integer, HashMap<String, Boolean>>
 {
     private DatabaseContract dbc;
     private List<Subscription> subscriptionList;
-    private Options fragment;
 
-    public PostJSONTask(Options c)
+    public PostJSONTask(Context c)
     {
-        fragment = c;
-        dbc = new DatabaseContract(fragment.getActivity().getApplicationContext());
+        dbc = new DatabaseContract(c);
     }
 
     @Override
     protected HashMap<String, Boolean> doInBackground(Void... params)
     {
+        //TEST le Post avec le TEST Subscription
+       /* Subscription testSub = new Subscription(null, "Karel", "Verzeypen", "karel1997@ggmail.com",
+                "Doedoensstraat", "22", "2800", "Mechelen", false, true, false,
+                Calendar.getInstance().getTime(), dbc.getTeacherByID(4683438497988608l),
+                dbc.getEventByID(4814888656437248l), true, dbc.getSchoolByID(6312278001451008l));
+
+        dbc.createSubscription(testSub);*/
+        //Log.d("POST Task", Boolean.toString(testSub.getNew()));
+
+        //HashMap resultMap = new HashMap<String, Boolean>();
         subscriptionList = dbc.getAllSubscriptions();
         ArrayList<Subscription> checkList = new ArrayList<>();
         try
         {
             for (int i = 0; i < subscriptionList.size(); i++)
             {
+                //Log.d("POST Task", Integer.toString(subscriptionList.size()));
                 URL postUrl = new URL(BASEURL + POST_SUBSCRIPTION);
                 HttpURLConnection postConnection = (HttpURLConnection) postUrl.openConnection();
                 postConnection.setDoOutput(true);
@@ -57,18 +65,27 @@ public class PostJSONTask extends AsyncTask<Void, Integer, HashMap<String, Boole
                 postConnection.setRequestProperty("Content-Type", "application/json");
                 postConnection.setRequestProperty("Accept", "application/json");
 
+
                 Subscription tempSub = subscriptionList.get(i);
 
+                //Log.d("POST Task", tempSub.getLastName()
+                 //+ Boolean.toString(tempSub.getNew()));
+
+                //HIER KOMT HIJ AL FALSE TERUG, DUS IETS MIS MET DB!!!!!!!!!!
                 if (tempSub.getNew())
                 {
+                    Log.d("TEST", "new sub");
                     tempSub.setId(null);
                     tempSub.setNew(false);
+
+                    Log.d("POST Task", tempSub.getTimestamp().toString() + " "
+                    + tempSub.getTimestampLong());
 
                     GsonBuilder gb = new GsonBuilder();
                     gb.excludeFieldsWithoutExposeAnnotation();
                     Gson gson = gb.create();
                     String jsonString = gson.toJson(tempSub);
-
+                    Log.d("Post Task", POST_SUBSCRIPTION_START + jsonString + POST_SUBSCRIPTION_END);
                     postConnection.setFixedLengthStreamingMode(jsonString.getBytes().length);
                     postConnection.connect();
                     OutputStream os = postConnection.getOutputStream();
@@ -79,6 +96,8 @@ public class PostJSONTask extends AsyncTask<Void, Integer, HashMap<String, Boole
                     os.close();
                 }
             }
+
+            // GETTING IT ALL FROM THE REST AGAIN!!!
 
             URL url = new URL(BASEURL + ALL_SUBSCRIPTIONS);
             HttpURLConnection getConnection = (HttpURLConnection) url.openConnection();
@@ -91,6 +110,8 @@ public class PostJSONTask extends AsyncTask<Void, Integer, HashMap<String, Boole
             JSONObject rawSubs = new JSONObject(jsonGetString);
             JSONArray subsArray = rawSubs.getJSONArray(JSON_NAME_SUBSCRIPTIONS);
             ArrayList<Subscription> subsList = new ArrayList<>();
+
+            Log.d("TEST", subsArray.length()+"items in subsarray");
 
             for (int i = 0; i< subsArray.length(); i++)
             {
@@ -116,7 +137,7 @@ public class PostJSONTask extends AsyncTask<Void, Integer, HashMap<String, Boole
                 for (int j = 0; j < checkList.size(); j++)
                 {
                     if (temp.getTimestamp().equals(checkList.get(j).getTimestamp()) &&
-                            temp.getEmail().equals(checkList.get(j).getEmail()))
+                        temp.getEmail().equals(checkList.get(j).getEmail()))
                     {
                         checkList.remove(j);
                     }
@@ -138,16 +159,7 @@ public class PostJSONTask extends AsyncTask<Void, Integer, HashMap<String, Boole
             e.printStackTrace();
         }
 
-        return null;
-    }
-
-    @Override
-    protected void onPostExecute(HashMap<String, Boolean> stringBooleanHashMap)
-    {
-        super.onPostExecute(stringBooleanHashMap);
-
         dbc.close();
-
-        fragment.allIsSynced();
+        return null;
     }
 }

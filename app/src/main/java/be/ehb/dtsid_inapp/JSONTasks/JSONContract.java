@@ -1,6 +1,5 @@
 package be.ehb.dtsid_inapp.JSONTasks;
 
-import android.util.Log;
 import android.widget.ImageView;
 
 import java.text.SimpleDateFormat;
@@ -34,7 +33,6 @@ public class JSONContract
             sb.append(yearFormat.format(yearSwitch.getTime()));
             sb.append(yearFormat.format(currentTime.getTime()));
         }
-
         return sb.toString();
     }
 
