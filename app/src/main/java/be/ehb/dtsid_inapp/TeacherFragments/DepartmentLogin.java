@@ -67,6 +67,8 @@ public class DepartmentLogin extends Fragment
                     @Override
                     public void onAnimationEnd(Animation animation)
                     {
+                        loginBTN.setVisibility(View.INVISIBLE);
+
                         loadingDatabaseDialog.show();
 
                         //Start JSONS

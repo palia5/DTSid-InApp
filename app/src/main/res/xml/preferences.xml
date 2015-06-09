@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <SwitchPreference
+        android:key="pref_sw_autosynx"
+        android:title="@string/txt_pref_autosync"/>
+
+    <CheckBoxPreference
+        android:key="pref_cb_syncdate"
+        android:title="@string/txt_pref_syncdate"/>
+
+    <CheckBoxPreference
+        android:key="pref_cb_syncclose"
+        android:title="@string/txt_pref_syncclose"/>
+
+</PreferenceScreen>
