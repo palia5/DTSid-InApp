@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:background="@drawable/ehbackground">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="700dp"
+        android:layout_height="375dp"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:weightSum="1">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="75dp"
+            android:id="@+id/layoutcontainer1"
+            android:weightSum="1">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/txt_label_autosync_syncscreen"
+                android:id="@+id/tv_label_autosync_syncscreen"
+                android:textSize="16sp"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="0.5" />
+
+            <Switch
+                android:layout_width="125dp"
+                android:layout_height="50dp"
+                android:id="@+id/AutoSyncSwitch"
+                android:layout_weight="0.5"
+                android:checked="false"
+                android:buttonTint="@color/ehb_rood" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="75dp"
+            android:id="@+id/layoutcontainer2"
+            android:weightSum="1">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/txt_label_syncuur_syncscreen"
+                android:id="@+id/tv_label_syncuur_syncscreen"
+                android:textSize="16sp"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="0.5" />
+
+            <Switch
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/HourSyncSwitch"
+                android:layout_weight="0.5"
+                android:layout_gravity="center_vertical"
+                android:checked="false"
+                android:buttonTint="@color/ehb_rood" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="75dp"
+            android:id="@+id/layoutcontainer_tijdsinstelling"
+            android:weightSum="1">
+
+            <TextView
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:id="@+id/tv_uurinstelling"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:focusable="false" />
+
+            <Button
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:text="@string/txt_btn_syncscreen"
+                android:id="@+id/btn_settime_syncscreen"
+                android:layout_weight="0"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/button_empty_small"
+                android:textColor="@color/knoptekst_wit" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="75dp"
+            android:id="@+id/layoutcontainer3"
+            android:weightSum="3">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/txt_label_syncaantalstudenten_syncscreen"
+                android:id="@+id/tv_label_syncaantalstudenten_syncscreen"
+                android:textSize="16sp"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="75dp"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:id="@+id/tv_aantalstudenten_syncscreen"
+                android:layout_weight="1"
+                android:layout_gravity="center_vertical" />
+
+            <Switch
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/StudentSyncSwitch"
+                android:checked="false"
+                android:layout_weight="1"
+                android:layout_gravity="center_vertical"
+                android:buttonTint="@color/ehb_rood" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="75dp"
+            android:id="@+id/layoutcontainer4"
+            android:weightSum="1">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/txt_label_syncbijafsluiten_syncscreen"
+                android:id="@+id/tv_label_syncbijafsluiten_syncscreen"
+                android:textSize="16sp"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="0.5" />
+
+            <Switch
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/CloseSyncSwitch"
+                android:checked="false"
+                android:layout_weight="0.5"
+                android:buttonTint="@color/ehb_rood" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

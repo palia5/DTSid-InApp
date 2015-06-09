@@ -3,6 +3,8 @@ package be.ehb.dtsid_inapp.Activities;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
+import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
@@ -22,6 +24,9 @@ public class StudentActivity extends AppCompatActivity
     private Teacher teacher;
     private Event event;
     StudentRegistration registrationFragment;
+    private ViewPager mPager;
+    private PagerAdapter mPagerAdapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
