@@ -68,7 +68,7 @@ public class Options extends Fragment implements View.OnClickListener
 
 
         studentRegistrerenBTN.setOnClickListener(this);
-        lijstBTN.setOnClickListener(this);
+        optiesBTN.setOnClickListener(this);
         syncBTN.setOnClickListener(this);
 
         medewerkerTV.setText(activity.getTeacher().getName());

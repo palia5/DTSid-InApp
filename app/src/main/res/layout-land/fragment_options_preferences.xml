@@ -39,23 +39,26 @@
         android:id="@+id/sw_autosync_preferences"
         android:checked="false"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
     <CheckBox
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/cb_syncdate_preferences"
+        android:checked="false"
         android:layout_alignTop="@+id/tv_label_syncdate_preferences"
-        android:layout_centerHorizontal="true"
-        android:checked="false" />
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
     <CheckBox
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/cb_synconclose_preferences"
+        android:checked="false"
         android:layout_alignTop="@+id/tv_label_synconclose_preferences"
-        android:layout_centerHorizontal="true"
-        android:checked="false" />
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
     <TimePicker
         android:layout_width="wrap_content"
