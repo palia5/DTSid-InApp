@@ -19,8 +19,8 @@
 
 
     <ImageView
-        android:layout_width="264dp"
-        android:layout_height="74dp"
+        android:layout_width="304dp"
+        android:layout_height="114dp"
         android:id="@+id/iv_logo_ehb"
         android:src="@drawable/logo_ehb"
         android:layout_marginTop="30dp"
