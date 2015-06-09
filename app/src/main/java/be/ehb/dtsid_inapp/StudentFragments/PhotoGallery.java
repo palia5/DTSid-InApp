@@ -23,6 +23,7 @@ import be.ehb.dtsid_inapp.Activities.StudentActivity;
 import be.ehb.dtsid_inapp.Database.DatabaseContract;
 import be.ehb.dtsid_inapp.Models.Image;
 import be.ehb.dtsid_inapp.Models.ImagePagerAdapter;
+import be.ehb.dtsid_inapp.Models.ZoomOutPageTransformer;
 import be.ehb.dtsid_inapp.R;
 
 public class PhotoGallery extends Fragment
@@ -43,9 +44,9 @@ public class PhotoGallery extends Fragment
 
         ViewPager myPager = (ViewPager) v.findViewById(R.id.viewpager);
         myPager.setAdapter(new ImagePagerAdapter( images, getActivity()));
+        myPager.setPageTransformer(true, new ZoomOutPageTransformer());
         myPager.setCurrentItem(0);
 
-        Log.d("TEST_IMAGE", "curentitem geadd");
 
 //        Log.d("IMAGE PHOTO", "" + dbc.getAllBitmaps().get(1));
 
@@ -59,7 +60,6 @@ public class PhotoGallery extends Fragment
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 ((StudentActivity)getActivity()).rightTouched();
-                Log.d("TEST_IMAGE", "right touched");
                 return true;
             }
         });

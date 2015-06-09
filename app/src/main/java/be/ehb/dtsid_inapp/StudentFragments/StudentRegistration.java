@@ -129,7 +129,7 @@ public class StudentRegistration extends Fragment
                         straatET.getText().toString(),
                         huisNummerET.getText().toString(),
                         postcodeET.getText().toString(),
-                        "Iemand heeft ne spinner gezet bij Gemeente :p",
+                        "Iemand heeft ne spinner gezet bij Gemeente :p" /*no shit sherlock*/,
                         false,
                         false,
                         false,
