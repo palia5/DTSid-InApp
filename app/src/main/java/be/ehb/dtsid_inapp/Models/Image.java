@@ -4,12 +4,12 @@ public class Image {
 
     private Long id;
     private int priority;
-    private byte[] image;
+    private String image;
 
     public Image() {
     }
 
-    public Image(Long id, int priority, byte[] image) {
+    public Image(Long id, int priority, String image) {
         this.id = id;
         this.priority = priority;
         this.image = image;
@@ -31,11 +31,11 @@ public class Image {
         this.priority = priority;
     }
 
-    public byte[] getImage() {
+    public String getImage() {
         return image;
     }
 
-    public void setImage(byte[] image) {
+    public void setImage(String image) {
         this.image = image;
     }
 }

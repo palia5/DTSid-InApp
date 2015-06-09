@@ -1,11 +1,11 @@
 package be.ehb.dtsid_inapp.StudentFragments;
 
-import android.app.Activity;
 import android.app.Fragment;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.util.Log;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -13,8 +13,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.FrameLayout;
-import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -25,13 +23,14 @@ import java.util.regex.Pattern;
 
 import be.ehb.dtsid_inapp.Activities.StudentActivity;
 import be.ehb.dtsid_inapp.Database.DatabaseContract;
-import be.ehb.dtsid_inapp.Models.School;
 import be.ehb.dtsid_inapp.Models.Subscription;
 import be.ehb.dtsid_inapp.R;
 
 public class StudentRegistration extends Fragment
 {
     StudentActivity activity;
+    List<Subscription> subs;
+    DatabaseContract dbc;
 
     EditText emailET;
     EditText naamET;
@@ -50,17 +49,6 @@ public class StudentRegistration extends Fragment
         View v = inflater.inflate(R.layout.fragment_student_registration1_2, null);
         activity = (StudentActivity) this.getActivity();
 
-        v.setOnTouchListener(new View.OnTouchListener()
-        {
-            @Override
-            public boolean onTouch(View v, MotionEvent event)
-            {
-                activity.leftTouched();
-                setEnabled(true);
-                return true;
-            }
-        });
-
         emailET = (EditText) v.findViewById(R.id.et_email_subscription1);
         naamET = (EditText) v.findViewById(R.id.et_naam_subscription1);
         voorNaamET = (EditText) v.findViewById(R.id.et_voornaam_subscription1);
@@ -72,76 +60,103 @@ public class StudentRegistration extends Fragment
         cancelBTN = (Button) v.findViewById(R.id.btn_annuleren_subscription1);
 
         setEnabled(false);
+        clearAllFields();
+
+        v.setOnTouchListener(new View.OnTouchListener()
+        {
+            @Override
+            public boolean onTouch(View v, MotionEvent event)
+            {
+                dbc = new DatabaseContract(activity.getApplicationContext());
+                subs = new ArrayList<>();
+                subs = dbc.getAllSubscriptions();
+                activity.leftTouched();
+                setEnabled(true);
+                return true;
+            }
+        });
+
+        emailET.addTextChangedListener(new TextWatcher()
+        {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after)
+            {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count)
+            {
+                if(!validEmail(s.toString()))
+                    emailET.setBackgroundColor(Color.RED);
+                else
+                    emailET.setBackgroundColor(Color.TRANSPARENT);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s)
+            {
+            }
+        });
 
         emailET.setOnFocusChangeListener(new View.OnFocusChangeListener()
         {
             @Override
             public void onFocusChange(View v, boolean hasFocus)
             {
-                if (!hasFocus)
+                if(!hasFocus)
                 {
                     String email = emailET.getText().toString();
                     if (validEmail(email))
                     {
                         DatabaseContract dbc = new DatabaseContract(activity.getApplicationContext());
-                        List<Subscription> subs = dbc.getAllSubscriptions();
+                        List<Subscription> subs = new ArrayList<>();
 
                         for(int i = 0 ; i < subs.size() ; i++)
                             if(email == subs.get(i).getEmail())
                             {
-                                emailET.setText(subs.get(i).getEmail());
                                 naamET.setText(subs.get(i).getLastName());
                                 voorNaamET.setText(subs.get(i).getFirstName());
                                 straatET.setText(subs.get(i).getStreet());
                                 huisNummerET.setText(subs.get(i).getStreetNumber());
                                 postcodeET.setText(subs.get(i).getZip());
                             }
-
-                        dbc.close();
-                    }
-                    else
-                    {
-                        emailET.setBackgroundColor(Color.RED);
-                        Toast.makeText(getActivity(), "email is not valid", Toast.LENGTH_LONG).show();
-                    }
-                }
-                else if (hasFocus)
-                {
-                    emailET.setBackgroundColor(Color.rgb(207,203,203));
                 }
             }
         });
 
-        acceptBTN.setOnClickListener(new View.OnClickListener() {
+        acceptBTN.setOnClickListener(new View.OnClickListener()
+        {
             @Override
-            public void onClick(View v) {
-                //if(!validEmail(emailET.getText().toString()))
-                DatabaseContract dbc = new DatabaseContract(activity.getApplicationContext());
+            public void onClick(View v)
+            {
+                if(allFieldsOK())
+                {
+                    Subscription newSub = new Subscription(
+                            voorNaamET.getText().toString(),
+                            naamET.getText().toString(),
+                            emailET.getText().toString(),
+                            straatET.getText().toString(),
+                            huisNummerET.getText().toString(),
+                            postcodeET.getText().toString(),
+                            "Iemand heeft ne spinner gezet bij Gemeente :p",
+                            false,
+                            false,
+                            false,
+                            new Date(),
+                            activity.getTeacher(),
+                            activity.getEvent(),
+                            true,
+                            dbc.getAllSchools().get(1)
+                    );
 
-                Subscription newSub = new Subscription(
-                        voorNaamET.getText().toString(),
-                        naamET.getText().toString(),
-                        emailET.getText().toString(),
-                        straatET.getText().toString(),
-                        huisNummerET.getText().toString(),
-                        postcodeET.getText().toString(),
-                        "Iemand heeft ne spinner gezet bij Gemeente :p",
-                        false,
-                        false,
-                        false,
-                        new Date(),
-                        activity.getTeacher(),
-                        activity.getEvent(),
-                        true,
-                        dbc.getAllSchools().get(1)
-                );
+                    dbc.createSubscription(newSub);
 
-                dbc.createSubscription(newSub);
+                    dbc.close();
 
-                dbc.close();
-
-                clearAllFields();
-                activity.onBackPressed();
+                    clearAllFields();
+                    activity.onBackPressed();
+                }
             }
         });
 
@@ -172,6 +187,7 @@ public class StudentRegistration extends Fragment
         straatET.setText("");
         huisNummerET.setText("");
         postcodeET.setText("");
+        emailET.setBackgroundColor(Color.TRANSPARENT);
     }
 
     public void setEnabled(Boolean enabled)
@@ -185,5 +201,24 @@ public class StudentRegistration extends Fragment
         gemeenteSP.setEnabled(enabled);
         acceptBTN.setEnabled(enabled);
         cancelBTN.setEnabled(enabled);
+    }
+
+    private Boolean allFieldsOK()
+    {
+        String whatsWrong = "/";
+        if(!validEmail(emailET.getText().toString()))
+            whatsWrong += " e-mail not valid /";
+        if(naamET.getText().toString().equals(""))
+            whatsWrong += " name not entered /";
+        if(voorNaamET.getText().toString().equals(""))
+            whatsWrong += " first name not entered /";
+
+        if(!whatsWrong.equals("/"))
+        {
+            Toast.makeText(getActivity(), whatsWrong, Toast.LENGTH_LONG).show();
+            return false;
+        }
+
+        return true;
     }
 }
