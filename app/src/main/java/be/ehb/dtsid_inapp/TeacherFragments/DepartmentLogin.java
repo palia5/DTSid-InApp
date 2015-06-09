@@ -123,7 +123,7 @@ public class DepartmentLogin extends Fragment
 
             activity.getFragmentManager()
                     .beginTransaction()
-                    .replace(R.id.teacherContainer, new TeacherLogin())
+                    .replace(R.id.teacherContainer, new TeacherLogin(), "TEACHER_LOGIN")
                     .commit();
         }
 

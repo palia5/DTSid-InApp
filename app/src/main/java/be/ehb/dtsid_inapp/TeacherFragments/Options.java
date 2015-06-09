@@ -19,6 +19,7 @@ import be.ehb.dtsid_inapp.Activities.TeacherActivity;
 import be.ehb.dtsid_inapp.Database.DatabaseContract;
 import be.ehb.dtsid_inapp.JSONTasks.PostJSONTask;
 import be.ehb.dtsid_inapp.Models.Subscription;
+import be.ehb.dtsid_inapp.OptionsFragments.OptionsSubscriptionlist;
 import be.ehb.dtsid_inapp.R;
 
 public class Options extends Fragment implements View.OnClickListener
@@ -68,6 +69,7 @@ public class Options extends Fragment implements View.OnClickListener
 
 
         studentRegistrerenBTN.setOnClickListener(this);
+        lijstBTN.setOnClickListener(this);
         syncBTN.setOnClickListener(this);
 
         medewerkerTV.setText(activity.getTeacher().getName());
@@ -99,6 +101,12 @@ public class Options extends Fragment implements View.OnClickListener
                 studentIntent.putExtra("Teacher_id", activity.getTeacher().getId());
                 studentIntent.putExtra("Event_id", activity.getEvent().getId());
                 startActivity(studentIntent);
+                break;
+            case R.id.btn_lijst:
+                activity.getFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.teacherContainer, new OptionsSubscriptionlist(), "OPTIONS_LIST")
+                        .commit();
                 break;
             case R.id.btn_sync_dashboard:
                 loadingDatabaseDialog.show();

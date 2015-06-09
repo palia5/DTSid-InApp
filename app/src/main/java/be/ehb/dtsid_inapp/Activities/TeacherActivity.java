@@ -1,13 +1,17 @@
 package be.ehb.dtsid_inapp.Activities;
 
+import android.app.Fragment;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 
 import be.ehb.dtsid_inapp.Models.Department;
 import be.ehb.dtsid_inapp.Models.Event;
 import be.ehb.dtsid_inapp.Models.Teacher;
 import be.ehb.dtsid_inapp.R;
 import be.ehb.dtsid_inapp.TeacherFragments.DepartmentLogin;
+import be.ehb.dtsid_inapp.TeacherFragments.Options;
+import be.ehb.dtsid_inapp.TeacherFragments.TeacherLogin;
 
 public class TeacherActivity extends AppCompatActivity
 {
@@ -34,7 +38,7 @@ public class TeacherActivity extends AppCompatActivity
         //Start first fragment
         getFragmentManager()
                 .beginTransaction()
-                .replace(R.id.teacherContainer, new DepartmentLogin())
+                .replace(R.id.teacherContainer, new DepartmentLogin(), "DEPARTMENT_LOGIN")
                 .commit();
     }
 
@@ -60,5 +64,35 @@ public class TeacherActivity extends AppCompatActivity
 
     public void setEvent(Event event) {
         this.event = event;
+    }
+
+    @Override
+    public void onBackPressed()
+    {
+        Fragment currentFragment = getFragmentManager().findFragmentById(R.id.teacherContainer);
+        switch(currentFragment.getTag())
+        {
+            case "DEPARTMENT_LOGIN":
+                super.onBackPressed();
+                break;
+            case "TEACHER_LOGIN":
+                getFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.teacherContainer, new DepartmentLogin(), "DEPARTMENT_LOGIN")
+                        .commit();
+                break;
+            case "OPTIONS_DASHBOARD":
+                getFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.teacherContainer, new TeacherLogin(), "TEACHER_LOGIN")
+                        .commit();
+                break;
+            case "OPTIONS_LIST":
+                getFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.teacherContainer, new Options(), "OPTIONS_DASHBOARD")
+                        .commit();
+                break;
+        }
     }
 }

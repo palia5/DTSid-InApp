@@ -99,7 +99,7 @@ public class TeacherLogin extends Fragment
                     {
                         activity.getFragmentManager()
                                 .beginTransaction()
-                                .replace(R.id.teacherContainer, new Options())
+                                .replace(R.id.teacherContainer, new Options(), "OPTIONS_DASHBOARD")
                                 .commit();
                     }
 
