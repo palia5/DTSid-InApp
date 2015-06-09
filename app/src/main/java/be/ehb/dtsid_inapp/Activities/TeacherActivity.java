@@ -93,6 +93,12 @@ public class TeacherActivity extends AppCompatActivity
                         .replace(R.id.teacherContainer, new Options(), "OPTIONS_DASHBOARD")
                         .commit();
                 break;
+            case "OPTIONS_PREFERENCES":
+            getFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.teacherContainer, new Options(), "OPTIONS_DASHBOARD")
+                    .commit();
+            break;
         }
     }
 }
