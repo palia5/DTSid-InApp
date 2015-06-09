@@ -129,8 +129,11 @@ public class GetJSONTask extends AsyncTask<String, Integer, Void>
                 }
 
                 dbc.setAllSubscriptions(subsList);
-            }
-            else if (params[0].contains(ALL_IMAGES)){
+            }/*
+            else if (params[0].contains(ALL_IMAGES))
+            {
+                //DIT MOET NOG AANGEPAST WORDEN, IMAGES NIET IN DATABASE OPSLAAN
+
                 JSONObject rawImages = new JSONObject(jsonString);
                 JSONArray imagesArray = rawImages.getJSONArray(JSON_NAME_IMAGES);
                 ArrayList<Image> imageList = new ArrayList<>();
@@ -144,7 +147,8 @@ public class GetJSONTask extends AsyncTask<String, Integer, Void>
                 }
 
                 dbc.setAllImages(imageList);
-            }
+
+            }*/
         }
         catch (MalformedURLException | ProtocolException | JSONException e)
         {

@@ -289,34 +289,6 @@ public class DatabaseContract
         return images;
     }
 
-    public List<Bitmap> getAllBitmaps()
-    {
-        List<Bitmap> bitmaps = new ArrayList<>();
-
-        Cursor c = db.query(false,
-                MySQLiteHelper.TABLE_IMAGES,
-                MySQLiteHelper.ALL_COLUMNS_IMAGES,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null);
-
-        c.moveToFirst();
-
-        while(!c.isAfterLast())
-        {
-            bitmaps.add(cursorToBitmap(c));
-
-            c.moveToNext();
-        }
-
-        c.close();
-        return bitmaps;
-
-    }
-
     //Setters
     public void setAllEvents(List<Event> events)
     {
@@ -435,15 +407,9 @@ public class DatabaseContract
 
         temp.setId(c.getLong(c.getColumnIndex(MySQLiteHelper.COL_IMAGES_ID)));
         temp.setPriority(c.getInt(c.getColumnIndex(MySQLiteHelper.COL_IMAGES_PRIORITY)));
-        temp.setImage(c.getBlob(c.getColumnIndex(MySQLiteHelper.COL_IMAGES_IMAGE)));
+        temp.setImage(c.getString(c.getColumnIndex(MySQLiteHelper.COL_IMAGES_IMAGE)));
 
         return temp;
-    }
-    private Bitmap cursorToBitmap(Cursor c)
-    {
-        byte[] data = c.getBlob(c.getColumnIndex(MySQLiteHelper.COL_IMAGES_IMAGE));
-
-        return BitmapFactory.decodeByteArray(data, 0, data.length);
     }
     private Subscription cursorToSubscription(Cursor c) throws ParseException
     {

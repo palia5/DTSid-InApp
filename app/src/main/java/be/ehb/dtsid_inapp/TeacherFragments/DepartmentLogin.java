@@ -39,8 +39,8 @@ public class DepartmentLogin extends Fragment
         View v = inflater.inflate(R.layout.fragment_department_login_launchscreen, null);
 
         activity = (TeacherActivity) this.getActivity();
-
         dbc = new DatabaseContract(activity.getApplicationContext());
+
         loadingDatabaseDialog = new ProgressDialog(activity);
         loadingDatabaseDialog.setTitle("Downloading database");
         loadingDatabaseDialog.setMessage("Loading.. pls stahp..");
@@ -87,15 +87,16 @@ public class DepartmentLogin extends Fragment
                             String urlSchools = BASEURL + ALL_SCHOOLS;
                             GetJSONTask jsonTask3 = new GetJSONTask(DepartmentLogin.this);
                             jsonTask3.execute(urlSchools);
-                        }
+                        }/*
                         if (dbc.getAllImages().isEmpty())
                         {
                             String urlImages = BASEURL + ALL_IMAGES;
                             GetJSONTask jsonTask4 = new GetJSONTask(DepartmentLogin.this);
                             jsonTask4.execute(urlImages);
-                        }
+                        }*/
 
                         goToNext = true;
+
                         everythingIsLoaded();
                     }
 
@@ -114,7 +115,7 @@ public class DepartmentLogin extends Fragment
 
     public void everythingIsLoaded()
     {
-        if(!dbc.getAllSubscriptions().isEmpty() && !dbc.getAllImages().isEmpty() && goToNext)
+        if(!dbc.getAllSubscriptions().isEmpty()/* && !dbc.getAllImages().isEmpty()*/ && goToNext)
         {
             dbc.close();
 
