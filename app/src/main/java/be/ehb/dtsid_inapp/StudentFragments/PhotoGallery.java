@@ -38,6 +38,7 @@ public class PhotoGallery extends Fragment
 
         dbc.close();
 
+
         v.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
