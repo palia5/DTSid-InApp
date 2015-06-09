@@ -19,7 +19,6 @@ import be.ehb.dtsid_inapp.Activities.TeacherActivity;
 import be.ehb.dtsid_inapp.Database.DatabaseContract;
 import be.ehb.dtsid_inapp.JSONTasks.PostJSONTask;
 import be.ehb.dtsid_inapp.Models.Subscription;
-import be.ehb.dtsid_inapp.OptionsFragments.OptionsSubscriptionlist;
 import be.ehb.dtsid_inapp.R;
 
 public class Options extends Fragment implements View.OnClickListener
@@ -102,10 +101,10 @@ public class Options extends Fragment implements View.OnClickListener
                 studentIntent.putExtra("Event_id", activity.getEvent().getId());
                 startActivity(studentIntent);
                 break;
-            case R.id.btn_lijst:
+            case R.id.btn_opties:
                 activity.getFragmentManager()
                         .beginTransaction()
-                        .replace(R.id.teacherContainer, new OptionsSubscriptionlist(), "OPTIONS_LIST")
+                        .replace(R.id.teacherContainer, new OptionsPreferences(), "OPTIONS_PREFERENCES")
                         .commit();
                 break;
             case R.id.btn_sync_dashboard:
