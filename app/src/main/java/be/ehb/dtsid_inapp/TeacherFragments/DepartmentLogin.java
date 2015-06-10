@@ -32,7 +32,6 @@ public class DepartmentLogin extends Fragment
     private Spinner departmentSP;
     private EditText codeET;
     private Button loginBTN;
-    private Boolean goToNext = false;
     private Boolean loadingSubscriptions = false;
     private Animation buttonAnim;
 
@@ -73,7 +72,13 @@ public class DepartmentLogin extends Fragment
                     {
                         loginBTN.setVisibility(View.INVISIBLE);
 
-                        loadingDatabaseDialog.show();
+                        if (!dbc.getAllSubscriptions().isEmpty())
+                        {
+                            everythingIsLoaded(true);
+                            return;
+                        }
+                        else
+                            loadingDatabaseDialog.show();
 
                         //Start JSONS
                         if (dbc.getAllTeachers().isEmpty())
@@ -97,9 +102,7 @@ public class DepartmentLogin extends Fragment
                             startMyTask(urlImages);
                         }*/
 
-                        goToNext = true;
-
-                        everythingIsLoaded();
+                        everythingIsLoaded(false);
                     }
 
                     @Override
@@ -108,16 +111,15 @@ public class DepartmentLogin extends Fragment
 
                     }
                 });
-
             }
         });
 
         return v;
     }
 
-    public void everythingIsLoaded()
+    public void everythingIsLoaded(Boolean subscriptionLoaded)
     {
-        if(!dbc.getAllSubscriptions().isEmpty()/* && !dbc.getAllImages().isEmpty()*/ && goToNext)
+        if(subscriptionLoaded)
         {
             dbc.close();
 
@@ -143,14 +145,8 @@ public class DepartmentLogin extends Fragment
         GetJSONTask jsonTask = new GetJSONTask(DepartmentLogin.this);
 
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB)
-        {
             jsonTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, url);
-            Log.d("ASYNC", "Parallel " + url);
-        }
         else
-        {
             jsonTask.execute(url);
-            Log.d("ASYNC", "Serial " + url);
-        }
     }
 }
