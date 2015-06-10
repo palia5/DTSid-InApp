@@ -174,25 +174,26 @@
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:id="@+id/lin_lay_btn_stud_reg_1"
             android:layout_weight="1">
 
         <Button
-            android:layout_weight="1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="50dp"
             android:id="@+id/btn_annuleren_subscription1"
-            android:text="Annuleren" />
+            android:background="@drawable/button_cancel"
+            android:layout_marginRight="25dp" />
 
         <Button
-            android:layout_weight="1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
             android:layout_marginRight="50dp"
             android:id="@+id/btn_bevestigen_subscription1"
-            android:text="Bevestigen" />
+            android:background="@drawable/button_next"
+            android:layout_marginLeft="25dp"
+            android:layout_gravity="center_vertical" />
         </LinearLayout>
 
     </LinearLayout>

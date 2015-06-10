@@ -1,15 +1,21 @@
 package be.ehb.dtsid_inapp.TeacherFragments;
 
+import android.app.Activity;
 import android.app.Fragment;
+import android.app.FragmentManager;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -78,22 +84,28 @@ public class TeacherLogin extends Fragment
                 dbc.close();
 
                 v.startAnimation(buttonAnim);
-                buttonAnim.setAnimationListener(new Animation.AnimationListener() {
+                buttonAnim.setAnimationListener(new Animation.AnimationListener()
+                {
+                    FragmentManager mgr = activity.getFragmentManager();
+
                     @Override
-                    public void onAnimationStart(Animation animation) {
+                    public void onAnimationStart(Animation animation)
+                    {
 
                     }
 
                     @Override
-                    public void onAnimationEnd(Animation animation) {
-                        activity.getFragmentManager()
-                                .beginTransaction()
+                    public void onAnimationEnd(Animation animation)
+                    {
+                        loginBTN.setVisibility(View.INVISIBLE);
+                        mgr.beginTransaction()
                                 .replace(R.id.teacherContainer, new Options(), "OPTIONS_DASHBOARD")
                                 .commit();
                     }
 
                     @Override
-                    public void onAnimationRepeat(Animation animation) {
+                    public void onAnimationRepeat(Animation animation)
+                    {
 
                     }
                 });
