@@ -7,6 +7,8 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.Transformation;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
@@ -76,23 +78,43 @@ public class StudentActivity extends AppCompatActivity
         changeWeightOfFragments(0, 100);
     }
 
-    private void changeWeightOfFragments(float weightLeftFragment, float weigthRightFragment)
+    private void changeWeightOfFragments(final float weightLeftFragment, final float weigthRightFragment)
     {
         //Set registration weight
-        FrameLayout flRegistration = (FrameLayout) findViewById(R.id.fragm_left_registration);
-        LinearLayout.LayoutParams lpRegistration = new LinearLayout.LayoutParams(
-                0,
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                weightLeftFragment);
-        flRegistration.setLayoutParams(lpRegistration);
+        final FrameLayout flRegistration = (FrameLayout) findViewById(R.id.fragm_left_registration);
+
+        //flRegistration.setLayoutParams(lpRegistration);
+
+        Animation lAnim = new Animation() {
+            @Override
+            protected void applyTransformation(float interpolatedTime, Transformation t) {
+                LinearLayout.LayoutParams lpRegistration = new LinearLayout.LayoutParams(
+                        0,
+                        ViewGroup.LayoutParams.MATCH_PARENT,
+                        (weightLeftFragment * interpolatedTime));
+                flRegistration.setLayoutParams(lpRegistration);
+            }
+        };
 
         //Set images weight
-        FrameLayout flImages = (FrameLayout) findViewById(R.id.fragm_right_images);
-        LinearLayout.LayoutParams lpImages = new LinearLayout.LayoutParams(
-                0,
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                weigthRightFragment);
-        flImages.setLayoutParams(lpImages);
+        final FrameLayout flImages = (FrameLayout) findViewById(R.id.fragm_right_images);
+
+        //flImages.setLayoutParams(lpImages);
+
+        Animation rAnim = new Animation() {
+            @Override
+            protected void applyTransformation(float interpolatedTime, Transformation t) {
+                LinearLayout.LayoutParams lpImages = new LinearLayout.LayoutParams(
+                        0,
+                        ViewGroup.LayoutParams.MATCH_PARENT,
+                        (weigthRightFragment * interpolatedTime));
+                flImages.setLayoutParams(lpImages);
+            }
+        };
+        lAnim.setDuration(500);
+        rAnim.setDuration(500);
+        flRegistration.startAnimation(lAnim);
+        flImages.startAnimation(rAnim);
     }
 
     public Teacher getTeacher() {
