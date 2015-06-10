@@ -1,6 +1,7 @@
 package be.ehb.dtsid_inapp.TeacherFragments;
 
 import android.app.Fragment;
+import android.app.FragmentManager;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -114,6 +115,16 @@ public class Options extends Fragment implements View.OnClickListener
                 break;
         }
     }
+    /*/
+    private void startNavigation(Intent i) {
+        startActivity(i);
+    }
+
+    private void startNavigation(FragmentManager f) {
+
+    }
+
+    */
 
     @Override
     public void onClick(View v)
@@ -131,6 +142,7 @@ public class Options extends Fragment implements View.OnClickListener
             @Override
             public void onAnimationEnd(Animation animation)
             {
+                vf.setVisibility(View.INVISIBLE);
                 nagivateAfterClick(vf);
             }
 
