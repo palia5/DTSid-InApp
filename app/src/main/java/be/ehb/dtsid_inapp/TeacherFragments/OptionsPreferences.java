@@ -10,9 +10,9 @@ import be.ehb.dtsid_inapp.R;
 public class OptionsPreferences extends PreferenceFragment
 {
     private SwitchPreference autosyncSW;
-    private CheckBoxPreference datesyncCB;
+    private SwitchPreference datesyncSW;
     private TimePreference datesyncTP;
-    private CheckBoxPreference closesyncCB;
+    private SwitchPreference closesyncSW;
 
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -21,24 +21,24 @@ public class OptionsPreferences extends PreferenceFragment
         addPreferencesFromResource(R.xml.preferences);
 
         autosyncSW = (SwitchPreference) findPreference("pref_sw_autosynx");
-        datesyncCB = (CheckBoxPreference) findPreference("pref_cb_syncdate");
+        datesyncSW = (SwitchPreference) findPreference("pref_sw_syncdate");
         datesyncTP = (TimePreference) findPreference("pref_tp_syncdatepicker");
-        closesyncCB = (CheckBoxPreference) findPreference("pref_cb_syncclose");
+        closesyncSW = (SwitchPreference) findPreference("pref_sw_syncclose");
 
         if(autosyncSW.isChecked())
         {
-            datesyncCB.setEnabled(true);
-            closesyncCB.setEnabled(true);
+            datesyncSW.setEnabled(true);
+            closesyncSW.setEnabled(true);
 
-            if(datesyncCB.isChecked())
+            if(datesyncSW.isChecked())
                 datesyncTP.setEnabled(true);
             else
                 datesyncTP.setEnabled(false);
         }
         else
         {
-            datesyncCB.setEnabled(false);
-            closesyncCB.setEnabled(false);
+            datesyncSW.setEnabled(false);
+            closesyncSW.setEnabled(false);
             datesyncTP.setEnabled(false);
         }
 
@@ -49,30 +49,28 @@ public class OptionsPreferences extends PreferenceFragment
             {
                 if(newValue.equals(true))
                 {
-                    datesyncCB.setEnabled(true);
-                    closesyncCB.setEnabled(true);
+                    datesyncSW.setEnabled(true);
+                    closesyncSW.setEnabled(true);
 
-                    if(datesyncCB.isChecked())
+                    if(datesyncSW.isChecked())
                         datesyncTP.setEnabled(true);
                     else
                         datesyncTP.setEnabled(false);
                 }
                 else
                 {
-                    datesyncCB.setEnabled(false);
-                    closesyncCB.setEnabled(false);
+                    datesyncSW.setEnabled(false);
+                    closesyncSW.setEnabled(false);
                     datesyncTP.setEnabled(false);
                 }
                 return true;
             }
         });
 
-        datesyncCB.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener()
-        {
+        datesyncSW.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
             @Override
-            public boolean onPreferenceChange(Preference preference, Object newValue)
-            {
-                if(newValue.equals(true))
+            public boolean onPreferenceChange(Preference preference, Object newValue) {
+                if (newValue.equals(true))
                     datesyncTP.setEnabled(true);
                 else
                     datesyncTP.setEnabled(false);

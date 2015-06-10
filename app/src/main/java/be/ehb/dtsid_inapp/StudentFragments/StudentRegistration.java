@@ -13,6 +13,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -41,6 +44,8 @@ public class StudentRegistration extends Fragment
     Spinner gemeenteSP;
     Button acceptBTN;
     Button cancelBTN;
+    private ImageView logoIV;
+    private LinearLayout btnLinLay;
 
     @Nullable
     @Override
@@ -58,6 +63,8 @@ public class StudentRegistration extends Fragment
         gemeenteSP = (Spinner) v.findViewById(R.id.sp_gemeente_subscription1);
         acceptBTN = (Button) v.findViewById(R.id.btn_bevestigen_subscription1);
         cancelBTN = (Button) v.findViewById(R.id.btn_annuleren_subscription1);
+        logoIV = (ImageView) v.findViewById(R.id.iv_logo_ehb);
+        btnLinLay = (LinearLayout) v.findViewById(R.id.lin_lay_btn_stud_reg_1);
 
         setEnabled(false);
         clearAllFields();
@@ -198,6 +205,18 @@ public class StudentRegistration extends Fragment
         gemeenteSP.setEnabled(enabled);
         acceptBTN.setEnabled(enabled);
         cancelBTN.setEnabled(enabled);
+        if (enabled){
+            logoIV.setPivotX(0);
+            logoIV.setScaleX(1.0f);
+            logoIV.setScaleY(1.0f);
+            btnLinLay.setVisibility(View.VISIBLE);
+        }
+        else {
+            logoIV.setPivotX(0);
+            logoIV.setScaleX(0.65f);
+            logoIV.setScaleY(0.65f);
+            btnLinLay.setVisibility(View.GONE);
+        }
     }
 
     private Boolean allFieldsOK()

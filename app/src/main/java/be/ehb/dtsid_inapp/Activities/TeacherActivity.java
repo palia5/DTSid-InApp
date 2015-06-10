@@ -18,6 +18,7 @@ public class TeacherActivity extends AppCompatActivity
     private Department department;
     private Teacher teacher;
     private Event event;
+    private int currentYear;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -64,6 +65,14 @@ public class TeacherActivity extends AppCompatActivity
 
     public void setEvent(Event event) {
         this.event = event;
+    }
+
+    public int getCurrentYear() {
+        return currentYear;
+    }
+
+    public void setCurrentYear(int currentYear) {
+        this.currentYear = currentYear;
     }
 
     @Override

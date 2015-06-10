@@ -1,10 +1,9 @@
 package be.ehb.dtsid_inapp.TeacherFragments;
 
-import android.app.ProgressDialog;
+import android.app.Fragment;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,22 +17,21 @@ import java.util.List;
 
 import be.ehb.dtsid_inapp.Activities.TeacherActivity;
 import be.ehb.dtsid_inapp.Database.DatabaseContract;
+import be.ehb.dtsid_inapp.Models.Event;
+import be.ehb.dtsid_inapp.Models.EventAdapter;
 import be.ehb.dtsid_inapp.Models.Subscription;
 import be.ehb.dtsid_inapp.Models.SubscriptionAdapter;
 import be.ehb.dtsid_inapp.R;
 
-/**
- * Created by doortje on 9/06/15.
- */
-public class Lists extends Fragment {
-
+public class Lists extends Fragment
+{
     TeacherActivity activity;
 
     private TextView evenementTV;
     private Spinner evenementSP;
     private ListView studentLV;
     private SubscriptionAdapter subscriptionAdapter;
-    private ArrayAdapter<String> evenementAdapter;
+    private EventAdapter evenementAdapter;
     private DatabaseContract dbc;
     private ArrayList<Subscription> subscriptionArrayList;
 
@@ -48,22 +46,13 @@ public class Lists extends Fragment {
         evenementTV = (TextView) v.findViewById(R.id.tv_label_evenementen_listscreen);
 
         //evenement spinner
-        final List<String> events = new ArrayList<>();
-        for (int i = 0; i < dbc.getAllEvents().size(); i++)
-            events.add(dbc.getAllEvents().get(i).getName() +
-                    " (" + dbc.getAllEvents().get(i).getAcadyear() + ")");
+        final List<Event> events = new ArrayList<>();
+        for(int i = 0 ; i < dbc.getAllEvents().size() ; i++)
+            if(dbc.getAllEvents().get(i).getAcadyear() == activity.getCurrentYear())
+                events.add(dbc.getAllEvents().get(i));
 
         evenementSP = (Spinner) v.findViewById(R.id.sp_evenementen_listscreen);
-        evenementAdapter = new ArrayAdapter<String>(activity.getApplicationContext(), R.layout.event_list_item, events) {
-            @Override
-            public View getView(int position, View convertView, ViewGroup parent) {
-                View view = super.getView(position, convertView, parent);
-                TextView text = (TextView) view.findViewById(R.id.TV_name_eventSpinnerItem);
-                text.setText(getItem(position));
-                text.setTextColor(Color.BLACK);
-                return view;
-            }
-        };
+        evenementAdapter = new EventAdapter(activity, events);
         evenementSP.setAdapter(evenementAdapter);
 
         //lijst van studenten

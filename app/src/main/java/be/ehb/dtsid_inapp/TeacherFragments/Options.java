@@ -1,6 +1,7 @@
 package be.ehb.dtsid_inapp.TeacherFragments;
 
 import android.app.Fragment;
+import android.app.FragmentManager;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -68,6 +69,7 @@ public class Options extends Fragment implements View.OnClickListener
 
 
         studentRegistrerenBTN.setOnClickListener(this);
+        lijstBTN.setOnClickListener(this);
         optiesBTN.setOnClickListener(this);
         syncBTN.setOnClickListener(this);
 
@@ -101,6 +103,12 @@ public class Options extends Fragment implements View.OnClickListener
                 studentIntent.putExtra("Event_id", activity.getEvent().getId());
                 startActivity(studentIntent);
                 break;
+            case R.id.btn_lijst:
+                activity.getFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.teacherContainer, new Lists(), "OPTIONS_LIST")
+                        .commit();
+                break;
             case R.id.btn_opties:
                 activity.getFragmentManager()
                         .beginTransaction()
@@ -114,6 +122,16 @@ public class Options extends Fragment implements View.OnClickListener
                 break;
         }
     }
+    /*/
+    private void startNavigation(Intent i) {
+        startActivity(i);
+    }
+
+    private void startNavigation(FragmentManager f) {
+
+    }
+
+    */
 
     @Override
     public void onClick(View v)
@@ -131,6 +149,7 @@ public class Options extends Fragment implements View.OnClickListener
             @Override
             public void onAnimationEnd(Animation animation)
             {
+                vf.setVisibility(View.INVISIBLE);
                 nagivateAfterClick(vf);
             }
 

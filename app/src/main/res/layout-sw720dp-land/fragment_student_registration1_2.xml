@@ -19,8 +19,8 @@
 
 
     <ImageView
-        android:layout_width="264dp"
-        android:layout_height="74dp"
+        android:layout_width="304dp"
+        android:layout_height="114dp"
         android:id="@+id/iv_logo_ehb"
         android:src="@drawable/logo_ehb"
         android:layout_marginTop="30dp"
@@ -180,20 +180,20 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
             android:layout_marginLeft="50dp"
             android:id="@+id/btn_annuleren_subscription1"
             android:background="@drawable/button_cancel"
-            android:layout_gravity="center_vertical"
             android:layout_marginRight="25dp" />
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
             android:layout_marginRight="50dp"
             android:id="@+id/btn_bevestigen_subscription1"
             android:background="@drawable/button_next"
-            android:layout_marginLeft="25dp" />
+            android:layout_marginLeft="25dp"
+            android:layout_gravity="center_vertical" />
         </LinearLayout>
 
     </LinearLayout>
