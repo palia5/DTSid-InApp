@@ -1,7 +1,6 @@
 package be.ehb.dtsid_inapp.Models;
 
 import android.app.Activity;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,38 +11,38 @@ import java.util.List;
 
 import be.ehb.dtsid_inapp.R;
 
-public class TeacherAdapter extends BaseAdapter
+public class EventAdapter extends BaseAdapter
 {
     private LayoutInflater inflater;
-    private List<Teacher> teachers;
+    private List<Event> events;
 
     private static class ViewHolder
     {
-        TextView teacherTV;
+        TextView eventTV;
     }
 
-    public TeacherAdapter(Activity activity, List<Teacher> teachers)
+    public EventAdapter(Activity activity, List<Event> events)
     {
         inflater = activity.getLayoutInflater();
-        this.teachers = teachers;
+        this.events = events;
     }
 
     @Override
     public int getCount()
     {
-        return teachers.size();
+        return events.size();
     }
 
     @Override
     public Object getItem(int position)
     {
-        return teachers.get(position);
+        return events.get(position);
     }
 
     @Override
     public long getItemId(int position)
     {
-        return teachers.get(position).getId();
+        return events.get(position).getId();
     }
 
     @Override
@@ -53,8 +52,8 @@ public class TeacherAdapter extends BaseAdapter
 
         if (convertView == null)
         {
-            convertView = inflater.inflate(R.layout.teachers_list_item,null);
-            holder.teacherTV = (TextView) convertView.findViewById(R.id.TV_teacherSpinnerItem);
+            convertView = inflater.inflate(R.layout.event_list_item,null);
+            holder.eventTV = (TextView) convertView.findViewById(R.id.TV_name_eventSpinnerItem);
 
             convertView.setTag(holder);
         }
@@ -62,9 +61,9 @@ public class TeacherAdapter extends BaseAdapter
         else
             holder = (ViewHolder)convertView.getTag();
 
-        Teacher teacherByRow = teachers.get(position);
+        Event eventByRow = events.get(position);
 
-        holder.teacherTV.setText(teacherByRow.getName());
+        holder.eventTV.setText(eventByRow.getName());
 
         return convertView;
     }

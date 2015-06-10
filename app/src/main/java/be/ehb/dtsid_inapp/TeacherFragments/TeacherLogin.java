@@ -2,7 +2,6 @@ package be.ehb.dtsid_inapp.TeacherFragments;
 
 import android.app.Activity;
 import android.app.Fragment;
-import android.app.FragmentManager;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -89,8 +88,6 @@ public class TeacherLogin extends Fragment
                 v.startAnimation(buttonAnim);
                 buttonAnim.setAnimationListener(new Animation.AnimationListener()
                 {
-                    FragmentManager mgr = activity.getFragmentManager();
-
                     @Override
                     public void onAnimationStart(Animation animation)
                     {
@@ -100,8 +97,8 @@ public class TeacherLogin extends Fragment
                     @Override
                     public void onAnimationEnd(Animation animation)
                     {
-                        loginBTN.setVisibility(View.INVISIBLE);
-                        mgr.beginTransaction()
+                        activity.getFragmentManager()
+                                .beginTransaction()
                                 .replace(R.id.teacherContainer, new Options(), "OPTIONS_DASHBOARD")
                                 .commit();
                     }

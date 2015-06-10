@@ -14,10 +14,8 @@
             android:key="pref_tp_syncdatepicker"/>
     </PreferenceCategory>
 
-    <PreferenceCategory>
         <SwitchPreference
             android:key="pref_sw_syncclose"
             android:title="@string/txt_label_syncbijafsluiten_syncscreen"/>
-    </PreferenceCategory>
 
 </PreferenceScreen>
