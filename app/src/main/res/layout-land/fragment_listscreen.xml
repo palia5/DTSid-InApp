@@ -22,9 +22,8 @@
 
         <Spinner
             android:layout_width="match_parent"
-            android:layout_height="159dp"
+            android:layout_height="84dp"
             android:id="@+id/sp_evenementen_listscreen"
-            android:layout_weight="0.30"
             android:spinnerMode="dropdown" />
 
     </LinearLayout>
