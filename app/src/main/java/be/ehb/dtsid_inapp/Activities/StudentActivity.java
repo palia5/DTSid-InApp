@@ -91,7 +91,7 @@ public class StudentActivity extends AppCompatActivity
                 LinearLayout.LayoutParams lpRegistration = new LinearLayout.LayoutParams(
                         0,
                         ViewGroup.LayoutParams.MATCH_PARENT,
-                        (weightLeftFragment * interpolatedTime));
+                        50 + (weightLeftFragment - 50) * interpolatedTime);
                 flRegistration.setLayoutParams(lpRegistration);
             }
         };
@@ -107,7 +107,7 @@ public class StudentActivity extends AppCompatActivity
                 LinearLayout.LayoutParams lpImages = new LinearLayout.LayoutParams(
                         0,
                         ViewGroup.LayoutParams.MATCH_PARENT,
-                        (weigthRightFragment * interpolatedTime));
+                        50 + (weightLeftFragment - 50) * interpolatedTime);
                 flImages.setLayoutParams(lpImages);
             }
         };
