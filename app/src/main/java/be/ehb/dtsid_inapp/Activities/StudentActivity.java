@@ -6,13 +6,16 @@ import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
 import be.ehb.dtsid_inapp.Database.DatabaseContract;
 import be.ehb.dtsid_inapp.Models.Event;
+import be.ehb.dtsid_inapp.Models.Image;
 import be.ehb.dtsid_inapp.Models.Teacher;
+import be.ehb.dtsid_inapp.Models.ZoomOutPageTransformer;
 import be.ehb.dtsid_inapp.R;
 import be.ehb.dtsid_inapp.StudentFragments.PhotoGallery;
 import be.ehb.dtsid_inapp.StudentFragments.StudentRegistration;
@@ -24,9 +27,9 @@ public class StudentActivity extends AppCompatActivity
     private Teacher teacher;
     private Event event;
     StudentRegistration registrationFragment;
+    PhotoGallery photoFragment;
     private ViewPager mPager;
     private PagerAdapter mPagerAdapter;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -45,10 +48,15 @@ public class StudentActivity extends AppCompatActivity
         FragmentTransaction ft = fm.beginTransaction();
 
         registrationFragment = new StudentRegistration();
+        Log.d("TEST_IMAGE", "voor aanmaken fragment");
+        photoFragment = new PhotoGallery();
+        Log.d("TEST_IMAGE", "na aanmaken fragment");
 
         ft.add(R.id.fragm_left_registration, registrationFragment);
-        ft.add(R.id.fragm_right_images, new PhotoGallery());
+        ft.add(R.id.fragm_right_images, photoFragment);
+        Log.d("TEST_IMAGE", "fragment geadd");
         ft.commit();
+        Log.d("TEST_IMAGE", "beide fragments gecommit");
     }
 
     @Override

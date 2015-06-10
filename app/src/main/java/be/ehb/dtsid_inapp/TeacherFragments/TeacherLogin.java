@@ -9,8 +9,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
@@ -34,9 +32,8 @@ public class TeacherLogin extends Fragment
     private Button loginBTN;
 
     private DatabaseContract dbc;
-    private Animation buttonAnim;
-    private TeacherAdapter teacherAdapter;
-    private ArrayAdapter<String> eventAdapter;
+    TeacherAdapter teacherAdapter;
+    ArrayAdapter<String> eventAdapter;
 
     @Nullable
     @Override
@@ -72,8 +69,6 @@ public class TeacherLogin extends Fragment
         eventSP.setAdapter(eventAdapter);
 
         //Log in button
-        buttonAnim = AnimationUtils.loadAnimation(getActivity().getApplicationContext()
-                , R.anim.button_animation_basic);
         loginBTN = (Button) v.findViewById(R.id.btn_login_loginscreen);
         loginBTN.setOnClickListener(new View.OnClickListener()
         {
@@ -85,30 +80,10 @@ public class TeacherLogin extends Fragment
 
                 dbc.close();
 
-                v.startAnimation(buttonAnim);
-                buttonAnim.setAnimationListener(new Animation.AnimationListener()
-                {
-                    @Override
-                    public void onAnimationStart(Animation animation)
-                    {
-
-                    }
-
-                    @Override
-                    public void onAnimationEnd(Animation animation)
-                    {
-                        activity.getFragmentManager()
-                                .beginTransaction()
-                                .replace(R.id.teacherContainer, new Options(), "OPTIONS_DASHBOARD")
-                                .commit();
-                    }
-
-                    @Override
-                    public void onAnimationRepeat(Animation animation)
-                    {
-
-                    }
-                });
+                activity.getFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.teacherContainer, new Options())
+                        .commit();
             }
         });
 

@@ -5,10 +5,11 @@
     android:layout_height="match_parent"
     tools:context="be.ehb.dtsid_inapp.StudentFragments.PhotoGallery">
 
-    <ImageView
+    <view
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/iv_test_photo"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
+        class="android.support.v4.view.ViewPager"
+        android:id="@+id/viewpager"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentTop="true" />
 </RelativeLayout>

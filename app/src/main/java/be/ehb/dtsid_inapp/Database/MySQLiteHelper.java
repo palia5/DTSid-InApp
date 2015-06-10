@@ -137,7 +137,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper
                 "CREATE TABLE " + TABLE_IMAGES + " (" +
                         COL_IMAGES_ID + " LONG PRIMARY KEY, " +
                         COL_IMAGES_PRIORITY + " INTEGER NOT NULL, " +
-                        COL_IMAGES_IMAGE + " STRING NOT NULL" +
+                        COL_IMAGES_IMAGE + " BLOB NOT NULL" +
                         ")");
     }
 
