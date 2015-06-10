@@ -125,6 +125,8 @@ public class DepartmentLogin extends Fragment
 
             loadingDatabaseDialog.dismiss();
 
+            activity.setCurrentYear(Integer.parseInt(yearCalc().substring(1)));
+
             activity.getFragmentManager()
                     .beginTransaction()
                     .replace(R.id.teacherContainer, new TeacherLogin(), "TEACHER_LOGIN")
@@ -148,5 +150,7 @@ public class DepartmentLogin extends Fragment
             jsonTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, url);
         else
             jsonTask.execute(url);
+
+        Log.d("ASYNC", "" + url);
     }
 }

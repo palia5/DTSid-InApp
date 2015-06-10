@@ -9,7 +9,7 @@
 
     <RelativeLayout
         android:layout_width="500dp"
-        android:layout_height="300dp"
+        android:layout_height="400dp"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true">
 
@@ -58,11 +58,13 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@drawable/button_empty"
+            android:textColor="#ffffffff"
             android:text="@string/txt_btn_login_loginscreen"
             android:id="@+id/btn_login_loginscreen"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginBottom="25dp" />
+            android:layout_marginBottom="75dp" />
 
     </RelativeLayout>
 </RelativeLayout>

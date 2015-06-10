@@ -9,7 +9,7 @@
 
     <RelativeLayout
         android:layout_width="500dp"
-        android:layout_height="300dp"
+        android:layout_height="400dp"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
         android:gravity="center_horizontal">
@@ -50,12 +50,13 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@drawable/button_empty"
             android:text="@string/txt_btn_bevestigen_launchscreen"
+            android:textColor="#FFFFFFFF"
             android:id="@+id/btn_bevestigen_launchscreen"
             android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="25dp"
-            android:onClick="goToOtherFragment" />
+            android:layout_marginBottom="100dp"
+            android:layout_centerHorizontal="true"/>
 
         <EditText
             android:layout_width="wrap_content"
