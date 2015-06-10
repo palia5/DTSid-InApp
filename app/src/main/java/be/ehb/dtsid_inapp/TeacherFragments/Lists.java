@@ -67,10 +67,13 @@ public class Lists extends Fragment {
         evenementSP.setAdapter(evenementAdapter);
 
         //lijst van studenten
-        studentLV = (ListView) v.findViewById(R.id.lv_studenten_opgekozenevenement_listscreen);
-        subscriptionAdapter = new SubscriptionAdapter(activity, subscriptionArrayList);
 
         ArrayList<Subscription> subscriptionArrayList = new ArrayList<Subscription>(dbc.getAllSubscriptions());
+
+        studentLV = (ListView) v.findViewById(R.id.lv_studenten_opgekozenevenement_listscreen);
+
+        subscriptionAdapter = new SubscriptionAdapter(activity, subscriptionArrayList);
+
 
         return v;
     }
