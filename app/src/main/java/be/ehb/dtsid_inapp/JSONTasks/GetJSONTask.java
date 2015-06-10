@@ -129,7 +129,7 @@ public class GetJSONTask extends AsyncTask<String, Integer, Void>
                 }
 
                 dbc.setAllSubscriptions(subsList);
-            }/*
+            }
             else if (params[0].contains(ALL_IMAGES))
             {
                 //DIT MOET NOG AANGEPAST WORDEN, IMAGES NIET IN DATABASE OPSLAAN
@@ -142,13 +142,13 @@ public class GetJSONTask extends AsyncTask<String, Integer, Void>
                     JSONObject o = imagesArray.getJSONObject(i);
                     byte[] tempByteArray = o.getString(JSON_NAME_IMAGE).getBytes(Charset.forName("UTF-8"));
                     Image temp = new Image(o.getLong(JSON_LONG_ID), o.getInt(JSON_INT_PRIORITY),
-                            tempByteArray);
+                            "Photo " + i);
                     imageList.add(temp);
                 }
 
                 dbc.setAllImages(imageList);
 
-            }*/
+            }
         }
         catch (MalformedURLException | ProtocolException | JSONException e)
         {

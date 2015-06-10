@@ -2,8 +2,11 @@ package be.ehb.dtsid_inapp.TeacherFragments;
 
 import android.app.Fragment;
 import android.app.ProgressDialog;
+import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,6 +33,7 @@ public class DepartmentLogin extends Fragment
     private EditText codeET;
     private Button loginBTN;
     private Boolean goToNext = false;
+    private Boolean loadingSubscriptions = false;
     private Animation buttonAnim;
 
     @Nullable
@@ -75,26 +79,22 @@ public class DepartmentLogin extends Fragment
                         if (dbc.getAllTeachers().isEmpty())
                         {
                             String urlTeachers = BASEURL + ALL_TEACHERS;
-                            GetJSONTask jsonTask1 = new GetJSONTask(DepartmentLogin.this);
-                            jsonTask1.execute(urlTeachers);
+                            startMyTask(urlTeachers);
                         }
                         if (dbc.getAllEvents().isEmpty())
                         {
                             String urlEvents = BASEURL + ALL_EVENTS;
-                            GetJSONTask jsonTask2 = new GetJSONTask(DepartmentLogin.this);
-                            jsonTask2.execute(urlEvents);
+                            startMyTask(urlEvents);
                         }
                         if (dbc.getAllSchools().isEmpty())
                         {
                             String urlSchools = BASEURL + ALL_SCHOOLS;
-                            GetJSONTask jsonTask3 = new GetJSONTask(DepartmentLogin.this);
-                            jsonTask3.execute(urlSchools);
+                            startMyTask(urlSchools);
                         }/*
                         if (dbc.getAllImages().isEmpty())
                         {
                             String urlImages = BASEURL + ALL_IMAGES;
-                            GetJSONTask jsonTask4 = new GetJSONTask(DepartmentLogin.this);
-                            jsonTask4.execute(urlImages);
+                            startMyTask(urlImages);
                         }*/
 
                         goToNext = true;
@@ -129,11 +129,28 @@ public class DepartmentLogin extends Fragment
                     .commit();
         }
 
-        else if(!dbc.getAllTeachers().isEmpty() && !dbc.getAllEvents().isEmpty() && !dbc.getAllSchools().isEmpty())
+        else if(!dbc.getAllTeachers().isEmpty() && !dbc.getAllEvents().isEmpty() && !dbc.getAllSchools().isEmpty() && loadingSubscriptions == false)
         {
             String urlSubscriptions = BASEURL + ALL_SUBSCRIPTIONS;
-            GetJSONTask jsonTask5 = new GetJSONTask(DepartmentLogin.this);
-            jsonTask5.execute(urlSubscriptions);
+            startMyTask(urlSubscriptions);
+            loadingSubscriptions = true;
+        }
+    }
+
+    // PARALLEL ASYNCS
+    void startMyTask(String url)
+    {
+        GetJSONTask jsonTask = new GetJSONTask(DepartmentLogin.this);
+
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB)
+        {
+            jsonTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, url);
+            Log.d("ASYNC", "Parallel " + url);
+        }
+        else
+        {
+            jsonTask.execute(url);
+            Log.d("ASYNC", "Serial " + url);
         }
     }
 }
