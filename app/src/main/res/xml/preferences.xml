@@ -5,12 +5,19 @@
         android:key="pref_sw_autosynx"
         android:title="@string/txt_pref_autosync"/>
 
-    <CheckBoxPreference
-        android:key="pref_cb_syncdate"
-        android:title="@string/txt_pref_syncdate"/>
+    <PreferenceCategory>
+        <CheckBoxPreference
+            android:key="pref_cb_syncdate"
+            android:title="@string/txt_pref_syncdate"/>
 
-    <CheckBoxPreference
-        android:key="pref_cb_syncclose"
-        android:title="@string/txt_pref_syncclose"/>
+        <be.ehb.dtsid_inapp.TeacherFragments.TimePreference
+            android:key="pref_tp_syncdatepicker"/>
+    </PreferenceCategory>
+
+    <PreferenceCategory>
+        <CheckBoxPreference
+            android:key="pref_cb_syncclose"
+            android:title="@string/txt_pref_syncclose"/>
+    </PreferenceCategory>
 
 </PreferenceScreen>
