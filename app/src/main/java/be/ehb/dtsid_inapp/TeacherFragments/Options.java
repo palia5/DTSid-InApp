@@ -69,6 +69,7 @@ public class Options extends Fragment implements View.OnClickListener
 
 
         studentRegistrerenBTN.setOnClickListener(this);
+        lijstBTN.setOnClickListener(this);
         optiesBTN.setOnClickListener(this);
         syncBTN.setOnClickListener(this);
 
@@ -101,6 +102,12 @@ public class Options extends Fragment implements View.OnClickListener
                 studentIntent.putExtra("Teacher_id", activity.getTeacher().getId());
                 studentIntent.putExtra("Event_id", activity.getEvent().getId());
                 startActivity(studentIntent);
+                break;
+            case R.id.btn_lijst:
+                activity.getFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.teacherContainer, new Lists(), "OPTIONS_LIST")
+                        .commit();
                 break;
             case R.id.btn_opties:
                 activity.getFragmentManager()
