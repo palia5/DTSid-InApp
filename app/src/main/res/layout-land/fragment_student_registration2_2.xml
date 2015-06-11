@@ -4,13 +4,46 @@
     android:layout_height="match_parent">
 
     <ImageView
-        android:layout_width="350dp"
-        android:layout_height="65dp"
-        android:id="@+id/iv_logo_ehb_2"
+        android:layout_width="264dp"
+        android:layout_height="74dp"
+        android:id="@+id/iv_logo_ehb"
         android:src="@drawable/logo_ehb"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="40dp"
+        android:adjustViewBounds="true"
+        android:scaleType="fitStart" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/txt_tv_stud_reg_2_interests"
+        android:id="@+id/tv_stud_reg_2_interests"
+        android:layout_below="@+id/iv_logo_ehb"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
         android:layout_marginTop="15dp"
-        android:layout_marginRight="15dp" />
+        android:layout_marginLeft="50dp"/>
+
+    <Switch
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/switch1"
+        android:layout_below="@+id/tv_stud_reg_2_interests"
+        android:layout_alignRight="@+id/tv_stud_reg_2_interests"
+        android:layout_alignEnd="@+id/tv_stud_reg_2_interests"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="50dp"/>
+
+    <ImageView
+        android:layout_width="74dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView"
+        android:layout_alignBottom="@+id/switch1"
+        android:layout_alignLeft="@+id/tv_stud_reg_2_interests"
+        android:layout_alignStart="@+id/tv_stud_reg_2_interests"
+        android:src="@drawable/logo_digx_transparant"
+        android:layout_alignTop="@+id/switch1" />
+
+
 </RelativeLayout>

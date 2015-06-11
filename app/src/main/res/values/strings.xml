@@ -44,4 +44,5 @@
     <string name="txt_label_syncbijafsluiten_syncscreen">Synchroniseer bij afsluiten van app</string>
     <string name="txt_btn_syncscreen">Set Time</string>
     <string name="tv_label_evenementen_listscreen">Evenementen:</string>
+    <string name="txt_tv_stud_reg_2_interests">Ik heb interesse in:</string>
 </resources>
