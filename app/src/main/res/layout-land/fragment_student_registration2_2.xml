@@ -1,8 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="2"
+    android:layout_centerHorizontal="true"
+    android:layout_centerVertical="true"
+    android:baselineAligned="false">
+<RelativeLayout
+    android:layout_weight="1"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
-
     <ImageView
         android:layout_width="264dp"
         android:layout_height="74dp"
@@ -26,24 +33,150 @@
         android:layout_marginLeft="50dp"/>
 
     <Switch
+        android:layout_marginTop="15dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/switch1"
+        android:id="@+id/sw_stud_reg_digx"
         android:layout_below="@+id/tv_stud_reg_2_interests"
-        android:layout_alignRight="@+id/tv_stud_reg_2_interests"
-        android:layout_alignEnd="@+id/tv_stud_reg_2_interests"
-        android:layout_marginTop="15dp"
-        android:layout_marginLeft="50dp"/>
+        android:layout_alignLeft="@+id/sw_stud_reg_multec"
+        android:layout_alignStart="@+id/sw_stud_reg_multec" />
 
     <ImageView
         android:layout_width="74dp"
         android:layout_height="wrap_content"
-        android:id="@+id/imageView"
-        android:layout_alignBottom="@+id/switch1"
+        android:id="@+id/iv_stud_reg_digx"
+        android:layout_alignBottom="@+id/sw_stud_reg_digx"
         android:layout_alignLeft="@+id/tv_stud_reg_2_interests"
         android:layout_alignStart="@+id/tv_stud_reg_2_interests"
-        android:src="@drawable/logo_digx_transparant"
-        android:layout_alignTop="@+id/switch1" />
+        android:layout_alignTop="@+id/sw_stud_reg_digx"
+        android:src="@drawable/logo_digx_transparant" />
 
+    <Switch
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/sw_stud_reg_multec"
+        android:layout_alignBottom="@+id/iv_stud_reg_multec"
+        android:layout_alignRight="@+id/sw_stud_reg_werkstudent"
+        android:layout_alignEnd="@+id/sw_stud_reg_werkstudent" />
+
+    <ImageView
+        android:layout_marginTop="15dp"
+        android:layout_width="74dp"
+        android:layout_height="30dp"
+        android:id="@+id/iv_stud_reg_multec"
+        android:src="@drawable/logo_multec_transparant"
+        android:layout_alignLeft="@+id/iv_stud_reg_digx"
+        android:layout_below="@+id/sw_stud_reg_digx" />
+
+    <Switch
+        android:layout_marginTop="15dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/txt_sw_stud_reg_werkstudent"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:id="@+id/sw_stud_reg_werkstudent"
+        android:layout_below="@+id/sw_stud_reg_multec"
+        android:layout_alignLeft="@+id/iv_logo_ehb"
+        android:layout_alignStart="@+id/iv_logo_ehb"
+        android:checked="false"
+        android:switchPadding="25dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="50dp"
+        android:id="@+id/btn_stud_reg_2_back"
+        android:background="@drawable/button_previous"
+        android:layout_marginLeft="50dp" />
 
 </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <Switch
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/txt_sw_stud_reg_werkstudent"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:id="@+id/sw_ik_studeer_nog"
+        android:checked="false"
+        android:switchPadding="25dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="50dp"/>
+
+        <TextView
+            android:layout_marginTop="15dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="@string/txt_tv_stud_reg_2_zip"
+            android:id="@+id/tv_stud_reg_2_zip"
+            android:layout_below="@+id/sw_ik_studeer_nog"
+            android:layout_alignLeft="@+id/sw_ik_studeer_nog"
+            android:layout_alignStart="@+id/sw_ik_studeer_nog" />
+
+        <EditText
+            android:layout_marginTop="15dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:ems="10"
+            android:id="@+id/et_stud_reg_2_zip"
+            android:layout_below="@+id/tv_stud_reg_2_zip"
+            android:layout_alignLeft="@+id/tv_stud_reg_2_zip"
+            android:layout_alignStart="@+id/tv_stud_reg_2_zip"
+            android:numeric="integer"
+            android:singleLine="true"
+            android:editable="true"
+            android:maxLength="4" />
+
+        <TextView
+            android:layout_marginTop="15dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="@string/txt_tv_stud_reg_2_name_school"
+            android:id="@+id/tv_stud_reg_2_name_school"
+            android:layout_below="@+id/et_stud_reg_2_zip"
+            android:layout_alignLeft="@+id/et_stud_reg_2_zip"
+            android:layout_alignStart="@+id/et_stud_reg_2_zip" />
+
+        <Spinner
+            android:layout_marginTop="15dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/spin_stud_reg_2_name_school"
+            android:layout_below="@+id/tv_stud_reg_2_name_school"
+            android:layout_alignLeft="@+id/tv_stud_reg_2_name_school"
+            android:layout_alignStart="@+id/tv_stud_reg_2_name_school"
+            android:spinnerMode="dialog" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/btn_annuleren_subscription2"
+            android:background="@drawable/button_cancel"
+            android:layout_alignTop="@+id/btn_bevestigen_subscription2"
+            android:layout_alignRight="@+id/tv_stud_reg_2_name_school"
+            android:layout_alignEnd="@+id/tv_stud_reg_2_name_school" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="50dp"
+            android:layout_marginRight="50dp"
+            android:id="@+id/btn_bevestigen_subscription2"
+            android:background="@drawable/button_confirm"
+            android:layout_marginLeft="25dp" />
+
+    </RelativeLayout>
+
+
+</LinearLayout>
