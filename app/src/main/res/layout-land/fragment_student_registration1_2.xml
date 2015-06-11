@@ -64,7 +64,7 @@
     <EditText
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:inputType="textEmailAddress"
+        android:inputType="textCapSentences"
         android:ems="10"
         android:id="@+id/et_naam_subscription1"
         android:layout_marginTop="5dp"
@@ -83,9 +83,10 @@
     <EditText
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:inputType="textEmailAddress"
+        android:inputType="textCapSentences"
         android:ems="10"
         android:id="@+id/et_voornaam_subscription1"
+        android:imeOptions="actionNext"
         android:layout_marginTop="5dp"
         android:layout_marginLeft="50dp" />
 </LinearLayout>
@@ -108,9 +109,10 @@
     <EditText
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:inputType="textEmailAddress"
+        android:inputType="textCapSentences"
         android:ems="10"
         android:id="@+id/et_straat_subscription1"
+        android:imeOptions="actionNext"
         android:layout_marginTop="5dp"
         android:layout_marginLeft="50dp" />
 
@@ -127,7 +129,9 @@
     <EditText
         android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:inputType="textEmailAddress"
+        android:inputType="number"
+        android:numeric="integer"
+        android:imeOptions="actionNext"
         android:ems="10"
         android:id="@+id/et_huisnummer_subscription1"
         android:layout_marginTop="5dp"
@@ -146,7 +150,9 @@
     <EditText
         android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:inputType="textEmailAddress"
+        android:inputType="number"
+        android:numeric="integer"
+        android:imeOptions="actionDone"
         android:ems="10"
         android:id="@+id/et_postcode_subscription1"
         android:layout_marginTop="5dp"
