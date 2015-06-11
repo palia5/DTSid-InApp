@@ -14,6 +14,7 @@ import android.widget.LinearLayout;
 
 import be.ehb.dtsid_inapp.Database.DatabaseContract;
 import be.ehb.dtsid_inapp.Models.Event;
+import be.ehb.dtsid_inapp.Models.Subscription;
 import be.ehb.dtsid_inapp.Models.Teacher;
 import be.ehb.dtsid_inapp.R;
 import be.ehb.dtsid_inapp.StudentFragments.PhotoGallery;
@@ -28,6 +29,7 @@ public class StudentActivity extends AppCompatActivity
     StudentRegistration registrationFragment;
     private ViewPager mPager;
     private PagerAdapter mPagerAdapter;
+    private Subscription currentSubscription = null;
 
 
     @Override
@@ -123,5 +125,13 @@ public class StudentActivity extends AppCompatActivity
 
     public Event getEvent() {
         return event;
+    }
+
+    public Subscription getCurrentSubscription() {
+        return currentSubscription;
+    }
+
+    public void setCurrentSubscription(Subscription currentSubscription) {
+        this.currentSubscription = currentSubscription;
     }
 }

@@ -101,7 +101,7 @@
     <Switch
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/txt_sw_stud_reg_werkstudent"
+        android:text="@string/txt_sw_ik_studeer_nog"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:id="@+id/sw_ik_studeer_nog"
         android:checked="false"
