@@ -7,10 +7,12 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +25,7 @@ import be.ehb.dtsid_inapp.Models.Subscription;
 import be.ehb.dtsid_inapp.Models.SubscriptionAdapter;
 import be.ehb.dtsid_inapp.R;
 
-public class Lists extends Fragment
+public class Lists extends Fragment implements AdapterView.OnItemSelectedListener
 {
     TeacherActivity activity;
 
@@ -34,10 +36,12 @@ public class Lists extends Fragment
     private EventAdapter evenementAdapter;
     private DatabaseContract dbc;
     private ArrayList<Subscription> subscriptionArrayList;
+    private Event selectedEvent;
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+    {
         View v = inflater.inflate(R.layout.fragment_listscreen, null);
 
         activity = (TeacherActivity) this.getActivity();
@@ -46,25 +50,40 @@ public class Lists extends Fragment
         evenementTV = (TextView) v.findViewById(R.id.tv_label_evenementen_listscreen);
 
         //evenement spinner
-        final List<Event> events = new ArrayList<>();
-        for(int i = 0 ; i < dbc.getAllEvents().size() ; i++)
-            if(dbc.getAllEvents().get(i).getAcadyear() == activity.getCurrentYear())
-                events.add(dbc.getAllEvents().get(i));
+        List<Event> events = new ArrayList<>();
+        List<Event> currentEvents = new ArrayList<>();
+        events = dbc.getAllEvents();
+        for (int i = 0; i < events.size(); i++)
+            if (events.get(i).getAcadyear() == activity.getCurrentYear())
+                currentEvents.add(events.get(i));
 
         evenementSP = (Spinner) v.findViewById(R.id.sp_evenementen_listscreen);
-        evenementAdapter = new EventAdapter(activity, events);
+        evenementAdapter = new EventAdapter(activity, currentEvents);
         evenementSP.setAdapter(evenementAdapter);
+        selectedEvent = (Event) evenementSP.getSelectedItem();
 
         //lijst van studenten
-
-        ArrayList<Subscription> subscriptionArrayList = new ArrayList<Subscription>(dbc.getAllSubscriptions());
+        final ArrayList<Subscription> subscriptionArrayList = new ArrayList<Subscription>(dbc.getAllSubscriptions());
+        ArrayList<Subscription> requestedSubscriptions = new ArrayList<Subscription>();
+        for (int i = 0; i < subscriptionArrayList.size(); i++)
+            if (subscriptionArrayList.get(i).getEvent() == selectedEvent)
+                requestedSubscriptions.add(subscriptionArrayList.get(i));
 
         studentLV = (ListView) v.findViewById(R.id.lv_studenten_opgekozenevenement_listscreen);
-
         subscriptionAdapter = new SubscriptionAdapter(activity, subscriptionArrayList);
-
-
         return v;
+    };
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+        //evenementSP.setSelection(position);
+        //subscriptionArrayList = (ArrayList<Subscription>) evenementSP.getSelectedItem();
+
     }
 
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
+    }
 }
