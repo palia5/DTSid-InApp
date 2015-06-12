@@ -2,7 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="be.ehb.dtsid_inapp" >
 
-    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -25,6 +27,8 @@
             android:label="@string/title_activity_student"
             android:windowSoftInputMode="stateHidden">
         </activity>
+        
+        <receiver android:name=".SyncBroadcastReceiver"/>
     </application>
 
 </manifest>

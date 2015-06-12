@@ -4,9 +4,11 @@ import android.app.Fragment;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Spinner;
@@ -23,17 +25,14 @@ import be.ehb.dtsid_inapp.Models.Subscription;
 import be.ehb.dtsid_inapp.Models.SubscriptionAdapter;
 import be.ehb.dtsid_inapp.R;
 
-public class Lists extends Fragment
+public class Lists extends Fragment implements AdapterView.OnItemSelectedListener
 {
     TeacherActivity activity;
 
-    private TextView evenementTV;
     private Spinner evenementSP;
     private ListView studentLV;
-    private SubscriptionAdapter subscriptionAdapter;
     private EventAdapter evenementAdapter;
     private DatabaseContract dbc;
-    private ArrayList<Subscription> subscriptionArrayList;
 
     @Nullable
     @Override
@@ -42,8 +41,6 @@ public class Lists extends Fragment
 
         activity = (TeacherActivity) this.getActivity();
         dbc = new DatabaseContract(activity.getApplicationContext());
-
-        evenementTV = (TextView) v.findViewById(R.id.tv_label_evenementen_listscreen);
 
         //evenement spinner
         final List<Event> events = new ArrayList<>();
@@ -54,17 +51,33 @@ public class Lists extends Fragment
         evenementSP = (Spinner) v.findViewById(R.id.sp_evenementen_listscreen);
         evenementAdapter = new EventAdapter(activity, events);
         evenementSP.setAdapter(evenementAdapter);
-
-        //lijst van studenten
-
-        ArrayList<Subscription> subscriptionArrayList = new ArrayList<Subscription>(dbc.getAllSubscriptions());
+        evenementSP.setOnItemSelectedListener(this);
 
         studentLV = (ListView) v.findViewById(R.id.lv_studenten_opgekozenevenement_listscreen);
-
-        subscriptionAdapter = new SubscriptionAdapter(activity, subscriptionArrayList);
-
 
         return v;
     }
 
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
+    {
+        Event selectedEvent = (Event) evenementSP.getSelectedItem();
+        ArrayList<Subscription> subscriptions = new ArrayList<>();
+        for(Subscription sub : dbc.getAllSubscriptions())
+        {
+            if(sub.getEvent().getId().equals(selectedEvent.getId()))
+            {
+                subscriptions.add(sub);
+            }
+        }
+
+        SubscriptionAdapter adapter = new SubscriptionAdapter(activity, subscriptions);
+        studentLV.setAdapter(adapter);
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent)
+    {
+
+    }
 }
