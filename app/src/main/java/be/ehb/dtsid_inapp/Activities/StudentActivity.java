@@ -72,9 +72,10 @@ public class StudentActivity extends AppCompatActivity
     @Override
     public void onBackPressed()
     {
-        if(isInMainScreen) 
+        if(isInMainScreen)
         {
             super.onBackPressed();
+        }
         else
         {
             if (isInSecondReg) 

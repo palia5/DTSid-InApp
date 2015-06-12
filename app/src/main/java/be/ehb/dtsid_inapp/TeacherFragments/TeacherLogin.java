@@ -83,7 +83,6 @@ public class TeacherLogin extends Fragment
                 dbc.close();
 
                 v.startAnimation(buttonAnim);
-<<<<<<< Temporary merge branch 1
                 buttonAnim.setAnimationListener(new Animation.AnimationListener()
                 {
                     @Override

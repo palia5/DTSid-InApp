@@ -37,7 +37,7 @@ public class PhotoGallery extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_photo_gallery, null);
 
-        int images[] = {R.drawable.the_queen, R.drawable.the_queen_amused, R.drawable.the_queen_owyeah};
+        int images[] = {R.drawable.button_cancel, R.drawable.button_confirm, R.drawable.button_next};
 
         myPager = (ViewPager) v.findViewById(R.id.viewpager);
         myImagePagerAdapter = new ImagePagerAdapter(images, getActivity());
