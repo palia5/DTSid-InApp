@@ -6,7 +6,6 @@ import android.app.FragmentManager;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -84,10 +83,9 @@ public class TeacherLogin extends Fragment
                 dbc.close();
 
                 v.startAnimation(buttonAnim);
+<<<<<<< Temporary merge branch 1
                 buttonAnim.setAnimationListener(new Animation.AnimationListener()
                 {
-                    FragmentManager mgr = activity.getFragmentManager();
-
                     @Override
                     public void onAnimationStart(Animation animation)
                     {
@@ -97,8 +95,8 @@ public class TeacherLogin extends Fragment
                     @Override
                     public void onAnimationEnd(Animation animation)
                     {
-                        loginBTN.setVisibility(View.INVISIBLE);
-                        mgr.beginTransaction()
+                        activity.getFragmentManager()
+                                .beginTransaction()
                                 .replace(R.id.teacherContainer, new Options(), "OPTIONS_DASHBOARD")
                                 .commit();
                     }
