@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.Transformation;
@@ -24,6 +25,7 @@ public class StudentActivity extends AppCompatActivity
 {
     private DatabaseContract dbc;
     private Boolean isInMainScreen = true;
+    private Boolean isInSecondReg;
     private Teacher teacher;
     private Event event;
     StudentRegistration registrationFragment;
@@ -37,6 +39,8 @@ public class StudentActivity extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student);
+
+        isInSecondReg = false;
 
         dbc = new DatabaseContract(getApplicationContext());
 
@@ -58,13 +62,25 @@ public class StudentActivity extends AppCompatActivity
     @Override
     public void onBackPressed()
     {
-        if(isInMainScreen)
+        if(isInMainScreen) {
             super.onBackPressed();
+        }
         else
         {
-            changeWeightOfFragments(50, 50);
-            registrationFragment.setEnabled(false);
-            isInMainScreen = true;
+            if (isInSecondReg) {
+                isInMainScreen = false;
+                getFragmentManager().beginTransaction()
+                        .replace(R.id.fragm_left_registration, registrationFragment)
+                        .commit();
+                registrationFragment.setEnabled(true);
+                isInSecondReg = false;
+                Log.d("MainScreen ", isInMainScreen.toString());
+            }
+            else {
+                changeWeightOfFragments(50, 50);
+                registrationFragment.setEnabled(false);
+                isInMainScreen = true;
+            }
         }
     }
 
@@ -133,5 +149,14 @@ public class StudentActivity extends AppCompatActivity
 
     public void setCurrentSubscription(Subscription currentSubscription) {
         this.currentSubscription = currentSubscription;
+    }
+
+
+    public Boolean getIsInSecondReg() {
+        return isInSecondReg;
+    }
+
+    public void setIsInSecondReg(Boolean isInSecondReg) {
+        this.isInSecondReg = isInSecondReg;
     }
 }

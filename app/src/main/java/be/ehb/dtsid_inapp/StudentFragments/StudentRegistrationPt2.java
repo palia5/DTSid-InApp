@@ -67,9 +67,8 @@ public class StudentRegistrationPt2 extends Fragment implements View.OnClickList
         {
             case R.id.btn_stud_reg_2_back:
 
-                activity.getFragmentManager().beginTransaction()
-                        .replace(R.id.fragm_left_registration, new StudentRegistration())
-                        .commit();
+                activity.onBackPressed();
+
                 break;
         }
     }

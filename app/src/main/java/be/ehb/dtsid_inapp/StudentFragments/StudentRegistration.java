@@ -69,12 +69,12 @@ public class StudentRegistration extends Fragment
 
         if (activity.getCurrentSubscription() == null) {
             clearAllFields();
+            setEnabled(false);
         }
 
         else {
             setAllFields(activity.getCurrentSubscription());
         }
-        setEnabled(false);
 
         v.setOnTouchListener(new View.OnTouchListener()
         {
@@ -156,8 +156,10 @@ public class StudentRegistration extends Fragment
                             currentSubscription.setEvent(activity.getEvent());
                     activity.setCurrentSubscription(currentSubscription);
 
+                    activity.setIsInSecondReg(true);
                     activity.getFragmentManager().beginTransaction().
                             replace(R.id.fragm_left_registration, new StudentRegistrationPt2())
+                            .addToBackStack(null)
                             .commit();
                 }
             }
