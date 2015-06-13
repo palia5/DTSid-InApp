@@ -1,7 +1,6 @@
 package be.ehb.dtsid_inapp.TeacherFragments;
 
 import android.app.Fragment;
-import android.app.FragmentManager;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -19,6 +18,7 @@ import be.ehb.dtsid_inapp.Activities.StudentActivity;
 import be.ehb.dtsid_inapp.Activities.TeacherActivity;
 import be.ehb.dtsid_inapp.Database.DatabaseContract;
 import be.ehb.dtsid_inapp.JSONTasks.PostJSONTask;
+import be.ehb.dtsid_inapp.Map.MapActivity;
 import be.ehb.dtsid_inapp.Models.Subscription;
 import be.ehb.dtsid_inapp.R;
 
@@ -44,7 +44,7 @@ public class Options extends Fragment implements View.OnClickListener
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
-        View v = inflater.inflate(R.layout.fragment_options_dashboardscreen, null);
+        View v = inflater.inflate(R.layout.fragment_options_dashboardscreen, container);
 
         activity = (TeacherActivity) this.getActivity();
         //Contract opvrage
@@ -72,6 +72,7 @@ public class Options extends Fragment implements View.OnClickListener
         lijstBTN.setOnClickListener(this);
         optiesBTN.setOnClickListener(this);
         syncBTN.setOnClickListener(this);
+        regioBTN.setOnClickListener(this);
 
         medewerkerTV.setText(activity.getTeacher().getName());
         evenementTV.setText(activity.getEvent().getName());
@@ -120,18 +121,13 @@ public class Options extends Fragment implements View.OnClickListener
                 PostJSONTask jsonTask = new PostJSONTask(Options.this);
                 jsonTask.execute();
                 break;
+            case R.id.btn_regios:
+                Intent regionIntent = new Intent(activity.getApplicationContext(), MapActivity.class);
+                regionIntent.putExtra("Teacher_id", activity.getTeacher().getId());
+                regionIntent.putExtra("Event_id", activity.getEvent().getId());
+                startActivity(regionIntent);
         }
     }
-    /*/
-    private void startNavigation(Intent i) {
-        startActivity(i);
-    }
-
-    private void startNavigation(FragmentManager f) {
-
-    }
-
-    */
 
     @Override
     public void onClick(View v)

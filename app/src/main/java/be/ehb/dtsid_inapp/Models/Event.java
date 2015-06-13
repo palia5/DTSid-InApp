@@ -2,6 +2,8 @@ package be.ehb.dtsid_inapp.Models;
 
 import com.google.gson.annotations.Expose;
 
+import java.io.Serializable;
+
 public class Event
 {
     //Variables

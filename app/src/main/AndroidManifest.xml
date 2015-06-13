@@ -3,6 +3,12 @@
     package="be.ehb.dtsid_inapp" >
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-feature
+        android:glEsVersion="0x00020000"
+        android:required="true"/>
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -25,6 +31,9 @@
             android:label="@string/title_activity_student"
             android:windowSoftInputMode="stateHidden">
         </activity>
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyDvY8HiDjJzw6Ed_4wztk8dCga8XLGOuVg"/>
     </application>
 
 </manifest>
