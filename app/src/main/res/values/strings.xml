@@ -7,6 +7,8 @@
 <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_student">StudentActivity</string>
+    <string name="title_activity_map">MapActivity</string>
+
     <string name="txt_label_department_launchscreen">Departement:</string>
     <string name="txt_label_code_launchscreen">Code:</string>
     <string name="txt_label_docent_loginscreen">Docent:</string>

@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +19,7 @@ import be.ehb.dtsid_inapp.Activities.StudentActivity;
 import be.ehb.dtsid_inapp.Activities.TeacherActivity;
 import be.ehb.dtsid_inapp.Database.DatabaseContract;
 import be.ehb.dtsid_inapp.JSONTasks.PostJSONTask;
-import be.ehb.dtsid_inapp.Map.MapActivity;
+import be.ehb.dtsid_inapp.map.MapActivity;
 import be.ehb.dtsid_inapp.Models.Subscription;
 import be.ehb.dtsid_inapp.R;
 
@@ -44,7 +45,7 @@ public class Options extends Fragment implements View.OnClickListener
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
-        View v = inflater.inflate(R.layout.fragment_options_dashboardscreen, container);
+        View v = inflater.inflate(R.layout.fragment_options_dashboardscreen, container, false);
 
         activity = (TeacherActivity) this.getActivity();
         //Contract opvrage
@@ -122,10 +123,11 @@ public class Options extends Fragment implements View.OnClickListener
                 jsonTask.execute();
                 break;
             case R.id.btn_regios:
-                Intent regionIntent = new Intent(activity.getApplicationContext(), MapActivity.class);
-                regionIntent.putExtra("Teacher_id", activity.getTeacher().getId());
-                regionIntent.putExtra("Event_id", activity.getEvent().getId());
+                Intent regionIntent = new Intent(getActivity(), MapActivity.class);
+               // regionIntent.putExtra("Teacher_id", activity.getTeacher().getId());
+               // regionIntent.putExtra("Event_id", activity.getEvent().getId());
                 startActivity(regionIntent);
+                break;
         }
     }
 
