@@ -143,12 +143,12 @@
         android:layout_marginTop="10dp"
         android:layout_marginLeft="50dp" />
 
-    <EditText
+    <AutoCompleteTextView
         android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:inputType="textEmailAddress"
         android:ems="10"
-        android:id="@+id/et_postcode_subscription1"
+        android:id="@+id/actv_postcode_subscription1"
         android:layout_marginTop="5dp"
         android:layout_marginLeft="50dp" />
 

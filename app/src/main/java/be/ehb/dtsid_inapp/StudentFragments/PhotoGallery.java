@@ -13,6 +13,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -37,7 +38,9 @@ public class PhotoGallery extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_photo_gallery, null);
 
-        int images[] = {R.drawable.the_queen, R.drawable.the_queen_amused, R.drawable.the_queen_owyeah};
+        int images[] = {R.drawable.button_confirm, R.drawable.button_next, R.drawable.button_previous};
+
+
 
         myPager = (ViewPager) v.findViewById(R.id.viewpager);
         myImagePagerAdapter = new ImagePagerAdapter(images, getActivity());
@@ -97,8 +100,9 @@ public class PhotoGallery extends Fragment {
 
             mPager.setCurrentItem(++i, true);
             Log.d("TEST_", "na setitem " + i);
-            if (i> lengt) {
+            if (i>= lengt) {
                 i = 0;
+                mPager.setCurrentItem(i, true);
                 Log.d("TEST_", "in if "+ i);
             }
             else {

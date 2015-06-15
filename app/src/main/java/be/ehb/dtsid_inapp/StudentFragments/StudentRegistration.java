@@ -11,6 +11,8 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -44,6 +46,9 @@ public class StudentRegistration extends Fragment
     Spinner gemeenteSP;
     Button acceptBTN;
     Button cancelBTN;
+
+    AutoCompleteTextView postcodeACTV;
+
     private ImageView logoIV;
     private LinearLayout btnLinLay;
 
@@ -59,12 +64,19 @@ public class StudentRegistration extends Fragment
         voorNaamET = (EditText) v.findViewById(R.id.et_voornaam_subscription1);
         straatET = (EditText) v.findViewById(R.id.et_straat_subscription1);
         huisNummerET = (EditText) v.findViewById(R.id.et_huisnummer_subscription1);
-        postcodeET = (EditText) v.findViewById(R.id.et_postcode_subscription1);
+        //postcodeET = (EditText) v.findViewById(R.id.et_postcode_subscription1);
         gemeenteSP = (Spinner) v.findViewById(R.id.sp_gemeente_subscription1);
         acceptBTN = (Button) v.findViewById(R.id.btn_bevestigen_subscription1);
         cancelBTN = (Button) v.findViewById(R.id.btn_annuleren_subscription1);
         logoIV = (ImageView) v.findViewById(R.id.iv_logo_ehb);
         btnLinLay = (LinearLayout) v.findViewById(R.id.lin_lay_btn_stud_reg_1);
+        postcodeACTV = (AutoCompleteTextView) v.findViewById(R.id.actv_postcode_subscription1);
+
+        String[] postcodes = {"3000", "3010", "3020", "2000", "2040", "1000", "1010"};
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this.getActivity(),
+                android.R.layout.simple_list_item_1, postcodes);
+
+        postcodeACTV.setAdapter(adapter);
 
         setEnabled(false);
         clearAllFields();
@@ -190,7 +202,7 @@ public class StudentRegistration extends Fragment
         voorNaamET.setText("");
         straatET.setText("");
         huisNummerET.setText("");
-        postcodeET.setText("");
+        //postcodeET.setText("");
         emailET.setBackgroundColor(Color.TRANSPARENT);
     }
 
@@ -201,7 +213,7 @@ public class StudentRegistration extends Fragment
         voorNaamET.setEnabled(enabled);
         straatET.setEnabled(enabled);
         huisNummerET.setEnabled(enabled);
-        postcodeET.setEnabled(enabled);
+        //postcodeET.setEnabled(enabled);
         gemeenteSP.setEnabled(enabled);
         acceptBTN.setEnabled(enabled);
         cancelBTN.setEnabled(enabled);
