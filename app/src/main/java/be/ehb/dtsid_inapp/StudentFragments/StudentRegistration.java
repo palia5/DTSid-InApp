@@ -28,6 +28,7 @@ import java.util.regex.Pattern;
 
 import be.ehb.dtsid_inapp.Activities.StudentActivity;
 import be.ehb.dtsid_inapp.Database.DatabaseContract;
+import be.ehb.dtsid_inapp.Models.Gemeente;
 import be.ehb.dtsid_inapp.Models.Subscription;
 import be.ehb.dtsid_inapp.R;
 
@@ -72,20 +73,30 @@ public class StudentRegistration extends Fragment
         btnLinLay = (LinearLayout) v.findViewById(R.id.lin_lay_btn_stud_reg_1);
         postcodeACTV = (AutoCompleteTextView) v.findViewById(R.id.actv_postcode_subscription1);
 
-        String[] postcodes = {"3000", "3010", "3020", "2000", "2040", "1000", "1010"};
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this.getActivity(),
-                android.R.layout.simple_list_item_1, postcodes);
+        Gemeente g = new Gemeente("3020", "Herent");
+        Gemeente g2 = new Gemeente("3000", "Leuven");
+        Gemeente g3 = new Gemeente("1000", "Brussel");
+        Gemeente g4 = new Gemeente("2000", "Antwerpen");
+
+        ArrayList<Gemeente> gemeentes = new ArrayList();
+        gemeentes.add(g);
+        gemeentes.add(g2);
+        gemeentes.add(g3);
+        gemeentes.add(g4);
+
+        ArrayAdapter<Gemeente> adapter2 = new ArrayAdapter(this.getActivity(), android.R.layout.simple_list_item_1, gemeentes);
+
+        ArrayAdapter<Gemeente> adapter = new ArrayAdapter<>(this.getActivity(),
+                android.R.layout.simple_list_item_1, gemeentes);
 
         postcodeACTV.setAdapter(adapter);
 
         setEnabled(false);
         clearAllFields();
 
-        v.setOnTouchListener(new View.OnTouchListener()
-        {
+        v.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public boolean onTouch(View v, MotionEvent event)
-            {
+            public boolean onTouch(View v, MotionEvent event) {
                 dbc = new DatabaseContract(activity.getApplicationContext());
                 subs = new ArrayList<>();
                 subs = dbc.getAllSubscriptions();
@@ -95,48 +106,49 @@ public class StudentRegistration extends Fragment
             }
         });
 
-        emailET.addTextChangedListener(new TextWatcher()
-        {
+        emailET.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after)
-            {
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
             }
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count)
-            {
-                if(!validEmail(s.toString()))
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (!validEmail(s.toString()))
                     emailET.setBackgroundColor(Color.RED);
                 else
                     emailET.setBackgroundColor(Color.TRANSPARENT);
             }
 
             @Override
-            public void afterTextChanged(Editable s)
-            {
+            public void afterTextChanged(Editable s) {
             }
         });
 
-        emailET.setOnFocusChangeListener(new View.OnFocusChangeListener()
-        {
+        emailET.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
-            public void onFocusChange(View v, boolean hasFocus)
-            {
-                if(!hasFocus)
-                {
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
                     if (!validEmail(emailET.getText().toString()))
                         Toast.makeText(getActivity(), "E-mail is not valid!", Toast.LENGTH_LONG).show();
                     else
                         for (int i = 0; i < subs.size(); i++)
-                            if (emailET.getText().toString().equals(subs.get(i).getEmail()))
-                            {
+                            if (emailET.getText().toString().equals(subs.get(i).getEmail())) {
                                 naamET.setText(subs.get(i).getLastName());
                                 voorNaamET.setText(subs.get(i).getFirstName());
                                 straatET.setText(subs.get(i).getStreet());
                                 huisNummerET.setText(subs.get(i).getStreetNumber());
                                 postcodeET.setText(subs.get(i).getZip());
                             }
+                }
+            }
+        });
+
+        postcodeACTV.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                for (int i = 0; i < subs.size(); i++) {
+                    //if (postcodeACTV.getText().toString().equals())
                 }
             }
         });
@@ -154,7 +166,7 @@ public class StudentRegistration extends Fragment
                             emailET.getText().toString(),
                             straatET.getText().toString(),
                             huisNummerET.getText().toString(),
-                            postcodeET.getText().toString(),
+                            postcodeACTV.getText().toString(),
                             "Iemand heeft ne spinner gezet bij Gemeente :p",
                             false,
                             false,
@@ -203,6 +215,7 @@ public class StudentRegistration extends Fragment
         straatET.setText("");
         huisNummerET.setText("");
         //postcodeET.setText("");
+        postcodeACTV.setText("");
         emailET.setBackgroundColor(Color.TRANSPARENT);
     }
 
@@ -214,6 +227,7 @@ public class StudentRegistration extends Fragment
         straatET.setEnabled(enabled);
         huisNummerET.setEnabled(enabled);
         //postcodeET.setEnabled(enabled);
+        postcodeACTV.setEnabled(enabled);
         gemeenteSP.setEnabled(enabled);
         acceptBTN.setEnabled(enabled);
         cancelBTN.setEnabled(enabled);
