@@ -16,6 +16,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
@@ -46,49 +47,64 @@ public class GetImagesJSONTask extends AsyncTask<String, Integer, Void> {
 
 
     @Override
-    protected Void doInBackground(String... params) {
-
-        try {
-
-            URL url = new URL(params[0]);
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+    protected Void doInBackground(String... params)
+    {
+        try
+        {
+            URL urlImages = new URL(params[0]);
+            HttpURLConnection connection = (HttpURLConnection) urlImages.openConnection();
             connection.setRequestMethod("GET");
             connection.connect();
 
-            BufferedReader reader = new BufferedReader(
-                    new InputStreamReader(connection.getInputStream()));
-            String jsonString = reader.readLine();
+            InputStreamReader reader = new InputStreamReader(connection.getInputStream());
+            Log.d("ImageTask", "Connection made");
 
-            if (params[0].contains(ALL_IMAGES)) {
+            String jsonString = "";
+            int length = 1;
+            char[] buffer = new char[1];
 
-                JSONObject rawImages = new JSONObject(jsonString);
-                JSONArray imagesArray = rawImages.getJSONArray(JSON_NAME_IMAGES);
-                ArrayList<Image> imageList = new ArrayList<>();
-                String tempstring;
-                String filename;
-                FileOutputStream outputStream;
+            while(length > 0)
+            {
+                length = reader.read(buffer, 0, 1);
 
-                for (int i = 0; i < imagesArray.length(); i++) {
-                    JSONObject o = imagesArray.getJSONObject(i);
-                    //tempstring = o.getString(JSON_NAME_IMAGE);
+                jsonString += String.copyValueOf(buffer);
 
-                    //bytearray opvullen vanuit de JSON
-                    byte[] array = (byte[]) o.get(JSON_NAME_IMAGE);
+                if(String.copyValueOf(buffer).equals(""))
+                    Log.d("ImageTask","First Image completed: " + jsonString);
+            }
 
-                    //filename uniek maken voor elke afbeelding
-                    filename = "picture_"+ i + ".jpeg";
+            Log.d("ImageTask", "READING COMPLETE: Length: " + length + " String length: " + jsonString.length());
 
-                    //bytearray wegschrijven als jpeg met de filename
-                    outputStream = fragment.getActivity().openFileOutput(filename, Context.MODE_PRIVATE);
-                    outputStream.write(array);
-                    outputStream.close();
+            connection.disconnect();
 
-                    //array opvullen met objecten die de prioriteit en locatie van de afbeeldingen bevatten
-                    Image temp = new Image(o.getLong(JSON_LONG_ID), o.getInt(JSON_INT_PRIORITY),
-                            filename);
+            JSONObject rawImages = new JSONObject("123");
+            JSONArray imagesArray = rawImages.getJSONArray(JSON_NAME_IMAGES);
+            ArrayList<Image> imageList = new ArrayList<>();
+            String tempstring;
+            String filename;
+            FileOutputStream outputStream;
 
-                    imageList.add(temp);
-                }
+            for (int i = 0; i < imagesArray.length(); i++)
+            {
+                JSONObject o = imagesArray.getJSONObject(i);
+                Log.d("ImageTask","" + o.getLong("id"));
+
+                //bytearray opvullen vanuit de JSON
+                byte[] array = (byte[]) o.get(JSON_NAME_IMAGE);
+
+                //filename uniek maken voor elke afbeelding
+                filename = "picture_" + i + ".jpeg";
+
+                //bytearray wegschrijven als jpeg met de filename
+                outputStream = fragment.getActivity().openFileOutput(filename, Context.MODE_PRIVATE);
+                outputStream.write(array);
+                outputStream.close();
+
+                //array opvullen met objecten die de prioriteit en locatie van de afbeeldingen bevatten
+                Image temp = new Image(o.getLong(JSON_LONG_ID), o.getInt(JSON_INT_PRIORITY),
+                        filename);
+
+                imageList.add(temp);
             }
         }
         catch (MalformedURLException| ProtocolException| JSONException e)
