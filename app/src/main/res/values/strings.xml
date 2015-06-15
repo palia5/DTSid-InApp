@@ -44,5 +44,9 @@
     <string name="txt_label_syncbijafsluiten_syncscreen">Synchroniseer bij afsluiten van app</string>
     <string name="txt_btn_syncscreen">Set Time</string>
     <string name="tv_label_evenementen_listscreen">Evenementen:</string>
-    <string name="tv_label_regios_mapscreen">Regio\'s</string>
+    <string name="txt_tv_stud_reg_2_interests">Ik heb interesse in:</string>
+    <string name="txt_sw_stud_reg_werkstudent">Ik ben werkstudent:</string>
+    <string name="txt_tv_stud_reg_2_zip">Postcode huidige school:</string>
+    <string name="txt_tv_stud_reg_2_name_school">Naam huidige school:</string>
+    <string name="txt_sw_ik_studeer_nog">Ik studeer nog</string>
 </resources>

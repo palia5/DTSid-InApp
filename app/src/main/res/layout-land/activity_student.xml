@@ -15,13 +15,13 @@
     android:background="@drawable/ehbackground">
 
     <FrameLayout
-        android:layout_width="0px"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="50"
         android:id="@+id/fragm_left_registration" />
 
     <FrameLayout
-        android:layout_width="0px"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="50"
         android:id="@+id/fragm_right_images"/>

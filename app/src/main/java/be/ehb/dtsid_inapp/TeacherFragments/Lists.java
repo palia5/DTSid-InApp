@@ -4,6 +4,7 @@ import android.app.Fragment;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +13,6 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,61 +29,55 @@ public class Lists extends Fragment implements AdapterView.OnItemSelectedListene
 {
     TeacherActivity activity;
 
-    private TextView evenementTV;
     private Spinner evenementSP;
     private ListView studentLV;
-    private SubscriptionAdapter subscriptionAdapter;
     private EventAdapter evenementAdapter;
     private DatabaseContract dbc;
-    private ArrayList<Subscription> subscriptionArrayList;
-    private Event selectedEvent;
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
-    {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_listscreen, null);
 
         activity = (TeacherActivity) this.getActivity();
         dbc = new DatabaseContract(activity.getApplicationContext());
 
-        evenementTV = (TextView) v.findViewById(R.id.tv_label_evenementen_listscreen);
-
         //evenement spinner
-        List<Event> events = new ArrayList<>();
-        List<Event> currentEvents = new ArrayList<>();
-        events = dbc.getAllEvents();
-        for (int i = 0; i < events.size(); i++)
-            if (events.get(i).getAcadyear() == activity.getCurrentYear())
-                currentEvents.add(events.get(i));
+        final List<Event> events = new ArrayList<>();
+        for(int i = 0 ; i < dbc.getAllEvents().size() ; i++)
+            if(dbc.getAllEvents().get(i).getAcadyear() == activity.getCurrentYear())
+                events.add(dbc.getAllEvents().get(i));
 
         evenementSP = (Spinner) v.findViewById(R.id.sp_evenementen_listscreen);
-        evenementAdapter = new EventAdapter(activity, currentEvents);
+        evenementAdapter = new EventAdapter(activity, events);
         evenementSP.setAdapter(evenementAdapter);
-        selectedEvent = (Event) evenementSP.getSelectedItem();
-
-        //lijst van studenten
-        final ArrayList<Subscription> subscriptionArrayList = new ArrayList<Subscription>(dbc.getAllSubscriptions());
-        ArrayList<Subscription> requestedSubscriptions = new ArrayList<Subscription>();
-        for (int i = 0; i < subscriptionArrayList.size(); i++)
-            if (subscriptionArrayList.get(i).getEvent() == selectedEvent)
-                requestedSubscriptions.add(subscriptionArrayList.get(i));
+        evenementSP.setOnItemSelectedListener(this);
 
         studentLV = (ListView) v.findViewById(R.id.lv_studenten_opgekozenevenement_listscreen);
-        subscriptionAdapter = new SubscriptionAdapter(activity, subscriptionArrayList);
+
         return v;
-    };
-
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-        //evenementSP.setSelection(position);
-        //subscriptionArrayList = (ArrayList<Subscription>) evenementSP.getSelectedItem();
-
     }
 
     @Override
-    public void onNothingSelected(AdapterView<?> parent) {
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
+    {
+        Event selectedEvent = (Event) evenementSP.getSelectedItem();
+        ArrayList<Subscription> subscriptions = new ArrayList<>();
+        for(Subscription sub : dbc.getAllSubscriptions())
+        {
+            if(sub.getEvent().getId().equals(selectedEvent.getId()))
+            {
+                subscriptions.add(sub);
+            }
+        }
+
+        SubscriptionAdapter adapter = new SubscriptionAdapter(activity, subscriptions);
+        studentLV.setAdapter(adapter);
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent)
+    {
 
     }
 }

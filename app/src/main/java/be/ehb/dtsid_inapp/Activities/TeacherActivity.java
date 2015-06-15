@@ -1,14 +1,23 @@
 package be.ehb.dtsid_inapp.Activities;
 
+import android.app.AlarmManager;
 import android.app.Fragment;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.Preference;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+
+import java.util.GregorianCalendar;
 
 import be.ehb.dtsid_inapp.Models.Department;
 import be.ehb.dtsid_inapp.Models.Event;
 import be.ehb.dtsid_inapp.Models.Teacher;
 import be.ehb.dtsid_inapp.R;
+import be.ehb.dtsid_inapp.SyncBroadcastReceiver;
 import be.ehb.dtsid_inapp.TeacherFragments.DepartmentLogin;
 import be.ehb.dtsid_inapp.TeacherFragments.Options;
 import be.ehb.dtsid_inapp.TeacherFragments.TeacherLogin;
@@ -19,6 +28,7 @@ public class TeacherActivity extends AppCompatActivity
     private Teacher teacher;
     private Event event;
     private int currentYear;
+    private PendingIntent broadcastIntent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -29,6 +39,18 @@ public class TeacherActivity extends AppCompatActivity
         department = new Department();
         teacher = new Teacher();
         event = new Event();
+
+        /*
+        //BROADCASTRECEIVER
+        Intent intent = new Intent(TeacherActivity.this, SyncBroadcastReceiver.class);
+        broadcastIntent = PendingIntent.getBroadcast(TeacherActivity.this, 0, intent, 0);
+
+        SharedPreferences preferences = getSharedPreferences("be.ehb.dtsid_inapp", Context.MODE_PRIVATE);
+        long time = preferences.getLong("pref_tp_syncdatepicker", new GregorianCalendar().getTimeInMillis());
+
+        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+        alarmManager.set(AlarmManager.RTC, time, broadcastIntent);
+        */
     }
 
     @Override

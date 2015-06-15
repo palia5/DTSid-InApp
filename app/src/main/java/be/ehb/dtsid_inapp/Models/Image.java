@@ -5,6 +5,7 @@ public class Image {
     private Long id;
     private int priority;
     private String image;
+    private byte[] imageByteArray;
 
     public Image() {
     }

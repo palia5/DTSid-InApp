@@ -46,12 +46,13 @@ public class StudentRegistration extends Fragment
     Button cancelBTN;
     private ImageView logoIV;
     private LinearLayout btnLinLay;
+    private Subscription currentSubscription;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
-        View v = inflater.inflate(R.layout.fragment_student_registration1_2, null);
+        View v = inflater.inflate(R.layout.fragment_student_registration1_2, container, false);
         activity = (StudentActivity) this.getActivity();
 
         emailET = (EditText) v.findViewById(R.id.et_email_subscription1);
@@ -66,8 +67,14 @@ public class StudentRegistration extends Fragment
         logoIV = (ImageView) v.findViewById(R.id.iv_logo_ehb);
         btnLinLay = (LinearLayout) v.findViewById(R.id.lin_lay_btn_stud_reg_1);
 
-        setEnabled(false);
-        clearAllFields();
+        if (activity.getCurrentSubscription() == null) {
+            clearAllFields();
+            setEnabled(false);
+        }
+
+        else {
+            setAllFields(activity.getCurrentSubscription());
+        }
 
         v.setOnTouchListener(new View.OnTouchListener()
         {
@@ -136,30 +143,24 @@ public class StudentRegistration extends Fragment
             {
                 if(allFieldsOK())
                 {
-                    Subscription newSub = new Subscription(
-                            voorNaamET.getText().toString(),
-                            naamET.getText().toString(),
-                            emailET.getText().toString(),
-                            straatET.getText().toString(),
-                            huisNummerET.getText().toString(),
-                            postcodeET.getText().toString(),
-                            "Iemand heeft ne spinner gezet bij Gemeente :p",
-                            false,
-                            false,
-                            false,
-                            new Date(),
-                            activity.getTeacher(),
-                            activity.getEvent(),
-                            true,
-                            dbc.getAllSchools().get(1)
-                    );
+                    currentSubscription = new Subscription();
+                            currentSubscription.setFirstName(voorNaamET.getText().toString());
+                            currentSubscription.setLastName(naamET.getText().toString());
+                            currentSubscription.setEmail(emailET.getText().toString());
+                            currentSubscription.setStreet(straatET.getText().toString());
+                            currentSubscription.setStreetNumber(huisNummerET.getText().toString());
+                            currentSubscription.setZip(postcodeET.getText().toString());
+                            currentSubscription.setCity("Iemand heeft ne spinner gezet bij Gemeente :p");
+                            currentSubscription.setTimestamp(new Date());
+                            currentSubscription.setTeacher(activity.getTeacher());
+                            currentSubscription.setEvent(activity.getEvent());
+                    activity.setCurrentSubscription(currentSubscription);
 
-                    dbc.createSubscription(newSub);
-
-                    dbc.close();
-
-                    clearAllFields();
-                    activity.onBackPressed();
+                    activity.setIsInSecondReg(true);
+                    activity.getFragmentManager().beginTransaction().
+                            replace(R.id.fragm_left_registration, new StudentRegistrationPt2())
+                            .addToBackStack(null)
+                            .commit();
                 }
             }
         });
@@ -170,6 +171,7 @@ public class StudentRegistration extends Fragment
             public void onClick(View v)
             {
                 clearAllFields();
+                activity.setCurrentSubscription(null);
                 activity.onBackPressed();
             }
         });
@@ -192,6 +194,16 @@ public class StudentRegistration extends Fragment
         huisNummerET.setText("");
         postcodeET.setText("");
         emailET.setBackgroundColor(Color.TRANSPARENT);
+    }
+
+    private void setAllFields(Subscription s)
+    {
+        emailET.setText(s.getEmail());
+        naamET.setText(s.getLastName());
+        voorNaamET.setText(s.getFirstName());
+        straatET.setText(s.getStreet());
+        huisNummerET.setText(s.getStreetNumber());
+        postcodeET.setText(s.getZip());
     }
 
     public void setEnabled(Boolean enabled)
@@ -236,5 +248,9 @@ public class StudentRegistration extends Fragment
         }
 
         return true;
+    }
+
+    public Subscription getCurrentSubscription() {
+        return currentSubscription;
     }
 }

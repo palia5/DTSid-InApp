@@ -3,11 +3,11 @@ package be.ehb.dtsid_inapp.Models;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.HashMap;
 
-public class Subscription
-{
+public class Subscription implements Serializable {
     //Variables
     @Expose
     private Long id;

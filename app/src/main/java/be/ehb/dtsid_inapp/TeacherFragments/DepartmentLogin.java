@@ -15,6 +15,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import be.ehb.dtsid_inapp.Activities.TeacherActivity;
 import be.ehb.dtsid_inapp.Database.DatabaseContract;
@@ -70,8 +71,6 @@ public class DepartmentLogin extends Fragment
                     @Override
                     public void onAnimationEnd(Animation animation)
                     {
-                        loginBTN.setVisibility(View.INVISIBLE);
-
                         if (!dbc.getAllSubscriptions().isEmpty())
                         {
                             everythingIsLoaded(true);
@@ -141,6 +140,12 @@ public class DepartmentLogin extends Fragment
         }
     }
 
+    public void noInternet()
+    {
+        loadingDatabaseDialog.dismiss();
+        //Toast.makeText(activity, "NO INTERNET" , Toast.LENGTH_SHORT).show();
+    }
+
     // PARALLEL ASYNCS
     void startMyTask(String url)
     {
@@ -150,7 +155,5 @@ public class DepartmentLogin extends Fragment
             jsonTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, url);
         else
             jsonTask.execute(url);
-
-        Log.d("ASYNC", "" + url);
     }
 }

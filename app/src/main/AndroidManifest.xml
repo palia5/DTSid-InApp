@@ -3,11 +3,7 @@
     package="be.ehb.dtsid_inapp" >
 
     <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.READ_GSERVICES"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
 
     <application
         android:allowBackup="true"
@@ -31,6 +27,8 @@
             android:label="@string/title_activity_student"
             android:windowSoftInputMode="stateHidden">
         </activity>
+        
+        <receiver android:name=".SyncBroadcastReceiver"/>
     </application>
 
 </manifest>
