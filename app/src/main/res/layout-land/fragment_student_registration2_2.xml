@@ -55,7 +55,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/sw_stud_reg_multec"
-        android:layout_alignBottom="@+id/iv_stud_reg_multec"
+        android:layout_centerVertical="true"
         android:layout_alignRight="@+id/sw_stud_reg_werkstudent"
         android:layout_alignEnd="@+id/sw_stud_reg_werkstudent" />
 

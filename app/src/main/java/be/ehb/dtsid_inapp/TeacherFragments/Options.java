@@ -71,6 +71,7 @@ public class Options extends Fragment implements View.OnClickListener
         studentRegistrerenBTN.setOnClickListener(this);
         lijstBTN.setOnClickListener(this);
         optiesBTN.setOnClickListener(this);
+        regioBTN.setOnClickListener(this);
         syncBTN.setOnClickListener(this);
 
         medewerkerTV.setText(activity.getTeacher().getName());
@@ -109,6 +110,12 @@ public class Options extends Fragment implements View.OnClickListener
                         .replace(R.id.teacherContainer, new Lists(), "OPTIONS_LIST")
                         .commit();
                 break;
+           /* case R.id.btn_regios:
+                activity.getFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.teacherContainer, new Maps(),"MAP_REGIOS")
+                        .commit();
+                break;*/
             case R.id.btn_opties:
                 activity.getFragmentManager()
                         .beginTransaction()
