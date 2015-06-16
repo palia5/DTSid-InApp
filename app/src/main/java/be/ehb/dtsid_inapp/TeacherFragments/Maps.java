@@ -1,4 +1,4 @@
-package be.ehb.dtsid_inapp.TeacherFragments;
+/*package be.ehb.dtsid_inapp.TeacherFragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -19,9 +19,6 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-/**
- * Created by doortje on 12/06/15.
- */
 public class Maps extends Fragment implements OnMapReadyCallback,GoogleMap.OnMapClickListener, GoogleMap.OnMarkerClickListener,GoogleMap.OnInfoWindowClickListener {
 
     TeacherActivity activity;
@@ -81,5 +78,5 @@ public class Maps extends Fragment implements OnMapReadyCallback,GoogleMap.OnMap
     }
 }
 
-
+*/
 
