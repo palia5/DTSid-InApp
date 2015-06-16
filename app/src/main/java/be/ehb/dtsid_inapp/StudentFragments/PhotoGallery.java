@@ -12,20 +12,30 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import be.ehb.dtsid_inapp.Activities.StudentActivity;
+import be.ehb.dtsid_inapp.Database.DatabaseContract;
+import be.ehb.dtsid_inapp.Models.Image;
 import be.ehb.dtsid_inapp.Models.ImagePagerAdapter;
 import be.ehb.dtsid_inapp.Models.ZoomOutPageTransformer;
 import be.ehb.dtsid_inapp.R;
 
-public class PhotoGallery extends Fragment {
+public class PhotoGallery extends Fragment
+{
+    StudentActivity activity;
 
     ViewPager myPager;
     ImagePagerAdapter myImagePagerAdapter;
+    DatabaseContract dbc;
+    ImageView photoIV;
 
     public PhotoGallery() {
         super();
@@ -34,9 +44,54 @@ public class PhotoGallery extends Fragment {
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+    {
         View v = inflater.inflate(R.layout.fragment_photo_gallery, null);
 
+        activity = (StudentActivity) this.getActivity();
+
+        photoIV = (ImageView) v.findViewById(R.id.iv_photo_gallery);
+/*
+        photoIV.setOnTouchListener(new View.OnTouchListener()
+        {
+            @Override
+            public boolean onTouch(View v, MotionEvent event)
+            {
+                activity.rightTouched();
+                return true;
+            }
+        });
+*/
+        dbc = new DatabaseContract(getActivity().getApplicationContext());
+        List<Image> imageList = dbc.getAllImages();
+        dbc.close();
+
+        List<Bitmap> bitmaps = new ArrayList<>();
+
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inSampleSize = 4;
+        options.inJustDecodeBounds = false;
+
+        for(int i = 0 ; i < imageList.size() ; i++)
+        {
+            try
+            {
+                FileInputStream inputStream = getActivity().openFileInput(imageList.get(i).getImage());
+                byte[] input = new byte[inputStream.available()];
+                while(inputStream.read(input) != -1){}
+
+                bitmaps.add(BitmapFactory.decodeByteArray(input,0,input.length, options));
+            }
+            catch (IOException e)
+            {
+                e.printStackTrace();
+            }
+        }
+
+        photoIV.setImageBitmap(bitmaps.get(1));
+
+        return v;
+/*
         int images[] = {R.drawable.button_cancel, R.drawable.button_confirm, R.drawable.button_next};
 
         myPager = (ViewPager) v.findViewById(R.id.viewpager);
@@ -141,8 +196,8 @@ public class PhotoGallery extends Fragment {
         {
             timerStatus =true;
         }
+*/
     }
-
 }
 
 

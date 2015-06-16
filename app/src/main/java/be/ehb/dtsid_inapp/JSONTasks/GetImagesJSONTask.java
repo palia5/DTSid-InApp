@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.util.Base64;
+import android.util.JsonReader;
 import android.util.Log;
 
 import org.json.JSONArray;
@@ -18,12 +19,15 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.Reader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
+import java.util.List;
 
 import be.ehb.dtsid_inapp.Database.DatabaseContract;
 import be.ehb.dtsid_inapp.Models.Image;
@@ -40,11 +44,13 @@ public class GetImagesJSONTask extends AsyncTask<String, Integer, Void> {
 
     private DepartmentLogin fragment;
 
+    private DatabaseContract dbc;
+
     public GetImagesJSONTask(DepartmentLogin c)
     {
         fragment = c;
+        dbc = new DatabaseContract(fragment.getActivity().getApplicationContext());
     }
-
 
     @Override
     protected Void doInBackground(String... params)
@@ -56,58 +62,55 @@ public class GetImagesJSONTask extends AsyncTask<String, Integer, Void> {
             connection.setRequestMethod("GET");
             connection.connect();
 
-            InputStreamReader reader = new InputStreamReader(connection.getInputStream());
-            Log.d("ImageTask", "Connection made");
+            JsonReader reader = new JsonReader(
+                    new InputStreamReader(connection.getInputStream()));
 
-            String jsonString = "";
-            int length = 1;
-            char[] buffer = new char[1];
+            List<Image> imageList = new ArrayList<>();
 
-            while(length > 0)
+            reader.beginObject();
+            reader.nextName();
+            reader.beginArray();
+            while(reader.hasNext())
             {
-                length = reader.read(buffer, 0, 1);
+                reader.beginObject();
 
-                jsonString += String.copyValueOf(buffer);
+                Image newImage = new Image();
 
-                if(String.copyValueOf(buffer).equals(""))
-                    Log.d("ImageTask","First Image completed: " + jsonString);
-            }
+                reader.nextName();
+                newImage.setPriority(reader.nextInt());
 
-            Log.d("ImageTask", "READING COMPLETE: Length: " + length + " String length: " + jsonString.length());
+                reader.nextName();
+                newImage.setId(reader.nextLong());
 
-            connection.disconnect();
+                String fileName = "picture_" + imageList.size() + ".jpeg";
+                newImage.setImage(fileName);
 
-            JSONObject rawImages = new JSONObject("123");
-            JSONArray imagesArray = rawImages.getJSONArray(JSON_NAME_IMAGES);
-            ArrayList<Image> imageList = new ArrayList<>();
-            String tempstring;
-            String filename;
-            FileOutputStream outputStream;
+                reader.nextName();
+                String image = reader.nextString();
 
-            for (int i = 0; i < imagesArray.length(); i++)
-            {
-                JSONObject o = imagesArray.getJSONObject(i);
-                Log.d("ImageTask","" + o.getLong("id"));
+                FileOutputStream outputStream;
+                outputStream = fragment.getActivity().openFileOutput(fileName, Context.MODE_PRIVATE);
 
-                //bytearray opvullen vanuit de JSON
-                byte[] array = (byte[]) o.get(JSON_NAME_IMAGE);
+                byte[] encodedImage = Base64.decode(image, Base64.DEFAULT);
 
-                //filename uniek maken voor elke afbeelding
-                filename = "picture_" + i + ".jpeg";
-
-                //bytearray wegschrijven als jpeg met de filename
-                outputStream = fragment.getActivity().openFileOutput(filename, Context.MODE_PRIVATE);
-                outputStream.write(array);
+                outputStream.write(encodedImage);
                 outputStream.close();
 
-                //array opvullen met objecten die de prioriteit en locatie van de afbeeldingen bevatten
-                Image temp = new Image(o.getLong(JSON_LONG_ID), o.getInt(JSON_INT_PRIORITY),
-                        filename);
+                imageList.add(newImage);
 
-                imageList.add(temp);
+                reader.endObject();
             }
+
+            connection.disconnect();
+            reader.close();
+
+            dbc.setAllImages(imageList);
+
+            dbc.close();
+
+            fragment.everythingIsLoaded(true);
         }
-        catch (MalformedURLException| ProtocolException| JSONException e)
+        catch (MalformedURLException| ProtocolException e)
         {
             e.printStackTrace();
         }
@@ -121,5 +124,4 @@ public class GetImagesJSONTask extends AsyncTask<String, Integer, Void> {
         }
         return null;
     }
-
 }

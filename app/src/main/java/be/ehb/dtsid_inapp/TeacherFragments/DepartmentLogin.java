@@ -71,14 +71,7 @@ public class DepartmentLogin extends Fragment
 
                     @Override
                     public void onAnimationEnd(Animation animation)
-                    {/*
-                        if (dbc.getAllImages().isEmpty())
-                        {
-                            Log.d("ImageTask","Images empty");
-                            String urlImages = BASEURL + ALL_IMAGES;
-                            GetImagesJSONTask imagesJSONTask = new GetImagesJSONTask(DepartmentLogin.this);
-                            imagesJSONTask.execute(urlImages);
-                        }*/
+                    {
 
                         if (!dbc.getAllSubscriptions().isEmpty())
                         {
@@ -122,7 +115,7 @@ public class DepartmentLogin extends Fragment
 
     public void everythingIsLoaded(Boolean subscriptionLoaded)
     {
-        if(subscriptionLoaded)
+        if(subscriptionLoaded && !dbc.getAllImages().isEmpty())
         {
             dbc.close();
 
@@ -141,6 +134,13 @@ public class DepartmentLogin extends Fragment
             String urlSubscriptions = BASEURL + ALL_SUBSCRIPTIONS;
             startMyTask(urlSubscriptions);
             loadingSubscriptions = true;
+
+            if (dbc.getAllImages().isEmpty())
+            {
+                String urlImages = BASEURL + ALL_IMAGES;
+                GetImagesJSONTask imagesJSONTask = new GetImagesJSONTask(DepartmentLogin.this);
+                imagesJSONTask.execute(urlImages);
+            }
         }
     }
 
