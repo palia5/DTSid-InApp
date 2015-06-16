@@ -1,18 +1,43 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="be.ehb.dtsid_inapp.map.MapActivity">
+    android:weightSum="1"
+    android:background="@drawable/ehbackground">
 
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="485dp"
+        android:layout_height="match_parent"
+        android:layout_weight="0.5"
+        android:weightSum="1">
 
-    <fragment
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        class="com.google.android.gms.maps.MapFragment"
-        android:id="@+id/map"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
-</RelativeLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/txt_label_regios_mapscreen"
+            android:id="@+id/tv_label_regios_mapscreen"
+            android:textSize="16sp"
+            android:layout_marginTop="25dp" />
+
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="84dp"
+            android:id="@+id/sp_regios_mapscreen"
+            android:spinnerMode="dropdown" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="0.5">
+
+        <fragment
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:name="com.google.android.gms.maps.MapFragment"
+            android:id="@+id/frgm_regios_map" />
+    </LinearLayout>
+</LinearLayout>

@@ -26,6 +26,7 @@ import java.util.regex.Pattern;
 
 import be.ehb.dtsid_inapp.Activities.StudentActivity;
 import be.ehb.dtsid_inapp.Database.DatabaseContract;
+import be.ehb.dtsid_inapp.Models.School;
 import be.ehb.dtsid_inapp.Models.Subscription;
 import be.ehb.dtsid_inapp.R;
 
@@ -144,6 +145,7 @@ public class StudentRegistration extends Fragment
                 if(allFieldsOK())
                 {
                     currentSubscription = new Subscription();
+                            currentSubscription.setNew(true);
                             currentSubscription.setFirstName(voorNaamET.getText().toString());
                             currentSubscription.setLastName(naamET.getText().toString());
                             currentSubscription.setEmail(emailET.getText().toString());
@@ -154,6 +156,13 @@ public class StudentRegistration extends Fragment
                             currentSubscription.setTimestamp(new Date());
                             currentSubscription.setTeacher(activity.getTeacher());
                             currentSubscription.setEvent(activity.getEvent());
+                            currentSubscription.setMultec(false);
+                            currentSubscription.setDigx(false);
+                            currentSubscription.setWerkstudent(false);
+                    //for test purposes only
+                    dbc = new DatabaseContract(activity.getApplicationContext());
+                    currentSubscription.setSchool(dbc.getSchoolByID(4863277368606720l));
+                    dbc.close();
                     activity.setCurrentSubscription(currentSubscription);
 
                     activity.setIsInSecondReg(true);

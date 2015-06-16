@@ -51,4 +51,5 @@
     <string name="txt_tv_stud_reg_2_zip">Postcode huidige school:</string>
     <string name="txt_tv_stud_reg_2_name_school">Naam huidige school:</string>
     <string name="txt_sw_ik_studeer_nog">Ik studeer nog</string>
+    <string name="txt_label_regios_mapscreen">Regio\'s</string>
 </resources>

@@ -127,7 +127,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper
                         COL_SUBSCRIPTIONS_ISNEW + " BOOLEAN, " +
                         COL_SUBSCRIPTIONS_TEACHER + " LONG NOT NULL, " +
                         COL_SUBSCRIPTIONS_EVENT + " LONG NOT NULL, " +
-                        COL_SUBSCRIPTIONS_SCHOOL + " LONG NOT NULL, " +
+                        COL_SUBSCRIPTIONS_SCHOOL + " LONG, " +
                         "FOREIGN KEY (" + COL_SUBSCRIPTIONS_TEACHER + ") REFERENCES " + TABLE_TEACHERS + "(_id), " +
                         "FOREIGN KEY (" + COL_SUBSCRIPTIONS_EVENT + ") REFERENCES " + TABLE_EVENTS + "(_id), " +
                         "FOREIGN KEY (" + COL_SUBSCRIPTIONS_SCHOOL + ") REFERENCES " + TABLE_SCHOOLS + "(_id) " +
