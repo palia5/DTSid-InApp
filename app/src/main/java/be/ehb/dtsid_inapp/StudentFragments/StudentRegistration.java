@@ -89,7 +89,7 @@ public class StudentRegistration extends Fragment
 
         //Lets's try this shit out, shall we?
         Resources res = activity.getResources();
-        XmlResourceParser xrp = res.getXml(R.xml.postcodes);
+        //XmlResourceParser xrp = res.getXml(R.xml.postcodes);
 
         //Ik ga iets in deze lijn nodig hebben
         if (postcodeACTV.getText().toString().length() == 2)
