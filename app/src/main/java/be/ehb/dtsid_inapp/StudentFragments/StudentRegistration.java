@@ -1,6 +1,8 @@
 package be.ehb.dtsid_inapp.StudentFragments;
 
 import android.app.Fragment;
+import android.content.res.Resources;
+import android.content.res.XmlResourceParser;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -83,6 +85,16 @@ public class StudentRegistration extends Fragment
         gemeentes.add(g2);
         gemeentes.add(g3);
         gemeentes.add(g4);
+
+        //Lets's try this shit out, shall we?
+        Resources res = activity.getResources();
+        XmlResourceParser xrp = res.getXml(R.xml.postcodes);
+
+        //Ik ga iets in deze lijn nodig hebben
+        if (postcodeACTV.getText().toString().length() == 2)
+        {
+            //insert nifty code
+        }
 
         ArrayAdapter<Gemeente> adapter2 = new ArrayAdapter(this.getActivity(), android.R.layout.simple_list_item_1, gemeentes);
 
