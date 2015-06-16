@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -152,8 +153,9 @@ public class PhotoGallery extends Fragment
 
             mPager.setCurrentItem(++i, true);
             Log.d("TEST_", "na setitem " + i);
-            if (i> lengt) {
+            if (i>= lengt) {
                 i = 0;
+                mPager.setCurrentItem(i, true);
                 Log.d("TEST_", "in if "+ i);
             }
             else {
