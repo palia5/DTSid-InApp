@@ -29,6 +29,7 @@ public class Lists extends Fragment implements AdapterView.OnItemSelectedListene
 {
     TeacherActivity activity;
 
+    private TextView evenementTV;
     private Spinner evenementSP;
     private ListView studentLV;
     private EventAdapter evenementAdapter;

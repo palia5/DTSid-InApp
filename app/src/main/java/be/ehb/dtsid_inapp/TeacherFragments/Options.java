@@ -49,7 +49,7 @@ public class Options extends Fragment implements View.OnClickListener
         View v = inflater.inflate(R.layout.fragment_options_dashboardscreen, container, false);
 
         activity = (TeacherActivity) this.getActivity();
-        //Contract opvrage
+        //Contract opvragen
         dbc = new DatabaseContract(activity.getApplicationContext());
 
         loadingDatabaseDialog = new ProgressDialog(activity);
@@ -76,6 +76,7 @@ public class Options extends Fragment implements View.OnClickListener
 
         Typeface myCustomFont = Typeface.createFromAsset(activity.getAssets()
                 , "fonts/ehb_font.ttf");
+
         departementLabel.setTypeface(myCustomFont);
         medewerkerLabel.setTypeface(myCustomFont);
         evenementLabel.setTypeface(myCustomFont);
