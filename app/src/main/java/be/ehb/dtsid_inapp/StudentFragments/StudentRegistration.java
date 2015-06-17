@@ -75,17 +75,17 @@ public class StudentRegistration extends Fragment
         btnLinLay = (LinearLayout) v.findViewById(R.id.lin_lay_btn_stud_reg_1);
         postcodeACTV = (AutoCompleteTextView) v.findViewById(R.id.actv_postcode_subscription1);
 
-        Gemeente g = new Gemeente("3020", "Herent");
-        Gemeente g2 = new Gemeente("3000", "Leuven");
-        Gemeente g3 = new Gemeente("1000", "Brussel");
-        Gemeente g4 = new Gemeente("2000", "Antwerpen");
+        Gemeente g = new Gemeente("3020", "Herent", "Vlaams  Brabant");
+        Gemeente g2 = new Gemeente("3000", "Leuven", "Vlaams  Brabant");
+        Gemeente g3 = new Gemeente("1000", "Brussel", "Brussel");
+        Gemeente g4 = new Gemeente("2000", "Antwerpen", "Antwerpen");
 
         ArrayList<Gemeente> gemeentes = new ArrayList();
         gemeentes.add(g);
         gemeentes.add(g2);
         gemeentes.add(g3);
         gemeentes.add(g4);
-
+/*
         //Lets's try this shit out, shall we?
         Resources res = activity.getResources();
         XmlResourceParser xrp = res.getXml(R.xml.postcodes);
@@ -102,7 +102,7 @@ public class StudentRegistration extends Fragment
                 android.R.layout.simple_list_item_1, gemeentes);
 
         postcodeACTV.setAdapter(adapter);
-
+*/
         setEnabled(false);
         clearAllFields();
 

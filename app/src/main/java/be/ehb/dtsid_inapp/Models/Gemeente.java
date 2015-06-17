@@ -5,11 +5,16 @@ package be.ehb.dtsid_inapp.Models;
  */
 public class Gemeente {
     private String zip;
-    private String gemeente;
+    private String plaats;
+    private String provincie;
 
-    public Gemeente(String zip, String gemeente) {
+    public Gemeente(String zip, String plaats, String provincie) {
         this.zip = zip;
-        this.gemeente = gemeente;
+        this.plaats = plaats;
+        this.provincie = provincie;
+    }
+
+    public Gemeente() {
     }
 
     public String getZip() {
@@ -20,16 +25,24 @@ public class Gemeente {
         this.zip = zip;
     }
 
-    public String getGemeente() {
-        return gemeente;
+    public String getPlaats() {
+        return plaats;
     }
 
-    public void setGemeente(String gemeente) {
-        this.gemeente = gemeente;
+    public void setPlaats(String plaats) {
+        this.plaats = plaats;
+    }
+
+    public String getProvincie() {
+        return provincie;
+    }
+
+    public void setProvincie(String provincie) {
+        provincie = provincie;
     }
 
     @Override
     public String toString() {
-        return zip + gemeente;
+        return zip + plaats;
     }
 }

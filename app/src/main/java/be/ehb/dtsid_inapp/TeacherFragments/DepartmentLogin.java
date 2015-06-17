@@ -2,6 +2,8 @@ package be.ehb.dtsid_inapp.TeacherFragments;
 
 import android.app.Fragment;
 import android.app.ProgressDialog;
+import android.content.res.Resources;
+import android.content.res.XmlResourceParser;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -16,9 +18,15 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v1.XmlPullParserException;
+
+import java.io.IOException;
+
 import be.ehb.dtsid_inapp.Activities.TeacherActivity;
 import be.ehb.dtsid_inapp.Database.DatabaseContract;
 import be.ehb.dtsid_inapp.JSONTasks.GetJSONTask;
+import be.ehb.dtsid_inapp.Models.Gemeente;
 import be.ehb.dtsid_inapp.R;
 
 import static be.ehb.dtsid_inapp.JSONTasks.JSONContract.*;
@@ -54,60 +62,49 @@ public class DepartmentLogin extends Fragment
         buttonAnim = AnimationUtils.loadAnimation(getActivity().getApplicationContext()
                 , R.anim.button_animation_basic);
 
-        loginBTN.setOnClickListener(new View.OnClickListener()
-        {
+        loginBTN.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
                 v.startAnimation(buttonAnim);
-                buttonAnim.setAnimationListener(new Animation.AnimationListener()
-                {
+                buttonAnim.setAnimationListener(new Animation.AnimationListener() {
                     @Override
-                    public void onAnimationStart(Animation animation)
-                    {
+                    public void onAnimationStart(Animation animation) {
                     }
 
                     @Override
-                    public void onAnimationEnd(Animation animation)
-                    {
+                    public void onAnimationEnd(Animation animation) {
                         loginBTN.setVisibility(View.INVISIBLE);
 
-                        if (!dbc.getAllSubscriptions().isEmpty())
-                        {
+                        if (!dbc.getAllSubscriptions().isEmpty()) {
                             everythingIsLoaded(true);
                             return;
-                        }
-                        else
+                        } else
                             loadingDatabaseDialog.show();
 
                         //Start JSONS
-                        if (dbc.getAllTeachers().isEmpty())
-                        {
+                        if (dbc.getAllTeachers().isEmpty()) {
                             String urlTeachers = BASEURL + ALL_TEACHERS;
                             startMyTask(urlTeachers);
                         }
-                        if (dbc.getAllEvents().isEmpty())
-                        {
+                        if (dbc.getAllEvents().isEmpty()) {
                             String urlEvents = BASEURL + ALL_EVENTS;
                             startMyTask(urlEvents);
                         }
-                        if (dbc.getAllSchools().isEmpty())
-                        {
+                        if (dbc.getAllSchools().isEmpty()) {
                             String urlSchools = BASEURL + ALL_SCHOOLS;
                             startMyTask(urlSchools);
-                        }/*
-                        if (dbc.getAllImages().isEmpty())
-                        {
-                            String urlImages = BASEURL + ALL_IMAGES;
-                            startMyTask(urlImages);
-                        }*/
+                        }
+                        if (dbc.getAllGemeentes().isEmpty()) {
+                            //xml naar sql omzetten
+                            asyncXml xmlconverter = new asyncXml();
+                            Log.d("Test_", "in if xmlToSqlite");
+                        }
 
                         everythingIsLoaded(false);
                     }
 
                     @Override
-                    public void onAnimationRepeat(Animation animation)
-                    {
+                    public void onAnimationRepeat(Animation animation) {
 
                     }
                 });
@@ -152,5 +149,74 @@ public class DepartmentLogin extends Fragment
             jsonTask.execute(url);
 
         Log.d("ASYNC", "" + url);
+    }
+
+
+
+    private class asyncXml extends AsyncTask{
+
+        private DatabaseContract xmldbc;
+
+        @Override
+        protected Object doInBackground(Object[] params) {
+            xmlToSqlite();
+            return null;
+        }
+        void xmlToSqlite(){
+
+            Log.d("Test_", "in methode xmltosql");
+            Resources res = activity.getResources();
+            XmlResourceParser parser = res.getXml(R.xml.postcodes);
+            Gemeente tempGemeente = new Gemeente();
+            xmldbc = new DatabaseContract(activity.getApplicationContext());
+
+            try {
+
+                while (parser.next() != XmlPullParser.END_TAG) {
+                    if (parser.getEventType() != XmlPullParser.START_TAG) {
+                        continue;
+                    }
+                    String name = parser.getName();
+                    if (name.equals("record")) {
+                        String postcode = null, plaats = null, prov = null;
+                        while (parser.next() != XmlPullParser.END_TAG) {
+                            if (parser.getEventType() != XmlPullParser.START_TAG) {
+                                continue;
+                            }
+                            name = parser.getName();
+                            if (name.equals("Postcode")) {
+                                postcode = readText(parser);
+                                tempGemeente.setZip(postcode);
+                            } else if (name.equals("Plaatsnaam")) {
+                                plaats = readText(parser);
+                                tempGemeente.setPlaats(plaats);
+                            } else if (name.equals("Provincie")) {
+                                prov = readText(parser);
+                                tempGemeente.setProvincie(prov);
+                            }
+                        }
+                        if (xmldbc != null) {
+                            xmldbc.createGemeente(tempGemeente);
+                            Log.d("Test_", "wgschrijven naar db");
+                        }
+                    }
+                }
+            } catch (XmlPullParserException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            xmldbc.close();
+        }
+
+        private String readText(XmlPullParser parser) throws IOException,
+                XmlPullParserException {
+            String result = "";
+            if (parser.next() == XmlPullParser.TEXT) {
+                result = parser.getText();
+                parser.nextTag();
+            }
+            return result;
+        }
     }
 }
