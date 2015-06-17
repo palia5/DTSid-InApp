@@ -1,19 +1,22 @@
 package be.ehb.dtsid_inapp.Models;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import java.util.List;
+
 public class ImagePagerAdapter extends PagerAdapter {
 
-    int imageArray[];
+    List<Bitmap> imageArray;
     Context c;
 
 
-    public ImagePagerAdapter( int[] imageArray, Context c) {
+    public ImagePagerAdapter( List<Bitmap> imageArray, Context c) {
         super();
         this.imageArray = imageArray;
         this.c = c;
@@ -25,7 +28,7 @@ public class ImagePagerAdapter extends PagerAdapter {
 
         iv.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         iv.setScaleType(ImageView.ScaleType.FIT_XY);
-        iv.setBackgroundResource(imageArray[position]);
+        iv.setImageBitmap(imageArray.get(position));
 
         ((ViewPager)container).addView(iv);
 
@@ -45,7 +48,7 @@ public class ImagePagerAdapter extends PagerAdapter {
     @Override
     public int getCount() {
         //return images.length;
-        return imageArray.length;
+        return imageArray.size();
     }
 
 

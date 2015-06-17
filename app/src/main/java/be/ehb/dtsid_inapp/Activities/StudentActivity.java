@@ -1,7 +1,9 @@
 package be.ehb.dtsid_inapp.Activities;
 
+import android.app.AlertDialog;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -40,6 +42,7 @@ public class StudentActivity extends AppCompatActivity
     private ViewPager mPager;
     private PagerAdapter mPagerAdapter;
     private Subscription currentSubscription = null;
+    private AlertDialog dialog;
 
 
     @Override
@@ -47,6 +50,31 @@ public class StudentActivity extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student);
+
+        //Create the AlertDialogBuilder
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener()
+        {
+            @Override
+            public void onClick(DialogInterface dialog, int which)
+            {
+                finish();
+            }
+        });
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener()
+        {
+            @Override
+            public void onClick(DialogInterface dialog, int which)
+            {
+                dialog.cancel();
+            }
+        });
+
+        builder .setMessage("Are you sure you want to log out?")
+                .setTitle("Logging out");
+
+        //Create the Dialog itself
+        dialog = builder.create();
 
         isInSecondReg = false;
 
@@ -74,7 +102,7 @@ public class StudentActivity extends AppCompatActivity
     {
         if(isInMainScreen)
         {
-            super.onBackPressed();
+            dialog.show();
         }
         else
         {

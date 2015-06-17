@@ -12,20 +12,30 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
+import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import be.ehb.dtsid_inapp.Activities.StudentActivity;
+import be.ehb.dtsid_inapp.Database.DatabaseContract;
+import be.ehb.dtsid_inapp.Models.Image;
 import be.ehb.dtsid_inapp.Models.ImagePagerAdapter;
 import be.ehb.dtsid_inapp.Models.ZoomOutPageTransformer;
 import be.ehb.dtsid_inapp.R;
 
-public class PhotoGallery extends Fragment {
+public class PhotoGallery extends Fragment
+{
+    StudentActivity activity;
 
     ViewPager myPager;
     ImagePagerAdapter myImagePagerAdapter;
+    DatabaseContract dbc;
 
     public PhotoGallery() {
         super();
@@ -34,17 +44,56 @@ public class PhotoGallery extends Fragment {
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+    {
         View v = inflater.inflate(R.layout.fragment_photo_gallery, null);
 
-        int images[] = {R.drawable.button_cancel, R.drawable.button_confirm, R.drawable.button_next};
+        activity = (StudentActivity) this.getActivity();
+
+/*
+        photoIV.setOnTouchListener(new View.OnTouchListener()
+        {
+            @Override
+            public boolean onTouch(View v, MotionEvent event)
+            {
+                activity.rightTouched();
+                return true;
+            }
+        });
+*/
+        dbc = new DatabaseContract(getActivity().getApplicationContext());
+        List<Image> imageList = dbc.getAllImages();
+        dbc.close();
+
+        List<Bitmap> bitmaps = new ArrayList<>();
+
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inSampleSize = 4;
+        options.inJustDecodeBounds = false;
+
+        for(int i = 0 ; i < imageList.size() ; i++)
+        {
+            try
+            {
+                FileInputStream inputStream = getActivity().openFileInput(imageList.get(i).getImage());
+                byte[] input = new byte[inputStream.available()];
+                while(inputStream.read(input) != -1){}
+
+                bitmaps.add(BitmapFactory.decodeByteArray(input,0,input.length, options));
+            }
+            catch (IOException e)
+            {
+                e.printStackTrace();
+            }
+        }
 
         myPager = (ViewPager) v.findViewById(R.id.viewpager);
-        myImagePagerAdapter = new ImagePagerAdapter(images, getActivity());
+        myImagePagerAdapter = new ImagePagerAdapter(bitmaps, activity.getApplicationContext());
+
         myPager.setAdapter(myImagePagerAdapter);
         myPager.setPageTransformer(true, new ZoomOutPageTransformer());
 
-        ImageTimer timer = new ImageTimer(myPager, images);
+        ImageTimer timer = new ImageTimer(myPager, bitmaps);
         //timer.restartTimer();
         timer.execute();
         //myPager.setCurrentItem(0);
@@ -78,16 +127,17 @@ public class PhotoGallery extends Fragment {
         myPager.setCurrentItem(myPager.getCurrentItem() + 1, true);
     }
 
-    private class ImageTimer extends AsyncTask{
+    private class ImageTimer extends AsyncTask
+    {
         boolean timerStatus;
         ViewPager mPager;
-        int images[];
-        int lengt;
+        List<Bitmap> images;
+        int length;
 
-        public ImageTimer(ViewPager myPager, int images[]){
+        public ImageTimer(ViewPager myPager, List<Bitmap> images){
             this.mPager = myPager;
             this.images = images;
-            lengt = images.length;
+            length = images.size();
         }
 
         @Override
@@ -97,8 +147,9 @@ public class PhotoGallery extends Fragment {
 
             mPager.setCurrentItem(++i, true);
             Log.d("TEST_", "na setitem " + i);
-            if (i> lengt) {
+            if (i>= length) {
                 i = 0;
+                mPager.setCurrentItem(i, true);
                 Log.d("TEST_", "in if "+ i);
             }
             else {
@@ -110,7 +161,7 @@ public class PhotoGallery extends Fragment {
         @Override
         protected Object doInBackground(Object[] params) {
             timerStatus = true;
-            lengt = images.length;
+            length = images.size();
            // int i = 0;
             //loop
             //express infinite loop gemaakt
@@ -142,7 +193,6 @@ public class PhotoGallery extends Fragment {
             timerStatus =true;
         }
     }
-
 }
 
 

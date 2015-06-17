@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 import be.ehb.dtsid_inapp.Activities.TeacherActivity;
 import be.ehb.dtsid_inapp.Database.DatabaseContract;
+import be.ehb.dtsid_inapp.JSONTasks.GetImagesJSONTask;
 import be.ehb.dtsid_inapp.JSONTasks.GetJSONTask;
 import be.ehb.dtsid_inapp.R;
 
@@ -84,6 +85,7 @@ public class DepartmentLogin extends Fragment
                     @Override
                     public void onAnimationEnd(Animation animation)
                     {
+
                         if (!dbc.getAllSubscriptions().isEmpty())
                         {
                             everythingIsLoaded(true);
@@ -107,12 +109,7 @@ public class DepartmentLogin extends Fragment
                         {
                             String urlSchools = BASEURL + ALL_SCHOOLS;
                             startMyTask(urlSchools);
-                        }/*
-                        if (dbc.getAllImages().isEmpty())
-                        {
-                            String urlImages = BASEURL + ALL_IMAGES;
-                            startMyTask(urlImages);
-                        }*/
+                        }
 
                         everythingIsLoaded(false);
                     }
@@ -131,7 +128,7 @@ public class DepartmentLogin extends Fragment
 
     public void everythingIsLoaded(Boolean subscriptionLoaded)
     {
-        if(subscriptionLoaded)
+        if(subscriptionLoaded && !dbc.getAllImages().isEmpty())
         {
             dbc.close();
 
@@ -150,6 +147,13 @@ public class DepartmentLogin extends Fragment
             String urlSubscriptions = BASEURL + ALL_SUBSCRIPTIONS;
             startMyTask(urlSubscriptions);
             loadingSubscriptions = true;
+
+            if (dbc.getAllImages().isEmpty())
+            {
+                String urlImages = BASEURL + ALL_IMAGES;
+                GetImagesJSONTask imagesJSONTask = new GetImagesJSONTask(DepartmentLogin.this);
+                imagesJSONTask.execute(urlImages);
+            }
         }
     }
 
