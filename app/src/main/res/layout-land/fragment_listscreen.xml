@@ -10,7 +10,8 @@
         android:layout_width="485dp"
         android:layout_height="match_parent"
         android:layout_weight="0.5"
-        android:weightSum="1">
+        android:weightSum="1"
+        android:layout_gravity="top">
 
         <TextView
             android:layout_width="match_parent"
@@ -18,13 +19,15 @@
             android:text="@string/tv_label_evenementen_listscreen"
             android:id="@+id/tv_label_evenementen_listscreen"
             android:textSize="16sp"
-            android:layout_marginTop="25dp" />
+            android:layout_marginTop="25dp"
+            android:layout_marginLeft="25dp" />
 
         <Spinner
             android:layout_width="match_parent"
             android:layout_height="84dp"
             android:id="@+id/sp_evenementen_listscreen"
-            android:spinnerMode="dropdown" />
+            android:spinnerMode="dropdown"
+            android:layout_marginLeft="20dp" />
 
     </LinearLayout>
 
@@ -32,7 +35,8 @@
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="0.5">
+        android:layout_weight="0.5"
+        android:layout_gravity="top">
 
         <ListView
             android:layout_width="wrap_content"
