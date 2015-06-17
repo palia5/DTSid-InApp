@@ -3,6 +3,7 @@ package be.ehb.dtsid_inapp.StudentFragments;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -32,7 +33,7 @@ import be.ehb.dtsid_inapp.TeacherFragments.OptionsPreferences;
 public class StudentRegistrationPt2 extends Fragment implements View.OnClickListener, CompoundButton.OnCheckedChangeListener {
 
     private Switch digxSW, multecSW, werkstudentSW, studeerNogSW;
-    private TextView schoolZipTV, schoolNameTV;
+    private TextView schoolZipTV, schoolNameTV,interestTV;
     private EditText schoolZipET;
     private Spinner schoolNameSPIN;
     private Button confirmBTN, backBTN, cancelBTN;
@@ -58,8 +59,24 @@ public class StudentRegistrationPt2 extends Fragment implements View.OnClickList
         confirmBTN = (Button) v.findViewById(R.id.btn_bevestigen_subscription2);
         backBTN = (Button) v.findViewById(R.id.btn_stud_reg_2_back);
         cancelBTN = (Button) v.findViewById(R.id.btn_annuleren_subscription2);
+        interestTV = (TextView) v.findViewById(R.id.tv_stud_reg_2_interests);
         buttonAnim = AnimationUtils.loadAnimation(getActivity().getApplicationContext(),
                 R.anim.button_animation_large);
+
+        Typeface myCustomFont = Typeface.createFromAsset(activity.getAssets()
+                , "fonts/ehb_font.ttf");
+
+        digxSW.setTypeface(myCustomFont);
+        multecSW.setTypeface(myCustomFont);
+        werkstudentSW.setTypeface(myCustomFont);
+        studeerNogSW.setTypeface(myCustomFont);
+        schoolNameTV.setTypeface(myCustomFont);
+        schoolZipTV.setTypeface(myCustomFont);
+        schoolZipET.setTypeface(myCustomFont);
+        confirmBTN.setTypeface(myCustomFont);
+        backBTN.setTypeface(myCustomFont);
+        cancelBTN.setTypeface(myCustomFont);
+        interestTV.setTypeface(myCustomFont);
 
         confirmBTN.setOnClickListener(this);
         backBTN.setOnClickListener(this);
