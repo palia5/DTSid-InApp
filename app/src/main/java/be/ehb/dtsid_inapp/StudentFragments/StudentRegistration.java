@@ -2,6 +2,7 @@ package be.ehb.dtsid_inapp.StudentFragments;
 
 import android.app.Fragment;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.Editable;
@@ -17,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -35,6 +37,7 @@ public class StudentRegistration extends Fragment
     List<Subscription> subs;
     DatabaseContract dbc;
 
+    TextView emailTV, naamTV,voorNaamTV,straatTV,huisNummerTV,postcodeTV,gemeenteTV;
     EditText emailET;
     EditText naamET;
     EditText voorNaamET;
@@ -55,6 +58,13 @@ public class StudentRegistration extends Fragment
         View v = inflater.inflate(R.layout.fragment_student_registration1_2, container, false);
         activity = (StudentActivity) this.getActivity();
 
+        emailTV = (TextView) v.findViewById(R.id.tv_label_email_subscription1);
+        naamTV = (TextView) v.findViewById(R.id.tv_label_naam_subscription1);
+        voorNaamTV = (TextView) v.findViewById(R.id.tv_label_voornaam_subscription1);
+        straatTV = (TextView) v.findViewById(R.id.tv_label_straat_subscription1);
+        huisNummerTV = (TextView) v. findViewById(R.id.tv_label_huisnummer_subscription1);
+        postcodeTV = (TextView) v.findViewById(R.id.tv_label_postcode_subscription1);
+        gemeenteTV = (TextView) v.findViewById(R.id.tv_label_gemeente_subscription1);
         emailET = (EditText) v.findViewById(R.id.et_email_subscription1);
         naamET = (EditText) v.findViewById(R.id.et_naam_subscription1);
         voorNaamET = (EditText) v.findViewById(R.id.et_voornaam_subscription1);
@@ -66,6 +76,25 @@ public class StudentRegistration extends Fragment
         cancelBTN = (Button) v.findViewById(R.id.btn_annuleren_subscription1);
         logoIV = (ImageView) v.findViewById(R.id.iv_logo_ehb);
         btnLinLay = (LinearLayout) v.findViewById(R.id.lin_lay_btn_stud_reg_1);
+
+        Typeface myCustomFont = Typeface.createFromAsset(activity.getAssets()
+                , "fonts/ehb_font.ttf");
+
+        emailTV.setTypeface(myCustomFont);
+        naamTV.setTypeface(myCustomFont);
+        voorNaamTV.setTypeface(myCustomFont);
+        straatTV.setTypeface(myCustomFont);
+        huisNummerTV.setTypeface(myCustomFont);
+        postcodeTV.setTypeface(myCustomFont);
+        gemeenteTV.setTypeface(myCustomFont);
+        emailET.setTypeface(myCustomFont);
+        naamET.setTypeface(myCustomFont);
+        voorNaamET.setTypeface(myCustomFont);
+        straatET.setTypeface(myCustomFont);
+        huisNummerET.setTypeface(myCustomFont);
+        postcodeET.setTypeface(myCustomFont);
+        acceptBTN.setTypeface(myCustomFont);
+        cancelBTN.setTypeface(myCustomFont);
 
         if (activity.getCurrentSubscription() == null) {
             clearAllFields();
