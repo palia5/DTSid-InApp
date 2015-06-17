@@ -18,7 +18,7 @@ import be.ehb.dtsid_inapp.Activities.StudentActivity;
 import be.ehb.dtsid_inapp.Activities.TeacherActivity;
 import be.ehb.dtsid_inapp.Database.DatabaseContract;
 import be.ehb.dtsid_inapp.JSONTasks.PostJSONTask;
-import be.ehb.dtsid_inapp.map.MapActivity;
+import be.ehb.dtsid_inapp.Map.MapActivity;
 import be.ehb.dtsid_inapp.Models.Subscription;
 import be.ehb.dtsid_inapp.R;
 

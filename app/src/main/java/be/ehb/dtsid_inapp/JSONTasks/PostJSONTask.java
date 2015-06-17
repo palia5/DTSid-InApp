@@ -2,6 +2,7 @@ package be.ehb.dtsid_inapp.JSONTasks;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.preference.PreferenceManager;
 import android.util.Log;
 
 import com.google.gson.Gson;
@@ -33,11 +34,14 @@ public class PostJSONTask extends AsyncTask<Void, Integer, HashMap<String, Boole
     private DatabaseContract dbc;
     private List<Subscription> subscriptionList;
     private Options fragment;
+    private String baseUrl;
 
     public PostJSONTask(Options c)
     {
         fragment = c;
         dbc = new DatabaseContract(fragment.getActivity().getApplicationContext());
+        baseUrl = PreferenceManager.getDefaultSharedPreferences(c.getActivity().getApplicationContext())
+                .getString("BASEURL", null);
     }
 
     @Override
@@ -49,7 +53,7 @@ public class PostJSONTask extends AsyncTask<Void, Integer, HashMap<String, Boole
         {
             for (int i = 0; i < subscriptionList.size(); i++)
             {
-                URL postUrl = new URL(BASEURL + POST_SUBSCRIPTION);
+                URL postUrl = new URL(baseUrl + POST_SUBSCRIPTION);
                 HttpURLConnection postConnection = (HttpURLConnection) postUrl.openConnection();
                 postConnection.setDoOutput(true);
                 postConnection.setDoInput(true);
@@ -80,7 +84,7 @@ public class PostJSONTask extends AsyncTask<Void, Integer, HashMap<String, Boole
                 }
             }
 
-            URL url = new URL(BASEURL + ALL_SUBSCRIPTIONS);
+            URL url = new URL(baseUrl + ALL_SUBSCRIPTIONS);
             HttpURLConnection getConnection = (HttpURLConnection) url.openConnection();
             getConnection.setRequestMethod("GET");
             getConnection.connect();

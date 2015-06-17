@@ -9,11 +9,10 @@
     <string name="title_activity_student">StudentActivity</string>
     <string name="title_activity_map">MapActivity</string>
 
-    <string name="txt_label_department_launchscreen">Departement:</string>
-    <string name="txt_label_code_launchscreen">Code:</string>
+    <string name="txt_label_code_launchscreen">Departementale code:</string>
     <string name="txt_label_docent_loginscreen">Docent:</string>
     <string name="txt_label_event_loginscreen">Evenement:</string>
-    <string name="txt_label_code_launchscreen_landscape">Code:</string>
+    <string name="txt_label_code_launchscreen_landscape">Departementale code:</string>
     <string name="txt_label_departement_dashboard">Departement</string>
     <string name="txt_gekozen_departement_dashboard" />
     <string name="txt_label_medewerker_dashboard">Medewerker</string>

@@ -1,14 +1,26 @@
 package be.ehb.dtsid_inapp.JSONTasks;
 
+import android.app.Activity;
 import android.util.Log;
 import android.widget.ImageView;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.concurrent.ExecutionException;
 
 public class JSONContract
 {
-    public static final String BASEURL = "http://vdabsidin2.appspot.com";
+    //public static final String BASEURL = "http://vdabsidin2.appspot.com";
+
+    public static final String DEPTCODE_URL = "http://deptcodes.appspot.com/deptcode/";
+
+    public static String generateBaseURL(String secret, Activity activity) throws ExecutionException, InterruptedException {
+        GetBaseUrl getBaseUrl = new GetBaseUrl(activity);
+        String codeUrl = DEPTCODE_URL + secret;
+        getBaseUrl.execute(codeUrl);
+        String baseUrl = getBaseUrl.get();
+        return baseUrl;
+    }
 
     //YEAR calculator
     public static String yearCalc()
