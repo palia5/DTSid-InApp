@@ -55,6 +55,7 @@ public class TeacherLogin extends Fragment
 
         Typeface myCustomFont = Typeface.createFromAsset(activity.getAssets()
                 , "fonts/ehb_font.ttf");
+
         docentTV.setTypeface(myCustomFont);
         eventTV.setTypeface(myCustomFont);
 

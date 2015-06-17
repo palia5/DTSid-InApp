@@ -2,6 +2,7 @@ package be.ehb.dtsid_inapp.TeacherFragments;
 
 import android.app.Fragment;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -54,7 +55,13 @@ public class Lists extends Fragment implements AdapterView.OnItemSelectedListene
         evenementSP.setAdapter(evenementAdapter);
         evenementSP.setOnItemSelectedListener(this);
 
+        evenementTV = (TextView) v.findViewById(R.id.tv_label_evenementen_listscreen);
         studentLV = (ListView) v.findViewById(R.id.lv_studenten_opgekozenevenement_listscreen);
+
+        Typeface myCustomFont = Typeface.createFromAsset(activity.getAssets()
+                , "fonts/ehb_font.ttf");
+
+        evenementTV.setTypeface(myCustomFont);
 
         return v;
     }
@@ -74,6 +81,7 @@ public class Lists extends Fragment implements AdapterView.OnItemSelectedListene
 
         SubscriptionAdapter adapter = new SubscriptionAdapter(activity, subscriptions);
         studentLV.setAdapter(adapter);
+
     }
 
     @Override
