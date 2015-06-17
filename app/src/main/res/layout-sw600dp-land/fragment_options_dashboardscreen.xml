@@ -15,7 +15,7 @@
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:text="@string/txt_label_departement_dashboard"
             android:id="@+id/tv_label_departement_dashboard"
-            android:textSize="16sp"
+            android:textSize="20sp"
             android:layout_alignParentTop="false"
             android:layout_alignParentLeft="false"
             android:layout_alignParentStart="false"
@@ -28,6 +28,7 @@
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:id="@+id/tv_gekozen_departement_dashboard"
             android:text="@string/txt_gekozen_departement_dashboard"
+            android:textSize="16sp"
             android:layout_marginTop="10dp"
             android:layout_marginLeft="25dp" />
 
@@ -37,7 +38,7 @@
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:text="@string/txt_label_medewerker_dashboard"
             android:id="@+id/tv_label_medewerker_dashboard"
-            android:textSize="16sp"
+            android:textSize="20sp"
             android:layout_alignParentLeft="false"
             android:layout_alignParentStart="false"
             android:layout_marginTop="25dp"
@@ -48,6 +49,7 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:text="@string/txt_gekozenmedewerker_dashboard"
+            android:textSize="16sp"
             android:id="@+id/tv_gekozen_medewerker_dashboard"
             android:layout_marginTop="10dp"
             android:layout_marginLeft="25dp" />
@@ -60,7 +62,7 @@
             android:id="@+id/tv_label_evenement_dashboard"
             android:layout_alignParentTop="false"
             android:layout_marginTop="25dp"
-            android:textSize="16sp"
+            android:textSize="20sp"
             android:layout_marginLeft="25dp" />
 
         <TextView
@@ -68,6 +70,7 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:text="@string/txt_gekozenevenement_dashboard"
+            android:textSize="16sp"
             android:id="@+id/tv_gekozen_evenement_dashboard"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="false"
@@ -80,7 +83,7 @@
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:text="@string/txt_label_studentteller_dashboard"
             android:id="@+id/tv_studentteller_dashboard"
-            android:textSize="16sp"
+            android:textSize="20sp"
             android:layout_marginTop="75dp"
             android:layout_marginLeft="25dp" />
 
@@ -94,7 +97,7 @@
             android:layout_alignLeft="@+id/tv_studentteller_dashboard"
             android:layout_alignStart="@+id/tv_studentteller_dashboard"
             android:layout_marginTop="10dp"
-            android:textSize="16sp"
+            android:textSize="20sp"
             android:layout_marginLeft="25dp" />
     </LinearLayout>
     <LinearLayout
@@ -119,7 +122,7 @@
                 android:textColor="#ffffffff"
                 android:text="@string/txt_btn_student_registreren"
                 android:id="@+id/btn_student_registreren"
-                android:textSize="16sp"
+                android:textSize="18sp"
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="44dp" />
 
@@ -130,7 +133,7 @@
                 android:textColor="#ffffffff"
                 android:text="@string/txt_btn_lijst"
                 android:id="@+id/btn_lijst"
-                android:textSize="16sp"
+                android:textSize="18sp"
                 android:layout_marginTop="10dp"
                 android:layout_marginLeft="44dp" />
         </LinearLayout>
@@ -148,7 +151,7 @@
                 android:background="@drawable/button_empty_large"
                 android:textColor="#ffffffff"
                 android:id="@+id/btn_regios"
-                android:textSize="16sp"
+                android:textSize="18sp"
                 android:layout_marginBottom="10dp"
                 android:layout_marginRight="44dp" />
 
@@ -159,7 +162,7 @@
                 android:background="@drawable/button_empty_large"
                 android:textColor="#ffffffff"
                 android:id="@+id/btn_opties"
-                android:textSize="16sp"
+                android:textSize="18sp"
                 android:layout_marginBottom="10dp"
                 android:layout_marginLeft="44dp" />
         </LinearLayout>
@@ -181,7 +184,7 @@
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:text="@string/txt_label_laatste_synchronisatie"
             android:id="@+id/tv_laatste_synchronisatie"
-            android:textSize="12sp"
+            android:textSize="16sp"
             android:layout_toLeftOf="@+id/tv_datum_laatste_synchronisatie"
             android:layout_weight="1"
             android:layout_marginTop="20dp" />
@@ -192,7 +195,7 @@
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:text="@string/txt_tv_datum_laatste_synchronisatie"
             android:id="@+id/tv_datum_laatste_synchronisatie"
-            android:textSize="12sp"
+            android:textSize="16sp"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="false"
             android:layout_alignBottom="@+id/tv_laatste_synchronisatie"
@@ -207,7 +210,7 @@
             android:background="@drawable/button_empty_small"
             android:textColor="#ffffffff"
             android:id="@+id/btn_sync_dashboard"
-            android:textSize="12sp"
+            android:textSize="14sp"
             android:layout_alignBottom="@+id/tv_datum_laatste_synchronisatie"
             android:layout_margin="10dp"/>
     </LinearLayout>

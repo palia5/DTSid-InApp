@@ -1,13 +1,9 @@
-package be.ehb.dtsid_inapp.map;
+package be.ehb.dtsid_inapp.Map;
 
 import android.app.Activity;
-import android.os.PersistableBundle;
-import android.support.v7.app.ActionBarActivity;
+import android.graphics.Typeface;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -17,7 +13,6 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
@@ -42,6 +37,12 @@ public class MapActivity extends Activity implements OnMapReadyCallback, GoogleM
         mMapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.frgm_regios_map);
         mMapFragment.getMapAsync(this);
 
+        regiosTV = (TextView) findViewById(R.id.tv_label_regios_mapscreen);
+
+        Typeface myCustomFont = Typeface.createFromAsset(this.getAssets()
+                , "fonts/ehb_font.ttf");
+
+        regiosTV.setTypeface(myCustomFont);
 
     }
 

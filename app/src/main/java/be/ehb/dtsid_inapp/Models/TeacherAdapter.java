@@ -1,6 +1,7 @@
 package be.ehb.dtsid_inapp.Models;
 
 import android.app.Activity;
+import android.graphics.Typeface;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +17,7 @@ public class TeacherAdapter extends BaseAdapter
 {
     private LayoutInflater inflater;
     private List<Teacher> teachers;
+    private Activity context;
 
     private static class ViewHolder
     {
@@ -26,6 +28,7 @@ public class TeacherAdapter extends BaseAdapter
     {
         inflater = activity.getLayoutInflater();
         this.teachers = teachers;
+        this.context = activity;
     }
 
     @Override
@@ -65,6 +68,10 @@ public class TeacherAdapter extends BaseAdapter
         Teacher teacherByRow = teachers.get(position);
 
         holder.teacherTV.setText(teacherByRow.getName());
+        Typeface myCustomFont = Typeface.createFromAsset(context.getAssets()
+                , "fonts/ehb_font.ttf");
+
+        holder.teacherTV.setTypeface(myCustomFont);
 
         return convertView;
     }

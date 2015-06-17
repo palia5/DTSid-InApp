@@ -1,6 +1,7 @@
 package be.ehb.dtsid_inapp.Models;
 
 import android.app.Activity;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,7 @@ public class EventAdapter extends BaseAdapter
 {
     private LayoutInflater inflater;
     private List<Event> events;
+    private Activity context;
 
     private static class ViewHolder
     {

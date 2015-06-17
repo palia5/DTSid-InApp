@@ -14,7 +14,7 @@
         android:required="true" />
 
     <permission
-        android:name="be.ehb.dtsid_inapp.map.permission.MAPS_RECEIVE"
+        android:name="be.ehb.dtsid_inapp.Map.permission.MAPS_RECEIVE"
         android:protectionLevel="signature" />
 
     <application
@@ -48,7 +48,7 @@
             android:value="@integer/google_play_services_version" />
 
         <activity
-            android:name=".map.MapActivity"
+            android:name=".Map.MapActivity"
             android:label="@string/title_activity_map" >
         </activity>
         

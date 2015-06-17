@@ -26,6 +26,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/txt_tv_stud_reg_2_interests"
+        android:textSize="20dp"
         android:id="@+id/tv_stud_reg_2_interests"
         android:layout_below="@+id/iv_logo_ehb"
         android:layout_alignParentLeft="true"
@@ -119,14 +120,15 @@
             android:id="@+id/tv_stud_reg_2_zip"
             android:layout_below="@+id/sw_ik_studeer_nog"
             android:layout_alignLeft="@+id/sw_ik_studeer_nog"
-            android:layout_alignStart="@+id/sw_ik_studeer_nog" />
+            android:layout_alignStart="@+id/sw_ik_studeer_nog"
+            android:textSize="20dp"/>
 
         <EditText
             android:layout_marginTop="15dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:inputType="number"
-            android:ems="10"
+            android:ems="12"
             android:id="@+id/et_stud_reg_2_zip"
             android:layout_below="@+id/tv_stud_reg_2_zip"
             android:layout_alignLeft="@+id/tv_stud_reg_2_zip"
@@ -145,7 +147,8 @@
             android:id="@+id/tv_stud_reg_2_name_school"
             android:layout_below="@+id/et_stud_reg_2_zip"
             android:layout_alignLeft="@+id/et_stud_reg_2_zip"
-            android:layout_alignStart="@+id/et_stud_reg_2_zip" />
+            android:layout_alignStart="@+id/et_stud_reg_2_zip"
+            android:textSize="20dp"/>
 
         <Spinner
             android:layout_marginTop="15dp"
