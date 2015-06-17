@@ -31,6 +31,7 @@ import java.util.regex.Pattern;
 import be.ehb.dtsid_inapp.Activities.StudentActivity;
 import be.ehb.dtsid_inapp.Database.DatabaseContract;
 import be.ehb.dtsid_inapp.Models.Gemeente;
+import be.ehb.dtsid_inapp.Models.School;
 import be.ehb.dtsid_inapp.Models.Subscription;
 import be.ehb.dtsid_inapp.R;
 
@@ -128,34 +129,42 @@ public class StudentRegistration extends Fragment
             }
         });
 
-        emailET.addTextChangedListener(new TextWatcher() {
+        emailET.addTextChangedListener(new TextWatcher()
+        {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            public void beforeTextChanged(CharSequence s, int start, int count, int after)
+            {
 
             }
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (!validEmail(s.toString()))
+            public void onTextChanged(CharSequence s, int start, int before, int count)
+            {
+                if(!validEmail(s.toString()))
                     emailET.setBackgroundColor(Color.RED);
                 else
                     emailET.setBackgroundColor(Color.TRANSPARENT);
             }
 
             @Override
-            public void afterTextChanged(Editable s) {
+            public void afterTextChanged(Editable s)
+            {
             }
         });
 
-        emailET.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        emailET.setOnFocusChangeListener(new View.OnFocusChangeListener()
+        {
             @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (!hasFocus) {
+            public void onFocusChange(View v, boolean hasFocus)
+            {
+                if(!hasFocus)
+                {
                     if (!validEmail(emailET.getText().toString()))
                         Toast.makeText(getActivity(), "E-mail is not valid!", Toast.LENGTH_LONG).show();
                     else
                         for (int i = 0; i < subs.size(); i++)
-                            if (emailET.getText().toString().equals(subs.get(i).getEmail())) {
+                            if (emailET.getText().toString().equals(subs.get(i).getEmail()))
+                            {
                                 naamET.setText(subs.get(i).getLastName());
                                 voorNaamET.setText(subs.get(i).getFirstName());
                                 straatET.setText(subs.get(i).getStreet());
@@ -186,6 +195,7 @@ public class StudentRegistration extends Fragment
                 if(allFieldsOK())
                 {
                     currentSubscription = new Subscription();
+                            currentSubscription.setNew(true);
                             currentSubscription.setFirstName(voorNaamET.getText().toString());
                             currentSubscription.setLastName(naamET.getText().toString());
                             currentSubscription.setEmail(emailET.getText().toString());
@@ -196,6 +206,13 @@ public class StudentRegistration extends Fragment
                             currentSubscription.setTimestamp(new Date());
                             currentSubscription.setTeacher(activity.getTeacher());
                             currentSubscription.setEvent(activity.getEvent());
+                            currentSubscription.setMultec(false);
+                            currentSubscription.setDigx(false);
+                            currentSubscription.setWerkstudent(false);
+                    //for test purposes only
+                    dbc = new DatabaseContract(activity.getApplicationContext());
+                    currentSubscription.setSchool(dbc.getSchoolByID(4863277368606720l));
+                    dbc.close();
                     activity.setCurrentSubscription(currentSubscription);
 
                     activity.setIsInSecondReg(true);
