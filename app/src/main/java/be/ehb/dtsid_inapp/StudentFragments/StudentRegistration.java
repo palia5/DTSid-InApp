@@ -250,13 +250,15 @@ public class StudentRegistration extends Fragment
         gemeenteSP.setEnabled(enabled);
         acceptBTN.setEnabled(enabled);
         cancelBTN.setEnabled(enabled);
-        if (enabled){
+        if (enabled)
+        {
             logoIV.setPivotX(0);
             logoIV.setScaleX(1.0f);
             logoIV.setScaleY(1.0f);
             btnLinLay.setVisibility(View.VISIBLE);
         }
-        else {
+        else
+        {
             logoIV.setPivotX(0);
             logoIV.setScaleX(0.65f);
             logoIV.setScaleY(0.65f);
