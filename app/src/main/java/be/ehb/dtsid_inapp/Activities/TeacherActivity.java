@@ -1,6 +1,7 @@
 package be.ehb.dtsid_inapp.Activities;
 
 import android.app.Fragment;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
