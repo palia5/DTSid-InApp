@@ -75,7 +75,7 @@ public class StudentRegistration extends Fragment
         cancelBTN = (Button) v.findViewById(R.id.btn_annuleren_subscription1);
         logoIV = (ImageView) v.findViewById(R.id.iv_logo_ehb);
         btnLinLay = (LinearLayout) v.findViewById(R.id.lin_lay_btn_stud_reg_1);
-        postcodeACTV = (AutoCompleteTextView) v.findViewById(R.id.actv_postcode_subscription1);
+        /*postcodeACTV = (AutoCompleteTextView) v.findViewById(R.id.actv_postcode_subscription1);
 
         Gemeente g = new Gemeente("3020", "Herent");
         Gemeente g2 = new Gemeente("3000", "Leuven");
@@ -104,7 +104,7 @@ public class StudentRegistration extends Fragment
                 android.R.layout.simple_list_item_1, gemeentes);
 
         postcodeACTV.setAdapter(adapter);
-
+*/
         if (activity.getCurrentSubscription() == null) 
         {
             clearAllFields();
@@ -174,7 +174,7 @@ public class StudentRegistration extends Fragment
                 }
             }
         });
-
+/*
         postcodeACTV.setOnFocusChangeListener(new View.OnFocusChangeListener() 
         {
             @Override
@@ -186,7 +186,7 @@ public class StudentRegistration extends Fragment
                 }
             }
         });
-
+*/
         acceptBTN.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -201,7 +201,7 @@ public class StudentRegistration extends Fragment
                             currentSubscription.setEmail(emailET.getText().toString());
                             currentSubscription.setStreet(straatET.getText().toString());
                             currentSubscription.setStreetNumber(huisNummerET.getText().toString());
-                            currentSubscription.setZip(postcodeACTV.getText().toString());
+                            //currentSubscription.setZip(postcodeACTV.getText().toString());
                             currentSubscription.setCity("Iemand heeft ne spinner gezet bij Gemeente :p");
                             currentSubscription.setTimestamp(new Date());
                             currentSubscription.setTeacher(activity.getTeacher());
@@ -252,7 +252,7 @@ public class StudentRegistration extends Fragment
         straatET.setText("");
         huisNummerET.setText("");
         //postcodeET.setText("");
-        postcodeACTV.setText("");
+        //postcodeACTV.setText("");
         emailET.setBackgroundColor(Color.TRANSPARENT);
     }
 
@@ -274,7 +274,7 @@ public class StudentRegistration extends Fragment
         straatET.setEnabled(enabled);
         huisNummerET.setEnabled(enabled);
         //postcodeET.setEnabled(enabled);
-        postcodeACTV.setEnabled(enabled);
+        //postcodeACTV.setEnabled(enabled);
         gemeenteSP.setEnabled(enabled);
         acceptBTN.setEnabled(enabled);
         cancelBTN.setEnabled(enabled);

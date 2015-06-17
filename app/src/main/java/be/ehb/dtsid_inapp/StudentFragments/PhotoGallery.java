@@ -88,19 +88,12 @@ public class PhotoGallery extends Fragment
         }
 
         myPager = (ViewPager) v.findViewById(R.id.viewpager);
-        //myImagePagerAdapter = new ImagePagerAdapter(imageList, getActivity());
+        myImagePagerAdapter = new ImagePagerAdapter(bitmaps, activity.getApplicationContext());
 
-
-        return v;
-/*
-        int images[] = {R.drawable.button_cancel, R.drawable.button_confirm, R.drawable.button_next};
-
-        myPager = (ViewPager) v.findViewById(R.id.viewpager);
-        myImagePagerAdapter = new ImagePagerAdapter(images, getActivity());
         myPager.setAdapter(myImagePagerAdapter);
         myPager.setPageTransformer(true, new ZoomOutPageTransformer());
 
-        ImageTimer timer = new ImageTimer(myPager, images);
+        ImageTimer timer = new ImageTimer(myPager, bitmaps);
         //timer.restartTimer();
         timer.execute();
         //myPager.setCurrentItem(0);
@@ -134,16 +127,17 @@ public class PhotoGallery extends Fragment
         myPager.setCurrentItem(myPager.getCurrentItem() + 1, true);
     }
 
-    private class ImageTimer extends AsyncTask{
+    private class ImageTimer extends AsyncTask
+    {
         boolean timerStatus;
         ViewPager mPager;
-        int images[];
-        int lengt;
+        List<Bitmap> images;
+        int length;
 
-        public ImageTimer(ViewPager myPager, int images[]){
+        public ImageTimer(ViewPager myPager, List<Bitmap> images){
             this.mPager = myPager;
             this.images = images;
-            lengt = images.length;
+            length = images.size();
         }
 
         @Override
@@ -153,7 +147,7 @@ public class PhotoGallery extends Fragment
 
             mPager.setCurrentItem(++i, true);
             Log.d("TEST_", "na setitem " + i);
-            if (i>= lengt) {
+            if (i>= length) {
                 i = 0;
                 mPager.setCurrentItem(i, true);
                 Log.d("TEST_", "in if "+ i);
@@ -167,7 +161,7 @@ public class PhotoGallery extends Fragment
         @Override
         protected Object doInBackground(Object[] params) {
             timerStatus = true;
-            lengt = images.length;
+            length = images.size();
            // int i = 0;
             //loop
             //express infinite loop gemaakt
@@ -198,7 +192,6 @@ public class PhotoGallery extends Fragment
         {
             timerStatus =true;
         }
-*/
     }
 }
 
