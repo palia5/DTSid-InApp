@@ -4,6 +4,7 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -33,11 +34,11 @@ public class Options extends Fragment implements View.OnClickListener
     private Button regioBTN;
     private Button optiesBTN;
     private Button syncBTN;
-    private TextView departementTV;
-    private TextView medewerkerTV;
-    private TextView evenementTV;
-    private TextView aantalStudentenTV;
-    private TextView laatsteSyncTV;
+    private TextView departementTV,departementLabel;
+    private TextView medewerkerTV,medewerkerLabel;
+    private TextView evenementTV, evenementLabel;
+    private TextView aantalStudentenTV, studententellerLabel;
+    private TextView laatsteSyncTV, laatsteSyncLabel;
     private Animation buttonAnim;
 
     @Nullable
@@ -54,6 +55,11 @@ public class Options extends Fragment implements View.OnClickListener
         loadingDatabaseDialog.setTitle("Syncing database");
         loadingDatabaseDialog.setMessage("Syncing.. pls halp..");
 
+        departementLabel = (TextView) v.findViewById(R.id.tv_label_departement_dashboard);
+        medewerkerLabel = (TextView) v.findViewById(R.id.tv_label_medewerker_dashboard);
+        evenementLabel = (TextView) v.findViewById(R.id.tv_label_evenement_dashboard);
+        studententellerLabel = (TextView) v.findViewById(R.id.tv_studentteller_dashboard);
+        laatsteSyncLabel = (TextView) v.findViewById(R.id.tv_laatste_synchronisatie);
         studentRegistrerenBTN = (Button) v.findViewById(R.id.btn_student_registreren);
         lijstBTN = (Button) v.findViewById(R.id.btn_lijst);
         regioBTN = (Button) v.findViewById(R.id.btn_regios);
@@ -67,6 +73,23 @@ public class Options extends Fragment implements View.OnClickListener
         buttonAnim = AnimationUtils.loadAnimation(getActivity().getApplicationContext(),
                 R.anim.button_animation_large);
 
+        Typeface myCustomFont = Typeface.createFromAsset(activity.getAssets()
+                , "fonts/ehb_font.ttf");
+        departementLabel.setTypeface(myCustomFont);
+        medewerkerLabel.setTypeface(myCustomFont);
+        evenementLabel.setTypeface(myCustomFont);
+        studententellerLabel.setTypeface(myCustomFont);
+        laatsteSyncLabel.setTypeface(myCustomFont);
+        studentRegistrerenBTN.setTypeface(myCustomFont);
+        lijstBTN.setTypeface(myCustomFont);
+        regioBTN.setTypeface(myCustomFont);
+        optiesBTN.setTypeface(myCustomFont);
+        syncBTN.setTypeface(myCustomFont);
+        departementTV.setTypeface(myCustomFont);
+        medewerkerTV.setTypeface(myCustomFont);
+        evenementTV.setTypeface(myCustomFont);
+        aantalStudentenTV.setTypeface(myCustomFont);
+        laatsteSyncTV.setTypeface(myCustomFont);
 
         studentRegistrerenBTN.setOnClickListener(this);
         lijstBTN.setOnClickListener(this);

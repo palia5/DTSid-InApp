@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -31,6 +32,7 @@ public class TeacherLogin extends Fragment
 {
     TeacherActivity activity;
 
+    private TextView docentTV,eventTV;
     private Spinner teacherSP, eventSP;
     private Button loginBTN;
 
@@ -47,6 +49,14 @@ public class TeacherLogin extends Fragment
 
         activity = (TeacherActivity) this.getActivity();
         dbc = new DatabaseContract(activity.getApplicationContext());
+
+        docentTV = (TextView) v.findViewById(R.id.tv_label_docent_loginscreen);
+        eventTV = (TextView) v.findViewById(R.id.tv_label_event_loginscreen);
+
+        Typeface myCustomFont = Typeface.createFromAsset(activity.getAssets()
+                , "fonts/ehb_font.ttf");
+        docentTV.setTypeface(myCustomFont);
+        eventTV.setTypeface(myCustomFont);
 
         //Teacher spinner
         final List<Teacher> teachers = new ArrayList<>();
@@ -72,6 +82,7 @@ public class TeacherLogin extends Fragment
         buttonAnim = AnimationUtils.loadAnimation(getActivity().getApplicationContext()
                 , R.anim.button_animation_basic);
         loginBTN = (Button) v.findViewById(R.id.btn_login_loginscreen);
+        loginBTN.setTypeface(myCustomFont);
         loginBTN.setOnClickListener(new View.OnClickListener()
         {
             @Override

@@ -2,6 +2,7 @@ package be.ehb.dtsid_inapp.TeacherFragments;
 
 import android.app.Fragment;
 import android.app.ProgressDialog;
+import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -15,6 +16,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import be.ehb.dtsid_inapp.Activities.TeacherActivity;
@@ -30,6 +32,7 @@ public class DepartmentLogin extends Fragment
     private DatabaseContract dbc;
     private ProgressDialog loadingDatabaseDialog;
 
+    private TextView departmentTV,codeTV;
     private Spinner departmentSP;
     private EditText codeET;
     private Button loginBTN;
@@ -49,9 +52,19 @@ public class DepartmentLogin extends Fragment
         loadingDatabaseDialog.setTitle("Downloading database");
         loadingDatabaseDialog.setMessage("Loading.. pls stahp..");
 
+        departmentTV = (TextView) v.findViewById(R.id.tv_label_departement_launchscreen);
+        codeTV = (TextView) v.findViewById(R.id.tv_label_code_launchscreen);
         departmentSP = (Spinner) v.findViewById(R.id.sp_department_list);
         codeET = (EditText) v.findViewById(R.id.et_code_launchscreen);
         loginBTN = (Button) v.findViewById(R.id.btn_bevestigen_launchscreen);
+
+        Typeface myCustomFont = Typeface.createFromAsset(activity.getAssets()
+                , "fonts/ehb_font.ttf");
+        departmentTV.setTypeface(myCustomFont);
+        codeTV.setTypeface(myCustomFont);
+        loginBTN.setTypeface(myCustomFont);
+        codeET.setTypeface(myCustomFont);
+
         buttonAnim = AnimationUtils.loadAnimation(getActivity().getApplicationContext()
                 , R.anim.button_animation_basic);
 
