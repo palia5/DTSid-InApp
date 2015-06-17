@@ -36,7 +36,6 @@ public class PhotoGallery extends Fragment
     ViewPager myPager;
     ImagePagerAdapter myImagePagerAdapter;
     DatabaseContract dbc;
-    ImageView photoIV;
 
     public PhotoGallery() {
         super();
@@ -51,7 +50,6 @@ public class PhotoGallery extends Fragment
 
         activity = (StudentActivity) this.getActivity();
 
-        photoIV = (ImageView) v.findViewById(R.id.iv_photo_gallery);
 /*
         photoIV.setOnTouchListener(new View.OnTouchListener()
         {
@@ -89,7 +87,9 @@ public class PhotoGallery extends Fragment
             }
         }
 
-        photoIV.setImageBitmap(bitmaps.get(1));
+        myPager = (ViewPager) v.findViewById(R.id.viewpager);
+        //myImagePagerAdapter = new ImagePagerAdapter(imageList, getActivity());
+
 
         return v;
 /*

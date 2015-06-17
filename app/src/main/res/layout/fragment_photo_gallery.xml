@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="be.ehb.dtsid_inapp.StudentFragments.PhotoGallery">
-<!--
+
     <view
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -12,13 +12,14 @@
         android:id="@+id/viewpager"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true" />
-        -->
 
+<!--
     <ImageView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
         android:id="@+id/iv_photo_gallery"/>
+-->
 
 </RelativeLayout>
