@@ -16,6 +16,8 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.util.List;
+
 import static be.ehb.dtsid_inapp.Map.MapContract.*;
 
 import be.ehb.dtsid_inapp.R;
@@ -25,8 +27,9 @@ public class MapActivity extends Activity implements OnMapReadyCallback, GoogleM
 
     private GoogleMap mMap;
     private MapFragment mMapFragment;
-    private TextView regiosTV;
-    private	Spinner	regiosSP;
+    private TextView eventTV;
+    private	Spinner	eventSP;
+    private List events, subscriptions;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

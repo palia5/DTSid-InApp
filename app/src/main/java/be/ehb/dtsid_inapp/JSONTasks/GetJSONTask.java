@@ -4,6 +4,7 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -54,6 +55,7 @@ public class GetJSONTask extends AsyncTask<String, Integer, Void>
             try
             {
                 URL url = new URL(params[0]);
+                Log.d("TEST getJson", params[0]);
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
                 connection.setRequestMethod("GET");
                 connection.connect();

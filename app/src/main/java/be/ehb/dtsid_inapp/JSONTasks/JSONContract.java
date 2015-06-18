@@ -19,6 +19,7 @@ public class JSONContract
         String codeUrl = DEPTCODE_URL + secret;
         getBaseUrl.execute(codeUrl);
         String baseUrl = getBaseUrl.get();
+//        Log.d("TEST JSONcontract", baseUrl);
         return baseUrl;
     }
 

@@ -5,6 +5,8 @@ import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -18,6 +20,13 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.ProtocolException;
+import java.net.URL;
 import java.util.concurrent.ExecutionException;
 
 import be.ehb.dtsid_inapp.Activities.TeacherActivity;
@@ -39,7 +48,16 @@ public class DepartmentLogin extends Fragment
     private Button loginBTN;
     private Boolean loadingSubscriptions = false;
     private Animation buttonAnim;
-    private String baseURL;
+    private String baseURL, secret;
+
+    private Handler depCodeHandler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+
+            fillDB();
+        }
+    };
 
     @Nullable
     @Override
@@ -74,44 +92,43 @@ public class DepartmentLogin extends Fragment
 
                     @Override
                     public void onAnimationEnd(Animation animation) {
-                        try {
-                            baseURL = generateBaseURL(codeET.getText().toString(), activity);
-                        } catch (ExecutionException e) {
-                            e.printStackTrace();
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                        if (baseURL != null) {
-                            PreferenceManager.getDefaultSharedPreferences(activity.getApplicationContext())
-                                    .edit().putString("BASEURL", baseURL);
 
-                            if (!dbc.getAllSubscriptions().isEmpty()) {
-                                everythingIsLoaded(true);
-                                return;
-                            } else
-                                loadingDatabaseDialog.show();
+                            secret = codeET.getText().toString();
+                            Log.d("TEST secret", "space?" + secret);
 
-                            //Start JSONS
-                            if (dbc.getAllTeachers().isEmpty()) {
-                                String urlTeachers = baseURL + ALL_TEACHERS;
-                                startMyTask(urlTeachers);
-                            }
-                            if (dbc.getAllEvents().isEmpty()) {
-                                String urlEvents = baseURL + ALL_EVENTS;
-                                startMyTask(urlEvents);
-                            }
-                            if (dbc.getAllSchools().isEmpty()) {
-                                String urlSchools = baseURL + ALL_SCHOOLS;
-                                startMyTask(urlSchools);
-                            }
+                           Thread workerThread = new Thread(new Runnable() {
+                               @Override
+                               public void run() {
 
-                            everythingIsLoaded(false);
-                        }
-                        else {
-                            Toast.makeText(activity.getApplicationContext(),
-                                    "Onbestaande code",Toast.LENGTH_LONG).show();
-                            codeET.setText(null);
-                        }
+                                   URL url;
+                                   try {
+                                       url = new URL("http://deptcodes.appspot.com/deptcode/"+secret);
+                                       HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+                                       connection.setRequestMethod("GET");
+                                       connection.connect();
+
+                                       Log.d("TEST connection", connection.toString());
+
+                                       BufferedReader reader = new BufferedReader(
+                                               new InputStreamReader(connection.getInputStream()));
+                                       baseURL = "http://" +  reader.readLine();
+                                       Log.d("TEST getBaseUrl", baseURL);
+
+                                       Log.d("TEST", "sending message");
+                                       depCodeHandler.sendEmptyMessage(0);
+
+                               } catch (MalformedURLException e) {
+                                   e.printStackTrace();
+                               } catch (ProtocolException e) {
+                                   e.printStackTrace();
+                               } catch (IOException e) {
+                                   e.printStackTrace();
+                               }
+                               }
+                           });
+                        workerThread.start();
+
+
                     }
 
                     @Override
@@ -124,6 +141,39 @@ public class DepartmentLogin extends Fragment
         });
 
         return v;
+    }
+
+    public void fillDB()
+    {
+        if (!dbc.getAllSubscriptions().isEmpty() && secret.equals(getStringFromSharedPrefs("SECRET"))) {
+            everythingIsLoaded(true);
+            return;
+        } else if (!baseURL.equals("http://null")) {
+            putStringInSharedPrefs("BASEURL", baseURL);
+            putStringInSharedPrefs("SECRET", secret);
+            loadingDatabaseDialog.show();
+
+            //Start JSONS
+            if (dbc.getAllTeachers().isEmpty()) {
+                String urlTeachers = baseURL + ALL_TEACHERS;
+                startMyTask(urlTeachers);
+            }
+            if (dbc.getAllEvents().isEmpty()) {
+                String urlEvents = baseURL + ALL_EVENTS;
+                startMyTask(urlEvents);
+            }
+            if (dbc.getAllSchools().isEmpty()) {
+                String urlSchools = baseURL + ALL_SCHOOLS;
+                startMyTask(urlSchools);
+            }
+
+            everythingIsLoaded(false);
+        }
+        else {
+            Toast.makeText(activity.getApplicationContext(),
+                    "Onbestaande code",Toast.LENGTH_LONG).show();
+            codeET.setText(null);
+        }
     }
 
     public void everythingIsLoaded(Boolean subscriptionLoaded)
@@ -173,4 +223,16 @@ public class DepartmentLogin extends Fragment
         else
             jsonTask.execute(url);
     }
+
+    private void putStringInSharedPrefs(String tag, String value){
+        PreferenceManager.getDefaultSharedPreferences(activity.getApplicationContext())
+                .edit().putString(tag, value);
+    }
+
+    private String getStringFromSharedPrefs(String tag){
+        String storedSecret = PreferenceManager.getDefaultSharedPreferences(activity.getApplicationContext())
+                .getString("SECRET", null);
+        return storedSecret;
+    }
+
 }
