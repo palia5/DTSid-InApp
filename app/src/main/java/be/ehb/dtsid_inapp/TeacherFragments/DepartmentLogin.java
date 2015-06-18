@@ -36,8 +36,7 @@ public class DepartmentLogin extends Fragment
     private DatabaseContract dbc;
     private ProgressDialog loadingDatabaseDialog;
 
-    private TextView departmentTV,codeTV;
-    private Spinner departmentSP;
+    private TextView codeTV;
     private EditText codeET;
     private Button loginBTN;
     private Boolean loadingSubscriptions = false;
@@ -57,15 +56,12 @@ public class DepartmentLogin extends Fragment
         loadingDatabaseDialog.setTitle("Downloading database");
         loadingDatabaseDialog.setMessage("Loading.. pls stahp..");
 
-        departmentTV = (TextView) v.findViewById(R.id.tv_label_departement_launchscreen);
         codeTV = (TextView) v.findViewById(R.id.tv_label_code_launchscreen);
-        departmentSP = (Spinner) v.findViewById(R.id.sp_department_list);
         codeET = (EditText) v.findViewById(R.id.et_code_launchscreen);
         loginBTN = (Button) v.findViewById(R.id.btn_bevestigen_launchscreen);
 
         Typeface myCustomFont = Typeface.createFromAsset(activity.getAssets()
                 , "fonts/ehb_font.ttf");
-        departmentTV.setTypeface(myCustomFont);
         codeTV.setTypeface(myCustomFont);
         loginBTN.setTypeface(myCustomFont);
         codeET.setTypeface(myCustomFont);
