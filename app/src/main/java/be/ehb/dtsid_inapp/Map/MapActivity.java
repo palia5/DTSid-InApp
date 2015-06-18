@@ -2,6 +2,7 @@ package be.ehb.dtsid_inapp.Map;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.graphics.Typeface;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -16,8 +17,6 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-import java.util.List;
-
 import static be.ehb.dtsid_inapp.Map.MapContract.*;
 
 import be.ehb.dtsid_inapp.R;
@@ -27,9 +26,7 @@ public class MapActivity extends Activity implements OnMapReadyCallback, GoogleM
 
     private GoogleMap mMap;
     private MapFragment mMapFragment;
-    private TextView eventTV;
-    private	Spinner	eventSP;
-    private List events, subscriptions;
+    private TextView regiosTV;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +36,12 @@ public class MapActivity extends Activity implements OnMapReadyCallback, GoogleM
         mMapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.frgm_regios_map);
         mMapFragment.getMapAsync(this);
 
+        regiosTV = (TextView) findViewById(R.id.tv_label_regios_mapscreen);
+
+        Typeface myCustomFont = Typeface.createFromAsset(this.getAssets()
+                , "fonts/ehb_font.ttf");
+
+        regiosTV.setTypeface(myCustomFont);
 
     }
 

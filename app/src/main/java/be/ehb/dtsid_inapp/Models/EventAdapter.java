@@ -1,6 +1,7 @@
 package be.ehb.dtsid_inapp.Models;
 
 import android.app.Activity;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,7 @@ public class EventAdapter extends BaseAdapter
 {
     private LayoutInflater inflater;
     private List<Event> events;
+    private Activity context;
 
     private static class ViewHolder
     {
@@ -25,6 +27,7 @@ public class EventAdapter extends BaseAdapter
     {
         inflater = activity.getLayoutInflater();
         this.events = events;
+        this.context = activity;
     }
 
     @Override
@@ -64,6 +67,11 @@ public class EventAdapter extends BaseAdapter
         Event eventByRow = events.get(position);
 
         holder.eventTV.setText(eventByRow.getName());
+
+        Typeface myCustomFont = Typeface.createFromAsset(context.getAssets()
+                , "fonts/ehb_font.ttf");
+
+        holder.eventTV.setTypeface(myCustomFont);
 
         return convertView;
     }

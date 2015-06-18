@@ -18,16 +18,17 @@
             android:layout_height="wrap_content"
             android:text="@string/tv_label_evenementen_listscreen"
             android:id="@+id/tv_label_evenementen_listscreen"
-            android:textSize="16sp"
+            android:textSize="20sp"
             android:layout_marginTop="25dp"
             android:layout_marginLeft="25dp" />
 
         <Spinner
             android:layout_width="match_parent"
-            android:layout_height="84dp"
+            android:layout_height="85dp"
             android:id="@+id/sp_evenementen_listscreen"
             android:spinnerMode="dropdown"
-            android:layout_marginLeft="20dp" />
+            android:layout_marginLeft="20dp"
+            android:textSize="20sp"/>
 
     </LinearLayout>
 
@@ -43,7 +44,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/lv_studenten_opgekozenevenement_listscreen"
             android:layout_weight="1"
-            android:padding="25dp" />
+            android:padding="25dp"/>
     </LinearLayout>
 
 </LinearLayout>

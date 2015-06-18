@@ -6,4 +6,5 @@
     <style name="CustomFont" parent="TextAppearance.AppCompat">
         <item name="android:fontFamily"></item>
     </style>
+
 </resources>

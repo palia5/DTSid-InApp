@@ -1,10 +1,19 @@
 package be.ehb.dtsid_inapp.TeacherFragments;
 
+import android.app.Activity;
+import android.graphics.Color;
+import android.graphics.Typeface;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.preference.SwitchPreference;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
 import be.ehb.dtsid_inapp.R;
 
 public class OptionsPreferences extends PreferenceFragment
@@ -13,6 +22,16 @@ public class OptionsPreferences extends PreferenceFragment
     private SwitchPreference datesyncSW;
     private TimePreference datesyncTP;
     private SwitchPreference closesyncSW;
+    private Activity context;
+
+   /*@Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = super.onCreateView(inflater, container, savedInstanceState);
+
+        view.setBackgroundColor();
+
+        return view;
+    }*/
 
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -20,10 +39,12 @@ public class OptionsPreferences extends PreferenceFragment
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.preferences);
 
+
         autosyncSW = (SwitchPreference) findPreference("pref_sw_autosynx");
         datesyncSW = (SwitchPreference) findPreference("pref_sw_syncdate");
         datesyncTP = (TimePreference) findPreference("pref_tp_syncdatepicker");
         closesyncSW = (SwitchPreference) findPreference("pref_sw_syncclose");
+
 
         if(autosyncSW.isChecked())
         {
