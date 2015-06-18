@@ -132,8 +132,16 @@ public class StudentRegistrationPt2 extends Fragment implements View.OnClickList
                 break;
 
             case R.id.btn_bevestigen_subscription2:
-                builder .setMessage("Signing in - Is this data correct?")
-                        .setTitle("INSERT SUBSCRIPTION HERE");
+                builder .setMessage("Name: " + currentSubscription.getFirstName() + " " + currentSubscription.getLastName() +
+                                    "\nE-mail: " + currentSubscription.getEmail() +
+                                    "\nZip: " + currentSubscription.getZip() +
+                                    "\nCity: " + currentSubscription.getCity() +
+                                    "\nStreet: " + currentSubscription.getStreet() + " " + currentSubscription.getStreetNumber() +
+                                    "\nSchool: " + currentSubscription.getSchool().getName() +
+                                    "\nInterested in DigX: " + currentSubscription.getDigx() +
+                                    "\nInterested in MulTex: " + currentSubscription.getMultec() +
+                                    "\nWorking student: " + currentSubscription.getWerkstudent())
+                        .setTitle("Signing in - Is this data correct?");
                 dialog = builder.create();
                 dialog.show();
                 break;
