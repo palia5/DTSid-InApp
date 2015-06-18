@@ -165,5 +165,7 @@ public class StudentRegistrationPt2 extends Fragment implements View.OnClickList
         schoolZipET.setEnabled(isChecked);
         schoolNameTV.setEnabled(isChecked);
         schoolNameSPIN.setEnabled(isChecked);
+        if (!isChecked)
+            currentSubscription.setSchool(dbc.getSchoolByID(5648554290839552l));
     }
 }

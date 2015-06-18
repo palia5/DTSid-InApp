@@ -197,6 +197,7 @@ public class StudentRegistration extends Fragment
                             currentSubscription.setTimestamp(new Date());
                             currentSubscription.setTeacher(activity.getTeacher());
                             currentSubscription.setEvent(activity.getEvent());
+                            currentSubscription.setSchool(dbc.getSchoolByID(5648554290839552l));
                     activity.setCurrentSubscription(currentSubscription);
 
                     activity.setIsInSecondReg(true);

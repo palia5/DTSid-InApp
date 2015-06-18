@@ -278,6 +278,31 @@ public class DatabaseContract
         return subscriptions;
     }
 
+    /*public List<Subscription> getSubscriptionsForEvent(long eventID)
+    {
+        List<Subscription> subscriptionsForEvent = new ArrayList<Subscription>();
+
+        Cursor cursor = db.query(false,MySQLiteHelper.TABLE_SUBSCRIPTIONS,
+                MySQLiteHelper.ALL_COLUMNS_SUBSCRIPTION,
+                MySQLiteHelper.COL_SUBSCRIPTIONS_EVENT + " = " + eventID,
+                null, null, null, null, null);
+
+        cursor.moveToFirst();
+
+        while (!cursor.isAfterLast()){
+            try {
+                subscriptionsForEvent.add(cursorToSubscription(cursor));
+            } catch (ParseException e) {
+                e.printStackTrace();
+                cursor.close();
+                return null;
+            }
+        }
+        cursor.close();
+        return subscriptionsForEvent;
+    }
+*/
+
     public List<Image> getAllImages()
     {
         List<Image> images = new ArrayList<>();
