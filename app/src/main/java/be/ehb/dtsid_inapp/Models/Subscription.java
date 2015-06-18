@@ -7,7 +7,8 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.HashMap;
 
-public class Subscription implements Serializable {
+public class Subscription implements Serializable 
+{
     //Variables
     @Expose
     private Long id;

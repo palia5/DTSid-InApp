@@ -4,6 +4,14 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+/**
+ *
+ * @author Dries, Kristof
+ * @version 1.0
+ *
+ *
+ */
+
 public class MySQLiteHelper extends SQLiteOpenHelper
 {
     //Constants
@@ -80,6 +88,17 @@ public class MySQLiteHelper extends SQLiteOpenHelper
             COL_IMAGES_PRIORITY,
             COL_IMAGES_IMAGE};
 
+    public static final String TABLE_GEMEENTES = "gemeentes";
+    public static final String COL_GEMEENTES_ID = "_id";
+    public static final String COL_GEMEENTES_POSTCODE = "postcode";
+    public static final String COL_GEMEENTES_GEMEENTE = "gemeente";
+    public static final String COL_GEMEENTES_PROVINCIE = "provincie";
+
+    public static final String[] ALL_COLUMNS_GEMEENTES = {COL_GEMEENTES_ID,
+            COL_GEMEENTES_POSTCODE,
+            COL_GEMEENTES_GEMEENTE,
+            COL_GEMEENTES_PROVINCIE};
+
     public MySQLiteHelper(Context context)
     {
         super(context, "DATABASE.db", null, 1);
@@ -138,6 +157,14 @@ public class MySQLiteHelper extends SQLiteOpenHelper
                         COL_IMAGES_ID + " LONG PRIMARY KEY, " +
                         COL_IMAGES_PRIORITY + " INTEGER NOT NULL, " +
                         COL_IMAGES_IMAGE + " STRING NOT NULL" +
+                        ")");
+
+        db.execSQL(
+                "CREATE TABLE " + TABLE_GEMEENTES + " (" +
+                        COL_GEMEENTES_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                        COL_GEMEENTES_POSTCODE + " STRING NOT NULL, " +
+                        COL_GEMEENTES_GEMEENTE + " STRING NOT NULL, " +
+                        COL_GEMEENTES_PROVINCIE + " STRING NOT NULL" +
                         ")");
     }
 

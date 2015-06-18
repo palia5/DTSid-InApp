@@ -10,13 +10,14 @@ import android.widget.ImageView;
 
 import java.util.List;
 
-public class ImagePagerAdapter extends PagerAdapter {
+public class ImagePagerAdapter extends PagerAdapter 
+{
 
     List<Bitmap> imageArray;
     Context c;
-
-
-    public ImagePagerAdapter( List<Bitmap> imageArray, Context c) {
+    
+    public ImagePagerAdapter( List<Bitmap> imageArray, Context c) 
+    {
         super();
         this.imageArray = imageArray;
         this.c = c;
@@ -46,10 +47,8 @@ public class ImagePagerAdapter extends PagerAdapter {
     }
 
     @Override
-    public int getCount() {
-        //return images.length;
+    public int getCount() 
+    {
         return imageArray.size();
     }
-
-
 }

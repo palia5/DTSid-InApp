@@ -23,6 +23,14 @@ import be.ehb.dtsid_inapp.TeacherFragments.DepartmentLogin;
 import be.ehb.dtsid_inapp.TeacherFragments.Options;
 import be.ehb.dtsid_inapp.TeacherFragments.TeacherLogin;
 
+/**
+ *
+ * @author Dries
+ * @version 1.0
+ *
+ *
+ */
+
 public class TeacherActivity extends AppCompatActivity
 {
     private Department department;

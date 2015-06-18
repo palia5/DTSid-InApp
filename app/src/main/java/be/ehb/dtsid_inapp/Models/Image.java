@@ -2,6 +2,14 @@ package be.ehb.dtsid_inapp.Models;
 
 public class Image {
 
+    /**
+     *
+     * @author Dorothée
+     * @version 1.0
+     *
+     *
+     */
+
     private Long id;
     private int priority;
     private String image;

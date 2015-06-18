@@ -1,5 +1,13 @@
 package be.ehb.dtsid_inapp.Models;
 
+/**
+ *
+ * @author Dorothée
+ * @version 1.0
+ *
+ *
+ */
+
 public class Department
 {
     //Variables

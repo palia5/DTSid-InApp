@@ -169,13 +169,14 @@
         android:layout_marginTop="10dp"
         android:layout_marginLeft="50dp" />
 
-    <Spinner
+    <AutoCompleteTextView
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:id="@+id/sp_gemeente_subscription1"
-        android:spinnerMode="dropdown"
+        android:id="@+id/actv_gemeente_subscription1"
+
         android:layout_marginTop="5dp"
         android:layout_marginLeft="50dp"/>
+        <!--android:spinnerMode="dropdown"-->
 
         <LinearLayout
             android:orientation="horizontal"

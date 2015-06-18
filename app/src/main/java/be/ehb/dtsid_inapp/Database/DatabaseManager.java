@@ -4,6 +4,14 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+/**
+ *
+ * @author Dries, Tom, Kristof
+ * @version 1.0
+ *
+ *
+ */
+
 public class DatabaseManager
 {
     private int mOpenCounter;

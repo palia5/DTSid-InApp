@@ -23,6 +23,14 @@ import be.ehb.dtsid_inapp.Map.MapActivity;
 import be.ehb.dtsid_inapp.Models.Subscription;
 import be.ehb.dtsid_inapp.R;
 
+/**
+ *
+ * @author Dorothée
+ * @version 1.0
+ *
+ *
+ */
+
 public class Options extends Fragment implements View.OnClickListener
 {
     TeacherActivity activity;

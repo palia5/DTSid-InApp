@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import java.text.ParseException;
 import java.util.Date;
@@ -11,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import be.ehb.dtsid_inapp.Models.Event;
+import be.ehb.dtsid_inapp.Models.Gemeente;
 import be.ehb.dtsid_inapp.Models.Image;
 import be.ehb.dtsid_inapp.Models.School;
 import be.ehb.dtsid_inapp.Models.Subscription;
@@ -54,6 +56,16 @@ public class DatabaseContract
         values.put(MySQLiteHelper.COL_SUBSCRIPTIONS_SCHOOL, newSub.getSchool().getId());
 
         db.insert(MySQLiteHelper.TABLE_SUBSCRIPTIONS, null, values);
+    }
+
+    public void createGemeente(Gemeente newGemeente)
+    {
+        ContentValues values = new ContentValues();
+        values.put(MySQLiteHelper.COL_GEMEENTES_POSTCODE, newGemeente.getZip());
+        values.put(MySQLiteHelper.COL_GEMEENTES_GEMEENTE, newGemeente.getPlaats());
+        values.put(MySQLiteHelper.COL_GEMEENTES_PROVINCIE, newGemeente.getProvincie());
+
+        db.insert(MySQLiteHelper.TABLE_GEMEENTES, null, values);
     }
 
     //Getters
@@ -103,6 +115,7 @@ public class DatabaseContract
         c.close();
         return teachers;
     }
+
     public Event getEventByID(long id)
     {
         Event tempEvent;
@@ -124,6 +137,7 @@ public class DatabaseContract
         c.close();
         return tempEvent;
     }
+
     public List<Event> getAllEvents()
     {
         List<Event> events = new ArrayList<>();
@@ -149,6 +163,7 @@ public class DatabaseContract
         c.close();
         return events;
     }
+
     public School getSchoolByID(long id)
     {
         School tempSchool;
@@ -170,6 +185,7 @@ public class DatabaseContract
         c.close();
         return tempSchool;
     }
+
     public List<School> getAllSchools()
     {
         List<School> schools = new ArrayList<>();
@@ -195,6 +211,7 @@ public class DatabaseContract
         c.close();
         return schools;
     }
+
     public Subscription getSubscriptionByID(int id)
     {
         Subscription tempSubscription;
@@ -227,6 +244,7 @@ public class DatabaseContract
             return null;
         }
     }
+
     public List<Subscription> getAllSubscriptions()
     {
         List<Subscription> subscriptions = new ArrayList<>();
@@ -285,6 +303,103 @@ public class DatabaseContract
 
         c.close();
         return images;
+    }
+
+    public List<Gemeente> getAllGemeentes()
+    {
+        List<Gemeente> gemeentes = new ArrayList<>();
+
+        Log.d("Test_", "in getall");
+
+        Cursor c = db.query(false,
+                MySQLiteHelper.TABLE_GEMEENTES,
+                MySQLiteHelper.ALL_COLUMNS_GEMEENTES,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null);
+
+        c.moveToFirst();
+
+        while(!c.isAfterLast())
+        {
+            gemeentes.add(cursorToGemeente(c));
+            Log.d("Test_", cursorToGemeente(c).getPlaats());
+            c.moveToNext();
+        }
+
+        c.close();
+        return gemeentes;
+    }
+
+    public List<Gemeente> getGemeentesByZip(String zip)
+    {
+        Gemeente tempGemeente;
+        List<Gemeente> gemeentes = new ArrayList<>();
+        Cursor c;
+
+            c = db.query(false,
+                    MySQLiteHelper.TABLE_GEMEENTES,
+                    MySQLiteHelper.ALL_COLUMNS_GEMEENTES,
+                    MySQLiteHelper.COL_GEMEENTES_POSTCODE + " = " + zip,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null
+            );
+
+        /*switch (zip.length())
+        {
+            case 2: c = db.query(false,
+                        MySQLiteHelper.TABLE_GEMEENTES,
+                        MySQLiteHelper.ALL_COLUMNS_GEMEENTES,
+                        MySQLiteHelper.COL_GEMEENTES_POSTCODE + " LIKE '" + zip + "__'",
+                        null,
+                        null,
+                        null,
+                        null,
+                        null
+                    );
+                break;
+            case 3: c = db.query(false,
+                        MySQLiteHelper.TABLE_GEMEENTES,
+                        MySQLiteHelper.ALL_COLUMNS_GEMEENTES,
+                        MySQLiteHelper.COL_GEMEENTES_POSTCODE + " LIKE '" + zip + "_'",
+                        null,
+                        null,
+                        null,
+                        null,
+                        null
+                );
+                break;
+            case 4: c = db.query(false,
+                        MySQLiteHelper.TABLE_GEMEENTES,
+                        MySQLiteHelper.ALL_COLUMNS_GEMEENTES,
+                        MySQLiteHelper.COL_GEMEENTES_POSTCODE + " = " + zip,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null
+                );
+                break;
+            default: c = null;
+
+        }*/
+
+        c.moveToFirst();
+
+        while(!c.isAfterLast())
+        {
+            gemeentes.add(cursorToGemeente(c));
+            c.moveToNext();
+        }
+
+        c.close();
+        return gemeentes;
     }
 
     //Setters
@@ -367,6 +482,20 @@ public class DatabaseContract
         }
     }
 
+    public void setAllPostcodes(List<Gemeente> Gemeente)
+    {
+        ContentValues values = new ContentValues();
+
+        for(int i = 0 ; i < Gemeente.size() ; i++)
+        {
+            values.put(MySQLiteHelper.COL_GEMEENTES_POSTCODE, Gemeente.get(i).getZip());
+            values.put(MySQLiteHelper.COL_GEMEENTES_GEMEENTE, Gemeente.get(i).getPlaats());
+            values.put(MySQLiteHelper.COL_GEMEENTES_PROVINCIE, Gemeente.get(i).getProvincie());
+
+            db.insert(MySQLiteHelper.TABLE_GEMEENTES, null, values);
+        }
+    }
+
     //Cursor to ...
     private Teacher cursorToTeacher(Cursor c)
     {
@@ -445,6 +574,17 @@ public class DatabaseContract
 
         temp.setInterests();
         temp.setTimestampLong();
+        return temp;
+    }
+
+    private Gemeente cursorToGemeente(Cursor c)
+    {
+        Gemeente temp = new Gemeente();
+
+        temp.setZip(c.getString(c.getColumnIndex(MySQLiteHelper.COL_GEMEENTES_POSTCODE)));
+        temp.setPlaats(c.getString(c.getColumnIndex(MySQLiteHelper.COL_GEMEENTES_GEMEENTE)));
+        temp.setProvincie(c.getString(c.getColumnIndex(MySQLiteHelper.COL_GEMEENTES_PROVINCIE)));
+
         return temp;
     }
 }

@@ -8,6 +8,14 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.concurrent.ExecutionException;
 
+/**
+ *
+ * @author Tom
+ * @version 1.0
+ *
+ *
+ */
+
 public class JSONContract
 {
     //public static final String BASEURL = "http://vdabsidin2.appspot.com";

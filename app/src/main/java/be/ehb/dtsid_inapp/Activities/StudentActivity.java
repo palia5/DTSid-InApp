@@ -30,7 +30,7 @@ import be.ehb.dtsid_inapp.R;
 import be.ehb.dtsid_inapp.StudentFragments.PhotoGallery;
 import be.ehb.dtsid_inapp.StudentFragments.StudentRegistration;
 
-public class StudentActivity extends AppCompatActivity
+public class StudentActivity extends AppCompatActivity 
 {
     private DatabaseContract dbc;
     private Boolean isInMainScreen = true;
@@ -43,7 +43,6 @@ public class StudentActivity extends AppCompatActivity
     private PagerAdapter mPagerAdapter;
     private Subscription currentSubscription = null;
     private AlertDialog dialog;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
