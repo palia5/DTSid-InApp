@@ -36,6 +36,23 @@ public class DatabaseContract
         DatabaseManager.getInstance().closeDatabase();
     }
 
+    public void dropTeacherTable()
+    {
+        db.delete(MySQLiteHelper.TABLE_TEACHERS, null, null);
+    }
+    public void dropEventTable()
+    {
+        db.delete(MySQLiteHelper.TABLE_EVENTS, null, null);
+    }
+    public void dropSchoolTable()
+    {
+        db.delete(MySQLiteHelper.TABLE_SCHOOLS, null, null);
+    }
+    public void dropSubscriptionTable()
+    {
+        db.delete(MySQLiteHelper.TABLE_SUBSCRIPTIONS, null, null);
+    }
+
     public void createSubscription(Subscription newSub)
     {
         ContentValues values = new ContentValues();
