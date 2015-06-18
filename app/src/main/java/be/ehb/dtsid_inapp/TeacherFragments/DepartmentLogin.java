@@ -159,20 +159,20 @@ public class DepartmentLogin extends Fragment
 
     public void fillDB()
     {
-        if(!secret.equals(getStringFromSharedPrefs("SECRET")))
-        {
-            dbc.dropEventTable();
-            dbc.dropSchoolTable();
-            dbc.dropSubscriptionTable();
-            dbc.dropTeacherTable();
-        }
-
         if (!dbc.getAllSubscriptions().isEmpty() && secret.equals(getStringFromSharedPrefs("SECRET")))
         {
             everythingIsLoaded(true);
         }
         else if (!baseURL.equals("http://null"))
         {
+            if(!secret.equals(getStringFromSharedPrefs("SECRET")))
+            {
+                dbc.dropEventTable();
+                dbc.dropSchoolTable();
+                dbc.dropSubscriptionTable();
+                dbc.dropTeacherTable();
+            }
+
             putStringInSharedPrefs("BASEURL", baseURL);
             putStringInSharedPrefs("SECRET", secret);
             loadingDatabaseDialog.show();
