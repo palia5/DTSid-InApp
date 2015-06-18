@@ -27,9 +27,6 @@ import be.ehb.dtsid_inapp.R;
 import be.ehb.dtsid_inapp.TeacherFragments.Lists;
 import be.ehb.dtsid_inapp.TeacherFragments.OptionsPreferences;
 
-/**
- * Created by tomnahooy on 11/06/15.
- */
 public class StudentRegistrationPt2 extends Fragment implements View.OnClickListener, CompoundButton.OnCheckedChangeListener {
 
     private Switch digxSW, multecSW, werkstudentSW, studeerNogSW;
