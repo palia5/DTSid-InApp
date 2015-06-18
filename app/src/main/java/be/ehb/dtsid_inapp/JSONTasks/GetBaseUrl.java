@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -36,12 +37,17 @@ public class GetBaseUrl extends AsyncTask<String, Integer, String> {
         if (connected){
             try {
                 URL url = new URL(params[0]);
+                Log.d("TESTBaseurl", params[0]);
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
                 connection.setRequestMethod("GET");
                 connection.connect();
+                String baseUrl = null;
                 BufferedReader reader = new BufferedReader(
                         new InputStreamReader(connection.getInputStream()));
-                String baseUrl = "http://" +  reader.readLine();
+                if (reader.readLine() != null){
+                    baseUrl = "http://" +  reader.readLine();
+                    //Log.d("TEST getBaseUrl", reader.readLine());
+                }
                 return baseUrl;
             } catch (MalformedURLException e) {
                 e.printStackTrace();
