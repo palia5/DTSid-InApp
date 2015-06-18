@@ -7,6 +7,14 @@ import android.preference.PreferenceFragment;
 import android.preference.SwitchPreference;
 import be.ehb.dtsid_inapp.R;
 
+/**
+ *
+ * @author Tom
+ * @version 1.0
+ *
+ *
+ */
+
 public class OptionsPreferences extends PreferenceFragment
 {
     private SwitchPreference autosyncSW;

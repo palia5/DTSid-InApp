@@ -1,7 +1,9 @@
 package be.ehb.dtsid_inapp.Models;
 
 /**
- * Created by Kristof on 15/06/2015.
+ * @author Kristof
+ * @version 1.0
+ *
  */
 public class Gemeente {
     private String zip;
@@ -43,6 +45,6 @@ public class Gemeente {
 
     @Override
     public String toString() {
-        return zip + plaats;
+        return plaats;
     }
 }

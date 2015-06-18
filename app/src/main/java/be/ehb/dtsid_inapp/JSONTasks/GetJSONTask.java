@@ -28,6 +28,14 @@ import be.ehb.dtsid_inapp.TeacherFragments.DepartmentLogin;
 
 import static be.ehb.dtsid_inapp.JSONTasks.JSONContract.*;
 
+/**
+ *
+ * @author Tom
+ * @version 1.0
+ *
+ *
+ */
+
 public class GetJSONTask extends AsyncTask<String, Integer, Void>
 {
     private DatabaseContract dbc;

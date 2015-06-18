@@ -2,6 +2,7 @@ package be.ehb.dtsid_inapp.TeacherFragments;
 
 import android.app.Fragment;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.XmlResourceParser;
 import android.os.AsyncTask;
@@ -20,8 +21,13 @@ import android.widget.Spinner;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
+import org.xmlpull.v1.XmlPullParserFactory;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+
+import javax.xml.parsers.SAXParser;
 
 import be.ehb.dtsid_inapp.Activities.TeacherActivity;
 import be.ehb.dtsid_inapp.Database.DatabaseContract;
@@ -30,6 +36,15 @@ import be.ehb.dtsid_inapp.Models.Gemeente;
 import be.ehb.dtsid_inapp.R;
 
 import static be.ehb.dtsid_inapp.JSONTasks.JSONContract.*;
+import static be.ehb.dtsid_inapp.Database.MySQLiteHelper.*;
+
+/**
+ *
+ * @author Dries, Tom, Kristof
+ * @version 1.0
+ *
+ *
+ */
 
 public class DepartmentLogin extends Fragment
 {
@@ -159,14 +174,16 @@ public class DepartmentLogin extends Fragment
 
         @Override
         protected Object doInBackground(Object[] params) {
-            xmlToSqlite();
+            //xmlToSqlite();
             return null;
-        }
+        }/*
         void xmlToSqlite(){
 
             Log.d("Test_", "in methode xmltosql");
             Resources res = activity.getResources();
-            XmlResourceParser parser = res.getXml(R.xml.postcodes);
+            InputStream streamToXml =  res.openRawResource(R.raw.postcodes);
+            //XmlResourceParser parser =
+            SAXParser parser
             Gemeente tempGemeente = new Gemeente();
             xmldbc = new DatabaseContract(activity.getApplicationContext());
 
@@ -180,25 +197,29 @@ public class DepartmentLogin extends Fragment
                     if (name.equals("record")) {
                         String postcode = null, plaats = null, prov = null;
                         while (parser.next() != XmlPullParser.END_TAG) {
-                            if (parser.getEventType() != XmlPullParser.START_TAG) {
-                                continue;
-                            }
+                            //if (parser.getEventType() != XmlPullParser.START_TAG) {
+                                //continue;
+                            //}
                             name = parser.getName();
-                            if (name.equals("Postcode")) {
+                            if (name.equalsIgnoreCase("Postcode")) {
                                 postcode = readText(parser);
                                 tempGemeente.setZip(postcode);
-                            } else if (name.equals("Plaatsnaam")) {
+                                Log.d("Test_", postcode);
+                            } else if (name.equalsIgnoreCase("Plaatsnaam")) {
                                 plaats = readText(parser);
                                 tempGemeente.setPlaats(plaats);
-                            } else if (name.equals("Provincie")) {
+                                Log.d("Test_", plaats);
+                            } else if (name.equalsIgnoreCase("Provincie")) {
                                 prov = readText(parser);
                                 tempGemeente.setProvincie(prov);
+                                Log.d("Test_", prov);
+                            }
+                            if (xmldbc != null) {
+                                xmldbc.createGemeente(tempGemeente);
+                                Log.d("Test_", "wgschrijven naar db");
                             }
                         }
-                        if (xmldbc != null) {
-                            xmldbc.createGemeente(tempGemeente);
-                            Log.d("Test_", "wgschrijven naar db");
-                        }
+
                     }
                 }
             } catch (XmlPullParserException e) {
@@ -217,6 +238,7 @@ public class DepartmentLogin extends Fragment
                 parser.nextTag();
             }
             return result;
-        }
+        }*/
     }
+
 }

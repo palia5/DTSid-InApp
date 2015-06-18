@@ -6,6 +6,14 @@ import android.widget.ImageView;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
+/**
+ *
+ * @author Tom
+ * @version 1.0
+ *
+ *
+ */
+
 public class JSONContract
 {
     public static final String BASEURL = "http://vdabsidin2.appspot.com";

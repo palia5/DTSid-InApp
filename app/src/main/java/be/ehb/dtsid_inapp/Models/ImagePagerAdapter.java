@@ -7,6 +7,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+/**
+ *
+ * @author Kristof
+ * @version 1.0
+ *
+ *
+ */
+
 public class ImagePagerAdapter extends PagerAdapter {
 
     int imageArray[];

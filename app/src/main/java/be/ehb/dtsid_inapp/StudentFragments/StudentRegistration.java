@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -34,6 +35,14 @@ import be.ehb.dtsid_inapp.Models.Gemeente;
 import be.ehb.dtsid_inapp.Models.Subscription;
 import be.ehb.dtsid_inapp.R;
 
+/**
+ *
+ * @author Dries, Tom, Kristof
+ * @version 1.0
+ *
+ *
+ */
+
 public class StudentRegistration extends Fragment
 {
     StudentActivity activity;
@@ -49,8 +58,10 @@ public class StudentRegistration extends Fragment
     Spinner gemeenteSP;
     Button acceptBTN;
     Button cancelBTN;
+    int ii;
 
     AutoCompleteTextView postcodeACTV;
+    AutoCompleteTextView gemeenteACTV;
 
     private ImageView logoIV;
     private LinearLayout btnLinLay;
@@ -68,12 +79,15 @@ public class StudentRegistration extends Fragment
         straatET = (EditText) v.findViewById(R.id.et_straat_subscription1);
         huisNummerET = (EditText) v.findViewById(R.id.et_huisnummer_subscription1);
         //postcodeET = (EditText) v.findViewById(R.id.et_postcode_subscription1);
-        gemeenteSP = (Spinner) v.findViewById(R.id.sp_gemeente_subscription1);
+        //gemeenteSP = (Spinner) v.findViewById(R.id.sp_gemeente_subscription1);
         acceptBTN = (Button) v.findViewById(R.id.btn_bevestigen_subscription1);
         cancelBTN = (Button) v.findViewById(R.id.btn_annuleren_subscription1);
         logoIV = (ImageView) v.findViewById(R.id.iv_logo_ehb);
         btnLinLay = (LinearLayout) v.findViewById(R.id.lin_lay_btn_stud_reg_1);
         postcodeACTV = (AutoCompleteTextView) v.findViewById(R.id.actv_postcode_subscription1);
+        gemeenteACTV = (AutoCompleteTextView) v.findViewById(R.id.actv_gemeente_subscription1);
+
+        dbc.getAllGemeentes();
 
         Gemeente g = new Gemeente("3020", "Herent", "Vlaams  Brabant");
         Gemeente g2 = new Gemeente("3000", "Leuven", "Vlaams  Brabant");
@@ -86,16 +100,6 @@ public class StudentRegistration extends Fragment
         gemeentes.add(g3);
         gemeentes.add(g4);
 /*
-        //Lets's try this shit out, shall we?
-        Resources res = activity.getResources();
-        XmlResourceParser xrp = res.getXml(R.xml.postcodes);
-
-        //Ik ga iets in deze lijn nodig hebben
-        if (postcodeACTV.getText().toString().length() == 2)
-        {
-            //insert nifty code
-        }
-
         ArrayAdapter<Gemeente> adapter2 = new ArrayAdapter(this.getActivity(), android.R.layout.simple_list_item_1, gemeentes);
 
         ArrayAdapter<Gemeente> adapter = new ArrayAdapter<>(this.getActivity(),
@@ -150,18 +154,58 @@ public class StudentRegistration extends Fragment
                                 voorNaamET.setText(subs.get(i).getFirstName());
                                 straatET.setText(subs.get(i).getStreet());
                                 huisNummerET.setText(subs.get(i).getStreetNumber());
-                                postcodeET.setText(subs.get(i).getZip());
+                                postcodeACTV.setText(subs.get(i).getZip());
+                                gemeenteACTV.setText(subs.get(i).getCity());
                             }
                 }
+            }
+        });
+
+        postcodeACTV.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                Log.d("Test_", "beforetextchanged");
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                /*Log.d("Test_", "ontextchanged" + count);
+                ii = ii + count;
+                Log.d("Test_", " counter: " + ii);
+                if (ii >= 2) {
+                    Log.d("Test_", " counter in if: " + ii);
+                    ArrayAdapter<Gemeente> adapter = new ArrayAdapter<Gemeente>(getActivity(),
+                            android.R.layout.simple_list_item_1, dbc.getGemeentesByZip(postcodeACTV.getText().toString()));
+                    gemeenteACTV.setAdapter(adapter);
+                }
+                if (ii >= 4)
+                    ii = 0;*/
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                Log.d("Test_", "aftertextchanged");
             }
         });
 
         postcodeACTV.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                for (int i = 0; i < subs.size(); i++) {
-                    //if (postcodeACTV.getText().toString().equals())
+                if (!hasFocus)
+                {
+                    /*List<Gemeente> gemeentes = dbc.getGemeentesByZip("3020");
+                    ArrayAdapter<Gemeente> adapter = new ArrayAdapter<Gemeente>(getActivity(),
+                            android.R.layout.simple_list_item_1, gemeentes);
+                    gemeenteACTV.setAdapter(adapter);
+                    for (int i = 0; i>= gemeentes.size(); i++)
+                    {
+                        Log.d("Test_", gemeentes.get(i).getPlaats());
+                    }*/
+
+                    dbc.getAllGemeentes();
                 }
+
             }
         });
 
@@ -228,6 +272,7 @@ public class StudentRegistration extends Fragment
         huisNummerET.setText("");
         //postcodeET.setText("");
         postcodeACTV.setText("");
+        gemeenteACTV.setText("");
         emailET.setBackgroundColor(Color.TRANSPARENT);
     }
 
@@ -240,7 +285,8 @@ public class StudentRegistration extends Fragment
         huisNummerET.setEnabled(enabled);
         //postcodeET.setEnabled(enabled);
         postcodeACTV.setEnabled(enabled);
-        gemeenteSP.setEnabled(enabled);
+        //gemeenteSP.setEnabled(enabled);
+        gemeenteACTV.setEnabled(enabled);
         acceptBTN.setEnabled(enabled);
         cancelBTN.setEnabled(enabled);
         if (enabled){

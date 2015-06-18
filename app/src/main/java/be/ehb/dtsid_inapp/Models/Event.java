@@ -2,6 +2,14 @@ package be.ehb.dtsid_inapp.Models;
 
 import com.google.gson.annotations.Expose;
 
+/**
+ *
+ * @author Dorothée
+ * @version 1.0
+ *
+ *
+ */
+
 public class Event
 {
     //Variables

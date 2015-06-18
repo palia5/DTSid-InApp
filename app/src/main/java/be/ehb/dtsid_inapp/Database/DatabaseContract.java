@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import java.text.ParseException;
 import java.util.Date;
@@ -16,6 +17,14 @@ import be.ehb.dtsid_inapp.Models.Image;
 import be.ehb.dtsid_inapp.Models.School;
 import be.ehb.dtsid_inapp.Models.Subscription;
 import be.ehb.dtsid_inapp.Models.Teacher;
+
+/**
+ *
+ * @author Dries, Kristof
+ * @version 1.0
+ *
+ *
+ */
 
 public class DatabaseContract
 {
@@ -308,6 +317,8 @@ public class DatabaseContract
     {
         List<Gemeente> gemeentes = new ArrayList<>();
 
+        Log.d("Test_", "in getall");
+
         Cursor c = db.query(false,
                 MySQLiteHelper.TABLE_GEMEENTES,
                 MySQLiteHelper.ALL_COLUMNS_GEMEENTES,
@@ -323,6 +334,7 @@ public class DatabaseContract
         while(!c.isAfterLast())
         {
             gemeentes.add(cursorToGemeente(c));
+            Log.d("Test_", cursorToGemeente(c).getPlaats());
             c.moveToNext();
         }
 
@@ -334,17 +346,57 @@ public class DatabaseContract
     {
         Gemeente tempGemeente;
         List<Gemeente> gemeentes = new ArrayList<>();
+        Cursor c;
 
-        Cursor c = db.query(false,
-                MySQLiteHelper.TABLE_SUBSCRIPTIONS,
-                MySQLiteHelper.ALL_COLUMNS_SUBSCRIPTION,
-                MySQLiteHelper.COL_SUBSCRIPTIONS_ID + " LIKE " + zip +"%%",
-                null,
-                null,
-                null,
-                null,
-                null
-        );
+            c = db.query(false,
+                    MySQLiteHelper.TABLE_GEMEENTES,
+                    MySQLiteHelper.ALL_COLUMNS_GEMEENTES,
+                    MySQLiteHelper.COL_GEMEENTES_POSTCODE + " = " + zip,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null
+            );
+
+        /*switch (zip.length())
+        {
+            case 2: c = db.query(false,
+                        MySQLiteHelper.TABLE_GEMEENTES,
+                        MySQLiteHelper.ALL_COLUMNS_GEMEENTES,
+                        MySQLiteHelper.COL_GEMEENTES_POSTCODE + " LIKE '" + zip + "__'",
+                        null,
+                        null,
+                        null,
+                        null,
+                        null
+                    );
+                break;
+            case 3: c = db.query(false,
+                        MySQLiteHelper.TABLE_GEMEENTES,
+                        MySQLiteHelper.ALL_COLUMNS_GEMEENTES,
+                        MySQLiteHelper.COL_GEMEENTES_POSTCODE + " LIKE '" + zip + "_'",
+                        null,
+                        null,
+                        null,
+                        null,
+                        null
+                );
+                break;
+            case 4: c = db.query(false,
+                        MySQLiteHelper.TABLE_GEMEENTES,
+                        MySQLiteHelper.ALL_COLUMNS_GEMEENTES,
+                        MySQLiteHelper.COL_GEMEENTES_POSTCODE + " = " + zip,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null
+                );
+                break;
+            default: c = null;
+
+        }*/
 
         c.moveToFirst();
 

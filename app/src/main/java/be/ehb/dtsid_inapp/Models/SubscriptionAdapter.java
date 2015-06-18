@@ -11,6 +11,14 @@ import java.util.ArrayList;
 
 import be.ehb.dtsid_inapp.R;
 
+/**
+ *
+ * @author Dorothée
+ * @version 1.0
+ *
+ *
+ */
+
 public class SubscriptionAdapter extends BaseAdapter
 {
     private ArrayList<Subscription> subscriptionArrayList;

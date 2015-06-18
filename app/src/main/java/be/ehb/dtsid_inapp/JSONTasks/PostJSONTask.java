@@ -28,6 +28,14 @@ import be.ehb.dtsid_inapp.TeacherFragments.Options;
 
 import static be.ehb.dtsid_inapp.JSONTasks.JSONContract.*;
 
+/**
+ *
+ * @author Tom
+ * @version 1.0
+ *
+ *
+ */
+
 public class PostJSONTask extends AsyncTask<Void, Integer, HashMap<String, Boolean>>
 {
     private DatabaseContract dbc;

@@ -23,6 +23,14 @@ import be.ehb.dtsid_inapp.Models.ImagePagerAdapter;
 import be.ehb.dtsid_inapp.Models.ZoomOutPageTransformer;
 import be.ehb.dtsid_inapp.R;
 
+/**
+ *
+ * @author Kristof, Dries
+ * @version 1.0
+ *
+ *
+ */
+
 public class PhotoGallery extends Fragment {
 
     ViewPager myPager;

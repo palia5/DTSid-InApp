@@ -23,6 +23,14 @@ import be.ehb.dtsid_inapp.Models.Subscription;
 import be.ehb.dtsid_inapp.Models.SubscriptionAdapter;
 import be.ehb.dtsid_inapp.R;
 
+/**
+ *
+ * @author Dorothée
+ * @version 1.0
+ *
+ *
+ */
+
 public class Lists extends Fragment
 {
     TeacherActivity activity;

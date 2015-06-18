@@ -4,6 +4,14 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+/**
+ *
+ * @author Dries, Kristof
+ * @version 1.0
+ *
+ *
+ */
+
 public class MySQLiteHelper extends SQLiteOpenHelper
 {
     //Constants

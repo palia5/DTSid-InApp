@@ -25,6 +25,14 @@ import be.ehb.dtsid_inapp.R;
 import be.ehb.dtsid_inapp.StudentFragments.PhotoGallery;
 import be.ehb.dtsid_inapp.StudentFragments.StudentRegistration;
 
+/**
+ *
+ * @author Dries
+ * @version 1.0
+ *
+ *
+ */
+
 public class StudentActivity extends AppCompatActivity {
     private DatabaseContract dbc;
     private Boolean isInMainScreen = true;

@@ -6,6 +6,14 @@ import com.google.gson.annotations.SerializedName;
 import java.util.Date;
 import java.util.HashMap;
 
+/**
+ *
+ * @author Dorothée
+ * @version 1.0
+ *
+ *
+ */
+
 public class Subscription
 {
     //Variables

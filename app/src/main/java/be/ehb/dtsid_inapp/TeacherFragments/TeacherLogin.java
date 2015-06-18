@@ -28,6 +28,14 @@ import be.ehb.dtsid_inapp.Models.Teacher;
 import be.ehb.dtsid_inapp.Models.TeacherAdapter;
 import be.ehb.dtsid_inapp.R;
 
+/**
+ *
+ * @author Dries
+ * @version 1.0
+ *
+ *
+ */
+
 public class TeacherLogin extends Fragment
 {
     TeacherActivity activity;
