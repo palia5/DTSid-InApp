@@ -67,7 +67,7 @@ public class MapActivity extends Activity implements OnMapReadyCallback, GoogleM
         eventSP.setOnItemSelectedListener(this);
 
         subscriptions = new ArrayList<>();
-
+        allSubscriptions = dbc.getAllSubscriptions();
     }
 
     //TEST TO COMMIT
@@ -163,11 +163,10 @@ public class MapActivity extends Activity implements OnMapReadyCallback, GoogleM
     }
 
     @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        allSubscriptions.clear();
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
+    {
         Event selectedEvent = events.get(position);
-        allSubscriptions = dbc.getAllSubscriptions();
-        for (Subscription index : subscriptions) {
+        for (Subscription index : allSubscriptions) {
             if (index.getEvent().equals(selectedEvent)){
                 subscriptions.add(index);
             }
@@ -175,7 +174,8 @@ public class MapActivity extends Activity implements OnMapReadyCallback, GoogleM
     }
 
     @Override
-    public void onNothingSelected(AdapterView<?> parent) {
+    public void onNothingSelected(AdapterView<?> parent)
+    {
         subscriptions = new ArrayList<>();
     }
 }
