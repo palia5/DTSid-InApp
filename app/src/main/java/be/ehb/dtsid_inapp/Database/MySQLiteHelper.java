@@ -4,6 +4,10 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.util.ArrayList;
+
+import be.ehb.dtsid_inapp.Models.Gemeente;
+
 /**
  *
  * @author Dries, Kristof
@@ -98,6 +102,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper
             COL_GEMEENTES_POSTCODE,
             COL_GEMEENTES_GEMEENTE,
             COL_GEMEENTES_PROVINCIE};
+
 
     public MySQLiteHelper(Context context)
     {

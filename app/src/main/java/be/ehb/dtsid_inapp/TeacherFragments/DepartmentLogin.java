@@ -21,18 +21,28 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
+import org.xml.sax.XMLReader;
+
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
 
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.parsers.SAXParser;
+import javax.xml.parsers.SAXParserFactory;
+
 import be.ehb.dtsid_inapp.Activities.TeacherActivity;
 import be.ehb.dtsid_inapp.Database.DatabaseContract;
 import be.ehb.dtsid_inapp.JSONTasks.GetImagesJSONTask;
 import be.ehb.dtsid_inapp.JSONTasks.GetJSONTask;
+import be.ehb.dtsid_inapp.Models.XmlHandler;
 import be.ehb.dtsid_inapp.R;
 
 import static be.ehb.dtsid_inapp.JSONTasks.JSONContract.*;
@@ -69,6 +79,9 @@ public class DepartmentLogin extends Fragment
 
         activity = (TeacherActivity) this.getActivity();
         dbc = new DatabaseContract(activity.getApplicationContext());
+
+        AsyncXml asyncXml = new AsyncXml();
+        asyncXml.execute();
 
         loadingDatabaseDialog = new ProgressDialog(activity);
         loadingDatabaseDialog.setTitle("Downloading database");
@@ -269,77 +282,33 @@ public class DepartmentLogin extends Fragment
 
 
 
-    private class asyncXml extends AsyncTask{
+    private class AsyncXml extends AsyncTask{
 
         private DatabaseContract xmldbc;
 
         @Override
         protected Object doInBackground(Object[] params) {
-            //xmlToSqlite();
-            return null;
-        }/*
-        void xmlToSqlite(){
-
-            Log.d("Test_", "in methode xmltosql");
-            Resources res = activity.getResources();
-            InputStream streamToXml =  res.openRawResource(R.raw.postcodes);
-            //XmlResourceParser parser =
-            SAXParser parser
-            Gemeente tempGemeente = new Gemeente();
-            xmldbc = new DatabaseContract(activity.getApplicationContext());
 
             try {
+                XmlHandler xmlHandler = new XmlHandler();
+                InputStream inputStream = getResources().openRawResource(R.raw.postcodes);
 
-                while (parser.next() != XmlPullParser.END_TAG) {
-                    if (parser.getEventType() != XmlPullParser.START_TAG) {
-                        continue;
-                    }
-                    String name = parser.getName();
-                    if (name.equals("record")) {
-                        String postcode = null, plaats = null, prov = null;
-                        while (parser.next() != XmlPullParser.END_TAG) {
-                            //if (parser.getEventType() != XmlPullParser.START_TAG) {
-                                //continue;
-                            //}
-                            name = parser.getName();
-                            if (name.equalsIgnoreCase("Postcode")) {
-                                postcode = readText(parser);
-                                tempGemeente.setZip(postcode);
-                                Log.d("Test_", postcode);
-                            } else if (name.equalsIgnoreCase("Plaatsnaam")) {
-                                plaats = readText(parser);
-                                tempGemeente.setPlaats(plaats);
-                                Log.d("Test_", plaats);
-                            } else if (name.equalsIgnoreCase("Provincie")) {
-                                prov = readText(parser);
-                                tempGemeente.setProvincie(prov);
-                                Log.d("Test_", prov);
-                            }
-                            if (xmldbc != null) {
-                                xmldbc.createGemeente(tempGemeente);
-                                Log.d("Test_", "wgschrijven naar db");
-                            }
-                        }
+                SAXParserFactory spf = SAXParserFactory.newInstance();
+                SAXParser sp = spf.newSAXParser();
+                XMLReader reader = sp.getXMLReader();
 
-                    }
-                }
-            } catch (XmlPullParserException e) {
+                reader.setContentHandler(xmlHandler);
+                reader.parse(new InputSource(inputStream));
+            } catch (ParserConfigurationException e) {
+                e.printStackTrace();
+            } catch (SAXException e) {
                 e.printStackTrace();
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            xmldbc.close();
-        }
 
-        private String readText(XmlPullParser parser) throws IOException,
-                XmlPullParserException {
-            String result = "";
-            if (parser.next() == XmlPullParser.TEXT) {
-                result = parser.getText();
-                parser.nextTag();
-            }
-            return result;
-        }*/
+            return null;
+        }
     }
 
 }

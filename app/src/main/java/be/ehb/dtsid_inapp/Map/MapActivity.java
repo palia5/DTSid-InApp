@@ -163,8 +163,7 @@ public class MapActivity extends Activity implements OnMapReadyCallback, GoogleM
     }
 
     @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
-    {
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         Event selectedEvent = events.get(position);
         for (Subscription index : allSubscriptions) {
             if (index.getEvent().equals(selectedEvent)){
@@ -174,8 +173,7 @@ public class MapActivity extends Activity implements OnMapReadyCallback, GoogleM
     }
 
     @Override
-    public void onNothingSelected(AdapterView<?> parent)
-    {
+    public void onNothingSelected(AdapterView<?> parent) {
         subscriptions = new ArrayList<>();
     }
 }
