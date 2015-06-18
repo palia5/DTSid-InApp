@@ -4,7 +4,7 @@ import com.google.gson.annotations.Expose;
 
 import java.io.Serializable;
 
-public class Event
+public class Event implements Serializable
 {
     //Variables
     @Expose

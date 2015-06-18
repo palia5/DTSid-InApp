@@ -37,7 +37,7 @@ public class Gemeente
     }
 
     public void setProvincie(String provincie) {
-        provincie = provincie;
+        this.provincie = provincie;
     }
 
     @Override

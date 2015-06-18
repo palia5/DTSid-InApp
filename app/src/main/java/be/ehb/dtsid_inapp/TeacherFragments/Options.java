@@ -162,6 +162,8 @@ public class Options extends Fragment implements View.OnClickListener
                 break;
             case R.id.btn_regios:
                 Intent regionIntent = new Intent(getActivity(), MapActivity.class);
+                regionIntent.putExtra("CurrentEvent", activity.getEvent());
+                regionIntent.putExtra("CurrentTeacher", activity.getTeacher());
                // regionIntent.putExtra("Teacher_id", activity.getTeacher().getId());
                // regionIntent.putExtra("Event_id", activity.getEvent().getId());
                 startActivity(regionIntent);

@@ -80,8 +80,11 @@ public class DepartmentLogin extends Fragment
         activity = (TeacherActivity) this.getActivity();
         dbc = new DatabaseContract(activity.getApplicationContext());
 
-        AsyncXml asyncXml = new AsyncXml();
-        asyncXml.execute();
+        if (XmlHandler.gemeenteArrayList == null)
+        {
+            AsyncXml asyncXml = new AsyncXml();
+            asyncXml.execute();
+        }
 
         loadingDatabaseDialog = new ProgressDialog(activity);
         loadingDatabaseDialog.setTitle("Downloading database");

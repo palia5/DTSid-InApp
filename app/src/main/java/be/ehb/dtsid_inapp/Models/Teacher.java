@@ -2,6 +2,8 @@ package be.ehb.dtsid_inapp.Models;
 
 import com.google.gson.annotations.Expose;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Dorothée
@@ -10,7 +12,7 @@ import com.google.gson.annotations.Expose;
  *
  */
 
-public class Teacher
+public class Teacher implements Serializable
 {
     //Variables
     @Expose

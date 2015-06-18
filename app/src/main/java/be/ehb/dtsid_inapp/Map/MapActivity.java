@@ -28,7 +28,10 @@ import static be.ehb.dtsid_inapp.Map.MapContract.*;
 import be.ehb.dtsid_inapp.Database.DatabaseContract;
 import be.ehb.dtsid_inapp.Models.Event;
 import be.ehb.dtsid_inapp.Models.EventAdapter;
+import be.ehb.dtsid_inapp.Models.Gemeente;
 import be.ehb.dtsid_inapp.Models.Subscription;
+import be.ehb.dtsid_inapp.Models.Teacher;
+import be.ehb.dtsid_inapp.Models.XmlHandler;
 import be.ehb.dtsid_inapp.R;
 
 public class MapActivity extends Activity implements OnMapReadyCallback, GoogleMap.OnInfoWindowClickListener, GoogleMap.OnMapClickListener,
@@ -43,11 +46,20 @@ public class MapActivity extends Activity implements OnMapReadyCallback, GoogleM
     private List<Subscription> allSubscriptions;
     private EventAdapter eventAdapter;
     private DatabaseContract dbc;
+    private MarkerOptions vlaamsBrabant, antwerpen, limburg, westVlaanderen, oostVlaanderen,
+    luik, henegouwen, namen, luxemburg, waalsBrabant;
+    private Event currentEvent;
+    private Teacher currentTeacher;
+    private Marker limburgMark, vlaamsBrabantMark, antwerpenMark, westVlaanderenMark, oostVlaanderenMark,
+            luikMark, henegouwenMark, namenMark, luxemburgMark, waalsBrabantMark;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
+
+        currentEvent = (Event) getIntent().getSerializableExtra("CurrentEvent");
+        currentTeacher = (Teacher) getIntent().getSerializableExtra("CurrentTeacher");
 
         mMapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.frgm_regios_map);
         mMapFragment.getMapAsync(this);
@@ -66,7 +78,6 @@ public class MapActivity extends Activity implements OnMapReadyCallback, GoogleM
         eventSP.setAdapter(eventAdapter);
         eventSP.setOnItemSelectedListener(this);
 
-        subscriptions = new ArrayList<>();
         allSubscriptions = dbc.getAllSubscriptions();
     }
 
@@ -101,80 +112,113 @@ public class MapActivity extends Activity implements OnMapReadyCallback, GoogleM
 
     private void addMarkers(int iconResource){
 
-        mMap.addMarker(new MarkerOptions()
-        .position(VLAAMS_BRABANT)
-        .title("Vlaams-Brabant")
-        .snippet("TO DO")
-        .icon(BitmapDescriptorFactory.fromResource(iconResource)));
+        vlaamsBrabant = new MarkerOptions()
+                .position(VLAAMS_BRABANT)
+                .title("Vlaams-Brabant")
+                .icon(BitmapDescriptorFactory.fromResource(iconResource));
+        vlaamsBrabantMark = mMap.addMarker(vlaamsBrabant);
 
-        mMap.addMarker(new MarkerOptions()
+        antwerpen = new MarkerOptions()
                 .position(ANTWERPEN)
                 .title("Antwerpen")
-                .snippet("TO DO")
-                .icon(BitmapDescriptorFactory.fromResource(iconResource)));
+                .icon(BitmapDescriptorFactory.fromResource(iconResource));
+        antwerpenMark = mMap.addMarker(antwerpen);
 
-        mMap.addMarker(new MarkerOptions()
+        limburg = new MarkerOptions()
                 .position(LIMBURG)
                 .title("Limburg")
-                .snippet("TO DO")
-                .icon(BitmapDescriptorFactory.fromResource(iconResource)));
+                .icon(BitmapDescriptorFactory.fromResource(iconResource));
+        limburgMark = mMap.addMarker(limburg);
 
-        mMap.addMarker(new MarkerOptions()
+        westVlaanderen = new MarkerOptions()
                 .position(WEST_VLAANDEREN)
                 .title("West-Vlaanderen")
-                .snippet("TO DO")
-                .icon(BitmapDescriptorFactory.fromResource(iconResource)));
+                .icon(BitmapDescriptorFactory.fromResource(iconResource));
+                westVlaanderenMark = mMap.addMarker(westVlaanderen);
 
-        mMap.addMarker(new MarkerOptions()
+        oostVlaanderen =new MarkerOptions()
                 .position(OOST_VLAANDEREN)
                 .title("Oost-Vlaanderen")
-                .snippet("TO DO")
-                .icon(BitmapDescriptorFactory.fromResource(iconResource)));
+                .icon(BitmapDescriptorFactory.fromResource(iconResource));
+                oostVlaanderenMark = mMap.addMarker(oostVlaanderen);
 
-        mMap.addMarker(new MarkerOptions()
+        luik = new MarkerOptions()
                 .position(LUIK)
                 .title("Luik")
-                .snippet("TO DO")
-                .icon(BitmapDescriptorFactory.fromResource(iconResource)));
+                .icon(BitmapDescriptorFactory.fromResource(iconResource));
+                luikMark = mMap.addMarker(luik);
 
-        mMap.addMarker(new MarkerOptions()
+        waalsBrabant = new MarkerOptions()
                 .position(WAALS_BRABANT)
                 .title("Waals-Brabant")
-                .snippet("TO DO")
-                .icon(BitmapDescriptorFactory.fromResource(iconResource)));
+                .icon(BitmapDescriptorFactory.fromResource(iconResource));
+                waalsBrabantMark = mMap.addMarker(waalsBrabant);
 
-        mMap.addMarker(new MarkerOptions()
+        henegouwen = new MarkerOptions()
                 .position(HENEGOUWEN)
                 .title("Henegouwen")
-                .snippet("TO DO")
-                .icon(BitmapDescriptorFactory.fromResource(iconResource)));
+                .icon(BitmapDescriptorFactory.fromResource(iconResource));
+                henegouwenMark = mMap.addMarker(henegouwen);
 
-        mMap.addMarker(new MarkerOptions()
+        namen = new MarkerOptions()
                 .position(NAMEN)
-                .title("NAMEN")
-                .snippet("TO DO")
-                .icon(BitmapDescriptorFactory.fromResource(iconResource)));
+                .title("Namen")
+                .icon(BitmapDescriptorFactory.fromResource(iconResource));
+                namenMark = mMap.addMarker(namen);
 
-        mMap.addMarker(new MarkerOptions()
+        luxemburg = new MarkerOptions()
                 .position(LUXEMBURG)
                 .title("Luxemburg")
-                .snippet("TO DO")
-                .icon(BitmapDescriptorFactory.fromResource(iconResource)));
+                .icon(BitmapDescriptorFactory.fromResource(iconResource));
+                luxemburgMark = mMap.addMarker(luxemburg);
     }
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        Event selectedEvent = events.get(position);
+        subscriptions = new ArrayList<>();
+        long selectedEventId = events.get(position).getId();
         for (Subscription index : allSubscriptions) {
-            if (index.getEvent().equals(selectedEvent))
-            {
+            if (index.getEvent().getId().equals(selectedEventId)){
                 subscriptions.add(index);
             }
         }
+        setSubCountForProvince(antwerpenMark);
+        setSubCountForProvince(vlaamsBrabantMark);
+        setSubCountForProvince(limburgMark);
+        setSubCountForProvince(westVlaanderenMark);
+        setSubCountForProvince(oostVlaanderenMark);
+        setSubCountForProvince(henegouwenMark);
+        setSubCountForProvince(namenMark);
+        setSubCountForProvince(waalsBrabantMark);
+        setSubCountForProvince(luikMark);
+        setSubCountForProvince(luxemburgMark);
     }
 
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
-        subscriptions = new ArrayList<>();
+
+    }
+
+    private void setSubCountForProvince(Marker marker){
+        String province = marker.getTitle();
+        ArrayList<Gemeente> provinceZips = new ArrayList<>();
+        ArrayList<Subscription> provinceSubs = new ArrayList<>();
+        for (Gemeente indexGemeente : XmlHandler.gemeenteArrayList) {
+            if (indexGemeente.getProvincie() != null && indexGemeente.getProvincie().equalsIgnoreCase(province)){
+                provinceZips.add(indexGemeente);
+            }
+        }
+        for (Subscription indexSub : subscriptions){
+            for (Gemeente indexGemeente : provinceZips){
+                if (indexSub.getZip().equals(indexGemeente.getZip())){
+                    provinceSubs.add(indexSub);
+                }
+            }
+        }
+        if (provinceSubs.size() == 1)
+            marker.setSnippet(provinceSubs.size() + " inschrijving");
+        else
+        marker.setSnippet(provinceSubs.size() + " inschrijvingen");
+        marker.hideInfoWindow();
     }
 }
