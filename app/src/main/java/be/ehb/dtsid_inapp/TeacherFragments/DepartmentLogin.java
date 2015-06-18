@@ -6,6 +6,7 @@ import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -18,6 +19,8 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.concurrent.ExecutionException;
 
 import be.ehb.dtsid_inapp.Activities.TeacherActivity;
 import be.ehb.dtsid_inapp.Database.DatabaseContract;
@@ -39,6 +42,7 @@ public class DepartmentLogin extends Fragment
     private Button loginBTN;
     private Boolean loadingSubscriptions = false;
     private Animation buttonAnim;
+    private String baseURL;
 
     @Nullable
     @Override
@@ -83,35 +87,45 @@ public class DepartmentLogin extends Fragment
                     }
 
                     @Override
-                    public void onAnimationEnd(Animation animation)
-                    {
+                    public void onAnimationEnd(Animation animation) {
+                        try {
+                            baseURL = generateBaseURL(codeET.getText().toString(), activity);
+                        } catch (ExecutionException e) {
+                            e.printStackTrace();
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                        if (baseURL != null) {
+                            PreferenceManager.getDefaultSharedPreferences(activity.getApplicationContext())
+                                    .edit().putString("BASEURL", baseURL);
 
-                        if (!dbc.getAllSubscriptions().isEmpty())
-                        {
-                            everythingIsLoaded(true);
-                            return;
-                        }
-                        else
-                            loadingDatabaseDialog.show();
+                            if (!dbc.getAllSubscriptions().isEmpty()) {
+                                everythingIsLoaded(true);
+                                return;
+                            } else
+                                loadingDatabaseDialog.show();
 
-                        //Start JSONS
-                        if (dbc.getAllTeachers().isEmpty())
-                        {
-                            String urlTeachers = BASEURL + ALL_TEACHERS;
-                            startMyTask(urlTeachers);
-                        }
-                        if (dbc.getAllEvents().isEmpty())
-                        {
-                            String urlEvents = BASEURL + ALL_EVENTS;
-                            startMyTask(urlEvents);
-                        }
-                        if (dbc.getAllSchools().isEmpty())
-                        {
-                            String urlSchools = BASEURL + ALL_SCHOOLS;
-                            startMyTask(urlSchools);
-                        }
+                            //Start JSONS
+                            if (dbc.getAllTeachers().isEmpty()) {
+                                String urlTeachers = baseURL + ALL_TEACHERS;
+                                startMyTask(urlTeachers);
+                            }
+                            if (dbc.getAllEvents().isEmpty()) {
+                                String urlEvents = baseURL + ALL_EVENTS;
+                                startMyTask(urlEvents);
+                            }
+                            if (dbc.getAllSchools().isEmpty()) {
+                                String urlSchools = baseURL + ALL_SCHOOLS;
+                                startMyTask(urlSchools);
+                            }
 
-                        everythingIsLoaded(false);
+                            everythingIsLoaded(false);
+                        }
+                        else {
+                            Toast.makeText(activity.getApplicationContext(),
+                                    "Onbestaande code",Toast.LENGTH_LONG).show();
+                            codeET.setText(null);
+                        }
                     }
 
                     @Override
@@ -144,13 +158,13 @@ public class DepartmentLogin extends Fragment
 
         else if(!dbc.getAllTeachers().isEmpty() && !dbc.getAllEvents().isEmpty() && !dbc.getAllSchools().isEmpty() && loadingSubscriptions == false)
         {
-            String urlSubscriptions = BASEURL + ALL_SUBSCRIPTIONS;
+            String urlSubscriptions = baseURL + ALL_SUBSCRIPTIONS;
             startMyTask(urlSubscriptions);
             loadingSubscriptions = true;
 
             if (dbc.getAllImages().isEmpty())
             {
-                String urlImages = BASEURL + ALL_IMAGES;
+                String urlImages = baseURL + ALL_IMAGES;
                 GetImagesJSONTask imagesJSONTask = new GetImagesJSONTask(DepartmentLogin.this);
                 imagesJSONTask.execute(urlImages);
             }
