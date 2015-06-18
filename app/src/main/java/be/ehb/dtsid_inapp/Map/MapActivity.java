@@ -167,7 +167,8 @@ public class MapActivity extends Activity implements OnMapReadyCallback, GoogleM
     {
         Event selectedEvent = events.get(position);
         for (Subscription index : allSubscriptions) {
-            if (index.getEvent().equals(selectedEvent)){
+            if (index.getEvent().equals(selectedEvent))
+            {
                 subscriptions.add(index);
             }
         }

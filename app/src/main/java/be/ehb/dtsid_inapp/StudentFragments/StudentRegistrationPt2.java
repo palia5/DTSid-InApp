@@ -1,7 +1,9 @@
 package be.ehb.dtsid_inapp.StudentFragments;
 
+import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -38,10 +40,13 @@ public class StudentRegistrationPt2 extends Fragment implements View.OnClickList
     private Subscription currentSubscription;
     private StudentActivity activity;
     private DatabaseContract dbc;
+    private AlertDialog dialog;
+    private AlertDialog.Builder builder;
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+    {
         View v = inflater.inflate(R.layout.fragment_student_registration2_2, container, false);
 
         activity = (StudentActivity) this.getActivity();
@@ -87,6 +92,32 @@ public class StudentRegistrationPt2 extends Fragment implements View.OnClickList
 
         currentSubscription = activity.getCurrentSubscription();
 
+        //Create the AlertDialogBuilder
+        builder = new AlertDialog.Builder(activity);
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener()
+        {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dbc = new DatabaseContract(activity.getApplicationContext());
+                dbc.createSubscription(currentSubscription);
+                dbc.close();
+                Log.d("StudReg2", "digx: " + currentSubscription.getDigx()
+                        + "multec: " + currentSubscription.getMultec()
+                        + "werkstud: " + currentSubscription.getWerkstudent()
+                        + currentSubscription.getFirstName());
+                dialog.dismiss();
+                activity.finish();
+                startActivity(activity.getIntent());
+            }
+        });
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener()
+        {
+            @Override
+            public void onClick(DialogInterface dialog, int which)
+            {
+                dialog.cancel();
+            }
+        });
 
         return v;
     }
@@ -101,15 +132,10 @@ public class StudentRegistrationPt2 extends Fragment implements View.OnClickList
                 break;
 
             case R.id.btn_bevestigen_subscription2:
-                dbc = new DatabaseContract(activity.getApplicationContext());
-                dbc.createSubscription(currentSubscription);
-                dbc.close();
-                Log.d("StudReg2", "digx: " + currentSubscription.getDigx()
-                        + "multec: " + currentSubscription.getMultec()
-                        + "werkstud: " + currentSubscription.getWerkstudent()
-                        + currentSubscription.getFirstName());
-                activity.finish();
-                startActivity(activity.getIntent());
+                builder .setMessage("Signing in - Is this data correct?")
+                        .setTitle("INSERT SUBSCRIPTION HERE");
+                dialog = builder.create();
+                dialog.show();
                 break;
         }
     }
