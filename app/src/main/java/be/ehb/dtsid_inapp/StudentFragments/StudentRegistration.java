@@ -7,12 +7,15 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -30,6 +33,7 @@ import be.ehb.dtsid_inapp.Activities.StudentActivity;
 import be.ehb.dtsid_inapp.Database.DatabaseContract;
 import be.ehb.dtsid_inapp.Models.Gemeente;
 import be.ehb.dtsid_inapp.Models.Subscription;
+import be.ehb.dtsid_inapp.Models.XmlHandler;
 import be.ehb.dtsid_inapp.R;
 
 public class StudentRegistration extends Fragment
@@ -45,9 +49,11 @@ public class StudentRegistration extends Fragment
     EditText straatET;
     EditText huisNummerET;
     EditText postcodeET;
-    Spinner gemeenteSP;
+    AutoCompleteTextView gemeenteSP;
     Button acceptBTN;
     Button cancelBTN;
+
+    Gemeente tempGemeente;
 
     private ImageView logoIV;
     private LinearLayout btnLinLay;
@@ -77,7 +83,7 @@ public class StudentRegistration extends Fragment
         logoIV = (ImageView) v.findViewById(R.id.iv_logo_ehb);
         btnLinLay = (LinearLayout) v.findViewById(R.id.lin_lay_btn_stud_reg_1);
         postcodeET = (EditText) v.findViewById(R.id.et_postcode_subscription1);
-        gemeenteSP = (Spinner) v.findViewById(R.id.sp_gemeente_subscription1);
+        gemeenteSP = (AutoCompleteTextView) v.findViewById(R.id.sp_gemeente_subscription1);
 
         Typeface myCustomFont = Typeface.createFromAsset(activity.getAssets()
                 , "fonts/ehb_font.ttf");
@@ -98,9 +104,12 @@ public class StudentRegistration extends Fragment
         acceptBTN.setTypeface(myCustomFont);
         cancelBTN.setTypeface(myCustomFont);
 
+        tempGemeente = new Gemeente();
+
         if (activity.getCurrentSubscription() == null) 
         {
             clearAllFields();
+
             setEnabled(false);
         }
 
@@ -109,21 +118,19 @@ public class StudentRegistration extends Fragment
             setAllFields(activity.getCurrentSubscription());
         }
 
-        Gemeente g = new Gemeente("3020", "Herent", "Vlaams  Brabant");
-        Gemeente g2 = new Gemeente("3000", "Leuven", "Vlaams  Brabant");
-        Gemeente g3 = new Gemeente("1000", "Brussel", "Brussel");
-        Gemeente g4 = new Gemeente("2000", "Antwerpen", "Antwerpen");
-
         ArrayList<Gemeente> gemeentes = new ArrayList();
-        gemeentes.add(g);
-        gemeentes.add(g2);
-        gemeentes.add(g3);
-        gemeentes.add(g4);
+
+        //AutocompleteTextview might not be the answer...
+
+        gemeentes = XmlHandler.gemeenteArrayList;
 
         ArrayAdapter<Gemeente> adapter = new ArrayAdapter<>(this.getActivity(),
                 android.R.layout.simple_list_item_1, gemeentes);
 
-        gemeenteSP.setAdapter(adapter);
+        //gemeenteSP.setAdapter(adapter);
+
+
+
 
         v.setOnTouchListener(new View.OnTouchListener() 
         {
@@ -193,7 +200,7 @@ public class StudentRegistration extends Fragment
                             currentSubscription.setStreet(straatET.getText().toString());
                             currentSubscription.setStreetNumber(huisNummerET.getText().toString());
                             currentSubscription.setZip(postcodeET.getText().toString());
-                            currentSubscription.setCity(((Gemeente) gemeenteSP.getSelectedItem()).getPlaats());
+                            //currentSubscription.setCity(gemeenteSP.getListSelection());
                             currentSubscription.setTimestamp(new Date());
                             currentSubscription.setTeacher(activity.getTeacher());
                             currentSubscription.setEvent(activity.getEvent());
@@ -237,6 +244,7 @@ public class StudentRegistration extends Fragment
         straatET.setText("");
         huisNummerET.setText("");
         postcodeET.setText("");
+        gemeenteSP.setText("");
         emailET.setBackgroundColor(Color.TRANSPARENT);
     }
 
@@ -257,6 +265,7 @@ public class StudentRegistration extends Fragment
         straatET.setEnabled(enabled);
         huisNummerET.setEnabled(enabled);
         postcodeET.setEnabled(enabled);
+        gemeenteSP.setEnabled(enabled);
         acceptBTN.setEnabled(enabled);
         cancelBTN.setEnabled(enabled);
         if (enabled)
