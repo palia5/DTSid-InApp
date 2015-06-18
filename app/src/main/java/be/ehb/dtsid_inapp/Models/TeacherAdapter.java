@@ -68,6 +68,7 @@ public class TeacherAdapter extends BaseAdapter
         Teacher teacherByRow = teachers.get(position);
 
         holder.teacherTV.setText(teacherByRow.getName());
+
         Typeface myCustomFont = Typeface.createFromAsset(context.getAssets()
                 , "fonts/ehb_font.ttf");
 

@@ -27,6 +27,7 @@ public class EventAdapter extends BaseAdapter
     {
         inflater = activity.getLayoutInflater();
         this.events = events;
+        this.context = activity;
     }
 
     @Override
@@ -66,6 +67,11 @@ public class EventAdapter extends BaseAdapter
         Event eventByRow = events.get(position);
 
         holder.eventTV.setText(eventByRow.getName());
+
+        Typeface myCustomFont = Typeface.createFromAsset(context.getAssets()
+                , "fonts/ehb_font.ttf");
+
+        holder.eventTV.setTypeface(myCustomFont);
 
         return convertView;
     }

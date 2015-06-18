@@ -29,6 +29,7 @@ public class SubscriptionAdapter extends BaseAdapter
     {
         this.subscriptionArrayList = subscriptionArrayList;
         inflater = activity.getLayoutInflater();
+        this.context = activity;
     }
 
     @Override
@@ -73,6 +74,18 @@ public class SubscriptionAdapter extends BaseAdapter
         holder.naamVoornaamTV.setText(subscriptionByRow.getLastName().toString() + " " + subscriptionByRow.getFirstName().toString());
         holder.interestTV.setText(subscriptionByRow.getInterests().toString());
         holder.schoolTV.setText(subscriptionByRow.getSchool().getName());
+
+        Typeface myCustomFont = Typeface.createFromAsset(context.getAssets()
+                , "fonts/ehb_font.ttf");
+
+        holder.naamVoornaamTV.setTypeface(myCustomFont);
+        holder.interestTV.setTypeface(myCustomFont);
+        holder.schoolTV.setTypeface(myCustomFont);
+
+
+        //View v = super.getView(position, convertView, parent);
+        //((TextView) v).setTypeface(StaticUtils.sTypeFace(getApplicationContext()));//Typeface for normal view
+
 
         return convertView;
     }
