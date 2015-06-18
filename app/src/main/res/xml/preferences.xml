@@ -3,7 +3,7 @@
 
     <SwitchPreference
         android:key="pref_sw_autosynx"
-        android:title="@string/txt_label_autosync_syncscreen"/>
+        android:title="@string/txt_label_autosync_syncscreen" />
 
     <PreferenceCategory>
         <SwitchPreference
