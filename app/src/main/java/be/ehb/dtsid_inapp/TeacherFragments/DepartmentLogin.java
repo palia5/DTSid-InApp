@@ -159,10 +159,12 @@ public class DepartmentLogin extends Fragment
 
     public void fillDB()
     {
-        if (!dbc.getAllSubscriptions().isEmpty() && secret.equals(getStringFromSharedPrefs("SECRET"))) {
+        if (!dbc.getAllSubscriptions().isEmpty() && secret.equals(getStringFromSharedPrefs("SECRET")))
+        {
             everythingIsLoaded(true);
-            return;
-        } else if (!baseURL.equals("http://null")) {
+        }
+        else if (!baseURL.equals("http://null"))
+        {
             putStringInSharedPrefs("BASEURL", baseURL);
             putStringInSharedPrefs("SECRET", secret);
             loadingDatabaseDialog.show();
@@ -183,7 +185,8 @@ public class DepartmentLogin extends Fragment
 
             everythingIsLoaded(false);
         }
-        else {
+        else
+        {
             Toast.makeText(activity.getApplicationContext(),
                     "Onbestaande code",Toast.LENGTH_LONG).show();
             codeET.setText(null);
@@ -206,10 +209,14 @@ public class DepartmentLogin extends Fragment
                     .commit();
         }
 
-        else if(!dbc.getAllTeachers().isEmpty() && !dbc.getAllEvents().isEmpty() && !dbc.getAllSchools().isEmpty() && loadingSubscriptions == false)
+        else if(!dbc.getAllTeachers().isEmpty() && !dbc.getAllEvents().isEmpty() && !dbc.getAllSchools().isEmpty() && !loadingSubscriptions)
         {
-            String urlSubscriptions = baseURL + ALL_SUBSCRIPTIONS;
-            startMyTask(urlSubscriptions);
+            if(dbc.getAllSubscriptions().isEmpty())
+            {
+                String urlSubscriptions = baseURL + ALL_SUBSCRIPTIONS;
+                startMyTask(urlSubscriptions);
+            }
+
             loadingSubscriptions = true;
 
             if (dbc.getAllImages().isEmpty())
@@ -224,7 +231,7 @@ public class DepartmentLogin extends Fragment
     public void noInternet()
     {
         loadingDatabaseDialog.dismiss();
-        //Toast.makeText(activity, "NO INTERNET" , Toast.LENGTH_SHORT).show();
+        Toast.makeText(activity, "NO INTERNET" , Toast.LENGTH_SHORT).show();
     }
 
     // PARALLEL ASYNCS
@@ -238,14 +245,16 @@ public class DepartmentLogin extends Fragment
             jsonTask.execute(url);
     }
 
-    private void putStringInSharedPrefs(String tag, String value){
+    private void putStringInSharedPrefs(String tag, String value)
+    {
         PreferenceManager.getDefaultSharedPreferences(activity.getApplicationContext())
-                .edit().putString(tag, value);
+                .edit().putString(tag, value).commit();
     }
 
-    private String getStringFromSharedPrefs(String tag){
+    private String getStringFromSharedPrefs(String tag)
+    {
         String storedSecret = PreferenceManager.getDefaultSharedPreferences(activity.getApplicationContext())
-                .getString("SECRET", null);
+                .getString(tag, null);
         return storedSecret;
     }
 
