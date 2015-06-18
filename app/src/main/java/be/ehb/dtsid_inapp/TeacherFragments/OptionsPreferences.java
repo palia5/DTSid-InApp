@@ -32,14 +32,14 @@ public class OptionsPreferences extends PreferenceFragment
     private SwitchPreference closesyncSW;
     private Activity context;
 
-   /*@Override
+   @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = super.onCreateView(inflater, container, savedInstanceState);
 
-        view.setBackgroundColor();
+        view.setBackgroundColor(Color.parseColor("#ffbca1a5"));
 
         return view;
-    }*/
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState)
