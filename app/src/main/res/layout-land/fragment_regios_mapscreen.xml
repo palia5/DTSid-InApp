@@ -16,7 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/txt_label_events_mapscreen"
-            android:id="@+id/tv_label_regios_mapscreen"
+            android:id="@+id/tv_label_event_mapscreen"
             android:textSize="20sp"
             android:layout_marginTop="25dp" />
 

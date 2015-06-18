@@ -3,6 +3,9 @@ package be.ehb.dtsid_inapp.Map;
 import android.app.Activity;
 import android.os.Bundle;
 import android.graphics.Typeface;
+import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -17,16 +20,29 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static be.ehb.dtsid_inapp.Map.MapContract.*;
 
+import be.ehb.dtsid_inapp.Database.DatabaseContract;
+import be.ehb.dtsid_inapp.Models.Event;
+import be.ehb.dtsid_inapp.Models.EventAdapter;
+import be.ehb.dtsid_inapp.Models.Subscription;
 import be.ehb.dtsid_inapp.R;
 
 public class MapActivity extends Activity implements OnMapReadyCallback, GoogleMap.OnInfoWindowClickListener, GoogleMap.OnMapClickListener,
-        GoogleMap.OnMarkerClickListener {
+        GoogleMap.OnMarkerClickListener, AdapterView.OnItemSelectedListener {
 
     private GoogleMap mMap;
     private MapFragment mMapFragment;
-    private TextView regiosTV;
+    private TextView eventsTV;
+    private Spinner eventSP;
+    private List<Event> events;
+    private List<Subscription> subscriptions;
+    private List<Subscription> allSubscriptions;
+    private EventAdapter eventAdapter;
+    private DatabaseContract dbc;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,12 +52,21 @@ public class MapActivity extends Activity implements OnMapReadyCallback, GoogleM
         mMapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.frgm_regios_map);
         mMapFragment.getMapAsync(this);
 
-        regiosTV = (TextView) findViewById(R.id.tv_label_regios_mapscreen);
+        eventsTV = (TextView) findViewById(R.id.tv_label_event_mapscreen);
+        eventSP = (Spinner) findViewById(R.id.sp_events_mapscreen);
+
+        dbc = new DatabaseContract(getApplicationContext());
 
         Typeface myCustomFont = Typeface.createFromAsset(this.getAssets()
                 , "fonts/ehb_font.ttf");
 
-        regiosTV.setTypeface(myCustomFont);
+        eventsTV.setTypeface(myCustomFont);
+        events = (ArrayList) dbc.getAllEvents();
+        eventAdapter = new EventAdapter(this, events);
+        eventSP.setAdapter(eventAdapter);
+        eventSP.setOnItemSelectedListener(this);
+
+        subscriptions = new ArrayList<>();
 
     }
 
@@ -135,5 +160,22 @@ public class MapActivity extends Activity implements OnMapReadyCallback, GoogleM
                 .title("Luxemburg")
                 .snippet("TO DO")
                 .icon(BitmapDescriptorFactory.fromResource(iconResource)));
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        allSubscriptions.clear();
+        Event selectedEvent = events.get(position);
+        allSubscriptions = dbc.getAllSubscriptions();
+        for (Subscription index : subscriptions) {
+            if (index.getEvent().equals(selectedEvent)){
+                subscriptions.add(index);
+            }
+        }
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+        subscriptions = new ArrayList<>();
     }
 }
