@@ -3,9 +3,6 @@ package be.ehb.dtsid_inapp.TeacherFragments;
 import android.app.Fragment;
 import android.app.ProgressDialog;
 import android.graphics.Typeface;
-import android.content.Context;
-import android.content.res.Resources;
-import android.content.res.XmlResourceParser;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -21,7 +18,6 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,27 +28,14 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
-import java.util.concurrent.ExecutionException;
-
-import org.xmlpull.v1.XmlPullParser;
-import org.xmlpull.v1.XmlPullParserException;
-import org.xmlpull.v1.XmlPullParserFactory;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
-
-import javax.xml.parsers.SAXParser;
 
 import be.ehb.dtsid_inapp.Activities.TeacherActivity;
 import be.ehb.dtsid_inapp.Database.DatabaseContract;
 import be.ehb.dtsid_inapp.JSONTasks.GetImagesJSONTask;
 import be.ehb.dtsid_inapp.JSONTasks.GetJSONTask;
-import be.ehb.dtsid_inapp.Models.Gemeente;
 import be.ehb.dtsid_inapp.R;
 
 import static be.ehb.dtsid_inapp.JSONTasks.JSONContract.*;
-import static be.ehb.dtsid_inapp.Database.MySQLiteHelper.*;
 
 public class DepartmentLogin extends Fragment
 {
@@ -67,9 +50,11 @@ public class DepartmentLogin extends Fragment
     private Animation buttonAnim;
     private String baseURL, secret;
 
-    private Handler depCodeHandler = new Handler(){
+    private Handler depCodeHandler = new Handler()
+    {
         @Override
-        public void handleMessage(Message msg) {
+        public void handleMessage(Message msg)
+        {
             super.handleMessage(msg);
 
             fillDB();
@@ -118,67 +103,46 @@ public class DepartmentLogin extends Fragment
                     @Override
                     public void onAnimationEnd(Animation animation)
                     {
-                        loginBTN.setVisibility(View.INVISIBLE);
-
-                        if (!dbc.getAllSubscriptions().isEmpty())
+                        secret = codeET.getText().toString();
+                        Thread workerThread = new Thread(new Runnable()
                         {
-                            everythingIsLoaded(true);
-                            return;
-                        }
-                        else
-                            loadingDatabaseDialog.show();
+                            @Override
+                            public void run()
+                            {
+                                URL url;
+                                try
+                                {
+                                    url = new URL("http://deptcodes.appspot.com/deptcode/"+secret);
+                                    HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+                                    connection.setRequestMethod("GET");
+                                    connection.connect();
 
-                        //Start JSONS
-                        if (dbc.getAllTeachers().isEmpty())
-                        {
-                            String urlTeachers = BASEURL + ALL_TEACHERS;
-                            startMyTask(urlTeachers);
-                        }
-                        if (dbc.getAllEvents().isEmpty())
-                        {
-                            String urlEvents = BASEURL + ALL_EVENTS;
-                            startMyTask(urlEvents);
-                        }
-                        if (dbc.getAllSchools().isEmpty())
-                        {
-                            String urlSchools = BASEURL + ALL_SCHOOLS;
-                            startMyTask(urlSchools);
-                        }/*
-                        if (dbc.getAllImages().isEmpty())
-                        {
-                            String urlImages = BASEURL + ALL_IMAGES;
-                            startMyTask(urlImages);
-                        }*/
+                                    Log.d("TEST connection", connection.toString());
 
-                                   URL url;
-                                   try {
-                                       url = new URL("http://deptcodes.appspot.com/deptcode/"+secret);
-                                       HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-                                       connection.setRequestMethod("GET");
-                                       connection.connect();
+                                    BufferedReader reader = new BufferedReader(
+                                            new InputStreamReader(connection.getInputStream()));
+                                    baseURL = "http://" +  reader.readLine();
+                                    Log.d("TEST getBaseUrl", baseURL);
 
-                                       Log.d("TEST connection", connection.toString());
+                                    Log.d("TEST", "sending message");
+                                    depCodeHandler.sendEmptyMessage(0);
 
-                                       BufferedReader reader = new BufferedReader(
-                                               new InputStreamReader(connection.getInputStream()));
-                                       baseURL = "http://" +  reader.readLine();
-                                       Log.d("TEST getBaseUrl", baseURL);
+                                }
+                                catch (MalformedURLException e)
+                                {
+                                    e.printStackTrace();
+                                }
+                                catch (ProtocolException e)
+                                {
+                                    e.printStackTrace();
+                                }
+                                catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        });
 
-                                       Log.d("TEST", "sending message");
-                                       depCodeHandler.sendEmptyMessage(0);
-
-                               } catch (MalformedURLException e) {
-                                   e.printStackTrace();
-                               } catch (ProtocolException e) {
-                                   e.printStackTrace();
-                               } catch (IOException e) {
-                                   e.printStackTrace();
-                               }
-                               }
-                           });
                         workerThread.start();
-
-
                     }
 
                     @Override

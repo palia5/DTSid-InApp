@@ -80,7 +80,7 @@
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:text="@string/txt_label_studentteller_dashboard"
             android:id="@+id/tv_studentteller_dashboard"
-            android:textSize="16sp"
+            android:textSize="20sp"
             android:layout_marginTop="75dp"
             android:layout_marginLeft="25dp" />
 
