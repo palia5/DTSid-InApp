@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -70,8 +71,10 @@ public class TeacherLogin extends Fragment
         //Teacher spinner
         final List<Teacher> teachers = new ArrayList<>();
         for(int i = 0 ; i < dbc.getAllTeachers().size() ; i++)
-            if(dbc.getAllTeachers().get(i).getAcadyear() == activity.getCurrentYear())
+            if(dbc.getAllTeachers().get(i).getAcadyear() == activity.getCurrentYear()) {
                 teachers.add(dbc.getAllTeachers().get(i));
+                Log.d("Map to options TL)", activity.getCurrentYear() + "");
+            }
 
         teacherSP = (Spinner) v.findViewById(R.id.sp_docent_loginscreen);
         teacherAdapter = new TeacherAdapter(activity, teachers);

@@ -14,6 +14,7 @@ import android.util.Log;
 
 import java.util.GregorianCalendar;
 
+import be.ehb.dtsid_inapp.Map.MapActivity;
 import be.ehb.dtsid_inapp.Models.Department;
 import be.ehb.dtsid_inapp.Models.Event;
 import be.ehb.dtsid_inapp.Models.Teacher;
@@ -66,12 +67,27 @@ public class TeacherActivity extends AppCompatActivity
     protected void onStart()
     {
         super.onStart();
+Log.d("Map to options", getIntent().toString());
+        if (getIntent().hasExtra("CurrentDepartment"))
+        {
+            Log.d("Map to options", "Will this work?");
+            department = (Department) getIntent().getSerializableExtra("CurrentDepartment");
+            event = (Event) getIntent().getSerializableExtra("CurrentEvent");
+            teacher = (Teacher) getIntent().getSerializableExtra("CurrentTeacher");
+            currentYear = getIntent().getIntExtra("CurrentYear", 0);
+            getFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.teacherContainer, new Options(), "OPTIONS_DASHBOARD")
+                    .commit();
+        }
 
-        //Start first fragment
-        getFragmentManager()
-                .beginTransaction()
-                .replace(R.id.teacherContainer, new DepartmentLogin(), "DEPARTMENT_LOGIN")
-                .commit();
+        else {
+            //Start first fragment
+            getFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.teacherContainer, new DepartmentLogin(), "DEPARTMENT_LOGIN")
+                    .commit();
+        }
     }
 
     public Department getDepartment() {

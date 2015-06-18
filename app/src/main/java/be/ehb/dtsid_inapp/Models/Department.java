@@ -1,5 +1,7 @@
 package be.ehb.dtsid_inapp.Models;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Dorothée
@@ -8,7 +10,7 @@ package be.ehb.dtsid_inapp.Models;
  *
  */
 
-public class Department
+public class Department implements Serializable
 {
     //Variables
     private Long id;

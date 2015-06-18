@@ -17,7 +17,11 @@ import java.net.ProtocolException;
 import java.net.URL;
 
 /**
- * Created by tomnahooy on 17/06/15.
+ *
+ * @author Tom
+ * @version 1.0
+ *
+ *
  */
 public class GetBaseUrl extends AsyncTask<String, Integer, String> {
 

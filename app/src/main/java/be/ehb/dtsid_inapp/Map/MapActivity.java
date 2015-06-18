@@ -1,6 +1,7 @@
 package be.ehb.dtsid_inapp.Map;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.graphics.Typeface;
 import android.util.Log;
@@ -25,7 +26,10 @@ import java.util.List;
 
 import static be.ehb.dtsid_inapp.Map.MapContract.*;
 
+import be.ehb.dtsid_inapp.Activities.TeacherActivity;
 import be.ehb.dtsid_inapp.Database.DatabaseContract;
+import be.ehb.dtsid_inapp.JSONTasks.JSONContract;
+import be.ehb.dtsid_inapp.Models.Department;
 import be.ehb.dtsid_inapp.Models.Event;
 import be.ehb.dtsid_inapp.Models.EventAdapter;
 import be.ehb.dtsid_inapp.Models.Gemeente;
@@ -33,6 +37,14 @@ import be.ehb.dtsid_inapp.Models.Subscription;
 import be.ehb.dtsid_inapp.Models.Teacher;
 import be.ehb.dtsid_inapp.Models.XmlHandler;
 import be.ehb.dtsid_inapp.R;
+
+/**
+ *
+ * @author Tom
+ * @version 1.0
+ *
+ *
+ */
 
 public class MapActivity extends Activity implements OnMapReadyCallback, GoogleMap.OnInfoWindowClickListener, GoogleMap.OnMapClickListener,
         GoogleMap.OnMarkerClickListener, AdapterView.OnItemSelectedListener {
@@ -47,11 +59,13 @@ public class MapActivity extends Activity implements OnMapReadyCallback, GoogleM
     private EventAdapter eventAdapter;
     private DatabaseContract dbc;
     private MarkerOptions vlaamsBrabant, antwerpen, limburg, westVlaanderen, oostVlaanderen,
-    luik, henegouwen, namen, luxemburg, waalsBrabant;
+    luik, henegouwen, namen, luxemburg, waalsBrabant, brusselHoofdstad;
     private Event currentEvent;
     private Teacher currentTeacher;
+    private Department currentDepartment;
     private Marker limburgMark, vlaamsBrabantMark, antwerpenMark, westVlaanderenMark, oostVlaanderenMark,
-            luikMark, henegouwenMark, namenMark, luxemburgMark, waalsBrabantMark;
+            luikMark, henegouwenMark, namenMark, luxemburgMark, waalsBrabantMark, brusselHoofdstadMark;
+    private int currentYear;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +74,8 @@ public class MapActivity extends Activity implements OnMapReadyCallback, GoogleM
 
         currentEvent = (Event) getIntent().getSerializableExtra("CurrentEvent");
         currentTeacher = (Teacher) getIntent().getSerializableExtra("CurrentTeacher");
+        currentDepartment = (Department) getIntent().getSerializableExtra("CurrentDepartment");
+        currentYear = getIntent().getIntExtra("CurrentYear", 0);
 
         mMapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.frgm_regios_map);
         mMapFragment.getMapAsync(this);
@@ -90,7 +106,7 @@ public class MapActivity extends Activity implements OnMapReadyCallback, GoogleM
         mMap.setOnMapClickListener(this);
         mMap.setOnMarkerClickListener(this);
         mMap.setOnInfoWindowClickListener(this);
-        CameraUpdate	cu	=	CameraUpdateFactory.newLatLngZoom(WAALS_BRABANT, 8);
+        CameraUpdate	cu	=	CameraUpdateFactory.newLatLngZoom(BRUSSEL_HOOFDSTAD, 8);
         mMap.animateCamera(cu);
         addMarkers(R.drawable.custom_marker);
     }
@@ -136,11 +152,17 @@ public class MapActivity extends Activity implements OnMapReadyCallback, GoogleM
                 .icon(BitmapDescriptorFactory.fromResource(iconResource));
                 westVlaanderenMark = mMap.addMarker(westVlaanderen);
 
-        oostVlaanderen =new MarkerOptions()
+        oostVlaanderen = new MarkerOptions()
                 .position(OOST_VLAANDEREN)
                 .title("Oost-Vlaanderen")
                 .icon(BitmapDescriptorFactory.fromResource(iconResource));
                 oostVlaanderenMark = mMap.addMarker(oostVlaanderen);
+
+        brusselHoofdstad = new MarkerOptions()
+                .position(BRUSSEL_HOOFDSTAD)
+                .title("Brussel (19 gemeenten)")
+                .icon(BitmapDescriptorFactory.fromResource(iconResource));
+        brusselHoofdstadMark = mMap.addMarker(brusselHoofdstad);
 
         luik = new MarkerOptions()
                 .position(LUIK)
@@ -187,6 +209,7 @@ public class MapActivity extends Activity implements OnMapReadyCallback, GoogleM
         setSubCountForProvince(limburgMark);
         setSubCountForProvince(westVlaanderenMark);
         setSubCountForProvince(oostVlaanderenMark);
+        setSubCountForProvince(brusselHoofdstadMark);
         setSubCountForProvince(henegouwenMark);
         setSubCountForProvince(namenMark);
         setSubCountForProvince(waalsBrabantMark);
@@ -220,5 +243,15 @@ public class MapActivity extends Activity implements OnMapReadyCallback, GoogleM
         else
         marker.setSnippet(provinceSubs.size() + " inschrijvingen");
         marker.hideInfoWindow();
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent backIntent = new Intent(this, TeacherActivity.class);
+        backIntent.putExtra("CurrentEvent", currentEvent);
+        backIntent.putExtra("CurrentDepartment", currentDepartment);
+        backIntent.putExtra("CurrentTeacher", currentTeacher);
+        backIntent.putExtra("CurrentYear", currentYear);
+        startActivity(backIntent);
     }
 }

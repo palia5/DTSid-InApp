@@ -60,8 +60,8 @@ public class Options extends Fragment implements View.OnClickListener
         dbc = new DatabaseContract(activity.getApplicationContext());
 
         loadingDatabaseDialog = new ProgressDialog(activity);
-        loadingDatabaseDialog.setTitle("Syncing database");
-        loadingDatabaseDialog.setMessage("Syncing.. pls halp..");
+        loadingDatabaseDialog.setTitle("Bezig met synchroniseren");
+        loadingDatabaseDialog.setMessage("Even geduld");
 
         departementLabel = (TextView) v.findViewById(R.id.tv_label_departement_dashboard);
         medewerkerLabel = (TextView) v.findViewById(R.id.tv_label_medewerker_dashboard);
@@ -164,6 +164,8 @@ public class Options extends Fragment implements View.OnClickListener
                 Intent regionIntent = new Intent(getActivity(), MapActivity.class);
                 regionIntent.putExtra("CurrentEvent", activity.getEvent());
                 regionIntent.putExtra("CurrentTeacher", activity.getTeacher());
+                regionIntent.putExtra("CurrentDepartment", activity.getDepartment());
+                regionIntent.putExtra("CurrentYear", activity.getCurrentYear());
                // regionIntent.putExtra("Teacher_id", activity.getTeacher().getId());
                // regionIntent.putExtra("Event_id", activity.getEvent().getId());
                 startActivity(regionIntent);
