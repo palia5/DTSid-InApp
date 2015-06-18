@@ -109,6 +109,7 @@ public class StudentRegistration extends Fragment
         if (activity.getCurrentSubscription() == null) 
         {
             clearAllFields();
+
             setEnabled(false);
         }
 
