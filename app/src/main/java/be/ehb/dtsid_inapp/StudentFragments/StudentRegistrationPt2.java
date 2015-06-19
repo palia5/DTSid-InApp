@@ -209,7 +209,7 @@ public class StudentRegistrationPt2 extends Fragment implements View.OnClickList
                                     "\nStreet: " + currentSubscription.getStreet() + " " + currentSubscription.getStreetNumber() +
                                     "\nSchool: " + currentSubscription.getSchool().getName() +
                                     "\nInterested in DigX: " + currentSubscription.getDigx() +
-                                    "\nInterested in MulTex: " + currentSubscription.getMultec() +
+                                    "\nInterested in MulTec: " + currentSubscription.getMultec() +
                                     "\nWorking student: " + currentSubscription.getWerkstudent())
                         .setTitle("Signing in - Is this data correct?");
                 dialog = builder.create();

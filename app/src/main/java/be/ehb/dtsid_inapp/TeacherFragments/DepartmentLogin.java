@@ -88,7 +88,7 @@ public class DepartmentLogin extends Fragment
 
         loadingDatabaseDialog = new ProgressDialog(activity);
         loadingDatabaseDialog.setTitle("Downloading database");
-        loadingDatabaseDialog.setMessage("Loading.. pls stahp..");
+        loadingDatabaseDialog.setMessage("Loading...");
 
         codeTV = (TextView) v.findViewById(R.id.tv_label_code_launchscreen);
         codeET = (EditText) v.findViewById(R.id.et_code_launchscreen);

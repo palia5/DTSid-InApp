@@ -386,10 +386,6 @@ public class StudentRegistration extends Fragment implements View.OnClickListene
                             .addToBackStack(null)
                             .commit();
                 }
-                else {
-                    acceptBTN.setVisibility(View.VISIBLE);
-                    cancelBTN.setVisibility(View.VISIBLE);
-                }
                 break;
             case R.id.btn_annuleren_subscription1:
                 clearAllFields();
