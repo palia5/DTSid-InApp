@@ -5,7 +5,7 @@ android {
         Release {
             keyAlias 'DTReleaseKey'
             keyPassword 'Klotending'
-            storeFile file('/Users/tomnahooy/Android Keystores/DTSidInApp.jks')
+            storeFile file('/Users/mobapp012/Desktop/Eindproject/DTSidInApp.jks')
             storePassword 'Klotending'
         }
     }
