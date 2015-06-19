@@ -169,13 +169,14 @@
         android:layout_marginTop="10dp"
         android:layout_marginLeft="50dp" />
 
-    <Spinner
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:id="@+id/sp_gemeente_subscription1"
-        android:spinnerMode="dropdown"
-        android:layout_marginTop="5dp"
-        android:layout_marginLeft="50dp"/>
+        <EditText
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:ems="12"
+            android:id="@+id/et_gemeente_subscription1"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="50dp"
+            android:clickable="false"/>
 
         <LinearLayout
             android:orientation="horizontal"

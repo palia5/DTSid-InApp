@@ -1,26 +1,24 @@
 package be.ehb.dtsid_inapp.StudentFragments;
 
 import android.app.Fragment;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -48,12 +46,14 @@ public class StudentRegistration extends Fragment
     EditText voorNaamET;
     EditText straatET;
     EditText huisNummerET;
-    EditText postcodeET;
-    AutoCompleteTextView gemeenteSP;
+    EditText postcodeET, gemeenteET;
     Button acceptBTN;
     Button cancelBTN;
 
-    Gemeente tempGemeente;
+    //Gemeente auto complete stuff
+    private ArrayList<Gemeente> allGemeenten;
+    private ArrayList<String> relevanteGemeenteNames;
+    private ArrayAdapter gemeenteAdapter;
 
     private ImageView logoIV;
     private LinearLayout btnLinLay;
@@ -65,6 +65,7 @@ public class StudentRegistration extends Fragment
     {
         View v = inflater.inflate(R.layout.fragment_student_registration1_2, container, false);
         activity = (StudentActivity) this.getActivity();
+        allGemeenten = XmlHandler.gemeenteArrayList;
 
         emailTV = (TextView) v.findViewById(R.id.tv_label_email_subscription1);
         naamTV = (TextView) v.findViewById(R.id.tv_label_naam_subscription1);
@@ -83,7 +84,7 @@ public class StudentRegistration extends Fragment
         logoIV = (ImageView) v.findViewById(R.id.iv_logo_ehb);
         btnLinLay = (LinearLayout) v.findViewById(R.id.lin_lay_btn_stud_reg_1);
         postcodeET = (EditText) v.findViewById(R.id.et_postcode_subscription1);
-        gemeenteSP = (AutoCompleteTextView) v.findViewById(R.id.sp_gemeente_subscription1);
+        gemeenteET = (EditText) v.findViewById(R.id.et_gemeente_subscription1);
 
         Typeface myCustomFont = Typeface.createFromAsset(activity.getAssets()
                 , "fonts/ehb_font.ttf");
@@ -104,7 +105,55 @@ public class StudentRegistration extends Fragment
         acceptBTN.setTypeface(myCustomFont);
         cancelBTN.setTypeface(myCustomFont);
 
-        tempGemeente = new Gemeente();
+        //Zip Auto Complete
+        postcodeET.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(s.length() == 4){
+                    if (getRelevanteGemeentenNames(s.toString()).isEmpty()){
+                        Toast.makeText(activity.getApplicationContext(), "Postcode niet gevonden!",
+                                Toast.LENGTH_LONG).show();
+                        postcodeET.setText("");
+                        gemeenteET.setText("");
+                    }
+                    else {
+                        ArrayList relevanteGemeenten = getRelevanteGemeentenNames(s.toString());
+                        final String[] relevanteGemeentenArray = (String[]) relevanteGemeenten.toArray(new String[relevanteGemeenten.size()]);
+                        android.app.AlertDialog.Builder gemeentenDialogBuilder = new android.app.AlertDialog.Builder(activity);
+                        gemeentenDialogBuilder.setTitle("Gemeenten");
+                        gemeentenDialogBuilder.setItems(relevanteGemeentenArray, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                gemeenteET.setText(relevanteGemeentenArray[which]);
+                                dialog.dismiss();
+                            }
+                        });
+                        gemeentenDialogBuilder.setNegativeButton("Annuleren", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                postcodeET.setText("");
+                                gemeenteET.setText("");
+                                dialog.dismiss();
+                            }
+                        });
+                        android.app.AlertDialog gemeentenDialog = gemeentenDialogBuilder.create();
+                        gemeentenDialog.show();
+                    }
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+
 
         if (activity.getCurrentSubscription() == null) 
         {
@@ -117,19 +166,6 @@ public class StudentRegistration extends Fragment
         {
             setAllFields(activity.getCurrentSubscription());
         }
-
-        ArrayList<Gemeente> gemeentes = new ArrayList();
-
-        //AutocompleteTextview might not be the answer...
-
-        gemeentes = XmlHandler.gemeenteArrayList;
-
-        ArrayAdapter<Gemeente> adapter = new ArrayAdapter<>(this.getActivity(),
-                android.R.layout.simple_list_item_1, gemeentes);
-
-        //gemeenteSP.setAdapter(adapter);
-
-
 
 
         v.setOnTouchListener(new View.OnTouchListener() 
@@ -200,7 +236,7 @@ public class StudentRegistration extends Fragment
                             currentSubscription.setStreet(straatET.getText().toString());
                             currentSubscription.setStreetNumber(huisNummerET.getText().toString());
                             currentSubscription.setZip(postcodeET.getText().toString());
-                            //currentSubscription.setCity(gemeenteSP.getListSelection());
+                            //currentSubscription.setCity(gemeenteET.getListSelection());
                             currentSubscription.setTimestamp(new Date());
                             currentSubscription.setTeacher(activity.getTeacher());
                             currentSubscription.setEvent(activity.getEvent());
@@ -244,7 +280,6 @@ public class StudentRegistration extends Fragment
         straatET.setText("");
         huisNummerET.setText("");
         postcodeET.setText("");
-        gemeenteSP.setText("");
         emailET.setBackgroundColor(Color.TRANSPARENT);
     }
 
@@ -265,7 +300,7 @@ public class StudentRegistration extends Fragment
         straatET.setEnabled(enabled);
         huisNummerET.setEnabled(enabled);
         postcodeET.setEnabled(enabled);
-        gemeenteSP.setEnabled(enabled);
+        gemeenteET.setEnabled(enabled);
         acceptBTN.setEnabled(enabled);
         cancelBTN.setEnabled(enabled);
         if (enabled)
@@ -302,6 +337,17 @@ public class StudentRegistration extends Fragment
 
         return true;
     }
+
+    private ArrayList<String> getRelevanteGemeentenNames(String postcode){
+        ArrayList<String> gemeentenForPostcode = new ArrayList<>();
+        for (Gemeente i : allGemeenten){
+            if (i.getZip().equals(postcode)){
+                gemeentenForPostcode.add(i.getPlaats());
+            }
+        }
+        return gemeentenForPostcode;
+    }
+
 
     public Subscription getCurrentSubscription() {
         return currentSubscription;

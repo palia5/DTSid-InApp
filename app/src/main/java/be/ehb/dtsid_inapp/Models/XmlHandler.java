@@ -45,13 +45,12 @@ public class XmlHandler extends DefaultHandler {
         super.startElement(uri, localName, qName, attributes);
 
         if (localName.equals("record")) {
-            tempGemeente = new Gemeente();
-            Log.d("Test_", "startElement");
+            tempGemeente = new Gemeente();;
         }
         if (localName.equalsIgnoreCase("Postcode")){
             stringBuilder = new StringBuilder();
         }
-        if (localName.equalsIgnoreCase("Plaats")){
+        if (localName.equalsIgnoreCase("Plaatsnaam")){
             stringBuilder = new StringBuilder();
         }
         if (localName.equalsIgnoreCase("Provincie")){

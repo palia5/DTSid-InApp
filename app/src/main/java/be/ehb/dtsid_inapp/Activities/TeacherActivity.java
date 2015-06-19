@@ -67,10 +67,8 @@ public class TeacherActivity extends AppCompatActivity
     protected void onStart()
     {
         super.onStart();
-Log.d("Map to options", getIntent().toString());
         if (getIntent().hasExtra("CurrentDepartment"))
         {
-            Log.d("Map to options", "Will this work?");
             department = (Department) getIntent().getSerializableExtra("CurrentDepartment");
             event = (Event) getIntent().getSerializableExtra("CurrentEvent");
             teacher = (Teacher) getIntent().getSerializableExtra("CurrentTeacher");
