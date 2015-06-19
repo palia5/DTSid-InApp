@@ -1,6 +1,7 @@
 package be.ehb.dtsid_inapp.StudentFragments;
 
 import android.app.Fragment;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -16,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -82,12 +84,12 @@ public class StudentRegistration extends Fragment implements View.OnClickListene
         voorNaamET = (EditText) v.findViewById(R.id.et_voornaam_subscription1);
         straatET = (EditText) v.findViewById(R.id.et_straat_subscription1);
         huisNummerET = (EditText) v.findViewById(R.id.et_huisnummer_subscription1);
+        postcodeET = (EditText) v.findViewById(R.id.et_postcode_subscription1);
+        gemeenteET = (EditText) v.findViewById(R.id.et_gemeente_subscription1);
         acceptBTN = (Button) v.findViewById(R.id.btn_bevestigen_subscription1);
         cancelBTN = (Button) v.findViewById(R.id.btn_annuleren_subscription1);
         logoIV = (ImageView) v.findViewById(R.id.iv_logo_ehb);
         btnLinLay = (LinearLayout) v.findViewById(R.id.lin_lay_btn_stud_reg_1);
-        postcodeET = (EditText) v.findViewById(R.id.et_postcode_subscription1);
-        gemeenteET = (EditText) v.findViewById(R.id.et_gemeente_subscription1);
         buttonAnim = AnimationUtils.loadAnimation(activity.getApplicationContext(), R.anim.button_animation_basic);
 
         Typeface myCustomFont = Typeface.createFromAsset(activity.getAssets()
@@ -106,8 +108,12 @@ public class StudentRegistration extends Fragment implements View.OnClickListene
         straatET.setTypeface(myCustomFont);
         huisNummerET.setTypeface(myCustomFont);
         postcodeET.setTypeface(myCustomFont);
+        gemeenteET.setTypeface(myCustomFont);
         acceptBTN.setTypeface(myCustomFont);
         cancelBTN.setTypeface(myCustomFont);
+
+        //Fix de huisnummer next
+        huisNummerET.setNextFocusDownId(R.id.et_postcode_subscription1);
 
         //Zip Auto Complete
         postcodeET.addTextChangedListener(new TextWatcher() {
@@ -137,6 +143,10 @@ public class StudentRegistration extends Fragment implements View.OnClickListene
 
                                 //NEEDS TESTING!!!
                                 postcodeET.clearFocus();
+
+                                InputMethodManager inputManager = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
+                                inputManager.hideSoftInputFromWindow(getView().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+
                                 dialog.dismiss();
                             }
                         });
@@ -345,7 +355,9 @@ public class StudentRegistration extends Fragment implements View.OnClickListene
         });
     }
 
-    private void navigateAfterClick(View v){
+    private void navigateAfterClick(View v)
+    {
+        v.setVisibility(View.VISIBLE);
         switch (v.getId()){
             case R.id.btn_bevestigen_subscription1:
                 if(allFieldsOK())

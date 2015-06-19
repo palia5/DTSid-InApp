@@ -43,6 +43,7 @@ public class StudentActivity extends AppCompatActivity
     private PagerAdapter mPagerAdapter;
     private Subscription currentSubscription = null;
     private AlertDialog dialog;
+    private Boolean inLeftFragment = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -117,6 +118,7 @@ public class StudentActivity extends AppCompatActivity
             }
             else 
             {
+                inLeftFragment = false;
                 changeWeightOfFragments(50, 50);
                 registrationFragment.setEnabled(false);
                 isInMainScreen = true;
@@ -126,8 +128,12 @@ public class StudentActivity extends AppCompatActivity
 
     public void leftTouched()
     {
-        isInMainScreen = false;
-        changeWeightOfFragments(100, 0);
+        if(!inLeftFragment)
+        {
+            inLeftFragment = true;
+            isInMainScreen = false;
+            changeWeightOfFragments(100, 0);
+        }
     }
 
     public void rightTouched()

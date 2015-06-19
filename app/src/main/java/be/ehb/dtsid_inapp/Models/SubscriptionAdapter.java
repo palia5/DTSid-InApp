@@ -80,7 +80,20 @@ public class SubscriptionAdapter extends BaseAdapter
         Subscription subscriptionByRow = subscriptionArrayList.get(position);
 
         holder.naamVoornaamTV.setText(subscriptionByRow.getLastName().toString() + " " + subscriptionByRow.getFirstName().toString());
-        holder.interestTV.setText(subscriptionByRow.getInterests().toString());
+
+        String interest = "";
+        if(subscriptionByRow.getDigx())
+            interest += "DigX";
+        if(subscriptionByRow.getMultec())
+            if(!interest.equals(""))
+                interest += " | ";
+            interest += "Multec";
+        if(subscriptionByRow.getWerkstudent())
+            if(!interest.equals(""))
+                interest += " | ";
+            interest += "Werkstudent ";
+
+        holder.interestTV.setText(interest);
         holder.schoolTV.setText(subscriptionByRow.getSchool().getName());
 
         Typeface myCustomFont = Typeface.createFromAsset(context.getAssets()

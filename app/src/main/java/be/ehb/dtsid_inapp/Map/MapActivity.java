@@ -89,7 +89,12 @@ public class MapActivity extends Activity implements OnMapReadyCallback, GoogleM
                 , "fonts/ehb_font.ttf");
 
         eventsTV.setTypeface(myCustomFont);
-        events = (ArrayList) dbc.getAllEvents();
+
+        events = new ArrayList<>();
+        for(int i = 0 ; i < dbc.getAllEvents().size() ; i++)
+            if(dbc.getAllEvents().get(i).getAcadyear() == currentYear)
+                events.add(dbc.getAllEvents().get(i));
+
         eventAdapter = new EventAdapter(this, events);
         eventSP.setAdapter(eventAdapter);
         eventSP.setOnItemSelectedListener(this);
