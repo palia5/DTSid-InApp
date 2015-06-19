@@ -29,6 +29,11 @@ import be.ehb.dtsid_inapp.Models.ImagePagerAdapter;
 import be.ehb.dtsid_inapp.Models.ZoomOutPageTransformer;
 import be.ehb.dtsid_inapp.R;
 
+/**
+ * @author Kristof, Dries
+ * @version 1.0
+ */
+
 public class PhotoGallery extends Fragment
 {
     StudentActivity activity;
@@ -37,6 +42,9 @@ public class PhotoGallery extends Fragment
     ImagePagerAdapter myImagePagerAdapter;
     DatabaseContract dbc;
 
+    /**
+     * Constructor
+     */
     public PhotoGallery() {
         super();
     }
@@ -111,6 +119,11 @@ public class PhotoGallery extends Fragment
         return v;
     }
 
+    /**
+     *
+     * @param path
+     * @return Bitmap b
+     */
     private Bitmap loadImageFromStorage(String path) {
 
         try {
@@ -127,6 +140,9 @@ public class PhotoGallery extends Fragment
         myPager.setCurrentItem(myPager.getCurrentItem() + 1, true);
     }
 
+    /**
+     * inner class for cycling the images
+     */
     private class ImageTimer extends AsyncTask
     {
         boolean timerStatus;
@@ -134,6 +150,11 @@ public class PhotoGallery extends Fragment
         List<Bitmap> images;
         int length;
 
+        /**
+         * Constructor
+         * @param myPager
+         * @param images
+         */
         public ImageTimer(ViewPager myPager, List<Bitmap> images){
             this.mPager = myPager;
             this.images = images;

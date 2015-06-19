@@ -41,11 +41,9 @@ import static be.ehb.dtsid_inapp.JSONTasks.JSONContract.JSON_NAME_IMAGES;
 import static be.ehb.dtsid_inapp.JSONTasks.JSONContract.*;
 
 /**
- *
  * @author Kristof
  * @version 1.0
- *
- *
+ *Async task for getting the images from the backend
  */
 
 public class GetImagesJSONTask extends AsyncTask<String, Integer, Void> {

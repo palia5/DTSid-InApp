@@ -37,6 +37,10 @@ import be.ehb.dtsid_inapp.R;
 import be.ehb.dtsid_inapp.TeacherFragments.Lists;
 import be.ehb.dtsid_inapp.TeacherFragments.OptionsPreferences;
 
+/**
+ * @author Dries, Dorothée, Tom
+ */
+
 public class StudentRegistrationPt2 extends Fragment implements View.OnClickListener, CompoundButton.OnCheckedChangeListener {
 
     private Switch digxSW, multecSW, werkstudentSW, studeerNogSW;
@@ -188,6 +192,9 @@ public class StudentRegistrationPt2 extends Fragment implements View.OnClickList
         return v;
     }
 
+    /**
+     * @param v
+     */
     private void nagivateAfterClick(View v)
     {
         switch (v.getId())
@@ -264,6 +271,9 @@ public class StudentRegistrationPt2 extends Fragment implements View.OnClickList
         }
     }
 
+    /**
+     * @param isChecked
+     */
     private void enableSchoolDetails(boolean isChecked)
     {
         schoolZipTV.setEnabled(isChecked);
@@ -272,6 +282,10 @@ public class StudentRegistrationPt2 extends Fragment implements View.OnClickList
         schoolNameET.setEnabled(isChecked);
     }
 
+    /**
+     * @param postcode
+     * @return ArrayList<School> relevantSchools
+     */
     private ArrayList<School> getRelevantSchools(String postcode) {
         allSchools = (ArrayList<School>) dbc.getAllSchools();
         ArrayList<School> relevantSchools = new ArrayList<>();

@@ -17,11 +17,9 @@ import java.net.ProtocolException;
 import java.net.URL;
 
 /**
- *
  * @author Tom
  * @version 1.0
- *
- *
+ *here, the base url is fetched for the GetJson tasks
  */
 public class GetBaseUrl extends AsyncTask<String, Integer, String> {
 

@@ -25,11 +25,8 @@ import be.ehb.dtsid_inapp.TeacherFragments.Options;
 import be.ehb.dtsid_inapp.TeacherFragments.TeacherLogin;
 
 /**
- *
  * @author Dries
  * @version 1.0
- *
- *
  */
 
 public class TeacherActivity extends AppCompatActivity
@@ -50,17 +47,6 @@ public class TeacherActivity extends AppCompatActivity
         teacher = new Teacher();
         event = new Event();
 
-        /*
-        //BROADCASTRECEIVER
-        Intent intent = new Intent(TeacherActivity.this, SyncBroadcastReceiver.class);
-        broadcastIntent = PendingIntent.getBroadcast(TeacherActivity.this, 0, intent, 0);
-
-        SharedPreferences preferences = getSharedPreferences("be.ehb.dtsid_inapp", Context.MODE_PRIVATE);
-        long time = preferences.getLong("pref_tp_syncdatepicker", new GregorianCalendar().getTimeInMillis());
-
-        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-        alarmManager.set(AlarmManager.RTC, time, broadcastIntent);
-        */
     }
 
     @Override
@@ -88,34 +74,61 @@ public class TeacherActivity extends AppCompatActivity
         }
     }
 
+    /**
+     *
+     * @return the current Departement
+     */
     public Department getDepartment() {
         return department;
     }
 
+    /**
+     * sets the current departement
+     * @param department
+     */
     public void setDepartment(Department department) {
         this.department = department;
     }
 
+    /**
+     *
+     * @return the current teacher
+     */
     public Teacher getTeacher() {
         return teacher;
     }
 
+    /**
+     * @param teacher
+     */
     public void setTeacher(Teacher teacher) {
         this.teacher = teacher;
     }
 
+    /**
+     * @return current event
+     */
     public Event getEvent() {
         return event;
     }
 
+    /**
+     * @param event
+     */
     public void setEvent(Event event) {
         this.event = event;
     }
 
+    /**
+     * @return current school year
+     */
     public int getCurrentYear() {
         return currentYear;
     }
 
+    /**
+     * @param currentYear
+     */
     public void setCurrentYear(int currentYear) {
         this.currentYear = currentYear;
     }

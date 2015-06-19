@@ -39,11 +39,8 @@ import be.ehb.dtsid_inapp.Models.XmlHandler;
 import be.ehb.dtsid_inapp.R;
 
 /**
- *
  * @author Tom
  * @version 1.0
- *
- *
  */
 
 public class MapActivity extends Activity implements OnMapReadyCallback, GoogleMap.OnInfoWindowClickListener, GoogleMap.OnMapClickListener,

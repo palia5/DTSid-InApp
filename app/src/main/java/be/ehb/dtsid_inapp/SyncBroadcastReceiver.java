@@ -8,6 +8,11 @@ import android.util.Log;
 import be.ehb.dtsid_inapp.JSONTasks.PostJSONTask;
 import be.ehb.dtsid_inapp.TeacherFragments.Options;
 
+/**
+ * @author Tom
+ * @version 1.0
+ */
+
 public class SyncBroadcastReceiver extends BroadcastReceiver
 {
     @Override

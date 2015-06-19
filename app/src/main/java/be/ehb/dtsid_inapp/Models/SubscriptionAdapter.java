@@ -26,6 +26,7 @@ public class SubscriptionAdapter extends BaseAdapter
     private LayoutInflater inflater;
     private Activity context;
 
+
     private static class ViewHolder
     {
         TextView naamVoornaamTV;
@@ -33,6 +34,11 @@ public class SubscriptionAdapter extends BaseAdapter
         TextView schoolTV;
     }
 
+    /**
+     * Constructor
+     * @param activity
+     * @param subscriptionArrayList
+     */
     public SubscriptionAdapter(Activity activity, ArrayList<Subscription> subscriptionArrayList)
     {
         this.subscriptionArrayList = subscriptionArrayList;

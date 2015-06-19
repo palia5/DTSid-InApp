@@ -9,10 +9,8 @@ import java.util.Calendar;
 import java.util.concurrent.ExecutionException;
 
 /**
- *
  * @author Tom
  * @version 1.0
- *
  *
  */
 
@@ -22,6 +20,13 @@ public class JSONContract
 
     public static final String DEPTCODE_URL = "http://deptcodes.appspot.com/deptcode/";
 
+    /**
+     * @param secret
+     * @param activity
+     * @return baseUrl
+     * @throws ExecutionException
+     * @throws InterruptedException
+     */
     public static String generateBaseURL(String secret, Activity activity) throws ExecutionException, InterruptedException {
         GetBaseUrl getBaseUrl = new GetBaseUrl(activity);
         String codeUrl = DEPTCODE_URL + secret;
@@ -31,7 +36,10 @@ public class JSONContract
         return baseUrl;
     }
 
-    //YEAR calculator
+    /**
+     * YEAR calculator
+     * @return String
+     */
     public static String yearCalc()
     {
         SimpleDateFormat yearFormat = new SimpleDateFormat("yy");

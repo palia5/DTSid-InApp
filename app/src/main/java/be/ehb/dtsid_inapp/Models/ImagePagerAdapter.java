@@ -10,12 +10,22 @@ import android.widget.ImageView;
 
 import java.util.List;
 
+/**
+ * @author Kristof
+ * @version 1.0
+ */
+
 public class ImagePagerAdapter extends PagerAdapter 
 {
 
     List<Bitmap> imageArray;
     Context c;
-    
+
+    /**
+     * Constructor
+     * @param imageArray
+     * @param c
+     */
     public ImagePagerAdapter( List<Bitmap> imageArray, Context c) 
     {
         super();
