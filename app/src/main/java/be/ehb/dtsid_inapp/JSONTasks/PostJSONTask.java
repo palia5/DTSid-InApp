@@ -46,15 +46,17 @@ public class PostJSONTask extends AsyncTask<Void, Integer, HashMap<String, Boole
 
     public PostJSONTask(Options c)
     {
+        Log.d("POST", "creating task");
         fragment = c;
         dbc = new DatabaseContract(fragment.getActivity().getApplicationContext());
-        baseUrl = PreferenceManager.getDefaultSharedPreferences(c.getActivity().getApplicationContext())
+        baseUrl = PreferenceManager.getDefaultSharedPreferences(fragment.getActivity().getApplicationContext())
                 .getString("BASEURL", null);
     }
 
     @Override
     protected HashMap<String, Boolean> doInBackground(Void... params)
     {
+        Log.d("POST", "executing task");
         subscriptionList = dbc.getAllSubscriptions();
         ArrayList<Subscription> checkList = new ArrayList<>();
         try
@@ -156,10 +158,10 @@ public class PostJSONTask extends AsyncTask<Void, Integer, HashMap<String, Boole
     @Override
     protected void onPostExecute(HashMap<String, Boolean> stringBooleanHashMap)
     {
-        super.onPostExecute(stringBooleanHashMap);
-
+        Log.d("POST", "finishing task");
         dbc.close();
 
         fragment.allIsSynced();
+        super.onPostExecute(stringBooleanHashMap);
     }
 }
