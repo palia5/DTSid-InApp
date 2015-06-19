@@ -14,6 +14,8 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -34,7 +36,7 @@ import be.ehb.dtsid_inapp.Models.Subscription;
 import be.ehb.dtsid_inapp.Models.XmlHandler;
 import be.ehb.dtsid_inapp.R;
 
-public class StudentRegistration extends Fragment
+public class StudentRegistration extends Fragment implements View.OnClickListener
 {
     StudentActivity activity;
     List<Subscription> subs;
@@ -49,6 +51,7 @@ public class StudentRegistration extends Fragment
     EditText postcodeET, gemeenteET;
     Button acceptBTN;
     Button cancelBTN;
+    private Animation buttonAnim;
 
     //Gemeente auto complete stuff
     private ArrayList<Gemeente> allGemeenten;
@@ -85,6 +88,7 @@ public class StudentRegistration extends Fragment
         btnLinLay = (LinearLayout) v.findViewById(R.id.lin_lay_btn_stud_reg_1);
         postcodeET = (EditText) v.findViewById(R.id.et_postcode_subscription1);
         gemeenteET = (EditText) v.findViewById(R.id.et_gemeente_subscription1);
+        buttonAnim = AnimationUtils.loadAnimation(activity.getApplicationContext(), R.anim.button_animation_basic);
 
         Typeface myCustomFont = Typeface.createFromAsset(activity.getAssets()
                 , "fonts/ehb_font.ttf");
@@ -130,6 +134,9 @@ public class StudentRegistration extends Fragment
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 gemeenteET.setText(relevanteGemeentenArray[which]);
+
+                                //NEEDS TESTING!!!
+                                postcodeET.clearFocus();
                                 dialog.dismiss();
                             }
                         });
@@ -222,46 +229,9 @@ public class StudentRegistration extends Fragment
             }
         });
 
-        acceptBTN.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                if(allFieldsOK())
-                {
-                    currentSubscription = new Subscription();
-                            currentSubscription.setFirstName(voorNaamET.getText().toString());
-                            currentSubscription.setLastName(naamET.getText().toString());
-                            currentSubscription.setEmail(emailET.getText().toString());
-                            currentSubscription.setStreet(straatET.getText().toString());
-                            currentSubscription.setStreetNumber(huisNummerET.getText().toString());
-                            currentSubscription.setZip(postcodeET.getText().toString());
-                            //currentSubscription.setCity(gemeenteET.getListSelection());
-                            currentSubscription.setTimestamp(new Date());
-                            currentSubscription.setTeacher(activity.getTeacher());
-                            currentSubscription.setEvent(activity.getEvent());
-                            currentSubscription.setSchool(dbc.getSchoolByID(5648554290839552l));
-                    activity.setCurrentSubscription(currentSubscription);
+        acceptBTN.setOnClickListener(this);
 
-                    activity.setIsInSecondReg(true);
-                    activity.getFragmentManager().beginTransaction().
-                            replace(R.id.fragm_left_registration, new StudentRegistrationPt2())
-                            .addToBackStack(null)
-                            .commit();
-                }
-            }
-        });
-
-        cancelBTN.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                clearAllFields();
-                activity.setCurrentSubscription(null);
-                activity.onBackPressed();
-            }
-        });
+        cancelBTN.setOnClickListener(this);
 
         return v;
     }
@@ -352,4 +322,65 @@ public class StudentRegistration extends Fragment
     public Subscription getCurrentSubscription() {
         return currentSubscription;
     }
+
+    @Override
+    public void onClick(View v) {
+        final View finalView = v;
+        finalView.startAnimation(buttonAnim);
+        buttonAnim.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                finalView.setVisibility(View.INVISIBLE);
+                navigateAfterClick(finalView);
+            }
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+    }
+
+    private void navigateAfterClick(View v){
+        switch (v.getId()){
+            case R.id.btn_bevestigen_subscription1:
+                if(allFieldsOK())
+                {
+                    currentSubscription = new Subscription();
+                    currentSubscription.setFirstName(voorNaamET.getText().toString());
+                    currentSubscription.setLastName(naamET.getText().toString());
+                    currentSubscription.setEmail(emailET.getText().toString());
+                    currentSubscription.setStreet(straatET.getText().toString());
+                    currentSubscription.setStreetNumber(huisNummerET.getText().toString());
+                    currentSubscription.setZip(postcodeET.getText().toString());
+                    currentSubscription.setCity(gemeenteET.getText().toString());
+                    currentSubscription.setTimestamp(new Date());
+                    currentSubscription.setTeacher(activity.getTeacher());
+                    currentSubscription.setEvent(activity.getEvent());
+                    currentSubscription.setSchool(dbc.getSchoolByID(5648554290839552l));
+                    currentSubscription.setDigx(false);
+                    currentSubscription.setMultec(false);
+                    currentSubscription.setWerkstudent(false);
+                    activity.setCurrentSubscription(currentSubscription);
+
+                    activity.setIsInSecondReg(true);
+                    activity.getFragmentManager().beginTransaction().
+                            replace(R.id.fragm_left_registration, new StudentRegistrationPt2())
+                            .addToBackStack(null)
+                            .commit();
+                }
+                break;
+            case R.id.btn_annuleren_subscription1:
+                clearAllFields();
+                activity.setCurrentSubscription(null);
+                activity.onBackPressed();
+                break;
+
+        }
+    }
+
 }

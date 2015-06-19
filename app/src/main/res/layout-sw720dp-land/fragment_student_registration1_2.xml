@@ -112,6 +112,7 @@
         android:inputType="textCapSentences"
         android:ems="12"
         android:id="@+id/et_straat_subscription1"
+        android:imeOptions="actionNext"
         android:layout_marginTop="5dp"
         android:layout_marginLeft="50dp" />
 
@@ -132,6 +133,7 @@
         android:numeric="integer"
         android:ems="12"
         android:id="@+id/et_huisnummer_subscription1"
+        android:imeOptions="actionNext"
         android:layout_marginTop="5dp"
         android:layout_marginLeft="50dp" />
 
@@ -173,7 +175,8 @@
             android:id="@+id/et_gemeente_subscription1"
             android:layout_marginTop="5dp"
             android:layout_marginLeft="50dp"
-            android:clickable="false"/>
+            android:clickable="false"
+            android:editable="false"/>
 
         <LinearLayout
             android:orientation="horizontal"

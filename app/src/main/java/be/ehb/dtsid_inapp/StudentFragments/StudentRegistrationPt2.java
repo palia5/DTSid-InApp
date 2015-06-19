@@ -8,6 +8,8 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,11 +22,17 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.util.ArrayList;
 
 import be.ehb.dtsid_inapp.Activities.StudentActivity;
 import be.ehb.dtsid_inapp.Database.DatabaseContract;
 import be.ehb.dtsid_inapp.JSONTasks.PostJSONTask;
+import be.ehb.dtsid_inapp.Models.Gemeente;
+import be.ehb.dtsid_inapp.Models.School;
 import be.ehb.dtsid_inapp.Models.Subscription;
+import be.ehb.dtsid_inapp.Models.XmlHandler;
 import be.ehb.dtsid_inapp.R;
 import be.ehb.dtsid_inapp.TeacherFragments.Lists;
 import be.ehb.dtsid_inapp.TeacherFragments.OptionsPreferences;
@@ -33,8 +41,7 @@ public class StudentRegistrationPt2 extends Fragment implements View.OnClickList
 
     private Switch digxSW, multecSW, werkstudentSW, studeerNogSW;
     private TextView schoolZipTV, schoolNameTV,interestTV;
-    private EditText schoolZipET;
-    private Spinner schoolNameSPIN;
+    private EditText schoolZipET, schoolNameET;
     private Button confirmBTN, backBTN, cancelBTN;
     private Animation buttonAnim;
     private Subscription currentSubscription;
@@ -42,6 +49,9 @@ public class StudentRegistrationPt2 extends Fragment implements View.OnClickList
     private DatabaseContract dbc;
     private AlertDialog dialog;
     private AlertDialog.Builder builder;
+    private School currentSchool;
+    private ArrayList<School> allSchools;
+    private ArrayList<Gemeente> allGemeenten;
 
     @Nullable
     @Override
@@ -50,6 +60,7 @@ public class StudentRegistrationPt2 extends Fragment implements View.OnClickList
         View v = inflater.inflate(R.layout.fragment_student_registration2_2, container, false);
 
         activity = (StudentActivity) this.getActivity();
+        dbc = new DatabaseContract(activity.getApplicationContext());
         digxSW = (Switch) v.findViewById(R.id.sw_stud_reg_digx);
         multecSW = (Switch) v.findViewById(R.id.sw_stud_reg_multec);
         werkstudentSW = (Switch) v.findViewById(R.id.sw_stud_reg_werkstudent);
@@ -57,7 +68,7 @@ public class StudentRegistrationPt2 extends Fragment implements View.OnClickList
         schoolNameTV = (TextView) v.findViewById(R.id.tv_stud_reg_2_name_school);
         schoolZipTV = (TextView) v.findViewById(R.id.tv_stud_reg_2_zip);
         schoolZipET = (EditText) v.findViewById(R.id.et_stud_reg_2_zip);
-        schoolNameSPIN = (Spinner) v.findViewById(R.id.spin_stud_reg_2_name_school);
+        schoolNameET = (EditText) v.findViewById(R.id.et_stud_reg_2_name_school);
         confirmBTN = (Button) v.findViewById(R.id.btn_bevestigen_subscription2);
         backBTN = (Button) v.findViewById(R.id.btn_stud_reg_2_back);
         cancelBTN = (Button) v.findViewById(R.id.btn_annuleren_subscription2);
@@ -80,6 +91,55 @@ public class StudentRegistrationPt2 extends Fragment implements View.OnClickList
         cancelBTN.setTypeface(myCustomFont);
         interestTV.setTypeface(myCustomFont);
 
+        schoolZipET.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (s.length() == 4){
+                    final ArrayList<School> relevantSchools = getRelevantSchools(s.toString());
+                    if (relevantSchools.isEmpty()){
+                        Toast.makeText(getActivity().getApplicationContext()
+                                , "Geen scholen gevonden voor postcode!", Toast.LENGTH_LONG);
+                        schoolZipET.setText("");
+                    }
+                    else {
+                        final String[] relevantSchoolNames = new String[relevantSchools.size()];
+                        for (int i = 0; i < relevantSchools.size(); i++){
+                            relevantSchoolNames[i] = relevantSchools.get(i).getName();
+                        }
+                        AlertDialog.Builder schoolDialogBuilder = new AlertDialog.Builder(activity);
+                        schoolDialogBuilder.setTitle("Selecteer school");
+                        schoolDialogBuilder.setItems(relevantSchoolNames, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                schoolNameET.setText(relevantSchoolNames[which]);
+                                currentSchool = relevantSchools.get(which);
+                                dialog.dismiss();
+                            }
+                        });
+                        schoolDialogBuilder.setNegativeButton("Annuleren", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                schoolZipET.setText("");
+                                dialog.dismiss();
+                            }
+                        });
+                        AlertDialog schoolDialog = schoolDialogBuilder.create();
+                        schoolDialog.show();
+                    }
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
         confirmBTN.setOnClickListener(this);
         backBTN.setOnClickListener(this);
 
@@ -90,7 +150,17 @@ public class StudentRegistrationPt2 extends Fragment implements View.OnClickList
         werkstudentSW.setOnCheckedChangeListener(this);
         studeerNogSW.setOnCheckedChangeListener(this);
 
+
+
         currentSubscription = activity.getCurrentSubscription();
+        Log.d("StudReg2", "digx: " + currentSubscription.getDigx()
+                + "multec: " + currentSubscription.getMultec()
+                + "werkstud: " + currentSubscription.getWerkstudent()
+                + currentSubscription.getFirstName()
+                + currentSubscription.getSchool().getName());
+
+        //CREATE Autocomplete school
+
 
         //Create the AlertDialogBuilder
         builder = new AlertDialog.Builder(activity);
@@ -98,13 +168,8 @@ public class StudentRegistrationPt2 extends Fragment implements View.OnClickList
         {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                dbc = new DatabaseContract(activity.getApplicationContext());
                 dbc.createSubscription(currentSubscription);
                 dbc.close();
-                Log.d("StudReg2", "digx: " + currentSubscription.getDigx()
-                        + "multec: " + currentSubscription.getMultec()
-                        + "werkstud: " + currentSubscription.getWerkstudent()
-                        + currentSubscription.getFirstName());
                 dialog.dismiss();
                 activity.finish();
                 startActivity(activity.getIntent());
@@ -116,6 +181,7 @@ public class StudentRegistrationPt2 extends Fragment implements View.OnClickList
             public void onClick(DialogInterface dialog, int which)
             {
                 dialog.cancel();
+                confirmBTN.setVisibility(View.VISIBLE);
             }
         });
 
@@ -132,6 +198,10 @@ public class StudentRegistrationPt2 extends Fragment implements View.OnClickList
                 break;
 
             case R.id.btn_bevestigen_subscription2:
+                if (studeerNogSW.isChecked() && !schoolNameET.getText().equals(""))
+                {
+                    currentSubscription.setSchool(currentSchool);
+                }
                 builder .setMessage("Name: " + currentSubscription.getFirstName() + " " + currentSubscription.getLastName() +
                                     "\nE-mail: " + currentSubscription.getEmail() +
                                     "\nZip: " + currentSubscription.getZip() +
@@ -194,12 +264,23 @@ public class StudentRegistrationPt2 extends Fragment implements View.OnClickList
         }
     }
 
-    private void enableSchoolDetails(boolean isChecked) {
+    private void enableSchoolDetails(boolean isChecked)
+    {
         schoolZipTV.setEnabled(isChecked);
         schoolZipET.setEnabled(isChecked);
         schoolNameTV.setEnabled(isChecked);
-        schoolNameSPIN.setEnabled(isChecked);
-        if (!isChecked)
-            currentSubscription.setSchool(dbc.getSchoolByID(5648554290839552l));
+        schoolNameET.setEnabled(isChecked);
     }
+
+    private ArrayList<School> getRelevantSchools(String postcode) {
+        allSchools = (ArrayList<School>) dbc.getAllSchools();
+        ArrayList<School> relevantSchools = new ArrayList<>();
+        for (School i : allSchools)
+        {
+            if (String.valueOf(i.getZip()).equals(postcode))
+                relevantSchools.add(i);
+        }
+        return relevantSchools;
+    }
+
 }

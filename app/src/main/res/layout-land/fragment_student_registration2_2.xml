@@ -150,15 +150,14 @@
             android:layout_alignStart="@+id/et_stud_reg_2_zip"
             android:textSize="20dp"/>
 
-        <Spinner
+        <EditText
             android:layout_marginTop="15dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/spin_stud_reg_2_name_school"
+            android:id="@+id/et_stud_reg_2_name_school"
             android:layout_below="@+id/tv_stud_reg_2_name_school"
             android:layout_alignLeft="@+id/tv_stud_reg_2_name_school"
-            android:layout_alignStart="@+id/tv_stud_reg_2_name_school"
-            android:spinnerMode="dialog" />
+            android:layout_alignStart="@+id/tv_stud_reg_2_name_school" />
 
         <Button
             android:layout_width="wrap_content"
