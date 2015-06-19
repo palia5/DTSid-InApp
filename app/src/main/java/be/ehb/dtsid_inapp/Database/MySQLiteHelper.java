@@ -9,11 +9,9 @@ import java.util.ArrayList;
 import be.ehb.dtsid_inapp.Models.Gemeente;
 
 /**
- *
  * @author Dries, Kristof
  * @version 1.0
- *
- *
+ * all constants for the database are created here
  */
 
 public class MySQLiteHelper extends SQLiteOpenHelper
@@ -92,17 +90,6 @@ public class MySQLiteHelper extends SQLiteOpenHelper
             COL_IMAGES_PRIORITY,
             COL_IMAGES_IMAGE};
 
-    public static final String TABLE_GEMEENTES = "gemeentes";
-    public static final String COL_GEMEENTES_ID = "_id";
-    public static final String COL_GEMEENTES_POSTCODE = "postcode";
-    public static final String COL_GEMEENTES_GEMEENTE = "gemeente";
-    public static final String COL_GEMEENTES_PROVINCIE = "provincie";
-
-    public static final String[] ALL_COLUMNS_GEMEENTES = {COL_GEMEENTES_ID,
-            COL_GEMEENTES_POSTCODE,
-            COL_GEMEENTES_GEMEENTE,
-            COL_GEMEENTES_PROVINCIE};
-
 
     public MySQLiteHelper(Context context)
     {
@@ -164,13 +151,6 @@ public class MySQLiteHelper extends SQLiteOpenHelper
                         COL_IMAGES_IMAGE + " STRING NOT NULL" +
                         ")");
 
-        db.execSQL(
-                "CREATE TABLE " + TABLE_GEMEENTES + " (" +
-                        COL_GEMEENTES_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                        COL_GEMEENTES_POSTCODE + " STRING NOT NULL, " +
-                        COL_GEMEENTES_GEMEENTE + " STRING NOT NULL, " +
-                        COL_GEMEENTES_PROVINCIE + " STRING NOT NULL" +
-                        ")");
     }
 
     @Override

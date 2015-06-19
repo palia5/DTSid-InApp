@@ -36,6 +36,11 @@ import be.ehb.dtsid_inapp.Models.Subscription;
 import be.ehb.dtsid_inapp.Models.XmlHandler;
 import be.ehb.dtsid_inapp.R;
 
+/**
+ * @author Dries, Dorothée, Tom, Kristof
+ * @version 1.0
+ */
+
 public class StudentRegistration extends Fragment implements View.OnClickListener
 {
     StudentActivity activity;
@@ -236,12 +241,20 @@ public class StudentRegistration extends Fragment implements View.OnClickListene
         return v;
     }
 
+    /**
+     *
+     * @param email
+     * @return boolean matches
+     */
     private boolean validEmail(String email)
     {
         Pattern pattern = Patterns.EMAIL_ADDRESS;
         return pattern.matcher(email).matches();
     }
 
+    /**
+     * clears all fields
+     */
     private void clearAllFields()
     {
         emailET.setText("");
@@ -253,6 +266,10 @@ public class StudentRegistration extends Fragment implements View.OnClickListene
         emailET.setBackgroundColor(Color.TRANSPARENT);
     }
 
+    /**
+     *
+     * @param s
+     */
     private void setAllFields(Subscription s)
     {
         emailET.setText(s.getEmail());
@@ -262,6 +279,10 @@ public class StudentRegistration extends Fragment implements View.OnClickListene
         huisNummerET.setText(s.getStreetNumber());
     }
 
+    /**
+     * enables all fields
+     * @param enabled
+     */
     public void setEnabled(Boolean enabled)
     {
         emailET.setEnabled(enabled);
@@ -289,6 +310,10 @@ public class StudentRegistration extends Fragment implements View.OnClickListene
         }
     }
 
+    /**
+     * checks all obligated fields
+     * @return Boolean ok
+     */
     private Boolean allFieldsOK()
     {
         String whatsWrong = "/";
@@ -308,6 +333,11 @@ public class StudentRegistration extends Fragment implements View.OnClickListene
         return true;
     }
 
+    /**
+     *
+     * @param postcode
+     * @return ArrayList<String> gemeentenForPostcode
+     */
     private ArrayList<String> getRelevanteGemeentenNames(String postcode){
         ArrayList<String> gemeentenForPostcode = new ArrayList<>();
         for (Gemeente i : allGemeenten){
@@ -318,7 +348,9 @@ public class StudentRegistration extends Fragment implements View.OnClickListene
         return gemeentenForPostcode;
     }
 
-
+    /**
+     * @return Subscription currentsubscription
+     */
     public Subscription getCurrentSubscription() {
         return currentSubscription;
     }
@@ -345,6 +377,9 @@ public class StudentRegistration extends Fragment implements View.OnClickListene
         });
     }
 
+    /**
+     * @param v
+     */
     private void navigateAfterClick(View v){
         switch (v.getId()){
             case R.id.btn_bevestigen_subscription1:

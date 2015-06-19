@@ -3,11 +3,9 @@ package be.ehb.dtsid_inapp.Map;
 import com.google.android.gms.maps.model.LatLng;
 
 /**
- *
+ * Constants for the mapActivity
  * @author Tom
  * @version 1.0
- *
- *
  */
 public class MapContract {
 

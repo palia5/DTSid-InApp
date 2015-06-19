@@ -32,6 +32,11 @@ public class TeacherAdapter extends BaseAdapter
         TextView teacherTV;
     }
 
+    /**
+     * Constructor
+     * @param activity
+     * @param teachers
+     */
     public TeacherAdapter(Activity activity, List<Teacher> teachers)
     {
         inflater = activity.getLayoutInflater();

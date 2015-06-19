@@ -30,11 +30,9 @@ import be.ehb.dtsid_inapp.TeacherFragments.Options;
 import static be.ehb.dtsid_inapp.JSONTasks.JSONContract.*;
 
 /**
- *
  * @author Tom
  * @version 1.0
- *
- *
+ *AsyncTask for posting data to the backend
  */
 
 public class PostJSONTask extends AsyncTask<Void, Integer, HashMap<String, Boolean>>
@@ -44,6 +42,10 @@ public class PostJSONTask extends AsyncTask<Void, Integer, HashMap<String, Boole
     private Options fragment;
     private String baseUrl;
 
+    /**
+     * constructor
+     * @param c
+     */
     public PostJSONTask(Options c)
     {
         fragment = c;
