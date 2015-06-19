@@ -365,6 +365,7 @@ public class StudentRegistration extends Fragment implements View.OnClickListene
                     currentSubscription.setDigx(false);
                     currentSubscription.setMultec(false);
                     currentSubscription.setWerkstudent(false);
+                    currentSubscription.setNew(true);
                     activity.setCurrentSubscription(currentSubscription);
 
                     activity.setIsInSecondReg(true);
@@ -372,6 +373,10 @@ public class StudentRegistration extends Fragment implements View.OnClickListene
                             replace(R.id.fragm_left_registration, new StudentRegistrationPt2())
                             .addToBackStack(null)
                             .commit();
+                }
+                else {
+                    acceptBTN.setVisibility(View.VISIBLE);
+                    cancelBTN.setVisibility(View.VISIBLE);
                 }
                 break;
             case R.id.btn_annuleren_subscription1:

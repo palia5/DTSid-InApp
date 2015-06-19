@@ -4,6 +4,8 @@ import android.app.Fragment;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -157,8 +159,13 @@ public class Options extends Fragment implements View.OnClickListener
                 break;
             case R.id.btn_sync_dashboard:
                 loadingDatabaseDialog.show();
-                PostJSONTask jsonTask = new PostJSONTask(Options.this);
-                jsonTask.execute();
+                PostJSONTask jsonTask = new PostJSONTask(this);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB)
+                    jsonTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, (Void[])null);
+                else
+                    jsonTask.execute();
+
+
                 break;
             case R.id.btn_regios:
                 Intent regionIntent = new Intent(getActivity(), MapActivity.class);
